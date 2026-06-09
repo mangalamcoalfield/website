@@ -1,0 +1,87 @@
+---
+// Contact / lead capture form → Supabase `leads` (anon INSERT under RLS).
+// Includes a required DPDP consent checkbox. Email + bot hooks are left for
+// later (see the commented hook in the submit handler).
+---
+<form class="form" id="leadForm" novalidate>
+  <div class="row two">
+    <div class="row">
+      <label for="lead-name">Name <span class="req">*</span></label>
+      <input id="lead-name" name="name" type="text" required autocomplete="name" />
+    </div>
+    <div class="row">
+      <label for="lead-email">Email <span class="req">*</span></label>
+      <input id="lead-email" name="email" type="email" required autocomplete="email" />
+    </div>
+  </div>
+  <div class="row">
+    <label for="lead-message">Message <span class="req">*</span></label>
+    <textarea id="lead-message" name="message" required placeholder="How can we help?"></textarea>
+  </div>
+  <label class="consent">
+    <input type="checkbox" id="lead-consent" name="consent" required />
+    <span>
+      I consent to Mangalam Coalfield Private Limited storing and processing the
+      details I have submitted to respond to my enquiry, in line with the
+      Digital Personal Data Protection Act, 2023. <a href="/privacy">Privacy notice</a>.
+    </span>
+  </label>
+  <div class="submit-row">
+    <button class="btn btn-primary" type="submit" id="lead-submit">Send message</button>
+    <p class="form-status" id="lead-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  import { getSupabase } from '../lib/supabase';
+
+  const form = document.getElementById('leadForm') as HTMLFormElement | null;
+  const statusEl = document.getElementById('lead-status');
+  const btn = document.getElementById('lead-submit') as HTMLButtonElement | null;
+
+  function setStatus(msg: string, kind: 'ok' | 'err') {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = `form-status show ${kind}`;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const consent = data.get('consent') === 'on';
+    if (!consent) {
+      setStatus('Please tick the consent box so we can respond to you.', 'err');
+      return;
+    }
+
+    const supabase = getSupabase();
+    if (!supabase) {
+      setStatus('Form is not configured yet. Please email us directly.', 'err');
+      return;
+    }
+
+    if (btn) btn.disabled = true;
+    setStatus('Sending…', 'ok');
+
+    const { error } = await supabase.from('leads').insert({
+      name: String(data.get('name') || ''),
+      email: String(data.get('email') || ''),
+      message: String(data.get('message') || ''),
+      consent: true,
+    });
+
+    if (btn) btn.disabled = false;
+
+    if (error) {
+      console.error(error);
+      setStatus('Something went wrong. Please try again or email us directly.', 'err');
+      return;
+    }
+
+    // HOOK: email notification + bot lead handoff wire in here later.
+    form.reset();
+    setStatus('Thank you — your message has been received. We will be in touch.', 'ok');
+  });
+</script>

@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ApplicationForm from '../components/ApplicationForm.astro';
+import { safeSelect, type Job } from '../lib/supabase';
+import { placeholderJobs } from '../data/placeholders';
+import { SITE } from '../data/site';
+
+// Data-driven from `jobs` (status='published'); fallback to placeholders.
+let jobs = await safeSelect<Job>((c) =>
+  c.from('jobs')
+    .select('*')
+    .eq('status', 'published')
+    .order('posted_at', { ascending: false })
+);
+const usingPlaceholders = jobs.length === 0;
+if (usingPlaceholders) jobs = placeholderJobs;
+
+const empType = (t: string | null) =>
+  /part/i.test(t || '') ? 'PART_TIME' : /contract/i.test(t || '') ? 'CONTRACTOR' : 'FULL_TIME';
+
+// JobPosting structured data for Google for Jobs (one per published role).
+const jobLd = jobs.map((j) => ({
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: j.title,
+  description: j.description || j.title,
+  datePosted: j.posted_at || undefined,
+  employmentType: empType(j.type),
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: SITE.legalName,
+    sameAs: 'https://mangalamcoal.com',
+    logo: 'https://mangalamcoal.com/mangalam_logo.png',
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: j.location || 'Amlabad, Eastern Jharia',
+      addressLocality: 'Amlabad, Eastern Jharia',
+      addressRegion: 'Jharkhand',
+      addressCountry: 'IN',
+    },
+  },
+  ...(j.dept ? { occupationalCategory: j.dept } : {}),
+  directApply: true,
+}));
+---
+<Base title="Careers" description="Open roles at Mangalam Coalfield — mining engineers, statutory safety, electrical and mechanical positions. Apply directly with your résumé." jsonLd={jobLd}>
+  <PageHero
+    eyebrow="Careers"
+    title="Build a career in Indian coal mining."
+    underline="Indian coal mining."
+    lead="From mining engineers to electrical and statutory roles — join a company that runs its operations to standard."
+  />
+
+  <section class="block on-near">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:36px">
+        <span class="eyebrow">Open roles</span>
+        <h2>Current openings.</h2>
+        <p class="lead">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
+      </div>
+
+      <div class="jobs reveal">
+        {jobs.map((j) => (
+          <div class="job">
+            <div>
+              <h3>{j.title}</h3>
+              <div class="meta">
+                {j.dept && <span>{j.dept}</span>}
+                {j.location && <span>{j.location}</span>}
+                {j.type && <span>{j.type}</span>}
+              </div>
+              {j.description && <p>{j.description}</p>}
+            </div>
+            <a class="btn btn-ghost apply" href="#apply">Apply</a>
+          </div>
+        ))}
+      </div>
+      {usingPlaceholders && (
+        <p class="note reveal" style="margin-top:40px">Placeholder roles shown. Live openings will be published from the careers pipeline.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Application form -->
+  <section class="block on-forest" id="apply">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:36px">
+        <span class="eyebrow">Apply</span>
+        <h2>Submit your application.</h2>
+        <p class="lead">Tell us who you are, choose a role, and attach your résumé. We review every application.</p>
+      </div>
+      <div class="reveal">
+        <ApplicationForm jobs={jobs} />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { safeSelect, type CsrProject } from '../lib/supabase';
+import { placeholderCsr } from '../data/placeholders';
+
+// Data-driven from `csr_projects` (published only); falls back to curated
+// placeholders. Showcases Mangalam's OWN contributions: completed work with
+// evidence, planned work clearly labelled (publish-filter discipline).
+let projects = await safeSelect<CsrProject>((c) =>
+  c.from('csr_projects')
+    .select('*')
+    .eq('published', true)
+    .order('date', { ascending: false })
+);
+if (projects.length === 0) projects = placeholderCsr;
+
+const pillClass = (s: string) =>
+  s === 'completed' ? 'done' : s === 'ongoing' ? 'ongoing' : 'plan';
+const pillLabel = (s: string) =>
+  s === 'completed' ? 'Completed' : s === 'ongoing' ? 'Ongoing' : 'Planned';
+---
+<Base title="Mangalam Cares" description="Mangalam's CSR and environmental sustainability work around the Amlabad mine — community welfare, skills and safety training, and land care. Completed work shown with evidence; planned work clearly labelled.">
+  <PageHero
+    eyebrow="Mangalam Cares"
+    title="The work above ground matters too."
+    underline="above ground"
+    lead="Beyond production, Mangalam invests in the people and the environment around the mine — community welfare and the land we operate on. We showcase our own contributions: completed work with evidence, and planned work clearly labelled."
+  />
+
+  <section class="block on-near">
+    <div class="wrap">
+      <div class="cares-grid stagger reveal">
+        {projects.map((p) => (
+          <div class="care">
+            <span class={`pill ${pillClass(p.status)}`}>{pillLabel(p.status)}</span>
+            <h3>{p.title}</h3>
+            <p>{p.description}</p>
+            {p.impact_numbers && <p style="margin-top:10px;color:var(--lime);font-weight:600">{p.impact_numbers}</p>}
+            {p.evidence_url && (
+              <p style="margin-top:14px">
+                <a class="tlink" href={p.evidence_url} rel="noopener" style="font-size:13.5px">View evidence <svg width="16" height="16"><use href="#arrow"/></svg></a>
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+      {projects === placeholderCsr && (
+        <p class="note reveal" style="margin-top:48px">Placeholder programmes shown. Real CSR write-ups — with evidence for completed work — will be published from the content track.</p>
+      )}
+    </div>
+  </section>
+</Base>

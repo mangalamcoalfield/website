@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Privacy Notice" description="How Mangalam Coalfield Private Limited collects and processes personal data submitted through this website, under the Digital Personal Data Protection Act, 2023.">
+  <PageHero eyebrow="Legal" title="Privacy notice." underline="notice." />
+
+  <section class="block on-near">
+    <div class="wrap">
+      <div class="prose reveal">
+        <p><em>Placeholder notice — to be reviewed and finalised by the company before launch.</em></p>
+
+        <h2>Who we are</h2>
+        <p>{SITE.legalName} ("Mangalam", "we") operates this website. For privacy questions, contact <a href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>.</p>
+
+        <h2>What we collect</h2>
+        <p>When you submit a form on this site we collect the details you provide:</p>
+        <ul>
+          <li><strong>Contact / enquiry form:</strong> your name, email and message.</li>
+          <li><strong>Careers application:</strong> your name, email, phone, the role applied for, and your résumé file.</li>
+        </ul>
+
+        <h2>Why we collect it &amp; your consent</h2>
+        <p>We process this data only to respond to your enquiry or to consider your job application. We collect it on the basis of the consent you give via the checkbox on each form, in line with the Digital Personal Data Protection Act, 2023 (DPDP Act).</p>
+
+        <h2>How long we keep it</h2>
+        <p>Application data and résumés are retained only as long as needed for the recruitment process, then purged after a short grace window. Enquiry data is kept only as long as needed to respond and follow up.</p>
+
+        <h2>Your rights</h2>
+        <p>You may ask us to access, correct or delete the personal data you have submitted. To do so, email <a href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>.</p>
+
+        <h2>Sharing</h2>
+        <p>We do not sell your data. Form submissions are stored securely and are accessible only to authorised personnel for the purpose above.</p>
+      </div>
+    </div>
+  </section>
+</Base>

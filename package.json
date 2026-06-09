@@ -1,0 +1,21 @@
+{
+  "name": "mangalam-coalfield-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^8.2.7",
+    "@fontsource/archivo": "^5.2.5",
+    "@fontsource/hanken-grotesk": "^5.2.5",
+    "@supabase/supabase-js": "^2.58.0",
+    "astro": "^5.14.1"
+  }
+}

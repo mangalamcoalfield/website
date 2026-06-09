@@ -1,0 +1,140 @@
+---
+import type { Job } from '../lib/supabase';
+interface Props {
+  jobs?: Job[];
+  /** Preselect a role when the form is embedded on a single job. */
+  jobId?: string;
+}
+const { jobs = [], jobId } = Astro.props;
+---
+<form class="form" id="appForm" novalidate>
+  <div class="row two">
+    <div class="row">
+      <label for="app-name">Full name <span class="req">*</span></label>
+      <input id="app-name" name="name" type="text" required autocomplete="name" />
+    </div>
+    <div class="row">
+      <label for="app-email">Email <span class="req">*</span></label>
+      <input id="app-email" name="email" type="email" required autocomplete="email" />
+    </div>
+  </div>
+  <div class="row two">
+    <div class="row">
+      <label for="app-phone">Phone</label>
+      <input id="app-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+    <div class="row">
+      <label for="app-job">Role <span class="req">*</span></label>
+      <select id="app-job" name="job_id" required>
+        <option value="" disabled selected={!jobId}>Select a role…</option>
+        {jobs.map((j) => (
+          <option value={j.id} selected={j.id === jobId}>{j.title}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <label for="app-resume">Résumé (PDF or Word) <span class="req">*</span></label>
+    <input id="app-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
+  </div>
+  <label class="consent">
+    <input type="checkbox" id="app-consent" name="consent" required />
+    <span>
+      I consent to Mangalam Coalfield Private Limited storing and processing my
+      application and résumé for recruitment purposes, in line with the Digital
+      Personal Data Protection Act, 2023. <a href="/privacy">Privacy notice</a>.
+    </span>
+  </label>
+  <div class="submit-row">
+    <button class="btn btn-primary" type="submit" id="app-submit">Submit application</button>
+    <p class="form-status" id="app-status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  import { getSupabase } from '../lib/supabase';
+
+  const form = document.getElementById('appForm') as HTMLFormElement | null;
+  const statusEl = document.getElementById('app-status');
+  const btn = document.getElementById('app-submit') as HTMLButtonElement | null;
+  const MAX_BYTES = 8 * 1024 * 1024; // 8 MB
+
+  function setStatus(msg: string, kind: 'ok' | 'err') {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = `form-status show ${kind}`;
+  }
+
+  function slugify(s: string) {
+    return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'applicant';
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    if (data.get('consent') !== 'on') {
+      setStatus('Please tick the consent box to submit your application.', 'err');
+      return;
+    }
+
+    const file = data.get('resume') as File | null;
+    if (!file || file.size === 0) {
+      setStatus('Please attach your résumé.', 'err');
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      setStatus('Résumé is too large (max 8 MB). Please attach a smaller file.', 'err');
+      return;
+    }
+
+    const supabase = getSupabase();
+    if (!supabase) {
+      setStatus('Form is not configured yet. Please email hr@mangalamcoal.com.', 'err');
+      return;
+    }
+
+    if (btn) btn.disabled = true;
+    setStatus('Uploading…', 'ok');
+
+    // 1) Upload résumé to the private `resumes` bucket under a non-guessable key.
+    const ext = (file.name.split('.').pop() || 'pdf').toLowerCase();
+    const rand = (crypto?.randomUUID?.() || String(Date.now())).replace(/-/g, '').slice(0, 12);
+    const path = `${slugify(String(data.get('name') || ''))}/${rand}.${ext}`;
+
+    const { error: upErr } = await supabase.storage
+      .from('resumes')
+      .upload(path, file, { contentType: file.type || undefined, upsert: false });
+
+    if (upErr) {
+      console.error(upErr);
+      if (btn) btn.disabled = false;
+      setStatus('Could not upload your résumé. Please try again or email hr@mangalamcoal.com.', 'err');
+      return;
+    }
+
+    // 2) Insert the application row referencing the stored résumé path.
+    const { error: insErr } = await supabase.from('applications').insert({
+      name: String(data.get('name') || ''),
+      email: String(data.get('email') || ''),
+      phone: String(data.get('phone') || '') || null,
+      job_id: String(data.get('job_id') || '') || null,
+      resume_url: path,
+      consent: true,
+    });
+
+    if (btn) btn.disabled = false;
+
+    if (insErr) {
+      console.error(insErr);
+      setStatus('Your file uploaded but the application did not save. Please email hr@mangalamcoal.com.', 'err');
+      return;
+    }
+
+    // HOOK: per-application email to hr@mangalamcoal.com fires from an edge
+    // function on the `applications` insert (wired later).
+    form.reset();
+    setStatus('Application received — thank you. Our team will review and be in touch.', 'ok');
+  });
+</script>
