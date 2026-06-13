@@ -12,6 +12,12 @@ const STOP = new Set([
   'was', 'were', 'be', 'with', 'at', 'by', 'it', 'its', 'as', 'that', 'this',
   'what', 'who', 'how', 'why', 'when', 'where', 'do', 'does', 'can', 'i', 'you',
   'your', 'we', 'our', 'me', 'my', 'about', 'tell', 'please',
+  // common verbs/fillers that otherwise cause spurious "source" matches
+  'will', 'would', 'should', 'could', 'shall', 'may', 'might', 'must', 'has',
+  'have', 'had', 'get', 'got', 'like', 'want', 'need', 'know', 'see', 'give',
+  'make', 'made', 'going', 'win', 'won', 'match', 'today', 'tonight', 'tomorrow',
+  'now', 'also', 'just', 'very', 'more', 'most', 'some', 'any', 'all', 'into',
+  'from', 'they', 'them', 'there', 'here', 'which', 'much', 'many', 'such',
 ]);
 
 function tokenize(s: string): string[] {
