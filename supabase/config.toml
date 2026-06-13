@@ -411,3 +411,15 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # declarative_schema_path = "./database"
 # JSON string passed through to pg-delta SQL formatting.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":80,\"commaStyle\":\"trailing\"}"
+
+# --- Careers pipeline edge functions -----------------------------------------
+# Public webhook/cron functions: JWT verification off (protected instead by the
+# optional WEBHOOK_SECRET shared-secret guard inside each function).
+[functions.notify-application]
+verify_jwt = false
+
+[functions.application-digest]
+verify_jwt = false
+
+[functions.resume-retention]
+verify_jwt = false

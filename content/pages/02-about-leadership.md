@@ -34,13 +34,13 @@ His was a life of enterprise built patiently and honestly, and of relationships 
 
 A new generation now leads, committed to those same principles: trust, integrity, and excellence in all it builds. The work changes — the standards do not.
 
-*[Asset slot: portrait photograph of Late Shree Gopal Agarwal, Chairman Emeritus — to be supplied.]*
+<!-- Portrait photograph of Late Shree Gopal Agarwal to be supplied; this section reads complete without it. Add the image when the asset arrives. -->
 
-## Current leadership
+## How the company is run
 
-Mangalam Coalfield is led by a board and management team responsible for operations, safety, statutory compliance, and the company's two commercial lines. Day-to-day mining is run by qualified statutory officials appointed to every position mandated under the Coal Mines Regulations.
+Mangalam Coalfield is led by a board and management team responsible for operations, safety, statutory compliance, and the company's two commercial lines. Day-to-day mining is run by qualified statutory officials appointed to every position mandated under the Coal Mines Regulations — a clear chain of competent, accountable people across every working district.
 
-*[Leadership names, designations and short bios to be confirmed and supplied for publication. Public director records exist on the MCA register; publish only titles/bios approved by the company.]*
+<!-- A named leadership section (names, designations, short bios, photos) will be added once supplied and verified. Director names are public on the MCA register but titles/bios are not yet confirmed for publication. See content/OPEN-QUESTIONS.md. -->
 
 ## What guides us
 

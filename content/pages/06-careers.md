@@ -26,9 +26,9 @@ Coal mining is skilled work, and we treat it that way. Whether you hold a statut
 
 ## Open roles
 
-*[Roles render here from the `jobs` table — title, department, location, type, posted date. Each posting carries JobPosting schema markup for Google for Jobs.]*
+<!-- Roles render from the jobs table — title, department, location, type, posted date — with JobPosting schema markup for Google for Jobs. When the table has no published rows, show the empty-state copy below instead of an empty list. -->
 
-When there are no live vacancies, show:
+**Empty-state copy (when no live vacancies):**
 > We are not advertising open roles at the moment. You are welcome to register your interest below and we will be in touch when a suitable position opens.
 
 ## Apply

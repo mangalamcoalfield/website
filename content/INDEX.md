@@ -27,10 +27,23 @@ Folder map:
 | 13 | CSR write-ups | `csr/csr-writeups.md` | ✅ Done |
 | 14 | Public Amlabad project profile | `research/amlabad-project-profile.md` | ✅ Done |
 
-## Pending / not in this batch
-- Content calendar (brief item #5) — not requested in this round.
-- Real assets: Chairman Emeritus portrait, operations photography, curated milestone-stat figures — to be supplied.
-- CSR evidence photos — placeholders noted in each write-up; swap real evidence before publish.
+## No-placeholder policy (applied)
+Live pages contain **no visible placeholders**. Every section reads complete as written; anything still missing is held back, not stubbed. Build/editorial notes are kept as HTML comments (`<!-- -->`) which do not render. The full list of held items and what I need is in **`OPEN-QUESTIONS.md`**.
 
-## Items flagged for internal accuracy check (public figures only — do not enrich)
-See `research/amlabad-project-profile.md` "Flags" section. Any public number used in page copy must be confirmed against internal records for accuracy only — never add internal detail to a public figure.
+Decisions taken this session: omit named leadership for now · 3 structural Home stats · contact = email + locations only · design pages to read without photos.
+
+## Resolved
+- "100% DGMS statutory positions filled" — confirmed accurate; now a Home stat + on Safety page.
+- Pit No. 2 — under redevelopment.
+- Amlabad Environmental Clearance — **excluded** from the profile and the site, per instruction.
+- Reserve figure — kept off the site.
+
+## Pending / awaiting your input — see OPEN-QUESTIONS.md
+- Verify-then-publish: address wording.
+- To supply: workforce figure, full postal address + phone, leadership names/bios.
+- Assets: Chairman Emeritus portrait, operations photography, extra milestone figures.
+- CSR: real impact figures + evidence photos + dates before any "Completed" item publishes.
+- Content calendar (brief item #5) — not in this batch.
+
+## Verification principle
+Public-source facts only, and nothing goes live until confirmed against internal records — for accuracy only, never to enrich a public figure with internal detail. See `research/amlabad-project-profile.md` "Flags".

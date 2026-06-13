@@ -35,4 +35,4 @@ Responsible mining does not end at the pit. Our environmental commitment covers 
 
 → See the individual initiatives below (data-driven from the CSR records).
 
-*[This page renders the CSR initiatives from the `csr_projects` table — see `/csr/csr-writeups.md` for the authored entries, each tagged completed/ongoing/planned with an evidence note.]*
+<!-- This page renders csr_projects rows. Source entries: content/csr/csr-writeups.md. A "Completed" item only renders once it has verified impact + evidence; "Planned" items render without numbers. Nothing publishes with a placeholder. -->

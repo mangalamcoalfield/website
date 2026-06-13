@@ -30,7 +30,6 @@ Candidate explainers for the "How Coal Mining Works" series, grouped by category
 ## Regulation
 - Reading a mine's statutory registers: what each one is for.
 - Competency certificates: First Class, Second Class, Gas Testing, Overman, Sirdar.
-- Environmental clearance for a coal mine: the PARIVESH / EIA / EMP journey (explainer).
 - Mine closure and the closure plan: the law and the obligation.
 - Commercial coal mining & the MDO model, explained.
 

@@ -38,7 +38,9 @@ Coal seams hold methane within the coal itself. Left alone, that gas is a hazard
 
 Mangalam's CBM line is a distinct commercial vertical: commercially capturing the methane held inside the Amlabad coal seams and putting it to use rather than venting it. It is the same block, worked twice — coal from the seam, and energy from within it.
 
-*Note: we discuss methane as science in our knowledge hub and CBM as a business line in general terms. Site-specific gas readings are not published.*
+<!-- Editorial rule: methane is taught as science in the knowledge hub; CBM is described as a business line in general terms only. No site-specific gas/methane readings are ever published. -->
+
+To understand the science behind it, see *Mine ventilation & methane management* in the knowledge hub.
 
 ---
 

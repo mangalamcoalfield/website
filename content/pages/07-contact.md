@@ -23,7 +23,7 @@ Whether you are a supplier, a partner, a member of the community around Amlabad,
 - **Registered office:** Kolkata, West Bengal
 - **Employee Portal:** https://app.mangalamcoal.com
 
-*[Confirm full registered-office postal address, phone number, and any operations-site contact approved for publication before launch.]*
+<!-- Full registered-office postal address and a phone number will be added once supplied and verified. The page reads complete without them; do not show an empty address/phone field. See content/OPEN-QUESTIONS.md. -->
 
 ## Contact form
 

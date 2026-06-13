@@ -1,0 +1,200 @@
+---
+// "Ask Mangalam" — generative RAG bot widget. Calls the server-only /api/ask
+// endpoint (Gemini key stays server-side). Degrades gracefully: if the endpoint
+// returns 503 (no key configured) the widget hides itself. Lead capture stays
+// in the contact form, never in chat.
+---
+<div id="am-root" class="am-root" data-state="closed" hidden>
+  <button id="am-launch" class="am-launch" aria-expanded="false" aria-controls="am-panel">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+    <span>Ask Mangalam</span>
+  </button>
+
+  <div id="am-panel" class="am-panel" role="dialog" aria-label="Ask Mangalam" aria-modal="false" hidden>
+    <div class="am-head">
+      <div>
+        <strong>Ask Mangalam</strong>
+        <span>Answers from our public pages only</span>
+      </div>
+      <button id="am-close" class="am-close" aria-label="Close">&times;</button>
+    </div>
+
+    <div id="am-log" class="am-log" aria-live="polite">
+      <div class="am-msg bot">
+        Hi — I can answer questions about Mangalam Coalfield and Indian coal mining using information from this site. I can't make commitments on the company's behalf. For enquiries, please use the <a href="/contact">contact form</a>.
+      </div>
+    </div>
+
+    <form id="am-form" class="am-form">
+      <input id="am-input" type="text" maxlength="500" autocomplete="off"
+        placeholder="Ask about operations, safety, careers…" aria-label="Your question" />
+      <button type="submit" id="am-send" aria-label="Send">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+    <p class="am-foot">Public info · no pricing or hiring commitments · <a href="/contact">contact us</a></p>
+  </div>
+</div>
+
+<style>
+  .am-root{position:fixed;right:20px;bottom:20px;z-index:1200;font-family:var(--body)}
+  .am-launch{display:inline-flex;align-items:center;gap:9px;background:var(--lime);color:#10130d;
+    font-family:var(--body);font-size:14px;font-weight:600;border:0;border-radius:30px;
+    padding:12px 18px;cursor:pointer;box-shadow:0 8px 26px rgba(0,0,0,.35);transition:.25s cubic-bezier(.2,.7,.3,1)}
+  .am-launch:hover{background:var(--lime-soft);transform:translateY(-2px)}
+  .am-root[data-state="open"] .am-launch{display:none}
+
+  .am-panel{width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));
+    display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-d);
+    border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .am-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;
+    border-bottom:1px solid var(--line-d);background:rgba(255,255,255,.02)}
+  .am-head strong{font-family:var(--display);font-size:15px;color:var(--cream);display:block}
+  .am-head span{font-size:11.5px;color:var(--on-dark-mut)}
+  .am-close{background:none;border:0;color:var(--on-dark-mut);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px}
+  .am-close:hover{color:var(--on-dark)}
+
+  .am-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .am-msg{font-size:14px;line-height:1.6;padding:11px 14px;border-radius:12px;max-width:88%}
+  .am-msg a{color:var(--lime);text-decoration:underline}
+  .am-msg.bot{background:rgba(255,255,255,.045);color:var(--on-dark);align-self:flex-start;border-bottom-left-radius:4px}
+  .am-msg.user{background:var(--forest);color:var(--on-dark);align-self:flex-end;border-bottom-right-radius:4px}
+  .am-msg.note{background:none;color:var(--on-dark-mut);font-size:12.5px;font-style:italic;padding:4px 2px;align-self:flex-start}
+  .am-src{margin-top:8px;display:flex;flex-wrap:wrap;gap:7px}
+  .am-src a{font-size:11.5px;color:var(--teal);border:1px solid var(--line-d);border-radius:14px;padding:3px 9px;text-decoration:none}
+  .am-src a:hover{border-color:var(--lime);color:var(--lime)}
+  .am-typing{display:inline-flex;gap:4px;align-items:center}
+  .am-typing i{width:6px;height:6px;border-radius:50%;background:var(--on-dark-mut);animation:amb 1s infinite ease-in-out}
+  .am-typing i:nth-child(2){animation-delay:.15s}.am-typing i:nth-child(3){animation-delay:.3s}
+  @keyframes amb{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+
+  .am-form{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line-d)}
+  .am-form input{flex:1;font-family:var(--body);font-size:14px;color:var(--on-dark);
+    background:rgba(255,255,255,.05);border:1px solid var(--line-d);border-radius:9px;padding:11px 13px}
+  .am-form input:focus{outline:none;border-color:var(--lime)}
+  .am-send,.am-form button{display:inline-flex;align-items:center;justify-content:center;width:42px;
+    background:var(--lime);color:#10130d;border:0;border-radius:9px;cursor:pointer;transition:.2s}
+  .am-form button:hover{background:var(--lime-soft)}
+  .am-form button:disabled{opacity:.5;cursor:not-allowed}
+  .am-foot{font-size:10.5px;color:var(--on-dark-mut);text-align:center;padding:0 14px 12px}
+  .am-foot a{color:var(--teal);text-decoration:underline}
+
+  @media (max-width:560px){
+    .am-root{right:12px;bottom:12px}
+    .am-panel{height:min(70vh,540px)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .am-launch{transition:none}.am-launch:hover{transform:none}.am-typing i{animation:none}
+  }
+</style>
+
+<script>
+  const root = document.getElementById('am-root') as HTMLElement;
+  const panel = document.getElementById('am-panel') as HTMLElement;
+  const launch = document.getElementById('am-launch') as HTMLButtonElement;
+  const closeBtn = document.getElementById('am-close') as HTMLButtonElement;
+  const form = document.getElementById('am-form') as HTMLFormElement;
+  const input = document.getElementById('am-input') as HTMLInputElement;
+  const sendBtn = document.getElementById('am-send') as HTMLButtonElement;
+  const log = document.getElementById('am-log') as HTMLElement;
+
+  let probed = false;
+  let available = true; // until proven otherwise (503)
+
+  // Reveal the launcher only after we know the endpoint exists at all.
+  // (A static-only deploy without the function would 405/404 → stay hidden.)
+  async function probe() {
+    try {
+      const r = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ question: '' }), // empty → 400 if live, 503 if no key
+      });
+      if (r.status === 503) { available = false; return false; }
+      // 400 (empty), 429, 200 all mean the function is deployed & enabled.
+      return r.status !== 404 && r.status !== 405;
+    } catch {
+      return false;
+    }
+  }
+
+  probe().then((ok) => {
+    if (ok) root.hidden = false;
+  });
+
+  function open() {
+    root.dataset.state = 'open';
+    panel.hidden = false;
+    launch.setAttribute('aria-expanded', 'true');
+    input.focus();
+  }
+  function close() {
+    root.dataset.state = 'closed';
+    panel.hidden = true;
+    launch.setAttribute('aria-expanded', 'false');
+  }
+  launch.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+
+  function addMsg(text: string, cls: 'bot' | 'user' | 'note', sources?: { title: string; source: string }[]) {
+    const div = document.createElement('div');
+    div.className = `am-msg ${cls}`;
+    div.textContent = text;
+    if (sources && sources.length) {
+      const wrap = document.createElement('div');
+      wrap.className = 'am-src';
+      sources.slice(0, 3).forEach((s) => {
+        const a = document.createElement('a');
+        a.href = s.source; a.textContent = s.title;
+        wrap.appendChild(a);
+      });
+      div.appendChild(wrap);
+    }
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    return div;
+  }
+
+  function addTyping() {
+    const div = document.createElement('div');
+    div.className = 'am-msg bot';
+    div.innerHTML = '<span class="am-typing"><i></i><i></i><i></i></span>';
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    return div;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    input.disabled = true; sendBtn.disabled = true;
+    const typing = addTyping();
+
+    try {
+      const r = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ question: q }),
+      });
+      typing.remove();
+      if (r.status === 503) {
+        addMsg('Ask Mangalam is currently unavailable. Please use the contact form.', 'note');
+        available = false;
+      } else if (r.status === 429) {
+        addMsg('You\'re sending messages a little fast — please wait a moment and try again.', 'note');
+      } else {
+        const data = await r.json().catch(() => ({}));
+        addMsg(data.answer || "Sorry — I couldn't answer that. Please try the contact form.", 'bot', data.sources);
+      }
+    } catch {
+      typing.remove();
+      addMsg("Sorry — I couldn't reach the assistant. Please try again later.", 'note');
+    } finally {
+      input.disabled = false; sendBtn.disabled = false;
+      if (available) input.focus();
+    }
+  });
+</script>

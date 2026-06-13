@@ -19,14 +19,14 @@ Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in East
 **Primary CTA:** Explore our operations → `/operations`
 **Secondary CTA:** How coal mining works → `/learn`
 
-## Milestone stats (curated, static — confirm figures before publish)
+## Milestone stats
 
 - **4** — Amlabad pits in the revival programme (Pit No. 1, 2, 3 & 4)
 - **2** — Commercial lines: coal & coal bed methane
-- **2024** — Year incorporated
 - **100%** — DGMS-mandated statutory positions filled
+- **Est. 2024** — Mangalam Coalfield Private Limited
 
-> Note: milestone figures are deliberately curated, public-safe facts — never a live operations feed. Replace the workforce/operational placeholders only with figures approved for publication.
+<!-- Stats are curated, publication-approved facts only — never a live ops feed. A verified workforce figure can be added as a further stat once supplied. See content/OPEN-QUESTIONS.md. -->
 
 ## What we do — two operations, one operator
 
