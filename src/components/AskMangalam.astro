@@ -10,11 +10,11 @@
     <span>Ask Mangalam</span>
   </button>
 
-  <div id="am-panel" class="am-panel" role="dialog" aria-label="Ask Mangalam" aria-modal="false" hidden>
+  <div id="am-panel" class="am-panel" role="dialog" aria-label="Ask Mangalam" aria-modal="false">
     <div class="am-head">
       <div>
         <strong>Ask Mangalam</strong>
-        <span>Answers from our public pages only</span>
+        <span>Our coal-mining knowledge, completely open to you</span>
       </div>
       <button id="am-close" class="am-close" aria-label="Close">&times;</button>
     </div>
@@ -32,7 +32,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </form>
-    <p class="am-foot">Public info · no pricing or hiring commitments · <a href="/contact">contact us</a></p>
+    <p class="am-foot">Here to help and inform — for anything official, please <a href="/contact">get in touch</a></p>
   </div>
 </div>
 
@@ -47,9 +47,13 @@
   .am-launch:hover{background:var(--lime-soft);transform:translateY(-2px)}
   .am-root[data-state="open"] .am-launch{display:none}
 
+  /* Panel visibility is driven by data-state, not the [hidden] attribute —
+     an author `display` rule overrides [hidden], which previously stopped it
+     from closing. */
   .am-panel{width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));
-    display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-d);
+    display:none;flex-direction:column;background:var(--panel);border:1px solid var(--line-d);
     border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .am-root[data-state="open"] .am-panel{display:flex}
   .am-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;
     border-bottom:1px solid var(--line-d);background:rgba(255,255,255,.02)}
   .am-head strong{font-family:var(--display);font-size:15px;color:var(--cream);display:block}
@@ -127,13 +131,11 @@
 
   function open() {
     root.dataset.state = 'open';
-    panel.hidden = false;
     launch.setAttribute('aria-expanded', 'true');
     input.focus();
   }
   function close() {
     root.dataset.state = 'closed';
-    panel.hidden = true;
     launch.setAttribute('aria-expanded', 'false');
   }
   launch.addEventListener('click', open);
