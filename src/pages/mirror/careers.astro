@@ -1,0 +1,106 @@
+---
+// MIRROR careers — cinematic-glass design mirror of the Careers page.
+// VISUAL-ONLY: the form below is NOT wired to Supabase. It is a styled,
+// static mock using the .form classes (onsubmit prevented). The PRODUCTION
+// page (src/pages/careers.astro) carries the real, working application form.
+import MirrorLayout from '../../layouts/MirrorLayout.astro';
+import { placeholderJobs } from '../../data/placeholders';
+const base = '/mirror';
+---
+<MirrorLayout title="Careers">
+  <!-- HERO -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">Careers</span>
+      <h1 class="reveal in">Build a career in Indian <span class="u">coal mining</span>.</h1>
+      <p class="lead reveal in">From mining engineers to electrical and statutory roles — join a company that runs its operations to standard.</p>
+    </div>
+  </section>
+
+  <!-- OPEN ROLES -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Open roles</span>
+        <h2>Current openings.</h2>
+        <p class="lead">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
+      </div>
+
+      <div class="bento stagger reveal">
+        {placeholderJobs.map((j) => (
+          <div class="glass glass-hover job full">
+            <div>
+              <h3>{j.title}</h3>
+              <div class="meta">
+                {j.dept && <span>{j.dept}</span>}
+                {j.location && <span>{j.location}</span>}
+                {j.type && <span>{j.type}</span>}
+              </div>
+              {j.description && <p>{j.description}</p>}
+            </div>
+            <a class="btn btn-ghost" href="#apply">Apply <svg width="16" height="16"><use href="#arrow"/></svg></a>
+          </div>
+        ))}
+      </div>
+
+      <p class="note reveal" style="margin-top:36px;font-size:13.5px;color:var(--on-dark-mut)">Placeholder roles shown. Live openings are published from the careers pipeline on the live site.</p>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section class="block" id="apply" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Apply</span>
+        <h2>Submit your application.</h2>
+        <p class="lead">Tell us who you are, choose a role, and attach your résumé. We review every application.</p>
+      </div>
+
+      <div class="glass reveal" style="padding:38px 36px;border-radius:24px">
+        <!-- VISUAL-ONLY mock form: not connected to Supabase. The live site
+             handles real submissions; here submit is prevented. -->
+        <form class="form" onsubmit="event.preventDefault()">
+          <div class="row two">
+            <div class="row">
+              <label for="m-name">Full name <span class="req">*</span></label>
+              <input id="m-name" name="name" type="text" placeholder="Your full name" autocomplete="name" />
+            </div>
+            <div class="row">
+              <label for="m-email">Email <span class="req">*</span></label>
+              <input id="m-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="row two">
+            <div class="row">
+              <label for="m-phone">Phone</label>
+              <input id="m-phone" name="phone" type="tel" placeholder="+91" autocomplete="tel" />
+            </div>
+            <div class="row">
+              <label for="m-role">Role <span class="req">*</span></label>
+              <select id="m-role" name="role">
+                <option value="" disabled selected>Select a role…</option>
+                {placeholderJobs.map((j) => <option value={j.title}>{j.title}</option>)}
+                <option value="other">Other / general application</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="m-resume">Résumé <span class="req">*</span></label>
+            <input id="m-resume" name="resume" type="file" accept=".pdf,.doc,.docx" />
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" name="consent" />
+            <span>I consent to Mangalam Coalfield processing my personal data for recruitment, in line with the <a href={`${base}/contact`}>privacy notice</a> under the DPDP Act, 2023.</span>
+          </label>
+
+          <button class="btn btn-primary" type="submit">Submit application <svg width="17" height="17"><use href="#arrow"/></svg></button>
+
+          <p class="note" style="font-size:13px;color:var(--on-dark-mut)">This is a design-mirror preview — applications are received and reviewed on the live site.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</MirrorLayout>

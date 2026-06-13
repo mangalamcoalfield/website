@@ -1,0 +1,60 @@
+---
+import MirrorLayout from '../../layouts/MirrorLayout.astro';
+const base = '/mirror';
+---
+<MirrorLayout title="Learn — How Coal Mining Works">
+  <!-- HERO -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">Knowledge hub</span>
+      <h1 class="reveal in">How coal mining <span class="u">actually works</span>.</h1>
+      <p class="lead reveal in">A growing, plain-language reference on Indian coal mining — the engineering, the regulation, and the science. Built to inform, not to sell.</p>
+    </div>
+  </section>
+
+  <!-- NATIONAL COAL INDEX -->
+  <section class="block" style="padding-top:clamp(40px,5vw,64px)">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Markets · National Coal Index</span>
+        <div class="glass cell" style="margin-top:22px;display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(32px,5vw,64px)">
+          <div>
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)">Latest NCI · Jun 2026</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(40px,5vw,56px);color:var(--cream);line-height:1;letter-spacing:-.02em;margin-top:10px">148.4</div>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)">Month on month</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(30px,4vw,40px);color:var(--lime);line-height:1;letter-spacing:-.02em;margin-top:10px;text-shadow:0 0 22px var(--glow-lime)">▲ 1.3</div>
+          </div>
+          <div>
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)">Series</div>
+            <div style="font-family:var(--display);font-weight:600;font-size:18px;color:var(--cream);line-height:1.2;margin-top:10px;max-width:18ch">Non-coking · all-India</div>
+          </div>
+        </div>
+        <p class="note" style="font-size:13px;color:var(--on-dark-mut);line-height:1.6;padding-top:16px;max-width:60ch">
+          The National Coal Index is published monthly by the Ministry of Coal.
+          Source: <a href="https://coal.nic.in" rel="noopener" style="color:var(--teal);text-decoration:underline">coal.nic.in</a>.
+          It is a monthly index, not a live price.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KNOWLEDGE ENTRIES -->
+  <section class="block" style="padding-top:clamp(56px,7vw,96px)">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Explainers &amp; sources</span>
+        <h2>The reference library.</h2>
+        <p class="lead">Curated explainers and version-dated links to canonical sources — DGMS, the Ministry of Coal, the Coal Mines Regulations 2017 and the Mines Act.</p>
+      </div>
+      <div class="bento stagger reveal">
+        <a class="glass glass-hover krow" href={`${base}/learn`}><div><span class="ktag">Operations</span><h3>Bord &amp; pillar mining, explained</h3><p>How underground coal is won and the ground kept stable.</p></div><svg class="ka" width="20" height="20"><use href="#arrow"/></svg></a>
+        <a class="glass glass-hover krow" href={`${base}/learn`}><div><span class="ktag">Safety · Ventilation</span><h3>Mine gas &amp; methane management</h3><p>Gassiness, ventilation, and degasification — why air is everything underground.</p></div><svg class="ka" width="20" height="20"><use href="#arrow"/></svg></a>
+        <a class="glass glass-hover krow" href={`${base}/learn`}><div><span class="ktag">Markets</span><h3>Coal grades &amp; the National Coal Index</h3><p>How Indian coal is graded and priced, updated monthly.</p></div><svg class="ka" width="20" height="20"><use href="#arrow"/></svg></a>
+        <a class="glass glass-hover krow" href={`${base}/learn`}><div><span class="ktag">Regulation</span><h3>DGMS &amp; the rules of the mine</h3><p>The statutory framework that governs Indian coal mining.</p></div><svg class="ka" width="20" height="20"><use href="#arrow"/></svg></a>
+      </div>
+      <p class="note reveal" style="margin-top:40px;font-size:13px;color:var(--on-dark-mut);line-height:1.6;max-width:60ch">Canonical articles and curated source links land from the content track.</p>
+    </div>
+  </section>
+</MirrorLayout>

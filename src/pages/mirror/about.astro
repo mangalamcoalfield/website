@@ -1,0 +1,93 @@
+---
+import MirrorLayout from '../../layouts/MirrorLayout.astro';
+const base = '/mirror';
+---
+<MirrorLayout title="About & Leadership">
+  <!-- HERO -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">About Mangalam</span>
+      <h1 class="reveal in">A foundation built to <span class="u">last.</span></h1>
+      <p class="lead reveal in">Mangalam Coalfield Private Limited is a mine developer and operator reviving the historic Amlabad pits in Eastern Jharia, Jharkhand — built on legacy, run to standard, and committed to responsible coal and cleaner energy.</p>
+    </div>
+  </section>
+
+  <!-- STORY + CHAIRMAN EMERITUS PORTRAIT -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo">
+        <div class="reveal">
+          <span class="eyebrow">Our story</span>
+          <h2 style="margin-top:18px">Carrying a vision forward.</h2>
+          <div class="prose" style="margin-top:24px">
+            <p>Mangalam stands on a foundation of rich legacy, resilience, and shared values — carrying forward the vision of its founder. A new generation now leads, committed to trust, integrity, and excellence in all it builds.</p>
+            <p>Today, that commitment is expressed through the revival of the Amlabad block in Eastern Jharia: restoring historic underground coal workings and developing coal bed methane as a cleaner commercial energy stream from the same seams.</p>
+            <p>The company operates to the Coal Mines Regulations 2017 and the Mines Act 1952, with qualified statutory officials in every mandated position. <em>(Placeholder copy — the full company history will be filled in from the content track.)</em></p>
+          </div>
+          <div style="margin-top:30px"><a class="tlink" href={`${base}/operations`}>Explore our operations <svg width="18" height="18"><use href="#arrow"/></svg></a></div>
+        </div>
+
+        <!-- Chairman Emeritus tribute with portrait slot -->
+        <div class="reveal">
+          <span class="eyebrow">In memoriam</span>
+          <div class="glass cell" style="margin-top:18px;padding:0;overflow:hidden">
+            <div style="aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;text-align:center;
+              font-size:13px;letter-spacing:.04em;color:var(--on-dark-mut);line-height:1.7;
+              background:linear-gradient(160deg,var(--forest),var(--forest-2));border-bottom:1px solid var(--line)">
+              Portrait of Late Shree Gopal Agarwal<br />— to be supplied —
+            </div>
+            <div style="padding:30px 30px 34px">
+              <div style="font-family:var(--display);font-weight:700;font-size:22px;color:var(--cream)">Late Shree Gopal Agarwal</div>
+              <div style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin-top:9px;font-weight:600">Chairman Emeritus</div>
+              <p style="font-size:15.5px;color:var(--on-dark-mut);line-height:1.75;margin-top:18px;font-style:italic">Guided by his visionary leadership, the Mangalam family remains deeply committed to upholding trust, integrity, and excellence — the values on which the company was built and continues to grow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES (bento 4) -->
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What guides us</span>
+        <h2>Trust, integrity, excellence.</h2>
+        <p class="lead">The values carried forward by a new generation of leadership.</p>
+      </div>
+      <div class="bento stagger reveal">
+        <div class="glass glass-hover cell col-4"><span class="ix">01</span><h3>Trust</h3><p>Earned through consistency — with our workforce, our partners, and the communities around the mine.</p></div>
+        <div class="glass glass-hover cell col-4"><span class="ix">02</span><h3>Integrity</h3><p>Operating to statute and to our word, with safety and compliance treated as the baseline.</p></div>
+        <div class="glass glass-hover cell col-4"><span class="ix">03</span><h3>Excellence</h3><p>Engineering rigour and discipline on every shift, underground and above ground.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Leadership</span>
+        <h2>The team taking it forward.</h2>
+        <p class="lead">Current leadership profiles will be published here from the content track.</p>
+      </div>
+      <div class="bento stagger reveal">
+        <div class="glass glass-hover cell col-4"><span class="ix">—</span><h3>Leadership profile</h3><div class="lab" style="margin:8px 0 0"><b>Director</b></div><p style="margin-top:10px">Profile and bio to be supplied.</p></div>
+        <div class="glass glass-hover cell col-4"><span class="ix">—</span><h3>Leadership profile</h3><div class="lab" style="margin:8px 0 0"><b>Director</b></div><p style="margin-top:10px">Profile and bio to be supplied.</p></div>
+        <div class="glass glass-hover cell col-4"><span class="ix">—</span><h3>Leadership profile</h3><div class="lab" style="margin:8px 0 0"><b>Statutory Head</b></div><p style="margin-top:10px">Profile and bio to be supplied.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="glass reveal center" style="padding:64px 40px;border-radius:24px">
+        <span class="eyebrow">Careers</span>
+        <h2 style="max-width:18ch;margin:18px auto 16px">Help us carry the legacy forward.</h2>
+        <p class="lead" style="margin:0 auto 32px">Join a company that runs its operations to standard — and treats trust, integrity, and excellence as the way it works.</p>
+        <a class="btn btn-primary" href={`${base}/careers`}>View open roles <svg width="17" height="17"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+</MirrorLayout>

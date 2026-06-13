@@ -1,0 +1,125 @@
+---
+// MIRROR layout — cinematic-glass shell (header + footer + ambient aura).
+// Used by every /mirror page. Self-contained; does not touch the production
+// Base layout. Fonts self-hosted via Fontsource (same as production).
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/700.css';
+import '@fontsource/hanken-grotesk/400.css';
+import '@fontsource/hanken-grotesk/500.css';
+import '@fontsource/hanken-grotesk/600.css';
+import '../styles/mirror.css';
+import { SITE } from '../data/site';
+
+interface Props { title?: string; description?: string; }
+const { title, description = SITE.description } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name} (mirror)` : `${SITE.name} — mirror`;
+const path = Astro.url.pathname;
+const base = '/mirror';
+const nav = [
+  { href: `${base}/about`, label: 'About' },
+  { href: `${base}/operations`, label: 'Operations' },
+  { href: `${base}/safety`, label: 'Safety' },
+  { href: `${base}/learn`, label: 'Learn' },
+  { href: `${base}/cares`, label: 'Cares' },
+  { href: `${base}/careers`, label: 'Careers' },
+  { href: `${base}/contact`, label: 'Contact' },
+];
+const active = (h: string) => path === h || (h !== base && path.startsWith(h));
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="/mangalam_logo.png" />
+  <meta name="theme-color" content="#05070f" />
+</head>
+<body>
+  <div class="aura"><span></span><span></span><span></span></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header id="mhdr">
+    <div class="wrap"><div class="mnav">
+      <a class="brand" href={base} aria-label="Mangalam home"><img src="/mangalam_logo.png" alt={SITE.name} width="170" height="42" /></a>
+      <nav class="mlinks" aria-label="Primary">
+        {nav.map((i) => <a href={i.href} class={active(i.href) ? 'active' : ''}>{i.label}</a>)}
+      </nav>
+      <a class="nav-cta" href={SITE.portalUrl} rel="noopener">Employee Portal ↗</a>
+      <button class="mburger" id="mburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div></div>
+  </header>
+
+  <nav class="mmenu" id="mmenu" aria-label="Mobile">
+    {nav.map((i) => <a href={i.href}>{i.label}</a>)}
+    <a class="portal" href={SITE.portalUrl} rel="noopener">Employee Portal ↗</a>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="fb">
+          <img src="/mangalam_logo.png" alt={SITE.name} width="230" height="58" />
+          <p>{SITE.legalName} — Mine Developer &amp; Operator, Amlabad Colliery, Eastern Jharia, Jharkhand.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href={`${base}/about`}>About &amp; Leadership</a>
+          <a href={`${base}/operations`}>Operations</a>
+          <a href={`${base}/safety`}>Safety</a>
+          <a href={`${base}/cares`}>Mangalam Cares</a>
+          <a href={`${base}/careers`}>Careers</a>
+        </div>
+        <div>
+          <h4>Knowledge</h4>
+          <a href={`${base}/learn`}>How mining works</a>
+          <a href={`${base}/learn`}>Regulation</a>
+          <a href={`${base}/contact`}>Contact</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>
+          <a href={SITE.portalUrl} rel="noopener">Employee Portal ↗</a>
+          <a href={`${base}/contact`}>{SITE.location}</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 {SITE.legalName}</span>
+        <span>Design mirror · cinematic-glass concept · not the live site</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="mirror-badge" href="/">⚡ Design mirror · back to live site</a>
+
+  <script>
+    const hdr = document.getElementById('mhdr');
+    const onScroll = () => hdr?.classList.toggle('scrolled', window.scrollY > 30);
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const burger = document.getElementById('mburger');
+    const menu = document.getElementById('mmenu');
+    burger?.addEventListener('click', () => {
+      const open = menu?.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(Boolean(open)));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+      menu.classList.remove('open'); document.body.style.overflow = '';
+    }));
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: 0.14 });
+    document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

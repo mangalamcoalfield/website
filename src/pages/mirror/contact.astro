@@ -1,0 +1,63 @@
+---
+import MirrorLayout from '../../layouts/MirrorLayout.astro';
+import { SITE } from '../../data/site';
+const base = '/mirror';
+---
+<MirrorLayout title="Contact">
+  <!-- HERO -->
+  <section class="phero">
+    <div class="wrap">
+      <span class="eyebrow reveal in">Contact</span>
+      <h1 class="reveal in">Get in <span class="u">touch</span>.</h1>
+      <p class="lead reveal in">For enquiries, partnerships or general questions, send us a message and we will be in touch.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo">
+        <!-- VISUAL-ONLY FORM: this design-mirror page is not wired to Supabase.
+             The production /contact page has the real working form. -->
+        <div class="reveal">
+          <span class="eyebrow">Send a message</span>
+          <h2 style="margin:18px 0 28px">We read every enquiry.</h2>
+          <form class="form" onsubmit="event.preventDefault()">
+            <div class="row">
+              <label for="name">Name <span class="req">*</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
+            </div>
+            <div class="row">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+            <div class="row">
+              <label for="message">Message <span class="req">*</span></label>
+              <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+            </div>
+            <label class="consent">
+              <input type="checkbox" name="consent" required />
+              <span>I consent to Mangalam Coalfield processing this information to respond to my enquiry, in line with the DPDP Act, 2023.</span>
+            </label>
+            <button class="btn btn-primary" type="submit">Send message <svg width="17" height="17"><use href="#arrow"/></svg></button>
+          </form>
+        </div>
+
+        <!-- REACH US -->
+        <div class="glass cell reveal" style="padding:36px 34px">
+          <span class="eyebrow">Reach us</span>
+          <div class="prose" style="margin-top:18px">
+            <h3>Operations</h3>
+            <p>{SITE.location}</p>
+            <h3>Registered office</h3>
+            <p>Kolkata</p>
+            <h3>Email</h3>
+            <p><a href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a></p>
+            <h3>Employees</h3>
+            <p><a href={SITE.portalUrl} rel="noopener">Employee Portal ↗</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MirrorLayout>
