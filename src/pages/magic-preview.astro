@@ -1,14 +1,15 @@
 ---
-// /magic-preview — showcase of 21st.dev Magic-generated components, themed to
-// the Mangalam brand and rendered as React islands. Lives ONLY on the
-// magic-ui-experiment branch; never merged to production.
+// /magic-preview — a striking, ALL-Magic showcase composed from real 21st.dev /
+// Magic components (Aurora animated hero + animated Bento + feature grid),
+// re-themed to the Mangalam brand via shadcn tokens. Rendered as React islands.
 import '@fontsource/archivo/600.css';
 import '@fontsource/archivo/700.css';
 import '@fontsource/hanken-grotesk/400.css';
 import '@fontsource/hanken-grotesk/500.css';
 import '@fontsource/hanken-grotesk/600.css';
 import '../styles/magic.css';
-import MagicHero from '../components/magic/MagicHero.tsx';
+import AuroraHero from '../components/magic/AuroraHero.tsx';
+import MagicBento from '../components/magic/MagicBento.tsx';
 import MagicFeatures from '../components/magic/MagicFeatures.tsx';
 ---
 <!doctype html>
@@ -16,21 +17,31 @@ import MagicFeatures from '../components/magic/MagicFeatures.tsx';
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Magic components preview · Mangalam Coalfield</title>
+  <title>Magic showcase · Mangalam Coalfield</title>
   <meta name="robots" content="noindex" />
   <style>
-    :root { --font-display: 'Archivo', system-ui, sans-serif; --font-body: 'Hanken Grotesk', system-ui, sans-serif; }
-    * { box-sizing: border-box; margin: 0; }
-    body { font-family: var(--font-body); background: #000; }
-    .mp-badge { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 50;
-      font-family: var(--font-body); font-size: 12px; font-weight: 600; color: #10130d;
-      background: #aecf3e; padding: 6px 14px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
-    .mp-badge a { color: #10130d; text-decoration: underline; }
+    html,body{margin:0;background:#040604;font-family:'Hanken Grotesk',system-ui,sans-serif}
+    .mp-badge{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;font-size:12px;font-weight:700;
+      color:#10130d;background:#aecf3e;padding:6px 14px;border-radius:20px;box-shadow:0 8px 26px rgba(0,0,0,.5)}
+    .mp-badge a{color:#10130d;text-decoration:underline}
   </style>
 </head>
 <body>
-  <div class="mp-badge">⚡ Magic components · experiment branch · <a href="/">back to site</a></div>
-  <MagicHero client:load />
+  <div class="mp-badge">⚡ Built with 21st.dev Magic · <a href="/">live site</a> · <a href="/mirror">glass mirror</a></div>
+
+  <AuroraHero
+    client:load
+    eyebrow="Mine Developer & Operator · Amlabad, Eastern Jharia"
+    title="Reviving underground coal."
+    description="Mangalam Coalfield is reviving the historic Amlabad pits in Eastern Jharia — producing coal and the coal bed methane held within the same seams, with safety and statutory rigour on every shift."
+    primary={{ label: 'See capabilities', href: '#caps' }}
+    secondary={{ label: 'View the live site', href: '/' }}
+  />
+
+  <div id="caps">
+    <MagicBento client:visible />
+  </div>
+
   <MagicFeatures client:visible />
 </body>
 </html>
