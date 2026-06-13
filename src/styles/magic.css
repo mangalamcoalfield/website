@@ -1,0 +1,18 @@
+/* Tailwind v4 entry — used ONLY on the /magic-preview route (magic-ui-experiment
+   branch) to run 21st.dev Magic-generated React components. Brand tokens mirror
+   the site's locked palette so Magic output can match the dark-forest + lime look. */
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #000000;
+  --color-brand-near: #0b0e0b;
+  --color-brand-panel: #0f130f;
+  --color-brand-forest: #15301f;
+  --color-brand-lime: #aecf3e;
+  --color-brand-lime-soft: #bcd25f;
+  --color-brand-teal: #5e9a89;
+  --color-brand-cream: #f5f5f1;
+
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+}

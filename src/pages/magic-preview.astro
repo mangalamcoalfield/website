@@ -1,0 +1,36 @@
+---
+// /magic-preview — showcase of 21st.dev Magic-generated components, themed to
+// the Mangalam brand and rendered as React islands. Lives ONLY on the
+// magic-ui-experiment branch; never merged to production.
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/700.css';
+import '@fontsource/hanken-grotesk/400.css';
+import '@fontsource/hanken-grotesk/500.css';
+import '@fontsource/hanken-grotesk/600.css';
+import '../styles/magic.css';
+import MagicHero from '../components/magic/MagicHero.tsx';
+import MagicFeatures from '../components/magic/MagicFeatures.tsx';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magic components preview · Mangalam Coalfield</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root { --font-display: 'Archivo', system-ui, sans-serif; --font-body: 'Hanken Grotesk', system-ui, sans-serif; }
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: var(--font-body); background: #000; }
+    .mp-badge { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 50;
+      font-family: var(--font-body); font-size: 12px; font-weight: 600; color: #10130d;
+      background: #aecf3e; padding: 6px 14px; border-radius: 20px; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+    .mp-badge a { color: #10130d; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="mp-badge">⚡ Magic components · experiment branch · <a href="/">back to site</a></div>
+  <MagicHero client:load />
+  <MagicFeatures client:visible />
+</body>
+</html>
