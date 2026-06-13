@@ -36,7 +36,10 @@
   </div>
 </div>
 
-<style>
+<!-- is:global because chat bubbles/chips are created by JS at runtime; Astro's
+     scoped styles only attach to build-time elements. All classes are uniquely
+     `am-`-prefixed, so global scope is safe and won't leak. -->
+<style is:global>
   .am-root{position:fixed;right:20px;bottom:20px;z-index:1200;font-family:var(--body)}
   .am-launch{display:inline-flex;align-items:center;gap:9px;background:var(--lime);color:#10130d;
     font-family:var(--body);font-size:14px;font-weight:600;border:0;border-radius:30px;

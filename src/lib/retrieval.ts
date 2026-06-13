@@ -1,7 +1,9 @@
 /**
  * Tiny zero-dependency retrieval: score corpus chunks by term overlap with the
- * question and return the top-k. Good enough to ground a small, well-curated
- * corpus without an embeddings service (keeps runtime cost ~nil).
+ * question. `retrieveScored` also reports `rareHits` — distinct query terms that
+ * match but are NOT ubiquitous across the corpus (coal/mining/mine appear almost
+ * everywhere, so matching them means little). Callers use rareHits to decide
+ * whether a chunk is relevant enough to show as a cited source.
  */
 import type { CorpusChunk } from './bot-corpus';
 
@@ -16,31 +18,41 @@ function tokenize(s: string): string[] {
   return (s.toLowerCase().match(/[a-z0-9]+/g) || []).filter((t) => t.length > 2 && !STOP.has(t));
 }
 
-export function retrieve(question: string, corpus: CorpusChunk[], k = 5): CorpusChunk[] {
-  const qTerms = tokenize(question);
-  if (qTerms.length === 0) return [];
-  const qSet = new Set(qTerms);
+export interface Scored {
+  chunk: CorpusChunk;
+  score: number;
+  rareHits: number;
+}
 
-  const scored = corpus.map((chunk) => {
-    const text = `${chunk.title} ${chunk.text}`.toLowerCase();
-    const terms = tokenize(text);
-    let score = 0;
-    const seen = new Set<string>();
-    for (const t of terms) {
-      if (qSet.has(t)) {
-        score += 1;
-        // small bonus the first time each query term is matched (coverage > frequency)
-        if (!seen.has(t)) { score += 1.5; seen.add(t); }
+export function retrieveScored(question: string, corpus: CorpusChunk[]): Scored[] {
+  const qTerms = [...new Set(tokenize(question))];
+  if (qTerms.length === 0 || corpus.length === 0) return [];
+
+  // Per-chunk token sets + corpus document frequency (for the "rare" test).
+  const docTokens = corpus.map((c) => new Set(tokenize(`${c.title} ${c.text}`)));
+  const df = new Map<string, number>();
+  for (const toks of docTokens) for (const t of toks) df.set(t, (df.get(t) || 0) + 1);
+  const N = corpus.length;
+
+  return corpus
+    .map((chunk, i) => {
+      const toks = docTokens[i];
+      let score = 0;
+      let rareHits = 0;
+      for (const qt of qTerms) {
+        if (toks.has(qt)) {
+          score += 2.5;
+          if ((df.get(qt) || 0) / N < 0.5) rareHits += 1; // informative (not corpus-ubiquitous)
+        }
       }
-    }
-    // normalise slightly by chunk length so long chunks don't always win
-    score = score / Math.sqrt(terms.length + 1);
-    return { chunk, score };
-  });
+      score = score / Math.sqrt(toks.size + 1); // mild length normalisation
+      return { chunk, score, rareHits };
+    })
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score);
+}
 
-  return scored
-    .filter((s) => s.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, k)
-    .map((s) => s.chunk);
+/** Top-k chunks by score (used to build the grounding context). */
+export function retrieve(question: string, corpus: CorpusChunk[], k = 5): CorpusChunk[] {
+  return retrieveScored(question, corpus).slice(0, k).map((s) => s.chunk);
 }
