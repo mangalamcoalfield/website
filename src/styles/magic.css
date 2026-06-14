@@ -6,21 +6,21 @@
 @import "tailwindcss";
 
 :root{
-  --background: 30 14% 4%;          /* #0b0908 warm coal black */
-  --foreground: 40 28% 93%;         /* warm cream */
-  --muted: 30 10% 9%;
-  --muted-foreground: 35 8% 60%;
-  --card: 30 12% 7%;
-  --card-foreground: 40 28% 93%;
-  --primary: 35 90% 58%;            /* molten amber / ember */
-  --primary-foreground: 30 45% 7%;
-  --secondary: 74 58% 52%;          /* brand lime (secondary) */
+  --background: 155 26% 4%;         /* #06100b coal-black, faint forest */
+  --foreground: 60 18% 95%;         /* cream */
+  --muted: 150 16% 9%;
+  --muted-foreground: 145 7% 60%;
+  --card: 150 18% 7%;
+  --card-foreground: 60 18% 95%;
+  --primary: 74 60% 53%;            /* brand lime #aecf3e */
+  --primary-foreground: 90 40% 8%;
+  --secondary: 165 26% 49%;         /* teal #5e9a89 */
   --secondary-foreground: 90 40% 8%;
-  --accent: 35 90% 58%;
-  --accent-foreground: 30 45% 7%;
-  --border: 35 12% 15%;
-  --input: 35 12% 15%;
-  --ring: 35 90% 58%;
+  --accent: 74 60% 53%;
+  --accent-foreground: 90 40% 8%;
+  --border: 150 12% 15%;
+  --input: 150 12% 15%;
+  --ring: 74 60% 53%;
   --radius: 1rem;
 }
 
@@ -40,9 +40,9 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  --color-ember: #f0a43a;
-  --color-ember-deep: #b9601a;
   --color-lime: #aecf3e;
+  --color-lime-soft: #d6e98a;
+  --color-teal: #5e9a89;
 
   --font-display: "Archivo", system-ui, sans-serif;
   --font-body: "Hanken Grotesk", system-ui, sans-serif;
