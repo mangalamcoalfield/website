@@ -91,7 +91,7 @@ export default function ParticleHero({ eyebrow, title, accentWords = 0, descript
           if (p.x < -10) p.x = w + 10; if (p.x > w + 10) p.x = -10;
         }
       }
-      raf = requestAnimationFrame(draw);
+      if (onScreen) raf = requestAnimationFrame(draw); else looping = false;
     };
 
     const onMove = (e: PointerEvent) => {
@@ -104,14 +104,19 @@ export default function ParticleHero({ eyebrow, title, accentWords = 0, descript
     };
     const onLeave = () => { mouse.x = -999; mouse.y = -999; if (spotRef.current) spotRef.current.style.opacity = '0'; };
 
+    let onScreen = true, looping = true;
+    const startLoop = () => { if (looping) return; looping = true; raf = requestAnimationFrame(draw); };
     resize(); draw();
     window.addEventListener('resize', resize);
     // Re-init when the element actually gets dimensions (robust to late layout).
     const ro = new ResizeObserver(() => { if (wrap.clientWidth && (w !== wrap.clientWidth || h !== wrap.clientHeight)) resize(); });
     ro.observe(wrap);
+    // Pause the loop entirely when the hero is scrolled offscreen.
+    const io = new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (onScreen) startLoop(); }, { threshold: 0 });
+    io.observe(wrap);
     wrap.addEventListener('pointermove', onMove);
     wrap.addEventListener('pointerleave', onLeave);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); ro.disconnect(); wrap.removeEventListener('pointermove', onMove); wrap.removeEventListener('pointerleave', onLeave); };
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); ro.disconnect(); io.disconnect(); wrap.removeEventListener('pointermove', onMove); wrap.removeEventListener('pointerleave', onLeave); };
   }, []);
 
   const words = title.split(' ');

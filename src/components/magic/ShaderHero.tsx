@@ -72,29 +72,39 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
     const aLoc = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(aLoc); gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
     const uRes = gl.getUniformLocation(prog, 'u_res'), uTime = gl.getUniformLocation(prog, 'u_time'), uMouse = gl.getUniformLocation(prog, 'u_mouse');
 
-    let dpr = Math.min(window.devicePixelRatio || 1, 1.5), raf = 0, start = 0;
+    // Perf: cap DPR (lower on mobile), throttle to ~30fps, and pause the rAF
+    // loop entirely when the hero is scrolled offscreen.
+    let dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1 : 1.5);
+    let raf = 0, start = 0, last = 0, onScreen = true, looping = false;
+    const FRAME = 1000 / 30;
     const mouse = { x: 0, y: 0 };
     const resize = () => {
       const w = wrap.clientWidth, h = wrap.clientHeight; if (!w || !h) return;
       canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
-    const render = (ts: number) => {
-      if (!start) start = ts;
-      const time = reduced ? 6 : (ts - start) / 1000;
+    const draw = (time: number) => {
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, time);
       gl.uniform2f(uMouse, mouse.x * dpr, canvas.height - mouse.y * dpr);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      if (!reduced) raf = requestAnimationFrame(render);
     };
+    const render = (ts: number) => {
+      if (!start) start = ts;
+      if (ts - last >= FRAME) { last = ts; draw((ts - start) / 1000); }
+      if (onScreen && !reduced) raf = requestAnimationFrame(render); else looping = false;
+    };
+    const startLoop = () => { if (looping || reduced) return; looping = true; raf = requestAnimationFrame(render); };
     const onMove = (e: PointerEvent) => { const r = wrap.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; };
 
-    resize(); raf = requestAnimationFrame(render);
-    const ro = new ResizeObserver(() => { resize(); if (reduced) raf = requestAnimationFrame(render); });
+    resize();
+    if (reduced) { start = 0; draw(6); } else startLoop();
+    const ro = new ResizeObserver(() => { resize(); if (reduced) draw(6); });
     ro.observe(wrap);
+    const io = new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (onScreen) startLoop(); }, { threshold: 0 });
+    io.observe(wrap);
     wrap.addEventListener('pointermove', onMove);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); wrap.removeEventListener('pointermove', onMove); };
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); wrap.removeEventListener('pointermove', onMove); };
   }, []);
 
   const words = title.split(' ');
