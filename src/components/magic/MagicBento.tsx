@@ -40,7 +40,7 @@ export default function MagicBento() {
     <section className="relative w-full overflow-hidden bg-background py-24 text-foreground">
       {/* animated grid + aurora background */}
       <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 55% 90% at 15% 0%, rgba(21,48,31,.6), transparent 65%), radial-gradient(ellipse 40% 80% at 90% 10%, rgba(94,154,137,.16), transparent 70%)' }} />
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 55% 90% at 15% 0%, rgba(185,96,26,.22), transparent 65%), radial-gradient(ellipse 40% 80% at 90% 10%, rgba(240,164,58,.12), transparent 70%)' }} />
         <div className="absolute inset-0" style={{
           backgroundImage: 'linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px)',
           backgroundSize: '26px 26px',

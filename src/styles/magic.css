@@ -1,27 +1,27 @@
-/* Tailwind v4 + shadcn theme — drives the 21st.dev Magic-generated React
-   components. shadcn design tokens are mapped to the Mangalam brand palette so
-   real Magic components (which reference bg-background, text-muted-foreground,
-   bg-primary, hsl(var(--primary)) …) render in our dark-forest + lime identity. */
+/* Tailwind v4 + shadcn theme — COAL · EMBER direction.
+   Magic components (21st.dev) get their design intelligence from ui-ux-pro-max:
+   the "Luxury/Premium" palette (warm coal-black + molten amber-gold accent) and
+   the "Modern Dark Cinema" style (deep blacks, ambient glow, glassmorphism).
+   Brand lime is kept as a secondary accent for continuity. */
 @import "tailwindcss";
 
 :root{
-  /* shadcn tokens as HSL triplets, brand-mapped */
-  --background: 150 30% 4%;          /* near-black, faint forest */
-  --foreground: 60 18% 96%;          /* cream */
-  --muted: 150 15% 10%;
-  --muted-foreground: 144 5% 56%;    /* #8d938b */
-  --card: 150 20% 7%;
-  --card-foreground: 60 18% 96%;
-  --primary: 74 60% 53%;             /* lime #aecf3e */
-  --primary-foreground: 90 35% 8%;
-  --secondary: 150 22% 12%;          /* forest glass */
-  --secondary-foreground: 60 14% 92%;
-  --accent: 165 25% 49%;             /* teal #5e9a89 */
-  --accent-foreground: 90 35% 8%;
-  --border: 150 8% 18%;
-  --input: 150 8% 18%;
-  --ring: 74 60% 53%;
-  --radius: 0.9rem;
+  --background: 30 14% 4%;          /* #0b0908 warm coal black */
+  --foreground: 40 28% 93%;         /* warm cream */
+  --muted: 30 10% 9%;
+  --muted-foreground: 35 8% 60%;
+  --card: 30 12% 7%;
+  --card-foreground: 40 28% 93%;
+  --primary: 35 90% 58%;            /* molten amber / ember */
+  --primary-foreground: 30 45% 7%;
+  --secondary: 74 58% 52%;          /* brand lime (secondary) */
+  --secondary-foreground: 90 40% 8%;
+  --accent: 35 90% 58%;
+  --accent-foreground: 30 45% 7%;
+  --border: 35 12% 15%;
+  --input: 35 12% 15%;
+  --ring: 35 90% 58%;
+  --radius: 1rem;
 }
 
 @theme inline{
@@ -40,6 +40,9 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-ember: #f0a43a;
+  --color-ember-deep: #b9601a;
+  --color-lime: #aecf3e;
 
   --font-display: "Archivo", system-ui, sans-serif;
   --font-body: "Hanken Grotesk", system-ui, sans-serif;
