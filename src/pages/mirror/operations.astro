@@ -1,84 +1,21 @@
 ---
-import MirrorLayout from '../../layouts/MirrorLayout.astro';
-const base = '/mirror';
-
-// All four Amlabad pits. Statuses are general revival/development stages — no
-// production schedules, reserves or mine-plan economics (publish-filter).
-const pits = [
-  { no: 'Pit No. 1', status: 'Revival', plan: 'done', desc: 'Historic underground working under revival as part of the Amlabad block restoration.' },
-  { no: 'Pit No. 2', status: 'Development', plan: 'plan', desc: 'Underground development to open up access and working districts.' },
-  { no: 'Pit No. 3', status: 'Development', plan: 'plan', desc: 'Development of roadways and galleries through the coal seam.' },
-  { no: 'Pit No. 4', status: 'Dewatering', plan: 'plan', desc: 'Dewatering and rehabilitation ahead of further development.' },
-];
+import MagicSite from '../../layouts/MagicSite.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import PitMap from '../../components/magic/PitMap.tsx';
+import MagicBento from '../../components/magic/MagicBento.tsx';
+import { Lines } from '../../components/magic/MagicSections.tsx';
 ---
-<MirrorLayout title="Operations & Capabilities">
-  <!-- HERO -->
-  <section class="phero">
-    <div class="wrap">
-      <span class="eyebrow reveal in">Operations &amp; capabilities</span>
-      <h1 class="reveal in">Two operations, <span class="u">one operator.</span></h1>
-      <p class="lead reveal in">Through the Amlabad block in Eastern Jharia, Jharkhand, Mangalam runs two commercial lines — underground coal across all four pits, and the coal bed methane held within the same seams.</p>
-    </div>
-  </section>
-
-  <!-- BUSINESS LINES (bento) -->
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="bento stagger reveal">
-        <div class="glass glass-hover cell">
-          <span class="tag">01</span>
-          <div class="lab"><b>Coal</b> · Mining</div>
-          <h3>Reviving the Amlabad pits</h3>
-          <p>Restoring the historic underground workings of the Amlabad block — Pit No. 1, 2, 3 and 4 — across revival, development and dewatering. Our positioning is simple: powering India's industrial growth through responsible coal.</p>
-        </div>
-        <div class="glass glass-hover cell">
-          <span class="tag">02</span>
-          <div class="lab"><b>Coal Bed</b> · Methane</div>
-          <h3>Energy within the seam</h3>
-          <p>Commercially capturing the methane held inside the coal seams — a cleaner energy stream from the same block, put to use rather than vented to the atmosphere. A new commercial vertical alongside coal.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- THE FOUR PITS (bento 4) -->
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">The four Amlabad pits</span>
-        <h2>Eastern Jharia, Jharkhand.</h2>
-        <p class="lead">All four historic pits of the Amlabad block, under revival, development and dewatering.</p>
-      </div>
-      <div class="bento stagger reveal">
-        {pits.map((p) => (
-          <div class="glass glass-hover cell col-4">
-            <span class="tag">{p.no.replace('Pit No. ', '')}</span>
-            <span class={`pill ${p.plan}`}>{p.status}</span>
-            <h3>{p.no}</h3>
-            <p>{p.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CAPABILITIES (bento 4) -->
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Capabilities</span>
-        <h2>How we operate.</h2>
-        <p class="lead">Four core capabilities run every working district to standard.</p>
-      </div>
-      <div class="bento stagger reveal">
-        <div class="glass glass-hover cell col-4"><span class="ix">01</span><h3>Mine Development</h3><p>Driving and supporting underground roadways and galleries that open up the coal seam for production.</p></div>
-        <div class="glass glass-hover cell col-4"><span class="ix">02</span><h3>Underground Operations</h3><p>Shift-by-shift production, reconciliation, and structured reporting across every working district.</p></div>
-        <div class="glass glass-hover cell col-4"><span class="ix">03</span><h3>Electrical &amp; Mechanical</h3><p>Maintaining DGMS-approved equipment and statutory testing that keep machinery safe and certified.</p></div>
-        <div class="glass glass-hover cell col-4"><span class="ix">04</span><h3>Statutory Compliance</h3><p>Operating to the Coal Mines Regulations 2017 and the Mines Act 1952, with qualified officials in every position.</p></div>
-      </div>
-      <div class="reveal" style="margin-top:40px">
-        <a class="tlink" href={`${base}/safety`}>Safety &amp; compliance approach <svg width="18" height="18"><use href="#arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-</MirrorLayout>
+<MagicSite title="Operations & Capabilities">
+  <ShaderHero
+    client:load
+    compact
+    eyebrow="Operations & capabilities"
+    title="Two operations, one operator"
+    accentWords={1}
+    description="Through the Amlabad block in Eastern Jharia, Jharkhand, Mangalam runs two commercial lines — underground coal across all four pits, and the coal bed methane held within the same seams — all under one operator."
+    primary={{ label: 'Safety & compliance', href: '/mirror/safety' }}
+  />
+  <Lines client:visible />
+  <PitMap client:visible />
+  <MagicBento client:visible />
+</MagicSite>

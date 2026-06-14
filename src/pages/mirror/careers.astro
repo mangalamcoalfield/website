@@ -1,106 +1,82 @@
 ---
-// MIRROR careers — cinematic-glass design mirror of the Careers page.
-// VISUAL-ONLY: the form below is NOT wired to Supabase. It is a styled,
-// static mock using the .form classes (onsubmit prevented). The PRODUCTION
-// page (src/pages/careers.astro) carries the real, working application form.
-import MirrorLayout from '../../layouts/MirrorLayout.astro';
+// MIRROR careers — Magic × Pro Max design (green/lime on coal-black).
+// VISUAL-ONLY: the form below is a styled static mock (onsubmit prevented).
+// The PRODUCTION page (src/pages/careers.astro) carries the real, wired form.
+import MagicSite from '../../layouts/MagicSite.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import { placeholderJobs } from '../../data/placeholders';
-const base = '/mirror';
+
+const jobs = placeholderJobs;
 ---
-<MirrorLayout title="Careers">
-  <!-- HERO -->
-  <section class="phero">
-    <div class="wrap">
-      <span class="eyebrow reveal in">Careers</span>
-      <h1 class="reveal in">Build a career in Indian <span class="u">coal mining</span>.</h1>
-      <p class="lead reveal in">From mining engineers to electrical and statutory roles — join a company that runs its operations to standard.</p>
+<MagicSite title="Careers">
+  <ShaderHero
+    client:load
+    compact
+    eyebrow="Careers"
+    title="Build a career in Indian coal mining"
+    accentWords={3}
+    description="From mining engineers to electrical and statutory roles — join a company that runs its operations to standard, with safety and statutory rigour on every shift."
+    primary={{ label: 'See open roles', href: '#roles' }}
+  />
+
+  <!-- Open roles -->
+  <section id="roles" class="mx-auto max-w-4xl px-6 py-24">
+    <div class="mb-12">
+      <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">Open roles</span>
+      <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold sm:text-4xl">Current openings.</h2>
+      <p class="mt-4 max-w-2xl text-muted-foreground">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
     </div>
+
+    <div class="grid gap-5">
+      {jobs.map((j) => (
+        <div class="flex items-start justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition hover:border-primary/30">
+          <div>
+            <h3 class="font-[var(--font-display)] text-xl font-semibold text-foreground">{j.title}</h3>
+            <div class="mt-2 flex gap-4 text-[13px] text-muted-foreground">
+              {j.dept && <span>{j.dept}</span>}
+              {j.location && <span>{j.location}</span>}
+              {j.type && <span>{j.type}</span>}
+            </div>
+            {j.description && <p class="mt-3 max-w-2xl text-sm text-muted-foreground">{j.description}</p>}
+          </div>
+          <a href="#apply" class="shrink-0 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold transition-colors hover:border-primary hover:text-primary">Apply</a>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-9 text-[13px] text-muted-foreground">Placeholder roles shown. Live openings are published from the careers pipeline on the live site.</p>
   </section>
 
-  <!-- OPEN ROLES -->
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Open roles</span>
-        <h2>Current openings.</h2>
-        <p class="lead">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
+  <!-- Apply -->
+  <section id="apply" class="border-t border-white/10 bg-white/[0.015] px-6 py-24 backdrop-blur-sm">
+    <div class="mx-auto max-w-xl">
+      <div class="mb-12 text-center">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">Apply</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold sm:text-4xl">Submit your application.</h2>
+        <p class="mt-4 text-muted-foreground">Tell us who you are, choose a role, and attach your résumé. We review every application.</p>
       </div>
 
-      <div class="bento stagger reveal">
-        {placeholderJobs.map((j) => (
-          <div class="glass glass-hover job full">
-            <div>
-              <h3>{j.title}</h3>
-              <div class="meta">
-                {j.dept && <span>{j.dept}</span>}
-                {j.location && <span>{j.location}</span>}
-                {j.type && <span>{j.type}</span>}
-              </div>
-              {j.description && <p>{j.description}</p>}
-            </div>
-            <a class="btn btn-ghost" href="#apply">Apply <svg width="16" height="16"><use href="#arrow"/></svg></a>
-          </div>
-        ))}
-      </div>
-
-      <p class="note reveal" style="margin-top:36px;font-size:13.5px;color:var(--on-dark-mut)">Placeholder roles shown. Live openings are published from the careers pipeline on the live site.</p>
+      <!-- VISUAL-ONLY mock form: not connected to anything. Submit is prevented. -->
+      <form onsubmit="event.preventDefault()" class="mx-auto grid max-w-xl gap-4">
+        <input type="text" name="name" placeholder="Full name" autocomplete="name" class="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground outline-none placeholder:text-muted-foreground focus:border-primary" />
+        <input type="email" name="email" placeholder="Email address" autocomplete="email" class="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground outline-none placeholder:text-muted-foreground focus:border-primary" />
+        <input type="tel" name="phone" placeholder="Phone number" autocomplete="tel" class="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground outline-none placeholder:text-muted-foreground focus:border-primary" />
+        <select name="role" class="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground outline-none focus:border-primary">
+          <option value="" disabled selected>Select a role…</option>
+          {jobs.map((j) => <option value={j.title}>{j.title}</option>)}
+          <option value="other">Other / general application</option>
+        </select>
+        <label class="text-sm text-muted-foreground">
+          <span class="mb-2 block">Résumé (PDF or DOCX)</span>
+          <input type="file" accept=".pdf,.doc,.docx" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground outline-none file:mr-4 file:rounded-lg file:border-0 file:bg-primary file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-primary-foreground focus:border-primary" />
+        </label>
+        <label class="flex gap-3 text-sm text-muted-foreground">
+          <input type="checkbox" name="consent" class="mt-1 size-4 shrink-0 accent-[#aecf3e]" />
+          <span>I consent to Mangalam Coalfield processing my personal data for recruitment, in line with the privacy notice under the DPDP Act, 2023.</span>
+        </label>
+        <button type="submit" class="mt-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.02]">Submit application</button>
+        <p class="mt-2 text-center text-[13px] text-muted-foreground">This is a design-mirror preview — applications are received and reviewed on the live site.</p>
+      </form>
     </div>
   </section>
-
-  <!-- APPLY -->
-  <section class="block" id="apply" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Apply</span>
-        <h2>Submit your application.</h2>
-        <p class="lead">Tell us who you are, choose a role, and attach your résumé. We review every application.</p>
-      </div>
-
-      <div class="glass reveal" style="padding:38px 36px;border-radius:24px">
-        <!-- VISUAL-ONLY mock form: not connected to Supabase. The live site
-             handles real submissions; here submit is prevented. -->
-        <form class="form" onsubmit="event.preventDefault()">
-          <div class="row two">
-            <div class="row">
-              <label for="m-name">Full name <span class="req">*</span></label>
-              <input id="m-name" name="name" type="text" placeholder="Your full name" autocomplete="name" />
-            </div>
-            <div class="row">
-              <label for="m-email">Email <span class="req">*</span></label>
-              <input id="m-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
-            </div>
-          </div>
-
-          <div class="row two">
-            <div class="row">
-              <label for="m-phone">Phone</label>
-              <input id="m-phone" name="phone" type="tel" placeholder="+91" autocomplete="tel" />
-            </div>
-            <div class="row">
-              <label for="m-role">Role <span class="req">*</span></label>
-              <select id="m-role" name="role">
-                <option value="" disabled selected>Select a role…</option>
-                {placeholderJobs.map((j) => <option value={j.title}>{j.title}</option>)}
-                <option value="other">Other / general application</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <label for="m-resume">Résumé <span class="req">*</span></label>
-            <input id="m-resume" name="resume" type="file" accept=".pdf,.doc,.docx" />
-          </div>
-
-          <label class="consent">
-            <input type="checkbox" name="consent" />
-            <span>I consent to Mangalam Coalfield processing my personal data for recruitment, in line with the <a href={`${base}/contact`}>privacy notice</a> under the DPDP Act, 2023.</span>
-          </label>
-
-          <button class="btn btn-primary" type="submit">Submit application <svg width="17" height="17"><use href="#arrow"/></svg></button>
-
-          <p class="note" style="font-size:13px;color:var(--on-dark-mut)">This is a design-mirror preview — applications are received and reviewed on the live site.</p>
-        </form>
-      </div>
-    </div>
-  </section>
-</MirrorLayout>
+</MagicSite>

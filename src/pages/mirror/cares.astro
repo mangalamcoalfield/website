@@ -1,49 +1,65 @@
 ---
-import MirrorLayout from '../../layouts/MirrorLayout.astro';
-const base = '/mirror';
----
-<MirrorLayout title="Mangalam Cares">
-  <!-- HERO -->
-  <section class="phero">
-    <div class="wrap">
-      <span class="eyebrow reveal in">Mangalam Cares</span>
-      <h1 class="reveal in">The work <span class="u">above ground</span> matters too.</h1>
-      <p class="lead reveal in">Beyond production, Mangalam invests in the people and the environment around the mine — community welfare and the land we operate on. We showcase our own contributions: completed work with evidence, and planned work clearly labelled.</p>
-    </div>
-  </section>
+import MagicSite from '../../layouts/MagicSite.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
 
-  <!-- CSR PROGRAMMES (bento) -->
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Our contributions</span>
-        <h2>Completed work, shown with evidence.</h2>
-        <p class="lead">A focused set of programmes — community welfare and skills training already underway, with green cover and water management planned next. Completed work carries evidence; planned work is labelled as such.</p>
+const programmes = [
+  {
+    status: 'Completed',
+    title: 'Community welfare',
+    body: 'Local engagement and welfare initiatives in the villages around the Amlabad block — putting the people who live alongside the mine first.',
+  },
+  {
+    status: 'Completed',
+    title: 'Skill & safety training',
+    body: 'Investment in workforce training and safety awareness for own and contractor labour, building capability that lasts beyond a single shift.',
+  },
+  {
+    status: 'Planned',
+    title: 'Green cover & reclamation',
+    body: 'Plantation and land-care contributions in the mine vicinity — restoring the ground we operate on as work moves through the lease.',
+  },
+  {
+    status: 'Planned',
+    title: 'Water & environment',
+    body: 'Responsible water management and dust-control measures around the mine, keeping the land and the people who depend on it at the centre.',
+  },
+];
+---
+<MagicSite title="Mangalam Cares">
+  <ShaderHero
+    client:load
+    compact
+    eyebrow="Mangalam Cares"
+    title="The work above ground matters too"
+    accentWords={2}
+    description="Beyond production, Mangalam invests in the people and the environment around the mine — community welfare and the land we operate on. We showcase our own contributions: completed work with evidence, and planned work clearly labelled."
+  />
+
+  <section class="relative bg-background py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 max-w-2xl">
+        <span class="mb-4 inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">Our contributions</span>
+        <h2 class="font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Completed work, shown with evidence.</h2>
+        <p class="mt-4 text-base leading-relaxed text-muted-foreground">A focused set of programmes — community welfare and skills training already underway, with green cover and water management planned next. Completed work carries evidence; planned work is labelled as such.</p>
       </div>
-      <div class="bento stagger reveal">
-        <div class="glass glass-hover cell col-4">
-          <span class="pill done">Completed</span>
-          <h3>Community welfare around Amlabad</h3>
-          <p>Local engagement and welfare initiatives in the villages around the Amlabad block.</p>
-        </div>
-        <div class="glass glass-hover cell col-4">
-          <span class="pill done">Completed</span>
-          <h3>Skill &amp; safety training</h3>
-          <p>Investment in workforce training and safety awareness for own and contractor labour.</p>
-        </div>
-        <div class="glass glass-hover cell col-4">
-          <span class="pill plan">Planned</span>
-          <h3>Green cover &amp; reclamation</h3>
-          <p>Plantation and land-care contributions in the mine vicinity (planned).</p>
-        </div>
-        <div class="glass glass-hover cell col-4">
-          <span class="pill plan">Planned</span>
-          <h3>Water &amp; environment management</h3>
-          <p>Responsible water management and dust-control measures (planned).</p>
-        </div>
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {programmes.map((p) => (
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition hover:border-primary/30">
+            {p.status === 'Completed' ? (
+              <span class="mb-4 inline-block rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">Completed</span>
+            ) : (
+              <span class="mb-4 inline-block rounded-full bg-secondary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-secondary">Planned</span>
+            )}
+            <h3 class="font-[var(--font-display)] text-lg font-semibold text-foreground">{p.title}</h3>
+            <p class="mt-2 text-sm text-muted-foreground">{p.body}</p>
+          </div>
+        ))}
       </div>
-      <p class="note reveal" style="margin-top:48px;font-size:14px;color:var(--on-dark-mut);padding-top:24px;border-top:1px solid var(--line)">Placeholder programmes shown. Real CSR write-ups — with evidence for completed work — will be published from the content track.</p>
-      <div class="reveal" style="margin-top:30px"><a class="tlink" href={base}>Back to overview <svg width="18" height="18"><use href="#arrow"/></svg></a></div>
+
+      <p class="mt-12 max-w-3xl text-sm text-muted-foreground">
+        Placeholder programmes shown, pending the content track. The framing stays the same: our own contributions — completed work shown with evidence, planned work clearly labelled.
+      </p>
     </div>
   </section>
-</MirrorLayout>
+</MagicSite>
