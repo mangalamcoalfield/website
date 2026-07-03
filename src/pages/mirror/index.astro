@@ -2,6 +2,7 @@
 import MagicSite from '../../layouts/MagicSite.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import MagicBento from '../../components/magic/MagicBento.tsx';
+import ScrollScene from '../../components/magic/ScrollScene.tsx';
 import { Marquee, Stats, Lines, Safety, CTA } from '../../components/magic/MagicSections.tsx';
 ---
 <MagicSite>
@@ -17,6 +18,7 @@ import { Marquee, Stats, Lines, Safety, CTA } from '../../components/magic/Magic
   <Marquee client:visible />
   <Stats client:visible />
   <Lines client:visible />
+  <ScrollScene client:visible />
   <MagicBento client:visible />
   <Safety client:visible />
   <CTA client:visible />

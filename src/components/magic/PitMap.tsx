@@ -28,25 +28,25 @@ export default function PitMap() {
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-4">
             <svg viewBox="0 0 100 60" className="h-auto w-full" role="img" aria-label="Amlabad pit cross-section">
               <defs>
-                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1510" /><stop offset="1" stop-color="#0a1f15" /></linearGradient>
-                <linearGradient id="seam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16301f" /><stop offset="1" stop-color="#0c1a12" /></linearGradient>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#0b1510" /><stop offset="1" stopColor="#0a1f15" /></linearGradient>
+                <linearGradient id="seam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#16301f" /><stop offset="1" stopColor="#0c1a12" /></linearGradient>
               </defs>
               <rect x="0" y="0" width="100" height="24" fill="url(#sky)" />
               {/* ground strata */}
               <rect x="0" y="24" width="100" height="36" fill="url(#seam)" />
-              <path d="M0 30 Q25 27 50 30 T100 30" stroke="rgba(255,255,255,.06)" stroke-width="0.4" fill="none" />
-              <path d="M0 40 Q25 37 50 40 T100 40" stroke="rgba(174,207,62,.18)" stroke-width="0.5" fill="none" />
-              <path d="M0 50 Q25 47 50 50 T100 50" stroke="rgba(255,255,255,.05)" stroke-width="0.4" fill="none" />
+              <path d="M0 30 Q25 27 50 30 T100 30" stroke="rgba(255,255,255,.06)" strokeWidth="0.4" fill="none" />
+              <path d="M0 40 Q25 37 50 40 T100 40" stroke="rgba(174,207,62,.18)" strokeWidth="0.5" fill="none" />
+              <path d="M0 50 Q25 47 50 50 T100 50" stroke="rgba(255,255,255,.05)" strokeWidth="0.4" fill="none" />
               {/* shafts */}
               {pits.map((pit, i) => {
                 const on = i === active;
                 return (
                   <g key={pit.no} className="cursor-pointer" onMouseEnter={() => setActive(i)} onClick={() => setActive(i)}>
                     <rect x={pit.x - 8} y="0" width="16" height="60" fill="transparent" />
-                    <line x1={pit.x} y1="24" x2={pit.x} y2="50" stroke={on ? '#aecf3e' : 'rgba(255,255,255,.18)'} stroke-width={on ? 1 : 0.6} />
+                    <line x1={pit.x} y1="24" x2={pit.x} y2="50" stroke={on ? '#aecf3e' : 'rgba(255,255,255,.18)'} strokeWidth={on ? 1 : 0.6} />
                     <circle cx={pit.x} cy="24" r={on ? 2.6 : 1.8} fill={on ? '#aecf3e' : '#5e9a89'} style={on ? { filter: 'drop-shadow(0 0 3px #aecf3e)' } : undefined} />
                     <circle cx={pit.x} cy="50" r="1.2" fill={on ? '#aecf3e' : 'rgba(174,207,62,.4)'} />
-                    <text x={pit.x} y="20" text-anchor="middle" fontSize="3" fill={on ? '#aecf3e' : 'rgba(233,234,228,.6)'} style={{ fontWeight: 700 }}>{pit.no}</text>
+                    <text x={pit.x} y="20" textAnchor="middle" fontSize="3" fill={on ? '#aecf3e' : 'rgba(233,234,228,.6)'} style={{ fontWeight: 700 }}>{pit.no}</text>
                   </g>
                 );
               })}
