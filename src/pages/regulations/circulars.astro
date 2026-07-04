@@ -3,7 +3,7 @@ import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import circulars from '../../data/circular-index.json';
 
-// "Circular Finder" — search the 271 older DGMS circulars (1995–2017) that live
+// "Circular Finder" — search the older DGMS circulars (1995–present) that live
 // inside the big consolidated compilations. Each entry maps a circular reference
 // to its compilation file + page. Compilation files are hosted on docs.* once
 // uploaded; links use a #page anchor.
@@ -21,8 +21,8 @@ const breadcrumbLd = {
 };
 ---
 <Site
-  title="DGMS Circular Finder — 1995–2017 archive"
-  description="Search the DGMS circular archive (1995–2017). Find any older DGMS circular, notification or G.S.R. reference and see exactly which consolidated compilation and page it appears on — with a direct download."
+  title="DGMS Circular Finder — 1995–present archive"
+  description="Search the DGMS circular archive (1995–present). Find any DGMS circular, notification or G.S.R. reference and see exactly which consolidated compilation and page it appears on — with a direct download."
   jsonLd={breadcrumbLd}
 >
   <ShaderHero
@@ -30,7 +30,7 @@ const breadcrumbLd = {
     eyebrow="Regulation desk"
     title="DGMS Circular Finder"
     accentWords={1}
-    description="Search hundreds of older DGMS circulars, notifications and G.S.R. references (1995–2017) that live inside the consolidated compilations — and jump straight to the right file and page."
+    description="Search hundreds of DGMS circulars, notifications and G.S.R. references (1995–present) that live inside the consolidated compilations — and jump straight to the right file and page."
     primary={{ label: 'Back to the library', href: '/regulations' }}
   />
 

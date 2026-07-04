@@ -83,6 +83,7 @@ export interface Regulation {
   authority: string | null;
   issued_date: string | null;
   status: string;
+  status_note: string | null;
   source_url: string | null;
   download_url: string | null;
   file_size_kb: number | null;

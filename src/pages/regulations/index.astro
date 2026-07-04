@@ -10,7 +10,7 @@ let regs = await safeSelect<Regulation>((c) =>
 );
 const usingPlaceholder = regs.length === 0;
 if (usingPlaceholder) regs = [
-  { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
+  { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', status_note: null, source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
 ] as Regulation[];
 
 const CAT: Record<string, string> = {
