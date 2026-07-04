@@ -3,13 +3,20 @@ import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import circulars from '../../data/circular-index.json';
 
-// "Circular Finder" — search the older DGMS circulars (1995–present) that live
-// inside the big consolidated compilations. Each entry maps a circular reference
-// to its compilation file + page. Compilation files are hosted on docs.* once
-// uploaded; links use a #page anchor.
+// "Circular Finder" — search DGMS circulars buried inside the big consolidated
+// compilations. Each entry maps a circular to its compilation file + physical
+// page (so the #page anchor lands on it). 2018–2024 entries carry a clean
+// subject parsed from the compilation's table of contents.
 const DOCS_BASE = 'https://docs.mangalamcoal.com/regs';
-interface CItem { ref: string; compilation_filename: string; page: number; set: string; snippet: string }
-const items = circulars as CItem[];
+interface CItem { ref: string; subject?: string; date?: string; compilation_filename: string; page: number; printed_page?: number; set: string; snippet: string }
+const items = (circulars as CItem[]).map((c) => ({
+  ...c,
+  subjectText: c.subject || '',
+  displayPage: c.printed_page ?? c.page,
+  setLabel: c.set === '2018-2024' ? '2018–2024' : '1995–2017',
+}));
+const count2017 = items.filter((c) => c.set !== '2018-2024').length;
+const count2018 = items.filter((c) => c.set === '2018-2024').length;
 
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -22,7 +29,7 @@ const breadcrumbLd = {
 ---
 <Site
   title="DGMS Circular Finder — 1995–present archive"
-  description="Search the DGMS circular archive (1995–present). Find any DGMS circular, notification or G.S.R. reference and see exactly which consolidated compilation and page it appears on — with a direct download."
+  description="Search the DGMS circular archive (1995–present). Find any DGMS circular, notification or G.S.R. reference and jump to the exact compilation and page — with the circular's subject and a direct link."
   jsonLd={breadcrumbLd}
 >
   <ShaderHero
@@ -36,43 +43,80 @@ const breadcrumbLd = {
 
   <section class="relative bg-background py-16">
     <div class="mx-auto max-w-5xl px-6">
-      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <p class="max-w-2xl text-muted-foreground">{items.length} indexed circulars. Type a circular number, year, G.S.R. number, or subject — results show the exact compilation and page.</p>
-        <input id="cfind" type="search" placeholder="e.g. 20.06.2013, G.S.R. 614, ventilation…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-80" aria-label="Search circulars" />
+      <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <p class="max-w-2xl text-muted-foreground">{items.length} indexed circulars. Type a circular number, year, subject or G.S.R. number — results show the subject and open the compilation at the right page.</p>
+        <input id="cfind" type="search" placeholder="e.g. ventilation, No. 07 of 2020, G.S.R. 614…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-80" aria-label="Search circulars" />
+      </div>
+
+      <div id="setchips" class="mb-8 flex flex-wrap gap-2.5">
+        <button class="setchip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-set="all">All ({items.length})</button>
+        <button class="setchip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-set="2018-2024">2018–2024 ({count2018})</button>
+        <button class="setchip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-set="1995-2017">1995–2017 ({count2017})</button>
       </div>
 
       <div id="clist" class="flex flex-col gap-3">
         {items.map((c) => (
           <div class="citem rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm transition-colors hover:border-primary/30"
-            data-text={`${c.ref} ${c.snippet} ${c.set}`.toLowerCase()}>
+            data-text={`${c.ref} ${c.subjectText} ${c.snippet} ${c.setLabel}`.toLowerCase()}
+            data-set={c.set === '2018-2024' ? '2018-2024' : '1995-2017'}>
             <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div class="min-w-0">
                 <h3 class="font-[var(--font-display)] font-semibold text-foreground">{c.ref}</h3>
-                <p class="mt-1 text-[13px] text-muted-foreground">
-                  <span class="text-foreground/70">Inside:</span> {c.set} compilation · <span class="text-foreground/70">page</span> {c.page}
+                {c.subjectText
+                  ? <p class="mt-1 text-[13px] leading-relaxed text-muted-foreground">{c.subjectText}</p>
+                  : (c.snippet && <p class="mt-1 line-clamp-2 text-[13px] italic leading-relaxed text-muted-foreground/80">…{c.snippet}…</p>)}
+                <p class="mt-2 text-[12px] text-muted-foreground/70">
+                  <span class="text-foreground/60">In the</span> {c.setLabel} compilation · <span class="text-foreground/60">page</span> {c.displayPage}
                 </p>
-                {c.snippet && <p class="mt-2 line-clamp-2 text-[13px] italic leading-relaxed text-muted-foreground/80">…{c.snippet}…</p>}
               </div>
-              <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.page}`} rel="noopener"
-                class="shrink-0 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Open · p.{c.page}</a>
+              <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.page}`} target="_blank" rel="noopener noreferrer"
+                class="shrink-0 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Open ↗</a>
             </div>
           </div>
         ))}
       </div>
-      <p id="cnone" class="hidden py-10 text-center text-muted-foreground">No circulars match your search.</p>
-      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">These older circulars are indexed inside the DGMS consolidated compilations; the link opens the compilation at the cited page. Reproduced from the official DGMS archive for public reference.</p>
+
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <button id="showmore" class="rounded-full border border-white/15 bg-white/[0.04] px-6 py-2.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Show more</button>
+        <p id="cnone" class="hidden text-center text-muted-foreground">No circulars match your search.</p>
+        <p id="ccount" class="text-[12px] text-muted-foreground/60"></p>
+      </div>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">These circulars are indexed inside the DGMS consolidated compilations; “Open” launches the compilation at the cited page in a new tab. Reproduced from the official DGMS archive for public reference.</p>
     </div>
   </section>
 
   <script>
+    const PAGE = 24;
     const items = Array.from(document.querySelectorAll('#clist .citem')) as HTMLElement[];
     const input = document.getElementById('cfind') as HTMLInputElement;
     const none = document.getElementById('cnone');
-    input?.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
-      let n = 0;
-      items.forEach((it) => { const show = !q || (it.dataset.text || '').includes(q); it.style.display = show ? '' : 'none'; if (show) n++; });
-      none?.classList.toggle('hidden', n !== 0);
-    });
+    const more = document.getElementById('showmore') as HTMLButtonElement;
+    const countEl = document.getElementById('ccount');
+    const chips = document.querySelectorAll('#setchips .setchip');
+    let activeSet = 'all';
+    let shown = PAGE;
+
+    function matches(el: HTMLElement, q: string) {
+      const okSet = activeSet === 'all' || el.dataset.set === activeSet;
+      const okQ = !q || (el.dataset.text || '').includes(q);
+      return okSet && okQ;
+    }
+    function render() {
+      const q = (input?.value || '').trim().toLowerCase();
+      const filtered = items.filter((el) => matches(el, q));
+      items.forEach((el) => { el.style.display = 'none'; });
+      filtered.slice(0, shown).forEach((el) => { el.style.display = ''; });
+      none?.classList.toggle('hidden', filtered.length !== 0);
+      if (more) more.style.display = filtered.length > shown ? '' : 'none';
+      if (countEl) countEl.textContent = filtered.length ? `Showing ${Math.min(shown, filtered.length)} of ${filtered.length}` : '';
+    }
+    input?.addEventListener('input', () => { shown = PAGE; render(); });
+    more?.addEventListener('click', () => { shown += PAGE; render(); });
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); c.classList.add('text-muted-foreground', 'border-white/12'); });
+      chip.classList.add('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); chip.classList.remove('text-muted-foreground', 'border-white/12');
+      activeSet = (chip as HTMLElement).dataset.set || 'all'; shown = PAGE; render();
+    }));
+    render();
   </script>
 </Site>

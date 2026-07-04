@@ -16,6 +16,7 @@ create table if not exists public.regulations (
   issued_date  date,
   status       text not null default 'in_force', -- in_force | draft | superseded
   status_note  text,                          -- short clarifier shown by the status badge (e.g. what superseded it)
+  featured     boolean not null default false, -- cornerstone instruments shown as cards at the top of the hub
   source_url   text,                          -- official canonical source
   download_url text,                          -- externally hosted PDF (filled after upload)
   file_size_kb integer,

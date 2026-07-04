@@ -90,6 +90,7 @@ export interface Regulation {
   tags: string[] | null;
   relevance: number | null;
   sort_order: number | null;
+  featured?: boolean | null;
 }
 
 /**
