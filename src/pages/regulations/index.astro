@@ -1,0 +1,123 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import { safeSelect, type Regulation } from '../../lib/supabase';
+
+// Data-driven from `regulations` (published only). Files hosted externally;
+// download_url filled after upload. Placeholder fallback keeps the build green.
+let regs = await safeSelect<Regulation>((c) =>
+  c.from('regulations').select('*').eq('published', true).order('sort_order', { ascending: true })
+);
+const usingPlaceholder = regs.length === 0;
+if (usingPlaceholder) regs = [
+  { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
+] as Regulation[];
+
+const CAT: Record<string, string> = {
+  cmr_2017: 'Coal Mines Regulations', mines_act: 'Mines Act & Rules', dgms_circular: 'DGMS Circulars',
+  dgms_notification: 'DGMS Notifications', labour_code: 'Labour Codes', mmdr: 'MMDR & Mineral Concession',
+  env_forest: 'Environment & Forest', moc: 'Ministry of Coal Guidelines', cea: 'Electrical (CEA)', draft: 'Drafts & Consultations',
+};
+const order = ['cmr_2017', 'mines_act', 'dgms_circular', 'dgms_notification', 'mmdr', 'env_forest', 'labour_code', 'cea', 'moc', 'draft'];
+const cats = order.filter((c) => regs.some((r) => r.category === c));
+const statusBadge = (s: string) => s === 'draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'superseded' ? 'bg-white/10 text-muted-foreground' : 'bg-primary/15 text-primary';
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Indian Coal-Mining Regulations — Library',
+  description: 'A curated, searchable library of Indian coal-mining regulations, circulars and codes with plain-language summaries, official sources and downloads.',
+  url: 'https://mangalamcoal.com/regulations',
+  isPartOf: { '@type': 'WebSite', name: 'Mangalam Coalfield', url: 'https://mangalamcoal.com' },
+  about: cats.map((c) => ({ '@type': 'Thing', name: CAT[c] })),
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+  ],
+};
+---
+<Site
+  title="Indian Coal-Mining Regulations — Library"
+  description="A free, searchable library of Indian coal-mining regulations — Coal Mines Regulations 2017, the Mines Act, DGMS circulars, labour codes, MMDR & environment rules — with plain-language summaries, official sources and downloads."
+  jsonLd={[collectionLd, breadcrumbLd]}
+>
+  <ShaderHero
+    client:load compact
+    eyebrow="Regulation desk"
+    title="Indian coal-mining regulations, in one place"
+    accentWords={2}
+    description="A free, curated library of the regulations, circulars and codes that govern Indian coal mining — each with a plain-language summary, the official source, and a download. Built to help the industry, not to sell."
+    primary={{ label: 'Browse the library', href: '#library' }}
+  />
+
+  <section id="library" class="relative bg-background py-16">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <p class="max-w-2xl text-muted-foreground">Search {regs.length} regulations across {cats.length} areas. Every entry links to its official government source; downloads are hosted here for convenience.</p>
+        <input id="regsearch" type="search" placeholder="Search regulations…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-72" aria-label="Search regulations" />
+      </div>
+
+      <div id="chips" class="mb-10 flex flex-wrap gap-2.5">
+        <button class="chip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-cat="all">All</button>
+        {cats.map((c) => (<button class="chip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-cat={c}>{CAT[c]}</button>))}
+      </div>
+
+      <div id="reglist" class="flex flex-col gap-10">
+        {cats.map((c) => (
+          <div class="reg-group" data-cat={c}>
+            <h2 class="mb-4 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground">{CAT[c]}</h2>
+            <div class="grid gap-3 md:grid-cols-2">
+              {regs.filter((r) => r.category === c).map((r) => (
+                <a href={`/regulations/${r.slug}`} data-title={r.title.toLowerCase()} data-cat={c}
+                  class="regcard group rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-primary/30">
+                  <div class="flex items-start justify-between gap-3">
+                    <h3 class="font-[var(--font-display)] text-lg font-semibold text-foreground">{r.title}</h3>
+                    <span class={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${statusBadge(r.status)}`}>{r.status === 'in_force' ? 'In force' : r.status}</span>
+                  </div>
+                  <div class="mt-1.5 flex flex-wrap gap-x-3 text-[12px] text-muted-foreground">
+                    {r.doc_number && <span>{r.doc_number}</span>}
+                    {r.authority && <span>{r.authority}</span>}
+                    {r.issued_date && <span>{r.issued_date}</span>}
+                  </div>
+                  {r.summary && <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{r.summary}</p>}
+                  <span class="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary">Read &amp; download →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p id="noresults" class="hidden py-10 text-center text-muted-foreground">No regulations match your search.</p>
+      {usingPlaceholder && <p class="mt-10 text-sm text-muted-foreground">Library is being populated — full catalogue lands shortly.</p>}
+    </div>
+  </section>
+
+  <script>
+    const chips = document.querySelectorAll('#chips .chip');
+    const cards = Array.from(document.querySelectorAll('#reglist .regcard')) as HTMLElement[];
+    const groups = Array.from(document.querySelectorAll('#reglist .reg-group')) as HTMLElement[];
+    const search = document.getElementById('regsearch') as HTMLInputElement;
+    const noresults = document.getElementById('noresults');
+    let activeCat = 'all';
+    function apply() {
+      const q = (search?.value || '').trim().toLowerCase();
+      let visible = 0;
+      cards.forEach((c) => {
+        const okCat = activeCat === 'all' || c.dataset.cat === activeCat;
+        const okQ = !q || (c.dataset.title || '').includes(q);
+        const show = okCat && okQ; c.style.display = show ? '' : 'none'; if (show) visible++;
+      });
+      groups.forEach((g) => { g.style.display = g.querySelectorAll('.regcard:not([style*="display: none"])').length ? '' : 'none'; });
+      if (noresults) noresults.classList.toggle('hidden', visible !== 0);
+    }
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('active','bg-primary','text-primary-foreground','border-primary'); c.classList.add('text-muted-foreground','border-white/12'); });
+      chip.classList.add('active','bg-primary','text-primary-foreground','border-primary'); chip.classList.remove('text-muted-foreground','border-white/12');
+      activeCat = (chip as HTMLElement).dataset.cat || 'all'; apply();
+    }));
+    search?.addEventListener('input', apply);
+  </script>
+</Site>

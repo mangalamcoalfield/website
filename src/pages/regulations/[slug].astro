@@ -1,0 +1,98 @@
+---
+import Site from '../../layouts/Site.astro';
+import { safeSelect, type Regulation } from '../../lib/supabase';
+
+export async function getStaticPaths() {
+  let regs = await safeSelect<Regulation>((c) =>
+    c.from('regulations').select('*').eq('published', true)
+  );
+  if (regs.length === 0) regs = [
+    { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
+  ] as Regulation[];
+  return regs.map((r) => ({ params: { slug: r.slug }, props: { reg: r } }));
+}
+
+interface Props { reg: Regulation }
+const { reg } = Astro.props;
+const CAT: Record<string, string> = {
+  cmr_2017: 'Coal Mines Regulations', mines_act: 'Mines Act & Rules', dgms_circular: 'DGMS Circulars',
+  dgms_notification: 'DGMS Notifications', labour_code: 'Labour Codes', mmdr: 'MMDR & Mineral Concession',
+  env_forest: 'Environment & Forest', moc: 'Ministry of Coal Guidelines', cea: 'Electrical (CEA)', draft: 'Drafts & Consultations',
+};
+const catLabel = CAT[reg.category] || reg.category;
+const statusLabel = reg.status === 'in_force' ? 'In force' : reg.status === 'draft' ? 'Draft — not in force' : 'Superseded';
+
+const legislationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Legislation',
+  name: reg.title,
+  legislationType: catLabel,
+  ...(reg.doc_number ? { legislationIdentifier: reg.doc_number } : {}),
+  ...(reg.issued_date ? { legislationDate: reg.issued_date } : {}),
+  legislationJurisdiction: 'India',
+  ...(reg.authority ? { legislationResponsible: reg.authority } : {}),
+  ...(reg.summary ? { description: reg.summary } : {}),
+  ...(reg.source_url ? { sameAs: reg.source_url } : {}),
+  url: `https://mangalamcoal.com/regulations/${reg.slug}`,
+  isPartOf: { '@type': 'CollectionPage', name: 'Indian Coal-Mining Regulations — Library', url: 'https://mangalamcoal.com/regulations' },
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: reg.title, item: `https://mangalamcoal.com/regulations/${reg.slug}` },
+  ],
+};
+---
+<Site title={`${reg.title} — Regulation`} description={reg.summary || `${reg.title}: official Indian coal-mining regulation — summary, source and download.`} jsonLd={[legislationLd, breadcrumbLd]}>
+  <section class="relative bg-background px-6 pb-8 pt-32">
+    <div class="mx-auto max-w-3xl">
+      <nav class="mb-6 flex items-center gap-2 text-[13px] text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/regulations" class="transition-colors hover:text-primary">Regulations</a>
+        <span>/</span><span class="text-foreground/70">{catLabel}</span>
+      </nav>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">{catLabel}</span>
+        <span class={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ${reg.status === 'draft' ? 'bg-secondary/20 text-[#9ed3c4]' : reg.status === 'superseded' ? 'bg-white/10 text-muted-foreground' : 'bg-primary/15 text-primary'}`}>{statusLabel}</span>
+      </div>
+      <h1 class="mt-4 font-[var(--font-display)] text-3xl font-bold leading-[1.08] tracking-tight text-foreground md:text-5xl">{reg.title}</h1>
+      <div class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
+        {reg.doc_number && <span><span class="text-foreground/60">No.</span> {reg.doc_number}</span>}
+        {reg.authority && <span><span class="text-foreground/60">Issued by</span> {reg.authority}</span>}
+        {reg.issued_date && <span><span class="text-foreground/60">Date</span> {reg.issued_date}</span>}
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-background pb-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div class="font-[var(--font-display)] font-semibold text-foreground">Download</div>
+            <div class="text-sm text-muted-foreground">{reg.download_url ? `PDF${reg.file_size_kb ? ` · ${(reg.file_size_kb/1024).toFixed(1)} MB` : ''}` : 'Preparing hosted copy — use the official source below in the meantime.'}</div>
+          </div>
+          {reg.download_url ? (
+            <a href={reg.download_url} rel="noopener" download class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Download PDF</a>
+          ) : reg.source_url ? (
+            <a href={reg.source_url} rel="noopener" class="shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source ↗</a>
+          ) : null}
+        </div>
+      </div>
+
+      {reg.summary && (
+        <div class="mt-10">
+          <h2 class="font-[var(--font-display)] text-2xl font-bold text-foreground">Summary</h2>
+          <p class="mt-3 text-[17px] leading-8 text-muted-foreground">{reg.summary}</p>
+        </div>
+      )}
+
+      <div class="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm">
+        {reg.source_url && <a href={reg.source_url} rel="noopener" class="text-primary underline">Official source ({reg.authority || 'gov.in'}) ↗</a>}
+        <a href="/regulations" class="text-muted-foreground transition-colors hover:text-primary">← All regulations</a>
+      </div>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Reproduced for public reference from the official source. Government regulations are in the public domain; always verify the current in-force text against the official publication.</p>
+    </div>
+  </section>
+</Site>

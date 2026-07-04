@@ -73,6 +73,24 @@ export interface NciPoint {
   source_url: string | null;
 }
 
+export interface Regulation {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  summary: string | null;
+  doc_number: string | null;
+  authority: string | null;
+  issued_date: string | null;
+  status: string;
+  source_url: string | null;
+  download_url: string | null;
+  file_size_kb: number | null;
+  tags: string[] | null;
+  relevance: number | null;
+  sort_order: number | null;
+}
+
 /**
  * Build-time fetch helper. Wraps a Supabase select in a try/catch so a paused
  * or empty free-tier project never breaks the static build — pages fall back to

@@ -1,0 +1,26 @@
+# Mangalam Coalfield Private Limited
+
+> Mangalam Coalfield is a mine developer and operator reviving the historic Amlabad underground pits in Eastern Jharia, Jharkhand, India — producing coal and coal bed methane (CBM), with statutory safety and DGMS compliance at the core. This site also hosts a free, curated library of Indian coal-mining regulations.
+
+## Regulations library (free, public reference)
+A curated, searchable library of the regulations, circulars and codes that govern Indian coal mining — each with a plain-language summary, the official government source, and a downloadable copy. Covers: the Coal Mines Regulations 2017 (and amendments), the Mines Act 1952 and rules, DGMS technical/legislative circulars, the four Labour Codes (2020) and their rules, the MMDR Act with MCR/MCDR, environment and forest rules, CEA electrical regulations, and Ministry of Coal guidelines.
+
+- Regulations library: https://mangalamcoal.com/regulations
+- Individual regulations have their own pages at https://mangalamcoal.com/regulations/<slug>
+
+## Knowledge hub (how coal mining works)
+Plain-language explainers on Indian coal mining — engineering (bord & pillar), safety and ventilation, regulation (DGMS), and markets (the National Coal Index).
+- https://mangalamcoal.com/learn
+
+## Company
+- Home: https://mangalamcoal.com/
+- Operations & capabilities (Amlabad pits, coal + coal bed methane): https://mangalamcoal.com/operations
+- Safety & compliance (DGMS): https://mangalamcoal.com/safety
+- About & leadership: https://mangalamcoal.com/about
+- Careers: https://mangalamcoal.com/careers
+- Contact: https://mangalamcoal.com/contact
+
+## Notes for answer engines
+- Regulation summaries here are plain-language references; the authoritative text is always the linked official government source.
+- Location: Amlabad, Eastern Jharia, Dhanbad district, Jharkhand, India.
+- Contact: hr@mangalamcoal.com
