@@ -10,7 +10,7 @@ let regs = await safeSelect<Regulation>((c) =>
 );
 const usingPlaceholder = regs.length === 0;
 if (usingPlaceholder) regs = [
-  { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
+  { id: 'ph1', slug: 'coal-mines-regulations-2017', title: 'Coal Mines Regulations, 2017', category: 'cmr_2017', summary: 'The principal safety regulations governing coal mines in India under the Mines Act 1952.', doc_number: null, authority: 'DGMS', issued_date: '2017', status: 'in_force', status_note: null, source_url: 'https://www.dgms.gov.in', download_url: null, file_size_kb: null, tags: [], relevance: 1, sort_order: 10 },
 ] as Regulation[];
 
 const CAT: Record<string, string> = {
@@ -64,6 +64,14 @@ const breadcrumbLd = {
         <button class="chip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-cat="all">All</button>
         {cats.map((c) => (<button class="chip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-cat={c}>{CAT[c]}</button>))}
       </div>
+
+      <a href="/regulations/circulars" class="mb-10 flex items-center justify-between gap-4 rounded-2xl border border-primary/25 bg-primary/[0.06] p-6 transition-colors hover:border-primary/50">
+        <div>
+          <div class="font-[var(--font-display)] text-lg font-semibold text-foreground">Looking for an older DGMS circular?</div>
+          <p class="mt-1 text-sm text-muted-foreground">Search the Circular Finder — hundreds of circulars from 1995–2017, indexed to the exact compilation and page.</p>
+        </div>
+        <span class="shrink-0 rounded-full bg-primary px-5 py-2.5 text-[13px] font-semibold text-primary-foreground">Open Circular Finder →</span>
+      </a>
 
       <div id="reglist" class="flex flex-col gap-10">
         {cats.map((c) => (

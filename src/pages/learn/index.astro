@@ -20,7 +20,10 @@ const delta = latest && prev ? latest.value - prev.value : 0;
 const trend = delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat';
 const trendSym = delta > 0 ? '▲' : delta < 0 ? '▼' : '—';
 
-const categories = ['regulation', 'safety', 'operations', 'markets'] as const;
+// 'regulation' is intentionally NOT a filter chip anymore — regulations now live
+// in their own dedicated hub at /regulations. catLabel still maps it for any
+// legacy entries that render under "All".
+const categories = ['safety', 'operations', 'markets'] as const;
 const catLabel: Record<string, string> = { regulation: 'Regulation', safety: 'Safety', operations: 'Operations', markets: 'Markets' };
 const hrefFor = (e: KnowledgeEntry) =>
   e.type === 'explainer' && e.slug ? `/learn/${e.slug}` : e.source_url || (e.slug ? `/learn/${e.slug}` : '/learn');
@@ -43,7 +46,7 @@ const monthLabel = (m: string) => {
     <section class="relative bg-background pb-6 pt-2">
       <div class="mx-auto max-w-6xl px-6">
         <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
-          <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Markets · National Coal Index</span>
+          <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Markets · National Coal Index — coking coal</span>
           <div class="mt-6 grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
               <div class="text-[11px] uppercase tracking-wide text-muted-foreground">Latest NCI · {monthLabel(latest.month)}</div>
@@ -61,8 +64,8 @@ const monthLabel = (m: string) => {
             )}
           </div>
           <p class="mt-6 max-w-2xl text-sm text-muted-foreground">
-            The National Coal Index is published monthly by the Ministry of Coal.
-            {latest.source_url && (<> Source: <a href={latest.source_url} rel="noopener" class="text-primary underline">coal.nic.in</a>.</>)} It is a monthly index, not a live price.
+            This is the <strong class="text-foreground/80">coking-coal sub-index</strong> of the National Coal Index — the segment Mangalam produces — not the headline all-coal figure. Published monthly by the Ministry of Coal (base year 2017-18).
+            {latest.source_url && (<> Source: <a href={latest.source_url} rel="noopener" class="text-primary underline">coal.gov.in</a>.</>)} It is a monthly index, not a live price.
           </p>
         </div>
       </div>
@@ -76,6 +79,14 @@ const monthLabel = (m: string) => {
         <h2 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">The reference library.</h2>
         <p class="mt-4 text-muted-foreground">Curated explainers and version-dated links to canonical sources — DGMS, the Ministry of Coal, the Coal Mines Regulations 2017 and the Mines Act.</p>
       </div>
+
+      <a href="/regulations" class="mb-8 flex items-center justify-between gap-4 rounded-2xl border border-primary/25 bg-primary/[0.06] p-5 transition-colors hover:border-primary/50">
+        <div>
+          <div class="font-[var(--font-display)] text-base font-semibold text-foreground">Looking for the regulations themselves?</div>
+          <p class="mt-1 text-sm text-muted-foreground">The full searchable, downloadable library — Acts, rules, DGMS circulars and codes — now lives in the Regulations hub.</p>
+        </div>
+        <span class="shrink-0 rounded-full bg-primary px-5 py-2.5 text-[13px] font-semibold text-primary-foreground">Open Regulations →</span>
+      </a>
 
       <div id="chips" class="mb-8 flex flex-wrap gap-2.5">
         <button class="chip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-cat="all">All</button>

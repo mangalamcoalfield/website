@@ -133,20 +133,26 @@ export const placeholderKnowledge: KnowledgeEntry[] = [
   },
 ];
 
-/** Latest known public NCI point. Update monthly from coal.nic.in (PDF). */
+/**
+ * Latest known public NCI point — the COKING COAL sub-index (Mangalam produces
+ * coking coal, so the coking sub-index is the relevant series, not the headline
+ * all-coal index). Base year 2017-18. Update monthly from the Ministry of Coal
+ * NCI Office Memorandum PDF at coal.gov.in/nominated-authority/national-coal-index.
+ * Current values from the provisional NCI for May 2026 (released 01.07.2026).
+ */
 export const placeholderNci: NciPoint[] = [
   {
     id: 'ph-1',
-    month: '2026-04',
-    value: 148.4,
-    sub_index: 'Non-coking · all-India',
-    source_url: 'https://coal.nic.in',
+    month: '2026-05',
+    value: 156.43,
+    sub_index: 'Coking coal · NCI sub-index',
+    source_url: 'https://coal.gov.in/nominated-authority/national-coal-index',
   },
   {
     id: 'ph-2',
-    month: '2026-03',
-    value: 147.1,
-    sub_index: 'Non-coking · all-India',
-    source_url: 'https://coal.nic.in',
+    month: '2026-04',
+    value: 157.11,
+    sub_index: 'Coking coal · NCI sub-index',
+    source_url: 'https://coal.gov.in/nominated-authority/national-coal-index',
   },
 ];
