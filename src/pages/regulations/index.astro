@@ -2,6 +2,7 @@
 import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import { safeSelect, type Regulation } from '../../lib/supabase';
+import draftWatch from '../../data/draft-watch.json';
 
 // Data-driven from `regulations` (published only). Files hosted externally;
 // download_url filled after upload. Placeholder fallback keeps the build green.
@@ -21,6 +22,16 @@ const CAT: Record<string, string> = {
 const order = ['cmr_2017', 'mines_act', 'dgms_circular', 'dgms_notification', 'mmdr', 'env_forest', 'labour_code', 'cea', 'moc', 'draft'];
 const cats = order.filter((c) => regs.some((r) => r.category === c));
 const statusBadge = (s: string) => s === 'draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'superseded' ? 'bg-white/10 text-muted-foreground' : 'bg-primary/15 text-primary';
+
+// Tracker 1 — "Latest from DGMS": most recent dated circulars/notifications.
+const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fmtD = (d: string) => { const [y, m, dd] = d.slice(0, 10).split('-'); return `${+dd} ${MON[+m]} ${y}`; };
+const latestDgms = regs
+  .filter((r) => (r.category === 'dgms_circular' || r.category === 'dgms_notification') && !!r.issued_date && /^\d{4}-\d{2}-\d{2}/.test(r.issued_date))
+  .sort((a, b) => (a.issued_date! < b.issued_date! ? 1 : -1))
+  .slice(0, 6);
+// Tracker 2 — "Draft-Watch": curated pending/changing instruments.
+const dwBadge = (s: string) => s === 'Draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'Pending' || s === 'In transition' ? 'bg-[#e0b86a]/15 text-[#e0b86a]' : 'bg-primary/15 text-primary';
 
 const collectionLd = {
   '@context': 'https://schema.org',
@@ -52,6 +63,48 @@ const breadcrumbLd = {
     description="A free, curated library of the regulations, circulars and codes that govern Indian coal mining — each with a plain-language summary, the official source, and a download. Built to help the industry, not to sell."
     primary={{ label: 'Browse the library', href: '#library' }}
   />
+
+  <section class="relative bg-background pt-14 pb-2">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Latest from DGMS</span>
+            <span class="relative flex h-2 w-2" title="Live from the library"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span></span>
+          </div>
+          <p class="mt-1.5 text-sm text-muted-foreground">The newest circulars &amp; notifications in the library.</p>
+          {latestDgms.length > 0 ? (
+            <ul class="mt-4 flex flex-col divide-y divide-white/5">
+              {latestDgms.map((r) => (
+                <li>
+                  <a href={`/regulations/${r.slug}`} class="group flex items-start gap-3 py-3">
+                    <span class="mt-0.5 shrink-0 rounded-md bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary">{fmtD(r.issued_date!)}</span>
+                    <span class="line-clamp-2 text-sm text-foreground/90 transition-colors group-hover:text-primary">{r.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (<p class="mt-4 text-sm text-muted-foreground">Circulars are being catalogued.</p>)}
+        </div>
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Draft-watch</span>
+          <p class="mt-1.5 text-sm text-muted-foreground">What's changing — drafts, roll-outs and pending settlements.</p>
+          <ul class="mt-4 flex flex-col gap-3">
+            {draftWatch.map((d) => (
+              <li class="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div class="font-[var(--font-display)] text-[15px] font-semibold text-foreground">{d.href ? <a href={d.href} class="transition-colors hover:text-primary">{d.title}</a> : d.title}</div>
+                  <span class={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${dwBadge(d.status)}`}>{d.status}</span>
+                </div>
+                <div class="mt-1 text-[12px] text-muted-foreground/80">{d.when}</div>
+                <p class="mt-2 text-[13px] leading-relaxed text-muted-foreground">{d.note}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="library" class="relative bg-background py-16">
     <div class="mx-auto max-w-6xl px-6">
