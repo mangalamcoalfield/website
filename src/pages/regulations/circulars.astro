@@ -1,0 +1,78 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import circulars from '../../data/circular-index.json';
+
+// "Circular Finder" — search the 271 older DGMS circulars (1995–2017) that live
+// inside the big consolidated compilations. Each entry maps a circular reference
+// to its compilation file + page. Compilation files are hosted on docs.* once
+// uploaded; links use a #page anchor.
+const DOCS_BASE = 'https://docs.mangalamcoal.com/regs';
+interface CItem { ref: string; compilation_filename: string; page: number; set: string; snippet: string }
+const items = circulars as CItem[];
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: 'Circular Finder', item: 'https://mangalamcoal.com/regulations/circulars' },
+  ],
+};
+---
+<Site
+  title="DGMS Circular Finder — 1995–2017 archive"
+  description="Search the DGMS circular archive (1995–2017). Find any older DGMS circular, notification or G.S.R. reference and see exactly which consolidated compilation and page it appears on — with a direct download."
+  jsonLd={breadcrumbLd}
+>
+  <ShaderHero
+    client:load compact
+    eyebrow="Regulation desk"
+    title="DGMS Circular Finder"
+    accentWords={1}
+    description="Search hundreds of older DGMS circulars, notifications and G.S.R. references (1995–2017) that live inside the consolidated compilations — and jump straight to the right file and page."
+    primary={{ label: 'Back to the library', href: '/regulations' }}
+  />
+
+  <section class="relative bg-background py-16">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <p class="max-w-2xl text-muted-foreground">{items.length} indexed circulars. Type a circular number, year, G.S.R. number, or subject — results show the exact compilation and page.</p>
+        <input id="cfind" type="search" placeholder="e.g. 20.06.2013, G.S.R. 614, ventilation…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-80" aria-label="Search circulars" />
+      </div>
+
+      <div id="clist" class="flex flex-col gap-3">
+        {items.map((c) => (
+          <div class="citem rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm transition-colors hover:border-primary/30"
+            data-text={`${c.ref} ${c.snippet} ${c.set}`.toLowerCase()}>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+              <div class="min-w-0">
+                <h3 class="font-[var(--font-display)] font-semibold text-foreground">{c.ref}</h3>
+                <p class="mt-1 text-[13px] text-muted-foreground">
+                  <span class="text-foreground/70">Inside:</span> {c.set} compilation · <span class="text-foreground/70">page</span> {c.page}
+                </p>
+                {c.snippet && <p class="mt-2 line-clamp-2 text-[13px] italic leading-relaxed text-muted-foreground/80">…{c.snippet}…</p>}
+              </div>
+              <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.page}`} rel="noopener"
+                class="shrink-0 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Open · p.{c.page}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p id="cnone" class="hidden py-10 text-center text-muted-foreground">No circulars match your search.</p>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">These older circulars are indexed inside the DGMS consolidated compilations; the link opens the compilation at the cited page. Reproduced from the official DGMS archive for public reference.</p>
+    </div>
+  </section>
+
+  <script>
+    const items = Array.from(document.querySelectorAll('#clist .citem')) as HTMLElement[];
+    const input = document.getElementById('cfind') as HTMLInputElement;
+    const none = document.getElementById('cnone');
+    input?.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let n = 0;
+      items.forEach((it) => { const show = !q || (it.dataset.text || '').includes(q); it.style.display = show ? '' : 'none'; if (show) n++; });
+      none?.classList.toggle('hidden', n !== 0);
+    });
+  </script>
+</Site>
