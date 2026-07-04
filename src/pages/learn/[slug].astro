@@ -1,70 +1,45 @@
 ---
-import Base from '../../layouts/Base.astro';
+import Site from '../../layouts/Site.astro';
 import { safeSelect, type KnowledgeEntry } from '../../lib/supabase';
 import { placeholderKnowledge } from '../../data/placeholders';
 
-// Canonical article pages for explainer-type knowledge entries (hosted on-site
-// for SEO). Built statically from Supabase, with placeholder fallback so the
-// home/learn links always resolve before real content lands.
 export async function getStaticPaths() {
   let entries = await safeSelect<KnowledgeEntry>((c) =>
-    c.from('knowledge_entries')
-      .select('*')
-      .eq('published', true)
-      .eq('type', 'explainer')
+    c.from('knowledge_entries').select('*').eq('published', true).eq('type', 'explainer')
   );
   if (entries.length === 0) entries = placeholderKnowledge.filter((e) => e.type === 'explainer');
-
-  return entries
-    .filter((e) => e.slug)
-    .map((e) => ({ params: { slug: e.slug as string }, props: { entry: e } }));
+  return entries.filter((e) => e.slug).map((e) => ({ params: { slug: e.slug as string }, props: { entry: e } }));
 }
 
 interface Props { entry: KnowledgeEntry }
 const { entry } = Astro.props;
-
-const catLabel: Record<string, string> = {
-  regulation: 'Regulation', safety: 'Safety', operations: 'Operations', markets: 'Markets',
-};
+const catLabel: Record<string, string> = { regulation: 'Regulation', safety: 'Safety', operations: 'Operations', markets: 'Markets' };
 const paragraphs = (entry.body || '').split(/\n{2,}/).filter(Boolean);
-
 const articleLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: entry.title,
+  '@context': 'https://schema.org', '@type': 'Article', headline: entry.title,
   articleSection: catLabel[entry.category] || entry.category,
   author: { '@type': 'Organization', name: 'Mangalam Coalfield Private Limited' },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Mangalam Coalfield Private Limited',
-    logo: { '@type': 'ImageObject', url: 'https://mangalamcoal.com/mangalam_logo.png' },
-  },
+  publisher: { '@type': 'Organization', name: 'Mangalam Coalfield Private Limited', logo: { '@type': 'ImageObject', url: 'https://mangalamcoal.com/mangalam_logo.png' } },
   ...(entry.source_date ? { dateModified: entry.source_date } : {}),
 };
 ---
-<Base title={entry.title} description={(entry.body || '').slice(0, 155)} jsonLd={articleLd}>
-  <section class="page-hero" style="padding-bottom:60px">
-    <div class="wrap">
-      <a class="back" href="/learn"><svg width="16" height="16" style="transform:rotate(180deg)"><use href="#arrow"/></svg> Knowledge hub</a>
-      <span class="eyebrow reveal in">{catLabel[entry.category] || entry.category}</span>
-      <h1 class="reveal in" style="font-size:clamp(30px,4.4vw,52px)">{entry.title}</h1>
+<Site title={entry.title} description={(entry.body || '').slice(0, 155)} jsonLd={articleLd}>
+  <section class="relative bg-background px-6 pb-6 pt-32">
+    <div class="mx-auto max-w-3xl">
+      <a href="/learn" class="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">← Knowledge hub</a>
+      <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">{catLabel[entry.category] || entry.category}</span>
+      <h1 class="mt-3 font-[var(--font-display)] text-4xl font-bold leading-[1.06] tracking-tight text-foreground md:text-5xl">{entry.title}</h1>
     </div>
   </section>
-
-  <section class="block on-near" style="padding-top:clamp(40px,5vw,64px)">
-    <div class="wrap">
-      <article class="prose reveal">
-        {paragraphs.length > 0
-          ? paragraphs.map((p) => <p>{p}</p>)
-          : <p>Article content will be published here from the content track.</p>}
-
-        {entry.source_url && (
-          <p style="margin-top:36px">
-            <strong>Canonical source:</strong> <a href={entry.source_url} rel="noopener">{entry.source_url}</a>
-            {entry.source_date && <> · dated {entry.source_date}</>}
-          </p>
-        )}
-      </article>
-    </div>
+  <section class="relative bg-background pb-28 pt-8">
+    <article class="mx-auto max-w-3xl px-6 text-[17px] leading-8 text-muted-foreground">
+      {paragraphs.length > 0 ? paragraphs.map((p) => <p class="mb-5">{p}</p>) : <p>Article content will be published here from the content track.</p>}
+      {entry.source_url && (
+        <p class="mt-9 border-t border-white/10 pt-6 text-sm">
+          <strong class="text-foreground">Canonical source:</strong> <a href={entry.source_url} rel="noopener" class="text-primary underline">{entry.source_url}</a>
+          {entry.source_date && <> · dated {entry.source_date}</>}
+        </p>
+      )}
+    </article>
   </section>
-</Base>
+</Site>

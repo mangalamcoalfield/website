@@ -1,53 +1,46 @@
 ---
-import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
+import Site from '../layouts/Site.astro';
+import ShaderHero from '../components/magic/ShaderHero.tsx';
 import { safeSelect, type CsrProject } from '../lib/supabase';
 import { placeholderCsr } from '../data/placeholders';
 
-// Data-driven from `csr_projects` (published only); falls back to curated
-// placeholders. Showcases Mangalam's OWN contributions: completed work with
-// evidence, planned work clearly labelled (publish-filter discipline).
 let projects = await safeSelect<CsrProject>((c) =>
-  c.from('csr_projects')
-    .select('*')
-    .eq('published', true)
-    .order('date', { ascending: false })
+  c.from('csr_projects').select('*').eq('published', true).order('date', { ascending: false })
 );
-if (projects.length === 0) projects = placeholderCsr;
+const usingPlaceholder = projects.length === 0;
+if (usingPlaceholder) projects = placeholderCsr;
 
-const pillClass = (s: string) =>
-  s === 'completed' ? 'done' : s === 'ongoing' ? 'ongoing' : 'plan';
-const pillLabel = (s: string) =>
-  s === 'completed' ? 'Completed' : s === 'ongoing' ? 'Ongoing' : 'Planned';
+const pillLabel = (s: string) => (s === 'completed' ? 'Completed' : s === 'ongoing' ? 'Ongoing' : 'Planned');
+const pillClasses = (s: string) =>
+  s === 'completed' ? 'bg-primary/15 text-primary' : 'bg-secondary/20 text-[#9ed3c4]';
 ---
-<Base title="Mangalam Cares" description="Mangalam's CSR and environmental sustainability work around the Amlabad mine — community welfare, skills and safety training, and land care. Completed work shown with evidence; planned work clearly labelled.">
-  <PageHero
+<Site title="Mangalam Cares" description="Mangalam's CSR and environmental sustainability work around the Amlabad mine — community welfare, skills and safety training, and land care. Completed work shown with evidence; planned work clearly labelled.">
+  <ShaderHero
+    client:load compact
     eyebrow="Mangalam Cares"
-    title="The work above ground matters too."
-    underline="above ground"
-    lead="Beyond production, Mangalam invests in the people and the environment around the mine — community welfare and the land we operate on. We showcase our own contributions: completed work with evidence, and planned work clearly labelled."
+    title="The work above ground matters too"
+    accentWords={2}
+    description="Beyond production, Mangalam invests in the people and the environment around the mine. We showcase our own contributions: completed work with evidence, and planned work clearly labelled."
   />
 
-  <section class="block on-near">
-    <div class="wrap">
-      <div class="cares-grid stagger reveal">
+  <section class="relative bg-background py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {projects.map((p) => (
-          <div class="care">
-            <span class={`pill ${pillClass(p.status)}`}>{pillLabel(p.status)}</span>
-            <h3>{p.title}</h3>
-            <p>{p.description}</p>
-            {p.impact_numbers && <p style="margin-top:10px;color:var(--lime);font-weight:600">{p.impact_numbers}</p>}
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-primary/30">
+            <span class={`inline-block rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ${pillClasses(p.status)}`}>{pillLabel(p.status)}</span>
+            <h3 class="mt-4 font-[var(--font-display)] text-lg font-semibold text-foreground">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+            {p.impact_numbers && <p class="mt-3 text-sm font-semibold text-primary">{p.impact_numbers}</p>}
             {p.evidence_url && (
-              <p style="margin-top:14px">
-                <a class="tlink" href={p.evidence_url} rel="noopener" style="font-size:13.5px">View evidence <svg width="16" height="16"><use href="#arrow"/></svg></a>
-              </p>
+              <a href={p.evidence_url} rel="noopener" class="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:underline">View evidence →</a>
             )}
           </div>
         ))}
       </div>
-      {projects === placeholderCsr && (
-        <p class="note reveal" style="margin-top:48px">Placeholder programmes shown. Real CSR write-ups — with evidence for completed work — will be published from the content track.</p>
+      {usingPlaceholder && (
+        <p class="mt-8 text-sm text-muted-foreground">Placeholder programmes shown. Real CSR write-ups — with evidence for completed work — will be published from the content track.</p>
       )}
     </div>
   </section>
-</Base>
+</Site>

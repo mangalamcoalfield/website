@@ -1,29 +1,19 @@
 ---
-import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import { safeSelect, type KnowledgeEntry, type NciPoint } from '../../lib/supabase';
 import { placeholderKnowledge, placeholderNci } from '../../data/placeholders';
 
-// Knowledge hub — data-driven from `knowledge_entries` (published only),
-// fallback to placeholders. NCI widget reads latest two `nci_history` points.
 let entries = await safeSelect<KnowledgeEntry>((c) =>
-  c.from('knowledge_entries')
-    .select('*')
-    .eq('published', true)
-    .order('source_date', { ascending: false })
+  c.from('knowledge_entries').select('*').eq('published', true).order('source_date', { ascending: false })
 );
 const usingPlaceholderEntries = entries.length === 0;
 if (usingPlaceholderEntries) entries = placeholderKnowledge;
 
 let nci = await safeSelect<NciPoint>((c) =>
-  c.from('nci_history')
-    .select('*')
-    .eq('published', true)
-    .order('month', { ascending: false })
-    .limit(2)
+  c.from('nci_history').select('*').eq('published', true).order('month', { ascending: false }).limit(2)
 );
 if (nci.length === 0) nci = placeholderNci;
-
 const latest = nci[0];
 const prev = nci[1];
 const delta = latest && prev ? latest.value - prev.value : 0;
@@ -31,108 +21,92 @@ const trend = delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat';
 const trendSym = delta > 0 ? '▲' : delta < 0 ? '▼' : '—';
 
 const categories = ['regulation', 'safety', 'operations', 'markets'] as const;
-const catLabel: Record<string, string> = {
-  regulation: 'Regulation', safety: 'Safety', operations: 'Operations', markets: 'Markets',
-};
-
-// Explainers get on-site canonical article pages; reg_links/downloads link out.
+const catLabel: Record<string, string> = { regulation: 'Regulation', safety: 'Safety', operations: 'Operations', markets: 'Markets' };
 const hrefFor = (e: KnowledgeEntry) =>
-  e.type === 'explainer' && e.slug
-    ? `/learn/${e.slug}`
-    : e.source_url || (e.slug ? `/learn/${e.slug}` : '/learn');
+  e.type === 'explainer' && e.slug ? `/learn/${e.slug}` : e.source_url || (e.slug ? `/learn/${e.slug}` : '/learn');
 const monthLabel = (m: string) => {
   const [y, mo] = m.split('-');
   const names = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   return mo ? `${names[parseInt(mo, 10)]} ${y}` : m;
 };
 ---
-<Base title="Learn — How Coal Mining Works" description="A growing, plain-language reference on Indian coal mining — engineering, regulation, safety and markets — with version-dated links to canonical sources.">
-  <PageHero
+<Site title="Learn — How Coal Mining Works" description="A growing, plain-language reference on Indian coal mining — engineering, regulation, safety and markets — with version-dated links to canonical sources.">
+  <ShaderHero
+    client:load compact
     eyebrow="Knowledge hub"
-    title="How coal mining actually works."
-    underline="actually works."
-    lead="A growing, plain-language reference on Indian coal mining — the engineering, the regulation, and the science. Built to inform, not to sell."
+    title="How coal mining actually works"
+    accentWords={2}
+    description="A growing, plain-language reference on Indian coal mining — the engineering, the regulation, and the science. Built to inform, not to sell."
   />
 
-  <!-- National Coal Index widget -->
   {latest && (
-    <section class="block on-near" style="padding-top:clamp(56px,6vw,80px);padding-bottom:0">
-      <div class="wrap">
-        <div class="reveal">
-          <span class="eyebrow">Markets · National Coal Index</span>
-          <div class="nci" style="margin-top:22px">
-            <div class="cell">
-              <div class="k">Latest NCI · {monthLabel(latest.month)}</div>
-              <div class="v">{latest.value.toFixed(1)}</div>
+    <section class="relative bg-background pb-6 pt-2">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Markets · National Coal Index</span>
+          <div class="mt-6 grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <div>
+              <div class="text-[11px] uppercase tracking-wide text-muted-foreground">Latest NCI · {monthLabel(latest.month)}</div>
+              <div class="mt-2 font-[var(--font-display)] text-4xl font-bold text-foreground">{latest.value.toFixed(1)}</div>
             </div>
-            <div class="cell">
-              <div class="k">Month on month</div>
-              <div class={`v trend ${trend}`}>{trendSym} {Math.abs(delta).toFixed(1)}</div>
+            <div>
+              <div class="text-[11px] uppercase tracking-wide text-muted-foreground">Month on month</div>
+              <div class={`mt-2 font-[var(--font-display)] text-4xl font-bold ${trend === 'down' ? 'text-[#e08a6a]' : 'text-primary'}`}>{trendSym} {Math.abs(delta).toFixed(1)}</div>
             </div>
             {latest.sub_index && (
-              <div class="cell">
-                <div class="k">Series</div>
-                <div class="v" style="font-size:16px">{latest.sub_index}</div>
+              <div class="col-span-2 sm:col-span-1">
+                <div class="text-[11px] uppercase tracking-wide text-muted-foreground">Series</div>
+                <div class="mt-2 font-[var(--font-display)] text-lg font-semibold text-foreground">{latest.sub_index}</div>
               </div>
             )}
           </div>
-          <p class="note" style="border:0;padding-top:16px;max-width:60ch">
+          <p class="mt-6 max-w-2xl text-sm text-muted-foreground">
             The National Coal Index is published monthly by the Ministry of Coal.
-            {latest.source_url && (<> Source: <a href={latest.source_url} rel="noopener" style="color:var(--teal);text-decoration:underline">coal.nic.in</a>.</>)}
-            It is a monthly index, not a live price.
+            {latest.source_url && (<> Source: <a href={latest.source_url} rel="noopener" class="text-primary underline">coal.nic.in</a>.</>)} It is a monthly index, not a live price.
           </p>
         </div>
       </div>
     </section>
   )}
 
-  <!-- Knowledge entries -->
-  <section class="block on-near">
-    <div class="wrap">
-      <div class="sec-head reveal" style="margin-bottom:36px">
-        <span class="eyebrow">Explainers &amp; sources</span>
-        <h2>The reference library.</h2>
-        <p class="lead">Curated explainers and version-dated links to canonical sources — DGMS, the Ministry of Coal, the Coal Mines Regulations 2017 and the Mines Act.</p>
+  <section class="relative bg-background py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-8 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Explainers &amp; sources</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">The reference library.</h2>
+        <p class="mt-4 text-muted-foreground">Curated explainers and version-dated links to canonical sources — DGMS, the Ministry of Coal, the Coal Mines Regulations 2017 and the Mines Act.</p>
       </div>
 
-      <div class="chips reveal" id="catChips">
-        <button class="chip active" data-cat="all">All</button>
-        {categories.map((c) => (<button class="chip" data-cat={c}>{catLabel[c]}</button>))}
+      <div id="chips" class="mb-8 flex flex-wrap gap-2.5">
+        <button class="chip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-cat="all">All</button>
+        {categories.map((c) => (<button class="chip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-cat={c}>{catLabel[c]}</button>))}
       </div>
 
-      <div class="klist reveal" id="kgrid">
+      <div id="kgrid" class="grid gap-4 md:grid-cols-2">
         {entries.map((e) => (
-          <a class="kitem" href={hrefFor(e)} data-cat={e.category} rel={e.type === 'explainer' ? '' : 'noopener'}>
-            <div>
-              <span class="ktag">{catLabel[e.category] || e.category}{e.type === 'reg_link' ? ' · Source' : e.type === 'download' ? ' · Download' : ''}</span>
-              <h3>{e.title}</h3>
-              {e.body && <p>{e.body.slice(0, 120)}{e.body.length > 120 ? '…' : ''}</p>}
-              {e.source_date && <p style="color:var(--on-light-mut);font-size:12.5px;margin-top:6px">Source dated {e.source_date}</p>}
-            </div>
-            <svg class="karrow" width="20" height="20"><use href="#arrow"/></svg>
+          <a href={hrefFor(e)} data-cat={e.category} rel={e.type === 'explainer' ? '' : 'noopener'}
+            class="kitem group rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-primary/30">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.08em] text-primary">{catLabel[e.category] || e.category}{e.type === 'reg_link' ? ' · Source' : e.type === 'download' ? ' · Download' : ''}</span>
+            <h3 class="mt-2 font-[var(--font-display)] text-lg font-semibold text-foreground">{e.title}</h3>
+            {e.body && <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body.slice(0, 130)}{e.body.length > 130 ? '…' : ''}</p>}
+            {e.source_date && <p class="mt-2 text-[12px] text-muted-foreground/70">Source dated {e.source_date}</p>}
           </a>
         ))}
       </div>
       {usingPlaceholderEntries && (
-        <p class="note reveal" style="margin-top:40px">Placeholder entries shown. Canonical articles and curated source links will be loaded from the content track.</p>
+        <p class="mt-8 text-sm text-muted-foreground">Placeholder entries shown. Canonical articles and curated source links will be loaded from the content track.</p>
       )}
     </div>
   </section>
 
   <script>
-    // Client-side category filter (no extra requests).
-    const chips = document.querySelectorAll('#catChips .chip');
+    const chips = document.querySelectorAll('#chips .chip');
     const items = document.querySelectorAll('#kgrid .kitem');
-    chips.forEach((chip) =>
-      chip.addEventListener('click', () => {
-        chips.forEach((c) => c.classList.remove('active'));
-        chip.classList.add('active');
-        const cat = (chip as HTMLElement).dataset.cat;
-        items.forEach((it) => {
-          const show = cat === 'all' || (it as HTMLElement).dataset.cat === cat;
-          (it as HTMLElement).style.display = show ? '' : 'none';
-        });
-      })
-    );
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('active','bg-primary','text-primary-foreground','border-primary'); c.classList.add('text-muted-foreground','border-white/12'); });
+      chip.classList.add('active','bg-primary','text-primary-foreground','border-primary'); chip.classList.remove('text-muted-foreground','border-white/12');
+      const cat = (chip as HTMLElement).dataset.cat;
+      items.forEach((it) => { (it as HTMLElement).style.display = (cat === 'all' || (it as HTMLElement).dataset.cat === cat) ? '' : 'none'; });
+    }));
   </script>
-</Base>
+</Site>

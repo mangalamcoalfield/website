@@ -1,68 +1,81 @@
 ---
-// MagicSite — shared shell for the Magic × Pro Max multi-page mirror.
-// Green/lime on coal-black, Tailwind + magic.css. Glass nav, scroll-progress
-// bar, footer, mirror badge. Page content is composed of Magic React islands.
+// Site.astro — PRODUCTION layout in the Magic design (green/lime on coal-black).
+// Glass nav + scroll-progress + footer + Ask Mangalam bot, with full real SEO
+// (canonical, OG, JSON-LD). Root nav links; indexable. Self-hosted fonts.
 import '@fontsource/archivo/600.css';
 import '@fontsource/archivo/700.css';
 import '@fontsource/hanken-grotesk/400.css';
 import '@fontsource/hanken-grotesk/500.css';
 import '@fontsource/hanken-grotesk/600.css';
 import '../styles/magic.css';
-import { SITE } from '../data/site';
 import AskMangalam from '../components/AskMangalam.astro';
+import { SITE } from '../data/site';
 
-interface Props { title?: string; description?: string; }
-const { title, description = SITE.description } = Astro.props;
-const full = title ? `${title} · ${SITE.name}` : `${SITE.name} — Magic mirror`;
-const base = '/mirror';
+interface Props {
+  title?: string;
+  description?: string;
+  jsonLd?: object | object[];
+}
+const { title, description = SITE.description, jsonLd } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — Mine Developer & Operator`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+
 const path = Astro.url.pathname;
 const nav = [
-  { href: `${base}/about`, label: 'About' },
-  { href: `${base}/operations`, label: 'Operations' },
-  { href: `${base}/safety`, label: 'Safety' },
-  { href: `${base}/learn`, label: 'Learn' },
-  { href: `${base}/cares`, label: 'Cares' },
-  { href: `${base}/careers`, label: 'Careers' },
-  { href: `${base}/contact`, label: 'Contact' },
+  { href: '/about', label: 'About' },
+  { href: '/operations', label: 'Operations' },
+  { href: '/safety', label: 'Safety' },
+  { href: '/learn', label: 'Learn' },
+  { href: '/cares', label: 'Cares' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/contact', label: 'Contact' },
 ];
-const active = (h: string) => path === h || (h !== base && path.startsWith(h));
+const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 ---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{full}</title>
+  <title>{fullTitle}</title>
   <meta name="description" content={description} />
-  <meta name="robots" content="noindex" />
+  <link rel="canonical" href={canonical} />
   <link rel="icon" type="image/png" href="/mangalam_logo.png" />
   <meta name="theme-color" content="#06100b" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content="/mangalam_logo.png" />
+  <meta name="twitter:card" content="summary" />
+  {ldArray.map((obj) => (<script type="application/ld+json" set:html={JSON.stringify(obj)} />))}
 </head>
 <body class="bg-background text-foreground antialiased">
-  <!-- scroll progress -->
   <div id="prog" class="fixed inset-x-0 top-0 z-[1100] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-primary/40 via-primary to-secondary"></div>
 
-  <!-- glass nav -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
   <header id="mh" class="fixed inset-x-0 top-0 z-[1000] transition-all duration-300">
     <div class="mx-auto max-w-6xl px-4">
       <div id="mnav" class="mt-3 flex h-16 items-center justify-between rounded-2xl px-4 transition-all duration-300">
-        <a href={base} class="flex items-center gap-2" aria-label="Home"><img src="/mangalam_logo.png" alt={SITE.name} width="150" height="38" class="h-9 w-auto" /></a>
-        <nav class="hidden items-center gap-7 md:flex">
-          {nav.map((i) => (
-            <a href={i.href} class:list={["text-sm transition-colors hover:text-foreground", active(i.href) ? "text-foreground" : "text-muted-foreground"]}>{i.label}</a>
-          ))}
+        <a href="/" class="flex items-center gap-2" aria-label={`${SITE.name} — home`}><img src="/mangalam_logo.png" alt={SITE.name} width="150" height="38" class="h-9 w-auto" /></a>
+        <nav class="hidden items-center gap-7 md:flex" aria-label="Primary">
+          {nav.map((i) => (<a href={i.href} class:list={["text-sm transition-colors hover:text-foreground", active(i.href) ? "text-foreground" : "text-muted-foreground"]}>{i.label}</a>))}
         </nav>
         <a href={SITE.portalUrl} rel="noopener" class="hidden rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary md:inline-block">Employee Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="ml-0.5 inline-block align-[-1px]" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <button id="mb" class="flex flex-col gap-[5px] p-2 md:hidden" aria-label="Menu" aria-expanded="false">
-          <span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span>
-        </button>
+        <button id="mb" class="flex flex-col gap-[5px] p-2 md:hidden" aria-label="Menu" aria-expanded="false"><span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span></button>
       </div>
     </div>
   </header>
 
-  <nav id="mm" class="fixed inset-0 z-[999] flex translate-x-full flex-col justify-center gap-1 bg-background/95 px-9 backdrop-blur-lg transition-transform duration-300 md:hidden">
+  <nav id="mm" class="fixed inset-0 z-[999] flex translate-x-full flex-col justify-center gap-1 bg-background/95 px-9 backdrop-blur-lg transition-transform duration-300 md:hidden" aria-label="Mobile">
     {nav.map((i) => <a href={i.href} class="border-b border-white/10 py-3 font-[var(--font-display)] text-2xl font-semibold">{i.label}</a>)}
-    <a href={SITE.portalUrl} rel="noopener" class="mt-4 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="ml-0.5 inline-block align-[-1px]" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href={SITE.portalUrl} rel="noopener" class="mt-4 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Portal ↗</a>
   </nav>
 
   <main>
@@ -77,38 +90,32 @@ const active = (h: string) => path === h || (h !== base && path.startsWith(h));
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Company</h4>
-        {[['About','/about'],['Operations','/operations'],['Safety','/safety'],['Mangalam Cares','/cares'],['Careers','/careers']].map(([l,h]) => (
-          <a href={`${base}${h}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{l}</a>
-        ))}
+        {[['About','/about'],['Operations','/operations'],['Safety','/safety'],['Mangalam Cares','/cares'],['Careers','/careers']].map(([l,h]) => (<a href={h} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{l}</a>))}
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Knowledge</h4>
-        <a href={`${base}/learn`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">How mining works</a>
-        <a href={`${base}/contact`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">Contact</a>
+        <a href="/learn" class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">How mining works</a>
+        <a href="/contact" class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">Contact</a>
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Contact</h4>
         <a href={`mailto:${SITE.hrEmail}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{SITE.hrEmail}</a>
-        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">Employee Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="ml-0.5 inline-block align-[-1px]" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">Employee Portal ↗</a>
       </div>
     </div>
     <div class="mx-auto mt-12 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-white/10 px-6 pt-6 text-[13px] text-muted-foreground">
       <span>© 2026 {SITE.legalName}</span>
-      <span>Design mirror · Magic × UI-UX Pro Max concept · not the live site</span>
+      <span>{SITE.location}</span>
     </div>
   </footer>
-
-  <a href="/" class="fixed bottom-4 left-4 z-[1300] rounded-full bg-gradient-to-b from-[#d6e98a] to-[#aecf3e] px-3.5 py-1.5 text-[11px] font-bold text-[#10130d] shadow-[0_8px_28px_rgba(174,207,62,.3)]">⚡ back to live site</a>
 
   <AskMangalam />
 
   <script>
-    const mh = document.getElementById('mh');
     const mnav = document.getElementById('mnav');
     const prog = document.getElementById('prog');
     const onScroll = () => {
-      const y = window.scrollY;
-      const scrolled = y > 24;
+      const y = window.scrollY; const scrolled = y > 24;
       mnav?.classList.toggle('bg-background/60', scrolled);
       mnav?.classList.toggle('border', scrolled);
       mnav?.classList.toggle('border-white/10', scrolled);

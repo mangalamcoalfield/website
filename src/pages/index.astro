@@ -1,5 +1,9 @@
 ---
-import Base from '../layouts/Base.astro';
+import Site from '../layouts/Site.astro';
+import ShaderHero from '../components/magic/ShaderHero.tsx';
+import MagicBento from '../components/magic/MagicBento.tsx';
+import ScrollScene from '../components/magic/ScrollScene.tsx';
+import { Marquee, Stats, Lines, Safety, CTA } from '../components/magic/MagicSections.tsx';
 import { SITE } from '../data/site';
 
 const orgLd = {
@@ -18,162 +22,21 @@ const orgLd = {
   },
 };
 ---
-<Base jsonLd={orgLd}>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="wrap">
-      <span class="eyebrow hl d1">Mine Developer &amp; Operator · Amlabad, Eastern Jharia · Jharkhand</span>
-      <h1 class="hl d2">Reviving underground coal — and the <span class="u">methane</span> within it.</h1>
-      <p class="lead hl d3">{SITE.description}</p>
-      <div class="hero-cta hl d4">
-        <a class="btn btn-primary" href="/operations">Explore our operations</a>
-        <a class="tlink" href="/learn">How coal mining works <svg width="18" height="18"><use href="#arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="stats">
-    <div class="wrap">
-      <div class="grid stagger reveal">
-        <div class="stat"><div class="num">4</div><div class="lab">Amlabad pits under revival &amp; development</div></div>
-        <div class="stat"><div class="num">200<em>+</em></div><div class="lab">Workforce, own &amp; contractor</div></div>
-        <div class="stat"><div class="num">2</div><div class="lab">Commercial lines — coal &amp; coal bed methane</div></div>
-        <div class="stat"><div class="num">100<em>%</em></div><div class="lab">DGMS statutory positions filled</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OPERATIONS -->
-  <section class="block on-light" id="ops">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">What we do</span>
-        <h2>Two operations, one operator.</h2>
-        <p class="lead">Through the Amlabad block in Eastern Jharia, Mangalam runs two commercial lines — underground coal, and the coal bed methane held within the same seams.</p>
-      </div>
-      <div class="lines reveal">
-        <div class="line">
-          <span class="tag">01</span>
-          <div class="lab"><b>Coal</b> · Mining</div>
-          <h3>Reviving the Amlabad pits</h3>
-          <p>Restoring the historic underground workings — Pit No. 1, 2, 3 and 4 — across revival, development and dewatering, to power India's industrial growth through responsible coal.</p>
-        </div>
-        <div class="line">
-          <span class="tag">02</span>
-          <div class="lab"><b>Coal Bed</b> · Methane</div>
-          <h3>Energy within the seam</h3>
-          <p>Commercially capturing the methane held inside the coal seams — a cleaner energy stream from the same block, put to use rather than vented to the atmosphere.</p>
-        </div>
-      </div>
-      <p class="subhead reveal">How we operate</p>
-      <div class="cards stagger reveal">
-        <div class="card"><span class="ix">01</span><h3>Mine Development</h3><p>Driving and supporting underground roadways and galleries that open up the coal seam for production.</p></div>
-        <div class="card"><span class="ix">02</span><h3>Underground Operations</h3><p>Shift-by-shift production, reconciliation, and structured reporting across every working district.</p></div>
-        <div class="card"><span class="ix">03</span><h3>Electrical &amp; Mechanical</h3><p>Maintaining DGMS-approved equipment and statutory testing that keep machinery safe and certified.</p></div>
-        <div class="card"><span class="ix">04</span><h3>Statutory Compliance</h3><p>Operating to the Coal Mines Regulations and Mines Act, with qualified officials in every position.</p></div>
-      </div>
-      <div class="reveal" style="margin-top:48px">
-        <a class="tlink" href="/operations" style="color:var(--on-light)">See operations &amp; capabilities <svg width="18" height="18"><use href="#arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SAFETY -->
-  <section class="block on-forest" id="safety">
-    <div class="wrap">
-      <div class="split">
-        <div class="reveal">
-          <span class="eyebrow">Safety &amp; compliance</span>
-          <h2 style="margin-top:20px">The condition for permission to operate.</h2>
-          <p class="lead" style="margin-top:20px">Underground coal mining carries real risk. We treat statutory safety as the baseline, not an afterthought.</p>
-          <ul class="checklist">
-            <li><svg class="ck" viewBox="0 0 24 24"><use href="#check"/></svg>Qualified statutory officials across all DGMS-mandated positions</li>
-            <li><svg class="ck" viewBox="0 0 24 24"><use href="#check"/></svg>Maintained statutory registers and periodic equipment testing</li>
-            <li><svg class="ck" viewBox="0 0 24 24"><use href="#check"/></svg>Gas monitoring, ventilation discipline, and roof-support standards</li>
-            <li><svg class="ck" viewBox="0 0 24 24"><use href="#check"/></svg>Medical examinations and competency tracking for the workforce</li>
-          </ul>
-          <div style="margin-top:34px">
-            <a class="tlink" href="/safety">Our safety &amp; compliance approach <svg width="18" height="18"><use href="#arrow"/></svg></a>
-          </div>
-        </div>
-        <div class="metric reveal">
-          <div class="big">Zero</div>
-          <div class="cap">compromise on the standards that keep people safe underground.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEGACY -->
-  <section class="block on-near" id="legacy">
-    <div class="wrap">
-      <div class="split" style="align-items:center">
-        <div class="reveal">
-          <span class="eyebrow">Our legacy</span>
-          <h2 style="margin-top:20px">A foundation built to last.</h2>
-          <p class="lead" style="margin-top:20px">Mangalam stands on a foundation of rich legacy, resilience, and shared values — carrying forward the vision of its founder. A new generation now leads, committed to trust, integrity, and excellence in all it builds.</p>
-          <div style="margin-top:34px">
-            <a class="tlink" href="/about">About &amp; leadership <svg width="18" height="18"><use href="#arrow"/></svg></a>
-          </div>
-        </div>
-        <div class="reveal" style="background:rgba(255,255,255,.04);border:1px solid var(--line-d);border-radius:16px;padding:36px 34px">
-          <div style="font-family:var(--display);font-weight:700;font-size:22px;color:var(--cream);letter-spacing:-.01em">Late Shree Gopal Agarwal</div>
-          <div style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin-top:9px;font-weight:600">Chairman Emeritus</div>
-          <p style="font-size:15.5px;color:var(--on-dark-mut);line-height:1.75;margin-top:20px;font-style:italic">Guided by his visionary leadership, the Mangalam family remains deeply committed to upholding trust, integrity, and excellence.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEARN -->
-  <section class="block on-light" id="learn">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Knowledge hub</span>
-        <h2>How coal mining actually works.</h2>
-        <p class="lead">A growing, plain-language reference on Indian coal mining — the engineering, the regulation, and the science. Built to inform, not to sell.</p>
-      </div>
-      <div class="klist reveal">
-        <a class="kitem" href="/learn/bord-and-pillar-mining"><div><span class="ktag">Operations</span><h3>Bord &amp; pillar mining, explained</h3><p>How underground coal is won and the ground kept stable.</p></div><svg class="karrow" width="20" height="20"><use href="#arrow"/></svg></a>
-        <a class="kitem" href="/learn/mine-gas-and-methane-management"><div><span class="ktag">Safety · Ventilation</span><h3>Mine gas &amp; methane management</h3><p>Gassiness, ventilation, and degasification — why air is everything underground.</p></div><svg class="karrow" width="20" height="20"><use href="#arrow"/></svg></a>
-        <a class="kitem" href="/learn/coal-grades-and-the-national-coal-index"><div><span class="ktag">Markets</span><h3>Coal grades &amp; the National Coal Index</h3><p>How Indian coal is graded and priced, updated monthly.</p></div><svg class="karrow" width="20" height="20"><use href="#arrow"/></svg></a>
-        <a class="kitem" href="/learn/dgms-and-the-rules-of-the-mine"><div><span class="ktag">Regulation</span><h3>DGMS &amp; the rules of the mine</h3><p>The statutory framework that governs Indian coal mining.</p></div><svg class="karrow" width="20" height="20"><use href="#arrow"/></svg></a>
-      </div>
-      <div class="reveal" style="margin-top:48px">
-        <a class="tlink" href="/learn" style="color:var(--on-light)">Visit the knowledge hub <svg width="18" height="18"><use href="#arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CARES -->
-  <section class="block on-near" id="cares">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">Mangalam Cares</span>
-        <h2>The work above ground matters too.</h2>
-        <p class="lead">Beyond production, Mangalam invests in the people and the environment around the mine — community welfare and the land we operate on.</p>
-      </div>
-      <div class="cares-grid stagger reveal">
-        <div class="care"><span class="pill done">Completed</span><h3>Community welfare</h3><p>Local engagement and welfare initiatives around Amlabad.</p></div>
-        <div class="care"><span class="pill done">Completed</span><h3>Skill &amp; safety training</h3><p>Investment in workforce training and safety awareness.</p></div>
-        <div class="care"><span class="pill plan">Planned</span><h3>Green cover &amp; reclamation</h3><p>Plantation and land-care contributions in the mine vicinity.</p></div>
-        <div class="care"><span class="pill plan">Planned</span><h3>Water &amp; environment</h3><p>Responsible water management and dust-control measures.</p></div>
-      </div>
-      <div class="reveal" style="margin-top:48px">
-        <a class="tlink" href="/cares">Explore Mangalam Cares <svg width="18" height="18"><use href="#arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAREERS -->
-  <section class="block cta-band" id="careers">
-    <div class="wrap reveal">
-      <span class="eyebrow">Careers</span>
-      <h2>Build a career in Indian coal mining.</h2>
-      <p class="lead">From mining engineers to electrical and statutory roles — join a company that runs its operations to standard.</p>
-      <a class="btn btn-primary" href="/careers" style="margin:0 auto">View open roles</a>
-    </div>
-  </section>
-</Base>
+<Site jsonLd={orgLd}>
+  <ShaderHero
+    client:load
+    eyebrow="Mine Developer & Operator · Amlabad, Eastern Jharia"
+    title="Reviving underground coal"
+    accentWords={1}
+    description={SITE.description}
+    primary={{ label: 'Explore operations', href: '/operations' }}
+    secondary={{ label: 'How coal mining works', href: '/learn' }}
+  />
+  <Marquee client:visible />
+  <Stats client:visible />
+  <Lines client:visible />
+  <ScrollScene client:visible />
+  <MagicBento client:visible />
+  <Safety client:visible />
+  <CTA client:visible />
+</Site>

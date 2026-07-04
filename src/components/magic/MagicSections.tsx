@@ -164,7 +164,7 @@ export function CTA() {
         <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Careers</span>
         <h2 className="mx-auto mt-4 max-w-2xl font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Build a career in Indian coal mining.</h2>
         <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">From mining engineers to electrical and statutory roles — join a company that runs its operations to standard.</p>
-        <a href="/" className="group mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_0_45px_-6px_hsl(var(--primary)/0.7)] transition-all duration-300 hover:scale-[1.03]">
+        <a href="/careers" className="group mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground shadow-[0_0_45px_-6px_hsl(var(--primary)/0.7)] transition-all duration-300 hover:scale-[1.03]">
           View open roles<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </a>
       </motion.div>
