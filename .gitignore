@@ -29,3 +29,7 @@ Thumbs.db
 
 .vercel
 .playwright-mcp/
+
+# local credentials (never commit)
+.hostinger.env
+.r2.env
