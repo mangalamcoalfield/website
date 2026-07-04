@@ -70,7 +70,10 @@ const breadcrumbLd = {
                 </p>
               </div>
               <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.page}`} target="_blank" rel="noopener noreferrer"
-                class="shrink-0 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Open ↗</a>
+                class="group/open inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
+                Open
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </a>
             </div>
           </div>
         ))}

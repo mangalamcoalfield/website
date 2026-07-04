@@ -14,7 +14,7 @@
     "relevance": 1,
     "sort_order": 11,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "cmr-2017-amendment-assistant-manager-2025",
@@ -65,7 +65,7 @@
     "relevance": 1,
     "sort_order": 20,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "mines-act-1952",
@@ -184,7 +184,7 @@
     "relevance": 2,
     "sort_order": 40,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "industrial-relations-code-2020",
@@ -201,7 +201,7 @@
     "relevance": 2,
     "sort_order": 41,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "oshwc-code-2020",
@@ -235,7 +235,7 @@
     "relevance": 2,
     "sort_order": 43,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "code-on-wages-central-rules-2026",
@@ -405,7 +405,7 @@
     "relevance": 2,
     "sort_order": 60,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "van-sanrakshan-evam-samvardhan-rules-2023",
@@ -422,7 +422,7 @@
     "relevance": 2,
     "sort_order": 61,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "forest-conservation-rules-2022",
@@ -558,7 +558,7 @@
     "relevance": 2,
     "sort_order": 90,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "dgms-tech-circular-01-2025-explosives",
@@ -575,7 +575,7 @@
     "relevance": 2,
     "sort_order": 91,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "dgms-tech-circular-05-2025-underground-mines-safety",
@@ -592,7 +592,7 @@
     "relevance": 2,
     "sort_order": 92,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "dgms-tech-circular-06-2025-fall-from-height",
@@ -609,7 +609,7 @@
     "relevance": 2,
     "sort_order": 93,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "dgms-tech-circular-02-2024-inundation",
@@ -7239,7 +7239,7 @@
     "relevance": 3,
     "sort_order": 330,
     "published": true,
-    "featured": true
+    "featured": false
   },
   {
     "slug": "notification-for-manager-s-examination-cbt-2021-under-the-cmr-mmr",
