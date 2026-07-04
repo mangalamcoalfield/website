@@ -75,24 +75,35 @@ if (!GO) { console.log("dry run — pass --go to upload."); process.exit(0); }
 
 const { Client } = await import("basic-ftp"); // lazy: only needed for --go
 const c = env();
-const client = new Client(45000);
-try {
-  await client.access({
+async function connect() {
+  const cl = new Client(45000);
+  await cl.access({
     host: c.FTP_HOST, port: Number(c.FTP_PORT || 21), user: c.FTP_USER, password: c.FTP_PASS,
     secure: true, secureOptions: { rejectUnauthorized: false },
   });
-  await client.ensureDir("regs"); // creates public_html/regs and cd's in
-  let done = 0, skipped = 0;
-  for (const j of jobs) {
-    const localSize = fs.statSync(j.local).size;
-    let remoteSize = -1;
-    try { remoteSize = await client.size(j.remoteName); } catch {}
-    if (remoteSize === localSize) { skipped++; done++; continue; }
-    await client.uploadFrom(j.local, j.remoteName);
-    done++;
-    if (done % 25 === 0) console.log(`  ${done}/${jobs.length} uploaded (${skipped} skipped)`);
-  }
-  console.log(`DONE: ${done}/${jobs.length} uploaded (${skipped} already current).`);
-} finally {
-  client.close();
+  await cl.ensureDir("regs"); // creates public_html/regs and cd's in
+  return cl;
 }
+let client = await connect();
+let done = 0, skipped = 0, uploaded = 0;
+for (const j of jobs) {
+  const localSize = fs.statSync(j.local).size;
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    try {
+      let remoteSize = -1;
+      try { remoteSize = await client.size(j.remoteName); } catch {}
+      if (remoteSize === localSize) { skipped++; break; }        // already fully uploaded
+      await client.uploadFrom(j.local, j.remoteName);
+      uploaded++; break;
+    } catch (err) {
+      console.warn(`  retry ${attempt}/5 ${j.remoteName}: ${err.code || err.message}`);
+      try { client.close(); } catch {}
+      if (attempt === 5) throw err;
+      client = await connect();                                   // reconnect after a drop
+    }
+  }
+  done++;
+  if (done % 25 === 0) console.log(`  ${done}/${jobs.length} (${uploaded} up, ${skipped} skipped)`);
+}
+client.close();
+console.log(`DONE: ${done}/${jobs.length} processed — ${uploaded} uploaded, ${skipped} already current.`);
