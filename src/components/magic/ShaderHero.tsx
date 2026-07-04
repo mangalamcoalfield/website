@@ -111,7 +111,7 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
   const accentFrom = words.length - accentWords;
 
   return (
-    <section ref={wrapRef} className={cn('relative flex w-full items-center justify-center overflow-hidden bg-background', compact ? 'min-h-[64vh] pt-28' : 'min-h-screen')} aria-label="Hero">
+    <section ref={wrapRef} className={cn('relative flex w-full items-center justify-center overflow-hidden bg-background', compact ? 'min-h-[46vh] pt-32 pb-12' : 'min-h-screen')} aria-label="Hero">
       {!failed ? (
         <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true" />
       ) : (

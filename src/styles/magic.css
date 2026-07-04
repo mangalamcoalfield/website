@@ -22,6 +22,12 @@
   --input: 150 12% 15%;
   --ring: 74 60% 53%;
   --radius: 1rem;
+
+  /* legacy tokens consumed by the Ask Mangalam widget (self-contained styles) */
+  --lime:#aecf3e; --lime-soft:#bcd25f; --teal:#5e9a89;
+  --forest:#15301f; --cream:#f5f5f1; --panel:#0d160f; --near:#0a130d;
+  --on-dark:#e9eae4; --on-dark-mut:#8d938b; --line-d:rgba(255,255,255,.09);
+  --display:'Archivo',system-ui,sans-serif; --body:'Hanken Grotesk',system-ui,sans-serif;
 }
 
 @theme inline{

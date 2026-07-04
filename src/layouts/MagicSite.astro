@@ -9,6 +9,7 @@ import '@fontsource/hanken-grotesk/500.css';
 import '@fontsource/hanken-grotesk/600.css';
 import '../styles/magic.css';
 import { SITE } from '../data/site';
+import AskMangalam from '../components/AskMangalam.astro';
 
 interface Props { title?: string; description?: string; }
 const { title, description = SITE.description } = Astro.props;
@@ -97,7 +98,9 @@ const active = (h: string) => path === h || (h !== base && path.startsWith(h));
     </div>
   </footer>
 
-  <a href="/" class="fixed bottom-4 right-4 z-[1300] rounded-full bg-gradient-to-b from-[#d6e98a] to-[#aecf3e] px-3.5 py-1.5 text-[11px] font-bold text-[#10130d] shadow-[0_8px_28px_rgba(174,207,62,.3)]">⚡ back to live site</a>
+  <a href="/" class="fixed bottom-4 left-4 z-[1300] rounded-full bg-gradient-to-b from-[#d6e98a] to-[#aecf3e] px-3.5 py-1.5 text-[11px] font-bold text-[#10130d] shadow-[0_8px_28px_rgba(174,207,62,.3)]">⚡ back to live site</a>
+
+  <AskMangalam />
 
   <script>
     const mh = document.getElementById('mh');
