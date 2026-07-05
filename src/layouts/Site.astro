@@ -76,7 +76,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 
   <nav id="mm" class="fixed inset-0 z-[999] flex translate-x-full flex-col justify-center gap-1 bg-background/95 px-9 backdrop-blur-lg transition-transform duration-300 md:hidden" aria-label="Mobile">
     {nav.map((i) => <a href={i.href} class="border-b border-white/10 py-3 font-[var(--font-display)] text-2xl font-semibold">{i.label}</a>)}
-    <a href={SITE.portalUrl} rel="noopener" class="mt-4 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Portal ↗</a>
+    <a href={SITE.portalUrl} rel="noopener" class="mt-4 inline-flex items-center gap-1.5 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Portal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
   </nav>
 
   <main>
@@ -101,7 +101,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Contact</h4>
         <a href={`mailto:${SITE.hrEmail}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{SITE.hrEmail}</a>
-        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">Employee Portal ↗</a>
+        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Employee Portal<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>
     </div>
     <div class="mx-auto mt-12 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-white/10 px-6 pt-6 text-[13px] text-muted-foreground">

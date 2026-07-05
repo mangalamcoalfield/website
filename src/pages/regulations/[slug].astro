@@ -81,7 +81,7 @@ const breadcrumbLd = {
           {reg.download_url ? (
             <a href={reg.download_url} rel="noopener" download class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Download PDF</a>
           ) : reg.source_url ? (
-            <a href={reg.source_url} rel="noopener" class="shrink-0 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source ↗</a>
+            <a href={reg.source_url} rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           ) : null}
         </div>
       </div>
@@ -94,7 +94,7 @@ const breadcrumbLd = {
       )}
 
       <div class="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm">
-        {reg.source_url && <a href={reg.source_url} rel="noopener" class="text-primary underline">Official source ({reg.authority || 'gov.in'}) ↗</a>}
+        {reg.source_url && <a href={reg.source_url} rel="noopener" class="inline-flex items-center gap-1 text-primary underline">Official source ({reg.authority || 'gov.in'})<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>}
         <a href="/regulations" class="text-muted-foreground transition-colors hover:text-primary">← All regulations</a>
       </div>
       <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Reproduced for public reference from the official source. Government regulations are in the public domain; always verify the current in-force text against the official publication.</p>
