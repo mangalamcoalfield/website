@@ -80,7 +80,17 @@
       return;
     }
 
-    // HOOK: email notification + bot lead handoff wire in here later.
+    // Best-effort email notification (never blocks the success message).
+    fetch('/api/notify', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        type: 'lead',
+        name: String(data.get('name') || ''),
+        email: String(data.get('email') || ''),
+        message: String(data.get('message') || ''),
+      }),
+    }).catch(() => {});
+
     form.reset();
     setStatus('Thank you — your message has been received. We will be in touch.', 'ok');
   });

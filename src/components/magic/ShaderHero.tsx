@@ -126,7 +126,7 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
             <span className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary))]" />{eyebrow}
           </motion.span>
         )}
-        <h1 className={cn('font-[var(--font-display)] font-bold leading-[1.03] tracking-tight', compact ? 'text-4xl sm:text-5xl md:text-6xl' : 'text-5xl sm:text-6xl md:text-[5rem]')}>
+        <h1 className={cn('font-[var(--font-display)] font-bold leading-[1.12] tracking-tight', compact ? 'text-4xl sm:text-5xl md:text-6xl' : 'text-5xl sm:text-6xl md:text-[5rem]')}>
           {words.map((word, wi) => {
             const accent = wi >= accentFrom && accentWords > 0;
             return (
@@ -134,7 +134,7 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
                 {word.split('').map((ch, ci) => (
                   <motion.span key={`${wi}-${ci}`} initial={{ y: 90, opacity: 0, filter: 'blur(10px)' }} animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     transition={{ delay: wi * 0.06 + ci * 0.02, type: 'spring', stiffness: 110, damping: 16 }}
-                    className={cn('inline-block bg-clip-text text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}
+                    className={cn('inline-block bg-clip-text pb-[0.16em] text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}
                     style={accent ? { textShadow: '0 0 34px rgba(174,207,62,.4)' } : undefined}>{ch}</motion.span>
                 ))}
               </span>

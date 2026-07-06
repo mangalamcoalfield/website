@@ -68,7 +68,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
         <nav class="hidden items-center gap-7 md:flex" aria-label="Primary">
           {nav.map((i) => (<a href={i.href} class:list={["text-sm transition-colors hover:text-foreground", active(i.href) ? "text-foreground" : "text-muted-foreground"]}>{i.label}</a>))}
         </nav>
-        <a href={SITE.portalUrl} rel="noopener" class="hidden rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary md:inline-block">Employee Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="ml-0.5 inline-block align-[-1px]" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href={SITE.portalUrl} rel="noopener" class="hidden rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary md:inline-block">Operations Portal <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="ml-0.5 inline-block align-[-1px]" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <button id="mb" class="flex flex-col gap-[5px] p-2 md:hidden" aria-label="Menu" aria-expanded="false"><span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span><span class="block h-0.5 w-5 bg-foreground"></span></button>
       </div>
     </div>
@@ -76,7 +76,8 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 
   <nav id="mm" class="fixed inset-0 z-[999] flex translate-x-full flex-col justify-center gap-1 bg-background/95 px-9 backdrop-blur-lg transition-transform duration-300 md:hidden" aria-label="Mobile">
     {nav.map((i) => <a href={i.href} class="border-b border-white/10 py-3 font-[var(--font-display)] text-2xl font-semibold">{i.label}</a>)}
-    <a href={SITE.portalUrl} rel="noopener" class="mt-4 inline-flex items-center gap-1.5 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Portal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <a href={SITE.portalUrl} rel="noopener" class="mt-4 inline-flex items-center gap-1.5 font-[var(--font-display)] text-2xl font-semibold text-primary">Operations Portal<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    <a href={SITE.mailUrl} rel="noopener" class="mt-2 inline-flex items-center gap-1.5 font-[var(--font-display)] text-2xl font-semibold text-primary">Employee Mail<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
   </nav>
 
   <main>
@@ -101,7 +102,8 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Contact</h4>
         <a href={`mailto:${SITE.hrEmail}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{SITE.hrEmail}</a>
-        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Employee Portal<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Operations Portal<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <a href={SITE.mailUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Employee Mail<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>
     </div>
     <div class="mx-auto mt-12 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-white/10 px-6 pt-6 text-[13px] text-muted-foreground">

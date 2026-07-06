@@ -2,7 +2,8 @@
 export const SITE = {
   name: 'Mangalam Coalfield',
   legalName: 'Mangalam Coalfield Private Limited',
-  portalUrl: 'https://app.mangalamcoal.com',
+  portalUrl: 'https://app.mangalamcoal.com',   // Operations Portal
+  mailUrl: 'https://mail.hostinger.com',        // Employee Mail — Hostinger webmail login (confirm exact URL)
   hrEmail: 'hr@mangalamcoal.com',
   location: 'Amlabad, Eastern Jharia, Jharkhand',
   regOffice: 'Registered office · Kolkata',

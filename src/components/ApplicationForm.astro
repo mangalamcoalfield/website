@@ -132,8 +132,20 @@ const { jobs = [], jobId } = Astro.props;
       return;
     }
 
-    // HOOK: per-application email to hr@mangalamcoal.com fires from an edge
-    // function on the `applications` insert (wired later).
+    // Best-effort email notification (never blocks the success message).
+    const jobSel = document.getElementById('app-job') as HTMLSelectElement | null;
+    fetch('/api/notify', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        type: 'application',
+        name: String(data.get('name') || ''),
+        email: String(data.get('email') || ''),
+        phone: String(data.get('phone') || ''),
+        jobTitle: jobSel?.selectedOptions?.[0]?.textContent || '',
+        resumeUrl: path,
+      }),
+    }).catch(() => {});
+
     form.reset();
     setStatus('Application received — thank you. Our team will review and be in touch.', 'ok');
   });
