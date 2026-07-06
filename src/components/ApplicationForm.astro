@@ -6,8 +6,10 @@ interface Props {
   jobId?: string;
 }
 const { jobs = [], jobId } = Astro.props;
+// Map job id -> department so the form can reveal role-relevant questions.
+const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
 ---
-<form class="form" id="appForm" novalidate>
+<form class="form" id="appForm" novalidate data-jobdept={JSON.stringify(jobDept)}>
   <div class="row two">
     <div class="row">
       <label for="app-name">Full name <span class="req">*</span></label>
@@ -33,6 +35,95 @@ const { jobs = [], jobId } = Astro.props;
       </select>
     </div>
   </div>
+
+  {/* ---- Role-specific questions (revealed by the selected role's department) ---- */}
+  <div class="roledetails" data-dept="Mining" hidden>
+    <div class="row two">
+      <div class="row">
+        <label>Statutory certificate held</label>
+        <select name="Certificate">
+          <option value="">Select…</option>
+          <option>First Class Manager's Certificate</option>
+          <option>Second Class Manager's Certificate</option>
+          <option>Overman's Certificate</option>
+          <option>Sirdar's Certificate</option>
+          <option>Surveyor's Certificate</option>
+          <option>Gas Testing Certificate</option>
+          <option>None</option>
+        </select>
+      </div>
+      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+    </div>
+    <div class="row two">
+      <div class="row"><label>Total underground experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+      <div class="row">
+        <label>Valid Gas Testing & First-Aid certificates?</label>
+        <select name="Gas Testing / First-Aid"><option value="">Select…</option><option>Yes — both valid</option><option>Gas Testing only</option><option>First-Aid only</option><option>No</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="roledetails" data-dept="Mechanical" hidden>
+    <div class="row two">
+      <div class="row">
+        <label>Competency certificate held</label>
+        <select name="Certificate">
+          <option value="">Select…</option>
+          <option>Engineer's Certificate of Competency (Mechanical)</option>
+          <option>Foreman's Certificate (Mechanical)</option>
+          <option>None</option>
+        </select>
+      </div>
+      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+    </div>
+    <div class="row"><label>Relevant mining experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+  </div>
+
+  <div class="roledetails" data-dept="Electrical" hidden>
+    <div class="row two">
+      <div class="row">
+        <label>Competency certificate held</label>
+        <select name="Certificate">
+          <option value="">Select…</option>
+          <option>Electrical Supervisor's Certificate of Competency (Mining)</option>
+          <option>None</option>
+        </select>
+      </div>
+      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+    </div>
+    <div class="row"><label>Relevant mining experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+  </div>
+
+  <div class="roledetails" data-dept="Admin" hidden>
+    <div class="row two">
+      <div class="row">
+        <label>Highest qualification</label>
+        <select name="Qualification">
+          <option value="">Select…</option>
+          <option>CA (Chartered Accountant)</option>
+          <option>CS (Company Secretary)</option>
+          <option>MBA / PGDM</option>
+          <option>B.Com / B.Sc</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="row"><label>Membership / registration no. (ICAI / ICSI, if any)</label><input name="Membership no." type="text" /></div>
+    </div>
+    <div class="row"><label>Relevant experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+  </div>
+
+  {/* ---- Common questions (shown once a role is picked) ---- */}
+  <div id="commondetails" hidden>
+    <div class="row two">
+      <div class="row"><label>Current location</label><input name="Current location" type="text" /></div>
+      <div class="row"><label>Notice period</label><input name="Notice period" type="text" placeholder="e.g. 30 days / Immediate" /></div>
+    </div>
+    <div class="row two">
+      <div class="row"><label>Current CTC (optional)</label><input name="Current CTC" type="text" /></div>
+      <div class="row"><label>Expected CTC (optional)</label><input name="Expected CTC" type="text" /></div>
+    </div>
+  </div>
+
   <div class="row">
     <label for="app-resume">Résumé (PDF or Word) <span class="req">*</span></label>
     <input id="app-resume" name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required />
@@ -57,6 +148,10 @@ const { jobs = [], jobId } = Astro.props;
   const form = document.getElementById('appForm') as HTMLFormElement | null;
   const statusEl = document.getElementById('app-status');
   const btn = document.getElementById('app-submit') as HTMLButtonElement | null;
+  const jobSel = document.getElementById('app-job') as HTMLSelectElement | null;
+  const roleGroups = Array.from(document.querySelectorAll('.roledetails')) as HTMLElement[];
+  const commonGroup = document.getElementById('commondetails');
+  const jobDept: Record<string, string> = JSON.parse(form?.dataset.jobdept || '{}');
   const MAX_BYTES = 8 * 1024 * 1024; // 8 MB
 
   function setStatus(msg: string, kind: 'ok' | 'err') {
@@ -64,9 +159,30 @@ const { jobs = [], jobId } = Astro.props;
     statusEl.textContent = msg;
     statusEl.className = `form-status show ${kind}`;
   }
-
   function slugify(s: string) {
     return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'applicant';
+  }
+
+  // Reveal the right question set when a role is chosen.
+  function syncRoleFields() {
+    const dept = jobDept[jobSel?.value || ''] || '';
+    roleGroups.forEach((g) => { g.hidden = g.dataset.dept !== dept; });
+    if (commonGroup) commonGroup.hidden = !jobSel?.value;
+  }
+  jobSel?.addEventListener('change', syncRoleFields);
+  syncRoleFields();
+
+  // Gather visible role-specific + common answers into a details object.
+  function collectDetails() {
+    const details: Record<string, string> = {};
+    const groups = [...roleGroups.filter((g) => !g.hidden), commonGroup].filter(Boolean) as HTMLElement[];
+    groups.forEach((g) => {
+      g.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[name]').forEach((el) => {
+        const v = (el.value || '').trim();
+        if (v) details[el.name] = v;
+      });
+    });
+    return details;
   }
 
   form?.addEventListener('submit', async (e) => {
@@ -74,66 +190,39 @@ const { jobs = [], jobId } = Astro.props;
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
-    if (data.get('consent') !== 'on') {
-      setStatus('Please tick the consent box to submit your application.', 'err');
-      return;
-    }
-
+    if (data.get('consent') !== 'on') { setStatus('Please tick the consent box to submit your application.', 'err'); return; }
     const file = data.get('resume') as File | null;
-    if (!file || file.size === 0) {
-      setStatus('Please attach your résumé.', 'err');
-      return;
-    }
-    if (file.size > MAX_BYTES) {
-      setStatus('Résumé is too large (max 8 MB). Please attach a smaller file.', 'err');
-      return;
-    }
+    if (!file || file.size === 0) { setStatus('Please attach your résumé.', 'err'); return; }
+    if (file.size > MAX_BYTES) { setStatus('Résumé is too large (max 8 MB). Please attach a smaller file.', 'err'); return; }
 
     const supabase = getSupabase();
-    if (!supabase) {
-      setStatus('Form is not configured yet. Please email hr@mangalamcoal.com.', 'err');
-      return;
-    }
+    if (!supabase) { setStatus('Form is not configured yet. Please email hr@mangalamcoal.com.', 'err'); return; }
 
     if (btn) btn.disabled = true;
     setStatus('Uploading…', 'ok');
 
-    // 1) Upload résumé to the private `resumes` bucket under a non-guessable key.
     const ext = (file.name.split('.').pop() || 'pdf').toLowerCase();
     const rand = (crypto?.randomUUID?.() || String(Date.now())).replace(/-/g, '').slice(0, 12);
     const path = `${slugify(String(data.get('name') || ''))}/${rand}.${ext}`;
 
-    const { error: upErr } = await supabase.storage
-      .from('resumes')
-      .upload(path, file, { contentType: file.type || undefined, upsert: false });
+    const { error: upErr } = await supabase.storage.from('resumes').upload(path, file, { contentType: file.type || undefined, upsert: false });
+    if (upErr) { console.error(upErr); if (btn) btn.disabled = false; setStatus('Could not upload your résumé. Please try again or email hr@mangalamcoal.com.', 'err'); return; }
 
-    if (upErr) {
-      console.error(upErr);
-      if (btn) btn.disabled = false;
-      setStatus('Could not upload your résumé. Please try again or email hr@mangalamcoal.com.', 'err');
-      return;
-    }
-
-    // 2) Insert the application row referencing the stored résumé path.
+    const details = collectDetails();
     const { error: insErr } = await supabase.from('applications').insert({
       name: String(data.get('name') || ''),
       email: String(data.get('email') || ''),
       phone: String(data.get('phone') || '') || null,
       job_id: String(data.get('job_id') || '') || null,
       resume_url: path,
+      details,
       consent: true,
     });
 
     if (btn) btn.disabled = false;
-
-    if (insErr) {
-      console.error(insErr);
-      setStatus('Your file uploaded but the application did not save. Please email hr@mangalamcoal.com.', 'err');
-      return;
-    }
+    if (insErr) { console.error(insErr); setStatus('Your file uploaded but the application did not save. Please email hr@mangalamcoal.com.', 'err'); return; }
 
     // Best-effort email notification (never blocks the success message).
-    const jobSel = document.getElementById('app-job') as HTMLSelectElement | null;
     fetch('/api/notify', {
       method: 'POST', headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -147,6 +236,7 @@ const { jobs = [], jobId } = Astro.props;
     }).catch(() => {});
 
     form.reset();
+    syncRoleFields();
     setStatus('Application received — thank you. Our team will review and be in touch.', 'ok');
   });
 </script>
