@@ -20,11 +20,15 @@ import ShaderHero from '../components/magic/ShaderHero.tsx';
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-white/[0.04] overflow-hidden">
-          <div class="flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-[#15301f]/50 to-[#0b0e0b] p-6 text-center text-[13px] uppercase tracking-wide text-muted-foreground">Portrait of Late Shree Gopal Agarwal — to be supplied</div>
+          <div class="relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-br from-[#15301f]/50 to-[#0b0e0b]">
+            <img src="/images/chairman.jpg" alt="Late Shree Gopal Agarwal, Chairman Emeritus" class="h-full w-full object-cover object-top" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="absolute inset-0 hidden items-center justify-center p-6 text-center text-[13px] uppercase tracking-wide text-muted-foreground">Portrait of Late Shree Gopal Agarwal</div>
+          </div>
           <div class="p-7">
             <div class="font-[var(--font-display)] text-xl font-bold text-foreground">Late Shree Gopal Agarwal</div>
             <div class="mt-2 text-[13px] font-semibold uppercase tracking-wide text-primary">Chairman Emeritus</div>
-            <p class="mt-4 italic leading-relaxed text-muted-foreground">Guided by his visionary leadership, the Mangalam family remains deeply committed to upholding trust, integrity, and excellence — the values on which the company was built and continues to grow.</p>
+            <p class="mt-4 italic leading-relaxed text-muted-foreground">“Through every hardship and setback, Mr. Shree Gopal Agarwal showed that perseverance and unwavering belief in brighter days can transform even the greatest struggles into lasting success. His life reminds us: when we refuse to give up, the future will reward our faith and tireless effort.”</p>
+            <p class="mt-3 text-[13px] text-muted-foreground/70">— in memory of Late Mr. Shree Gopal Agarwal, Chairman Emeritus</p>
           </div>
         </div>
       </div>
