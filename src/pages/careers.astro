@@ -13,6 +13,10 @@ let jobs = await safeSelect<Job>((c) =>
 const usingPlaceholders = jobs.length === 0;
 if (usingPlaceholders) jobs = placeholderJobs;
 
+// Department filter tabs (only render depts that currently have openings).
+const DEPT_ORDER = ['Mining', 'Mechanical', 'Electrical', 'Admin'];
+const depts = DEPT_ORDER.filter((d) => jobs.some((j) => j.dept === d));
+
 const empType = (t: string | null) =>
   /part/i.test(t || '') ? 'PART_TIME' : /contract/i.test(t || '') ? 'CONTRACTOR' : 'FULL_TIME';
 
@@ -46,13 +50,21 @@ const jobLd = jobs.map((j) => ({
         <h2 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Current openings.</h2>
         <p class="mt-4 text-muted-foreground">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
       </div>
-      <div class="flex flex-col gap-4">
+
+      {depts.length > 1 && (
+        <div id="deptchips" class="mb-8 flex flex-wrap gap-2.5">
+          <button class="deptchip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-dept="all">All roles</button>
+          {depts.map((d) => (<button class="deptchip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-dept={d}>{d}</button>))}
+        </div>
+      )}
+
+      <div id="joblist" class="flex flex-col gap-4">
         {jobs.map((j) => (
-          <div class="flex flex-col items-start justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors hover:border-primary/30 sm:flex-row sm:items-center">
+          <div class="jobcard flex flex-col items-start justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors hover:border-primary/30 sm:flex-row sm:items-center" data-dept={j.dept}>
             <div>
               <h3 class="font-[var(--font-display)] text-xl font-semibold text-foreground">{j.title}</h3>
               <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
-                {j.dept && <span>{j.dept}</span>}
+                {j.dept && <span class="text-primary/80">{j.dept}</span>}
                 {j.location && <span>{j.location}</span>}
                 {j.type && <span>{j.type}</span>}
               </div>
@@ -62,11 +74,26 @@ const jobLd = jobs.map((j) => ({
           </div>
         ))}
       </div>
+      <p id="jobnone" class="hidden py-8 text-center text-muted-foreground">No current openings in this department.</p>
       {usingPlaceholders && (
         <p class="mt-8 text-sm text-muted-foreground">Placeholder roles shown. Live openings are published from the careers pipeline.</p>
       )}
     </div>
   </section>
+
+  <script>
+    const chips = document.querySelectorAll('#deptchips .deptchip');
+    const cards = Array.from(document.querySelectorAll('#joblist .jobcard')) as HTMLElement[];
+    const none = document.getElementById('jobnone');
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); c.classList.add('text-muted-foreground', 'border-white/12'); });
+      chip.classList.add('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); chip.classList.remove('text-muted-foreground', 'border-white/12');
+      const d = (chip as HTMLElement).dataset.dept || 'all';
+      let visible = 0;
+      cards.forEach((c) => { const show = d === 'all' || c.dataset.dept === d; c.style.display = show ? '' : 'none'; if (show) visible++; });
+      none?.classList.toggle('hidden', visible !== 0);
+    }));
+  </script>
 
   <section id="apply" class="relative bg-background pb-28">
     <div class="mx-auto max-w-6xl px-6">
