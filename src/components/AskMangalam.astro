@@ -115,10 +115,10 @@
       const r = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ question: '' }), // empty → 400 if live, 503 if no key
+        body: JSON.stringify({ probe: true }), // → 200 if live+key, 503 if no key
       });
       if (r.status === 503) { available = false; return false; }
-      // 400 (empty), 429, 200 all mean the function is deployed & enabled.
+      // 200 (probe ok), 429 all mean the function is deployed & enabled.
       return r.status !== 404 && r.status !== 405;
     } catch {
       return false;

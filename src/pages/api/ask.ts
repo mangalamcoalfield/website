@@ -105,12 +105,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (rateLimited(ip)) return json({ error: 'rate_limited' }, 429);
 
   let question = '';
+  let body: { question?: string; probe?: boolean } = {};
   try {
-    const body = await request.json();
+    body = await request.json();
     question = String(body?.question ?? '').trim();
   } catch {
     return json({ error: 'bad_request' }, 400);
   }
+  // Health probe from the widget — the key is present (we passed the 503 gate),
+  // so the bot is available. Return 200 so the browser console stays clean.
+  if (body?.probe) return json({ ok: true });
   if (!question) return json({ error: 'empty' }, 400);
   if (question.length > MAX_Q) question = question.slice(0, MAX_Q);
 
