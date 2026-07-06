@@ -3,7 +3,7 @@ import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import MagicBento from '../components/magic/MagicBento.tsx';
 import ScrollScene from '../components/magic/ScrollScene.tsx';
-import { Marquee, Stats, Lines, Safety, CTA } from '../components/magic/MagicSections.tsx';
+import { Stats, Lines, Safety, CTA } from '../components/magic/MagicSections.tsx';
 import { SITE } from '../data/site';
 
 const orgLd = {
@@ -32,7 +32,6 @@ const orgLd = {
     primary={{ label: 'Explore operations', href: '/operations' }}
     secondary={{ label: 'How coal mining works', href: '/learn' }}
   />
-  <Marquee client:visible />
   <Stats client:visible />
   <Lines client:visible />
   <ScrollScene client:visible />
