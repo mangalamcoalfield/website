@@ -1,30 +1,42 @@
-# Mangalam Coalfield — Pre-Launch Audit (2026-07-05)
+# Mangalam Coalfield — Launch Audit (updated 2026-07-06)
 
-Target: go live on the main domain **mangalamcoal.com**. Ordered by launch priority.
+Live: **mangalamcoal.com** (Vercel) + staging **mangalam-website.vercel.app**.
 
-## 🔴 Blockers (must fix to go live)
-1. **Main domain not connected.** `mangalamcoal.com` + `www` return nothing (only `app.` and `docs.` subdomains resolve). Add both to Vercel + set DNS at registrar. Site code already configured for it (canonical/sitemap/robots = mangalamcoal.com).
-2. **Forms have no notification.** Contact + application forms save to Supabase (`leads`, `applications`) with DPDP consent, but send **no email** (`HOOK: email notification … wire in here later`). Enquiries/applications land silently in the DB. Needs email/webhook notification or a monitoring plan.
+## ✅ Done & live
+- **Domain** on Vercel (apex + www serving; SSL auto-issued). Email routing untouched.
+- **docs.mangalamcoal.com** — branded landing + the regulation PDF host.
+- **Regulations** — 452 downloadable docs (accuracy-checked), DGMS Circular Finder, Latest-from-DGMS + Draft-Watch trackers.
+- **Learn** — 5 substantive explainers; coking NCI tracker.
+- **Careers** — 9 real openings + department tabs (Mining/Mechanical/Admin; Electrical auto-appears) + **role-aware application form** (department-specific questions → saved to `applications.details`).
+- **About** — chairman portrait (blue-bg) + exact Chairman-Emeritus quote; four-pits photo.
+- **Operations** — headframe photo + "how the coal is mined".
+- **Employee Mail** — branded `/mail` gateway + header mail icon; Operations Portal rename.
+- **Forms** — save to Supabase (DPDP consent); `/api/notify` email + weekly-Excel cron **built** (dormant until env vars added).
+- **Polish** — hero descender fix, dropdown contrast fix, themed arrows (no blue emoji), favicon + apple-touch-icon + 1200×630 OG image, clean bot probe, home ticker removed.
+- **SEO** — canonical, sitemap, robots, llms.txt, JSON-LD (Organization/JobPosting/Article/Legislation).
 
-## 🟠 High — content & accuracy
-3. **Placeholder content live:**
-   - **About** — founder/company story, leadership bios, Chairman Emeritus portrait ("to be supplied").
-   - **Careers** — 3 seeded placeholder roles ("Placeholder posting"). Pull real roles from careers.mangalamcoal.com.
-   - **Cares** — 4 generic placeholder CSR projects (no evidence/numbers). [Deferred — resolve last per owner.]
-4. **Home stat claims need owner sign-off:** "200+ workforce", "100% DGMS statutory positions filled", "4 pits under revival" (`MagicSections.tsx` stats). Confirm accurate or soften.
-5. **Contact info thin:** no phone; registered office just "Kolkata". Add phone, full registered address, CIN.
+## ⏳ Pending YOUR action (dashboards/DNS — no development needed)
+1. **Vercel env vars** (Settings → Environment Variables → redeploy):
+   - Notifications: `SMTP_HOST` `smtp.hostinger.com` · `SMTP_PORT` `465` · `SMTP_USER` `noreply@mangalamcoal.com` · `SMTP_PASS` *** · `NOTIFY_TO` `hr@mangalamcoal.com`
+   - Weekly Excel: `SUPABASE_SERVICE_KEY` *** (Supabase → Settings → API → service_role) · `CRON_SECRET` *** (any random string)
+2. **Set `mangalamcoal.com` as Primary** in Vercel (www → apex; matches canonical).
+3. **Apex "Invalid" in Vercel** → click Refresh; if still red, delete the leftover `AAAA` (IPv6) record in the DNS zone.
+4. **careers redirect** → DNS `CNAME careers → cname.vercel-dns.com` + Vercel add `careers.mangalamcoal.com` → Redirect to `https://mangalamcoal.com/careers`.
+5. **mail.mangalamcoal.com** (optional) — `/mail` already works; only needed if you want the branded subdomain.
+6. Remove the **old careers portal** website from Hostinger (moved to a temp domain).
 
-## 🟡 Medium — polish (I can do)
-6. **Favicon** = logo PNG → add proper favicon.ico + apple-touch-icon.
-7. **OG/social image** = logo → add 1200×630 branded share image + twitter:card=summary_large_image.
-8. **Bot console 400** — Ask-Mangalam widget fires one bad request on load (bot works via POST). Clean up.
-9. **Footer legal** — add CIN + registered office; consider Terms/Disclaimer alongside the existing Privacy notice.
+## 📝 Needs YOUR input / content (can't be invented)
+1. **Founder / company story** — About "Our story" is still placeholder; you mentioned a fuller story + "another plan."
+2. **Leadership bios** — 3 placeholder profile cards (names, titles, bios, photos).
+3. **Mangalam Cares (CSR)** — 4 placeholder projects; real what/where/when + evidence. (You said: resolve at the end.)
+4. **Contact details** — no phone; registered office is just "Kolkata." Need phone + full registered address + **CIN**.
+5. **Home stat claims** — "200+ workforce", "100% DGMS statutory positions filled", "4 pits under revival" — confirm accurate or I soften.
+6. **Location wording** — careers portal says **Bokaro**; site says **Eastern Jharia, Jharkhand**. Which is correct? I'll standardize everywhere.
+7. **Webmail URL** — confirm `mail.hostinger.com` is your webmail (vs Titan `mail.titan.email`).
 
-## ✅ Verified good
-All 9 pages 200; 404 works; sitemap/robots/llms present; canonical = mangalamcoal.com; JSON-LD (Organization/JobPosting/Article/Legislation); **bot answers accurately with sources**; responsive/themed; Regulations + Learn overhauled; subdomains `app` + `docs` live; forms wired to Supabase with consent.
-
-## Assets received from owner (2026-07-06), to wire in
-- Chairman photo (white-bg version → About portrait; blue-bg version as backup).
-- Two Amlabad headframe drone photos → candidates for Operations/About/home.
-- Careers: real roles to come from careers.mangalamcoal.com (owner to confirm which are open).
-- Chairman description/quote: pull from current mangalamcoal.com.
+## 🔨 To develop together (decisions / features)
+1. **Weekly Excel** — confirm/edit the role-specific questions; test-run once env vars land.
+2. **Home ticker** — leave off, or add a real "Latest from DGMS / regulatory updates" strip, or a mining-news feed.
+3. **Applications admin** — the weekly Excel has 14-day résumé links; optionally a small protected dashboard to review/manage applications live.
+4. **Legal footer** — CIN + registered office + optional Terms/Disclaimer.
+5. **Analytics** — add GA4 or Plausible if you want traffic data.
