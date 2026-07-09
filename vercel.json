@@ -4,6 +4,12 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "careers.mangalamcoal.com" }],
+      "destination": "https://mangalamcoal.com/careers",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "careers.mangalamcoal.com" }],
       "destination": "https://mangalamcoal.com/careers",
