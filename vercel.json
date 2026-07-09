@@ -1,5 +1,13 @@
 {
   "crons": [
     { "path": "/api/weekly-applications", "schedule": "0 4 * * 1" }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "careers.mangalamcoal.com" }],
+      "destination": "https://mangalamcoal.com/careers",
+      "permanent": true
+    }
   ]
 }

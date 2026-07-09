@@ -32,8 +32,15 @@ import { SITE } from '../data/site';
             <dd class="mt-1 text-muted-foreground">{SITE.regOffice.replace('Registered office · ', '')}</dd>
           </div>
           <div>
+            <dt class="font-[var(--font-display)] text-sm font-semibold text-foreground">Phone</dt>
+            <dd class="mt-1"><a href={`tel:${SITE.phoneHref}`} class="text-primary hover:underline">{SITE.phone}</a></dd>
+          </div>
+          <div>
             <dt class="font-[var(--font-display)] text-sm font-semibold text-foreground">Email</dt>
-            <dd class="mt-1"><a href={`mailto:${SITE.hrEmail}`} class="text-primary hover:underline">{SITE.hrEmail}</a></dd>
+            <dd class="mt-1 flex flex-col gap-1 text-muted-foreground">
+              <span><a href={`mailto:${SITE.seniorEmail}`} class="text-primary hover:underline">{SITE.seniorEmail}</a> — senior-management queries</span>
+              <span><a href={`mailto:${SITE.hrEmail}`} class="text-primary hover:underline">{SITE.hrEmail}</a> — everything else</span>
+            </dd>
           </div>
           <div>
             <dt class="font-[var(--font-display)] text-sm font-semibold text-foreground">Employees</dt>

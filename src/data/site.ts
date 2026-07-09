@@ -6,8 +6,12 @@ export const SITE = {
   mailUrl: '/mail',                             // Employee Mail — branded gateway page → Hostinger webmail
   webmailUrl: 'https://mail.hostinger.com',     // the actual Hostinger webmail login
   hrEmail: 'hr@mangalamcoal.com',
-  location: 'Amlabad, Eastern Jharia, Jharkhand',
+  seniorEmail: 'prashalya@mangalamcoal.com',   // senior-management enquiries
+  phone: '+91 92882 76733',
+  phoneHref: '+919288276733',
+  location: 'Amlabad Colliery, Amlabad (PO) · Eastern Jharia, District Bokaro, Jharkhand',
   regOffice: 'Registered office · Kolkata',
+  cin: '',                                      // CIN — add when supplied
   description:
     'Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in Eastern Jharia — producing coal and coal bed methane with safety, statutory compliance, and engineering rigour at the core of every shift.',
 };

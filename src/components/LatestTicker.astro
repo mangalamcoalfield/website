@@ -1,0 +1,31 @@
+---
+// Home-page ticker of the most recent DGMS circulars/notifications — real,
+// mining-relevant, data-driven (replaces the old arbitrary marquee). Pure CSS
+// marquee, server-rendered.
+interface Item { title: string; href: string; date: string }
+const { items = [] } = Astro.props as { items: Item[] };
+---
+{items.length > 0 && (
+  <section class="relative overflow-hidden border-y border-white/10 bg-background py-3.5" aria-label="Latest from DGMS">
+    <div class="mx-auto flex max-w-full items-center gap-4">
+      <a href="/regulations" class="relative z-20 flex shrink-0 items-center gap-2 pl-5 pr-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+        <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span></span>
+        Latest from DGMS
+      </a>
+      <div class="relative flex-1 overflow-hidden">
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent"></div>
+        <div class="flex w-max gap-8 lt-track">
+          {[...items, ...items].map((it) => (
+            <a href={it.href} class="flex shrink-0 items-center gap-2.5 whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-primary">
+              <span class="rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold text-primary">{it.date}</span>
+              <span class="max-w-[46ch] truncate">{it.title}</span>
+              <span class="text-primary/40">•</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+    <style>{`.lt-track{animation:lt 46s linear infinite}@keyframes lt{to{transform:translateX(-50%)}}.lt-track:hover{animation-play-state:paused}@media(prefers-reduced-motion:reduce){.lt-track{animation:none}}`}</style>
+  </section>
+)}

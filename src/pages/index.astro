@@ -5,6 +5,8 @@ import MagicBento from '../components/magic/MagicBento.tsx';
 import ScrollScene from '../components/magic/ScrollScene.tsx';
 import { Stats, Lines, Safety, CTA } from '../components/magic/MagicSections.tsx';
 import { SITE } from '../data/site';
+import { safeSelect, type Regulation } from '../lib/supabase';
+import LatestTicker from '../components/LatestTicker.astro';
 
 const orgLd = {
   '@context': 'https://schema.org',
@@ -14,13 +16,31 @@ const orgLd = {
   logo: 'https://mangalamcoal.com/mangalam_logo.png',
   description: SITE.description,
   email: SITE.hrEmail,
+  telephone: '+919288276733',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Amlabad Colliery, Amlabad (PO), Eastern Jharia',
+    addressLocality: 'District Bokaro',
     addressRegion: 'Jharkhand',
     addressCountry: 'IN',
-    addressLocality: 'Amlabad, Eastern Jharia',
   },
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: '+919288276733', contactType: 'customer service', email: SITE.hrEmail, areaServed: 'IN' },
+  ],
 };
+
+// Latest DGMS circulars/notifications for the home ticker.
+const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const latestRegs = await safeSelect<Regulation>((c) =>
+  c.from('regulations').select('slug,title,issued_date,category').eq('published', true)
+    .in('category', ['dgms_circular', 'dgms_notification'])
+    .not('issued_date', 'is', null)
+    .order('issued_date', { ascending: false, nullsFirst: false }).limit(20)
+);
+const tickerItems = latestRegs
+  .filter((r) => !!r.issued_date && /^\d{4}-\d{2}-\d{2}/.test(r.issued_date as string))
+  .slice(0, 8)
+  .map((r) => { const [y, m] = (r.issued_date as string).split('-'); return { title: r.title, href: `/regulations/${r.slug}`, date: `${MON[+m]} ${y}` }; });
 ---
 <Site jsonLd={orgLd}>
   <ShaderHero
@@ -32,6 +52,7 @@ const orgLd = {
     primary={{ label: 'Explore operations', href: '/operations' }}
     secondary={{ label: 'How coal mining works', href: '/learn' }}
   />
+  <LatestTicker items={tickerItems} />
   <Stats client:visible />
   <Lines client:visible />
   <ScrollScene client:visible />

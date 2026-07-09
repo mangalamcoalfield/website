@@ -20,6 +20,7 @@ const { title, description = SITE.description, jsonLd } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — Mine Developer & Operator`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
 const ogImage = new URL('/og.png', Astro.site ?? Astro.url.origin).href;
+const GA_ID = import.meta.env.PUBLIC_GA_ID as string | undefined; // set to activate GA4
 const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 const path = Astro.url.pathname;
@@ -58,6 +59,12 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content={ogImage} />
   {ldArray.map((obj) => (<script type="application/ld+json" set:html={JSON.stringify(obj)} />))}
+  {GA_ID && (
+    <Fragment>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+      <script is:inline define:vars={{ GA_ID }}>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',GA_ID);</script>
+    </Fragment>
+  )}
 </head>
 <body class="bg-background text-foreground antialiased">
   <div id="prog" class="fixed inset-x-0 top-0 z-[1100] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-primary/40 via-primary to-secondary"></div>
@@ -110,14 +117,19 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Contact</h4>
+        <a href={`tel:${SITE.phoneHref}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{SITE.phone}</a>
         <a href={`mailto:${SITE.hrEmail}`} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{SITE.hrEmail}</a>
         <a href={SITE.portalUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Operations Portal<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         <a href={SITE.mailUrl} rel="noopener" class="mb-2.5 inline-flex items-center gap-1 text-sm text-foreground/80 transition-colors hover:text-primary">Employee Mail<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
       </div>
     </div>
-    <div class="mx-auto mt-12 flex max-w-6xl flex-wrap justify-between gap-3 border-t border-white/10 px-6 pt-6 text-[13px] text-muted-foreground">
-      <span>© 2026 {SITE.legalName}</span>
-      <span>{SITE.location}</span>
+    <div class="mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-white/10 px-6 pt-6 text-[13px] text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+      <span>© 2026 {SITE.legalName}{SITE.cin ? ` · CIN ${SITE.cin}` : ''}</span>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <a href="/privacy" class="transition-colors hover:text-primary">Privacy</a>
+        <a href="/terms" class="transition-colors hover:text-primary">Terms &amp; Disclaimer</a>
+        <span class="text-muted-foreground/70">{SITE.location}</span>
+      </div>
     </div>
   </footer>
 
