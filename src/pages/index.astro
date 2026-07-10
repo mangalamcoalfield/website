@@ -64,10 +64,14 @@ const tickerItems = latestRegs
           <source src="https://docs.mangalamcoal.com/media/amlabad-drone-1.mp4" type="video/mp4" />
         </video>
         <!-- Logo lock-up: fades in as the drone zooms out at the end of the loop -->
-        <div id="heroLogo" class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0"
-          style="background:radial-gradient(ellipse 55% 72% at 50% 46%, rgba(0,0,0,0.66), rgba(0,0,0,0) 72%)">
-          <img src="/mangalam_logo.png" alt="Mangalam Coalfield" width="562" height="444"
-            class="-mt-6 w-40 md:w-56 lg:w-60 drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)]" />
+        <div id="heroLogo" class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center opacity-0"
+          style="background:radial-gradient(ellipse 52% 60% at 50% 48%, rgba(0,0,0,0.62), rgba(0,0,0,0) 72%)">
+          <img src="/mangalam_mark.png" alt="" width="355" height="340" aria-hidden="true"
+            class="w-24 md:w-32 lg:w-36 drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)]" />
+          <div class="mt-4 flex flex-col items-center" style="text-shadow:0 2px 14px rgba(0,0,0,0.85)">
+            <span class="font-[var(--font-display)] text-2xl font-semibold tracking-[0.34em] text-white md:text-3xl">MANGALAM</span>
+            <span class="mt-1.5 text-[10px] font-medium uppercase tracking-[0.42em] text-white/70 md:text-xs">Coalfield</span>
+          </div>
         </div>
         <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-6">
           <p class="text-sm font-medium text-white/90">The Amlabad colliery — Eastern Jharia, Jharkhand</p>
