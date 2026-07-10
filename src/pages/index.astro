@@ -55,6 +55,21 @@ const tickerItems = latestRegs
   <LatestTicker items={tickerItems} />
   <Stats client:visible />
   <Lines client:visible />
+
+  <section class="relative bg-background pb-4 pt-2">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black">
+        <video class="aspect-video w-full object-cover" autoplay muted loop playsinline preload="metadata"
+          poster="https://docs.mangalamcoal.com/media/amlabad-drone-1.jpg" aria-label="Aerial footage of the Amlabad colliery">
+          <source src="https://docs.mangalamcoal.com/media/amlabad-drone-1.mp4" type="video/mp4" />
+        </video>
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-6">
+          <p class="text-sm font-medium text-white/90">The Amlabad colliery — Eastern Jharia, Jharkhand</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <ScrollScene client:visible />
   <MagicBento client:visible />
   <Safety client:visible />
