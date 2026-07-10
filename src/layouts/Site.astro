@@ -31,6 +31,7 @@ const nav = [
   { href: '/learn', label: 'Learn' },
   { href: '/regulations', label: 'Regulations' },
   { href: '/cares', label: 'Cares' },
+  { href: '/news', label: 'News' },
   { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -108,7 +109,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Company</h4>
-        {[['About','/about'],['Operations','/operations'],['Safety','/safety'],['Mangalam Cares','/cares'],['Careers','/careers']].map(([l,h]) => (<a href={h} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{l}</a>))}
+        {[['About','/about'],['Operations','/operations'],['Safety','/safety'],['Mangalam Cares','/cares'],['In the news','/news'],['Careers','/careers']].map(([l,h]) => (<a href={h} class="mb-2.5 block text-sm text-foreground/80 transition-colors hover:text-primary">{l}</a>))}
       </div>
       <div>
         <h4 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Knowledge</h4>

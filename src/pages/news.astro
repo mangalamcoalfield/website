@@ -1,0 +1,59 @@
+---
+import Site from '../layouts/Site.astro';
+import ShaderHero from '../components/magic/ShaderHero.tsx';
+import news from '../data/news.json';
+
+interface NewsItem { title: string; titleHi?: string; publication: string; date: string; url: string; summary: string; lang?: string; sensitive?: boolean }
+// Publish only non-sensitive, verified items (sensitive ones are held for review).
+const items = (news as NewsItem[]).filter((n) => !n.sensitive);
+
+const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const fmtDate = (d: string) => { if (!/^\d{4}-\d{2}-\d{2}/.test(d)) return ''; const [y, m, dd] = d.slice(0, 10).split('-'); return `${+dd} ${MON[+m]} ${y}`; };
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage',
+  name: 'Amlabad & Mangalam Coalfield — In the news',
+  url: 'https://mangalamcoal.com/news',
+  isPartOf: { '@type': 'WebSite', name: 'Mangalam Coalfield', url: 'https://mangalamcoal.com' },
+};
+---
+<Site title="In the News" description="Press coverage of the Amlabad colliery revival and Mangalam Coalfield Private Limited — from Prabhat Khabar, Dainik Bhaskar, Dainik Jagran, Live Hindustan and Navbharat Times." jsonLd={breadcrumbLd}>
+  <ShaderHero
+    client:load compact
+    eyebrow="In the news"
+    title="The Amlabad revival, in the press"
+    accentWords={1}
+    description="How the regional and national press have covered the reopening of the Amlabad colliery and Mangalam Coalfield's role in it."
+  />
+
+  <section class="relative bg-background pb-6 pt-2">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 leading-relaxed text-muted-foreground backdrop-blur-sm">
+        <p>Amlabad is a more than century-old underground <strong class="text-foreground/80">coking-coal</strong> colliery in Eastern Jharia, part of Bharat Coking Coal Limited (BCCL), a Coal India company. Closed since 2008, it is being revived — with <strong class="text-foreground/80">Mangalam Coalfield Private Limited</strong> engaged as the mine developer &amp; operator (MDO) on a long-term revenue-sharing basis. Its prime coking coal matters for India's steel-making, import substitution and energy security.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-background py-14">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="flex flex-col gap-4">
+        {items.map((n) => (
+          <a href={n.url} target="_blank" rel="noopener noreferrer"
+            class="group rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/30">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground/80">
+              <span class="font-semibold text-primary">{n.publication}</span>
+              {fmtDate(n.date) && <span>· {fmtDate(n.date)}</span>}
+            </div>
+            <h2 class="mt-1.5 font-[var(--font-display)] text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">{n.title}</h2>
+            {n.titleHi && <p class="mt-1 text-[14px] text-muted-foreground/70">{n.titleHi}</p>}
+            {n.summary && <p class="mt-2.5 text-sm leading-relaxed text-muted-foreground">{n.summary}</p>}
+            <span class="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary">Read the article
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Coverage is reproduced in summary with links to the original publications for reference; copyright remains with the respective publishers.</p>
+    </div>
+  </section>
+</Site>
