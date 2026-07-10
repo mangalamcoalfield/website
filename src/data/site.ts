@@ -10,8 +10,8 @@ export const SITE = {
   phone: '+91 92882 76733',
   phoneHref: '+919288276733',
   location: 'Amlabad Colliery, Amlabad (PO) · Eastern Jharia, District Bokaro, Jharkhand',
-  regOffice: 'Registered office · Kolkata',
-  cin: '',                                      // CIN — add when supplied
+  regOffice: 'Room No. 310, 3rd Floor, 1 R.N. Mukherjee Road, Kolkata, West Bengal 700001',
+  cin: 'U05101WB2024PTC267785',
   description:
     'Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in Eastern Jharia — producing coal and coal bed methane with safety, statutory compliance, and engineering rigour at the core of every shift.',
 };
