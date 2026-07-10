@@ -36,3 +36,6 @@ Thumbs.db
 
 # generated at upload time (applied only AFTER PDFs are live)
 supabase/regulations_download_urls.sql
+
+# Source media/assets dump (large; not for git)
+Mangalam Website Data/
