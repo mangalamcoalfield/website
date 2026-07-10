@@ -2,35 +2,48 @@
 import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import { SITE } from '../data/site';
+const updated = 'July 2026';
 ---
 <Site title="Privacy Notice" description="How Mangalam Coalfield Private Limited collects and processes personal data submitted through this website, under the Digital Personal Data Protection Act, 2023.">
   <ShaderHero client:load compact eyebrow="Legal" title="Privacy notice" accentWords={1} />
 
   <section class="relative bg-background pb-28 pt-4">
     <article class="mx-auto max-w-3xl px-6 text-[16px] leading-8 text-muted-foreground">
-      <p class="mb-4"><em>Placeholder notice — to be reviewed and finalised by the company before launch.</em></p>
+      <p class="mb-4 text-sm text-muted-foreground/70">Last updated: {updated}</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Who we are</h2>
-      <p class="mb-4">{SITE.legalName} ("Mangalam", "we") operates this website. For privacy questions, contact <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>.</p>
+      <p class="mb-4">{SITE.legalName} ("Mangalam", "we") operates this website. Registered office: {SITE.regOffice}. CIN: {SITE.cin}. For any privacy question or request, contact <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a> or call <a class="text-primary underline" href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">What we collect</h2>
-      <p class="mb-4">When you submit a form on this site we collect the details you provide:</p>
+      <p class="mb-4">We collect only what you choose to submit through a form on this site:</p>
       <ul class="mb-4 ml-5 list-disc">
-        <li class="mb-2"><strong>Contact / enquiry form:</strong> your name, email and message.</li>
-        <li class="mb-2"><strong>Careers application:</strong> your name, email, phone, the role applied for, and your résumé file.</li>
+        <li class="mb-2"><strong>Contact / enquiry form:</strong> your name, email address and message.</li>
+        <li class="mb-2"><strong>Careers application:</strong> your name, email address, phone number, the role applied for, your résumé file, and the role-relevant details you provide — for example statutory or competency certificates held and their numbers, years of experience, qualifications, current location, notice period, and (optionally) current and expected remuneration.</li>
       </ul>
+      <p class="mb-4">We do not ask for, and you should not submit, any sensitive information beyond what the form requests.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Why we collect it &amp; your consent</h2>
-      <p class="mb-4">We process this data only to respond to your enquiry or to consider your job application. We collect it on the basis of the consent you give via the checkbox on each form, in line with the Digital Personal Data Protection Act, 2023 (DPDP Act).</p>
+      <p class="mb-4">We process this data only to respond to your enquiry or to consider your job application. We collect it on the basis of the consent you give via the checkbox on each form, in line with the Digital Personal Data Protection Act, 2023 (DPDP Act). You may withdraw consent at any time by contacting us.</p>
+
+      <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">How we use it internally</h2>
+      <p class="mb-4">When you submit a form, a notification is emailed to the relevant internal mailbox so that we can respond. Job applications are additionally compiled into a periodic internal summary for our recruitment leads. Access to submissions and résumés is restricted to authorised personnel.</p>
+
+      <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Where your data is stored</h2>
+      <p class="mb-4">This website is hosted on Vercel. Form submissions and uploaded résumés are stored in our Supabase database and file storage. Notification and summary emails are sent through our email provider. These providers process data on our behalf, under their own security and data-protection commitments; some may store or process data outside India.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">How long we keep it</h2>
-      <p class="mb-4">Application data and résumés are retained only as long as needed for the recruitment process, then purged after a short grace window. Enquiry data is kept only as long as needed to respond and follow up.</p>
+      <p class="mb-4">Application data and résumés are retained only as long as needed for the recruitment process, and then purged after a short grace window. Enquiry data is kept only as long as needed to respond and follow up. You may ask us to delete your data sooner.</p>
+
+      <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Cookies &amp; analytics</h2>
+      <p class="mb-4">We do not use advertising or cross-site tracking cookies. If we enable basic, aggregate website analytics to understand traffic, this notice will be updated to say so.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Your rights</h2>
-      <p class="mb-4">You may ask us to access, correct or delete the personal data you have submitted. To do so, email <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>.</p>
+      <p class="mb-4">Under the DPDP Act you may ask us to access, correct, update or erase the personal data you have submitted, withdraw your consent, or nominate another person to exercise your rights. To do so, email <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>. We will respond within a reasonable period. If you are not satisfied, you may raise a grievance with us at the same address before approaching the Data Protection Board of India.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Sharing</h2>
-      <p class="mb-4">We do not sell your data. Form submissions are stored securely and are accessible only to authorised personnel for the purpose above.</p>
+      <p class="mb-4">We do not sell your data and we do not share it for marketing. We disclose it only to the service providers described above, to our authorised personnel, or where required by law.</p>
+
+      <p class="mt-10 text-sm text-muted-foreground/70">See also our <a class="text-primary underline" href="/terms">Terms of Use &amp; Disclaimer</a>.</p>
     </article>
   </section>
 </Site>
