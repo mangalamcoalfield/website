@@ -16,6 +16,14 @@ const breadcrumbLd = {
   url: 'https://mangalamcoal.com/news',
   isPartOf: { '@type': 'WebSite', name: 'Mangalam Coalfield', url: 'https://mangalamcoal.com' },
 };
+
+// Print / e-paper coverage (no online link) — shown as clippings.
+const DOCS = 'https://docs.mangalamcoal.com/media/press';
+const clippings = [
+  { img: `${DOCS}/press-four-2025.jpg`, pub: 'Dainik Bhaskar · Bokaro', date: '1 Jan 2025', cap: 'Four closed collieries in Bokaro district set to restart in 2025 — Amlabad, shut since 2008, is listed first, with Mangalam engaged to reopen it on a revenue-sharing basis.' },
+  { img: `${DOCS}/press-bridge-2024.jpg`, pub: 'Dainik Bhaskar · Bokaro', date: '6 Jul 2024', cap: 'Amlabad to reopen after 16 years; a new bridge over the Damodar will link the colliery directly to Dhanbad, bringing the local economy back to life.' },
+  { img: `${DOCS}/press-1year-2024.jpg`, pub: 'Dainik Bhaskar · Dhanbad', date: '10 May 2024', cap: '“Coal mining at Amlabad to begin within a year” — Mangalam and BCCL officials inspect the colliery and appeal for villagers’ cooperation.' },
+];
 ---
 <Site title="In the News" description="Press coverage of the Amlabad colliery revival and Mangalam Coalfield Private Limited — from Prabhat Khabar, Dainik Bhaskar, Dainik Jagran, Live Hindustan and Navbharat Times." jsonLd={breadcrumbLd}>
   <ShaderHero
@@ -54,6 +62,34 @@ const breadcrumbLd = {
         ))}
       </div>
       <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Coverage is reproduced in summary with links to the original publications for reference; copyright remains with the respective publishers.</p>
+    </div>
+  </section>
+
+  <!-- Print / e-paper clippings -->
+  <section class="relative bg-background pb-20">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mb-8 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Also in print</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">From the local papers.</h2>
+        <p class="mt-3 leading-relaxed text-muted-foreground">The Amlabad revival has been followed closely by the regional Hindi press. A few clippings — tap to read the full page.</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {clippings.map((c) => (
+          <a href={c.img} target="_blank" rel="noopener noreferrer"
+            class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-0.5 hover:border-primary/30">
+            <div class="flex items-center justify-center bg-neutral-100 p-2">
+              <img src={c.img} alt={c.cap} loading="lazy" class="max-h-[360px] w-auto object-contain" />
+            </div>
+            <div class="p-5">
+              <div class="flex flex-wrap items-center gap-x-3 text-[12px] text-muted-foreground/80">
+                <span class="font-semibold text-primary">{c.pub}</span><span>· {c.date}</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{c.cap}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Clippings shown for reference; copyright remains with the respective publishers.</p>
     </div>
   </section>
 </Site>
