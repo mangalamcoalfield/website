@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { STATIC_CORPUS, type CorpusChunk } from '../../lib/bot-corpus';
 import { retrieveScored } from '../../lib/retrieval';
-import { safeSelect, type KnowledgeEntry } from '../../lib/supabase';
+import { safeSelect, type KnowledgeEntry, type Regulation } from '../../lib/supabase';
 
 // On-demand (serverless) — NOT prerendered. Runs server-side on Vercel so the
 // Gemini key never reaches the browser.
@@ -16,11 +16,11 @@ const MAX_Q = 500; // chars
 const RL_WINDOW_MS = 60_000;
 const RL_MAX = 8; // requests per IP per window (best-effort; Google spend cap is the hard backstop)
 
-const SYSTEM_INSTRUCTION = `You are "Ask Mangalam", the assistant on the public website of Mangalam Coalfield Private Limited — a coal mine developer/operator reviving the Amlabad pits in Eastern Jharia, Jharkhand, running coal and coal bed methane (CBM) operations.
+const SYSTEM_INSTRUCTION = `You are "Ask Mangalam", the assistant on the public website of Mangalam Coalfield Private Limited — a coal mine developer/operator reviving the Amlabad pits in the Eastern Jharia Area of District Bokaro, Jharkhand, running coal and coal bed methane (CBM) operations.
 
 WHAT YOU MAY ANSWER:
 1) Questions about Mangalam Coalfield itself — answer using ONLY the facts in CONTEXT below. Never invent company specifics (figures, dates, sites, production, reserves, schedules). If a company detail is not in CONTEXT, say you don't have that specific detail and suggest the contact form.
-2) General Indian coal-mining topics — mining methods (e.g. bord & pillar), geology and coal seams (dip/gradient), ventilation and mine gases (methane, "air"/gas accumulations), roof support, safety and DGMS regulation, equipment, coal grades and markets. For these you MAY answer accurately from general knowledge even when CONTEXT doesn't cover it. Keep it factual, educational and concise, and prefer CONTEXT where relevant.
+2) General Indian coal-mining and regulatory topics — mining methods (e.g. bord & pillar), geology and coal seams (dip/gradient), ventilation and mine gases (methane, "air"/gas accumulations), roof support, safety, and the statutory framework: the Mines Act 1952, the Coal Mines Regulations 2017, DGMS circulars/notifications, and DGMS/statutory forms, returns, permits and notices. For ALL of these you MAY and SHOULD answer accurately from general knowledge even when CONTEXT doesn't cover the exact item — do not refuse a genuine coal-mining or DGMS regulatory question just because it isn't in CONTEXT. Be factual, educational and concise, prefer CONTEXT where relevant, and where useful point the user to the site's Regulations hub at /regulations (452+ DGMS documents with a circular finder). If you are unsure of a very specific detail (an exact form number or clause), say so plainly rather than guessing.
 
 REFUSE politely anything that is NOT about coal mining or Mangalam (sports, politics, weather, other industries, general chit-chat).
 
@@ -48,10 +48,19 @@ function json(body: unknown, status = 200): Response {
 }
 
 async function buildCorpus(): Promise<CorpusChunk[]> {
-  // Static page copy + any published knowledge entries (public content only).
-  const entries = await safeSelect<KnowledgeEntry>((c) =>
-    c.from('knowledge_entries').select('*').eq('published', true)
-  );
+  // Static page copy + published knowledge entries + the public regulations hub
+  // (all public content — same publish-filter as the rest of the site).
+  const [entries, regs] = await Promise.all([
+    safeSelect<KnowledgeEntry>((c) =>
+      c.from('knowledge_entries').select('*').eq('published', true)
+    ),
+    safeSelect<Regulation>((c) =>
+      c
+        .from('regulations')
+        .select('slug,title,summary,category,authority,doc_number,issued_date')
+        .eq('published', true)
+    ),
+  ]);
   const fromDb: CorpusChunk[] = entries
     .filter((e) => e.body)
     .map((e) => ({
@@ -59,7 +68,19 @@ async function buildCorpus(): Promise<CorpusChunk[]> {
       text: e.body as string,
       source: e.type === 'explainer' && e.slug ? `/learn/${e.slug}` : e.source_url || '/learn',
     }));
-  return [...STATIC_CORPUS, ...fromDb];
+  // Each regulation → a compact, searchable chunk (title + issuer + summary),
+  // citing the hub page so answers can link the actual document.
+  const fromRegs: CorpusChunk[] = regs
+    .filter((r) => r.summary)
+    .map((r) => {
+      const meta = [r.doc_number, r.authority].filter(Boolean).join(' · ');
+      return {
+        title: r.title,
+        text: `${r.title}${meta ? ` (${meta})` : ''}. ${r.summary}`,
+        source: r.slug ? `/regulations/${r.slug}` : '/regulations',
+      };
+    });
+  return [...STATIC_CORPUS, ...fromDb, ...fromRegs];
 }
 
 async function callGemini(question: string, context: string): Promise<string> {
@@ -72,11 +93,15 @@ async function callGemini(question: string, context: string): Promise<string> {
     body: JSON.stringify({
       system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
       contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-      generationConfig: { temperature: 0.2, topP: 0.9, maxOutputTokens: 400 },
+      generationConfig: { temperature: 0.2, topP: 0.9, maxOutputTokens: 800 },
+      // Coal-mining/safety/regulatory content (methane, explosives, ventilation,
+      // hazards) routinely trips the DANGEROUS_CONTENT filter at MEDIUM, which was
+      // cutting legitimate answers off mid-sentence. Block only HIGH-confidence harm.
       safetySettings: [
-        { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+        { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+        { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
       ],
     }),
   });
@@ -86,13 +111,21 @@ async function callGemini(question: string, context: string): Promise<string> {
     throw new Error(`Gemini ${res.status}: ${detail.slice(0, 200)}`);
   }
   const data = await res.json();
-  const text: string | undefined = data?.candidates?.[0]?.content?.parts
+  const cand = data?.candidates?.[0];
+  const text: string | undefined = cand?.content?.parts
     ?.map((p: { text?: string }) => p.text || '')
     .join('')
     .trim();
   if (!text) {
     // blocked or empty — give a safe fallback
     return "I'm sorry, I can't help with that. For anything specific, please use our contact form.";
+  }
+  // If the model was cut off (safety/length) mid-sentence, close it cleanly so the
+  // user never sees a dangling fragment.
+  if (cand?.finishReason && cand.finishReason !== 'STOP' && !/[.!?)]$/.test(text)) {
+    const lastStop = Math.max(text.lastIndexOf('. '), text.lastIndexOf('! '), text.lastIndexOf('? '));
+    const trimmed = lastStop > 40 ? text.slice(0, lastStop + 1) : text;
+    return `${trimmed}\n\nFor more, see our Regulations hub (/regulations) or the contact form.`;
   }
   return text;
 }

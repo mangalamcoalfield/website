@@ -9,11 +9,11 @@ export const SITE = {
   seniorEmail: 'prashalya@mangalamcoal.com',   // senior-management enquiries
   phone: '+91 92882 76733',
   phoneHref: '+919288276733',
-  location: 'Amlabad Colliery, Amlabad (PO) · Eastern Jharia, District Bokaro, Jharkhand',
+  location: 'Amlabad Colliery, Amlabad (PO) · Eastern Jharia Area, District Bokaro, Jharkhand',
   regOffice: 'Room No. 310, 3rd Floor, 1 R.N. Mukherjee Road, Kolkata, West Bengal 700001',
   cin: 'U05101WB2024PTC267785',
   description:
-    'Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in Eastern Jharia — producing coal and coal bed methane with safety, statutory compliance, and engineering rigour at the core of every shift.',
+    'Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in the Eastern Jharia Area of District Bokaro, Jharkhand — producing coal and coal bed methane with safety, statutory compliance, and engineering rigour at the core of every shift.',
 };
 
 export const NAV = [

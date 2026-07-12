@@ -17,17 +17,17 @@ export const STATIC_CORPUS: CorpusChunk[] = [
   {
     title: 'Who Mangalam Coalfield is',
     source: '/about',
-    text: 'Mangalam Coalfield Private Limited is a mine developer and operator reviving the historic Amlabad pits in Eastern Jharia, Jharkhand. It runs two commercial lines: underground coal mining and coal bed methane (CBM). The company stands on a foundation of rich legacy, resilience and shared values, carrying forward the vision of its founder; a new generation now leads, committed to trust, integrity and excellence. Late Shree Gopal Agarwal is honoured as Chairman Emeritus.',
+    text: 'Mangalam Coalfield Private Limited is a mine developer and operator reviving the historic Amlabad pits in the Eastern Jharia Area of District Bokaro, Jharkhand. It runs two commercial lines: underground coal mining and coal bed methane (CBM). The company stands on a foundation of rich legacy, resilience and shared values, carrying forward the vision of its founder; a new generation now leads, committed to trust, integrity and excellence. Late Shree Gopal Agarwal is honoured as Chairman Emeritus.',
   },
   {
     title: 'Operations — the two business lines',
     source: '/operations',
-    text: 'Through the Amlabad block in Eastern Jharia, Jharkhand, Mangalam runs two commercial lines. Coal mining: reviving the historic underground workings across all four Amlabad pits — Pit No. 1, 2, 3 and 4 — through revival, development and dewatering, positioned as powering India\'s industrial growth through responsible coal. Coal bed methane (CBM): commercially capturing the methane held inside the same coal seams as a cleaner energy stream, put to use rather than vented to the atmosphere. This is a new commercial vertical alongside coal.',
+    text: 'Through the Amlabad block in the Eastern Jharia Area of District Bokaro, Jharkhand, Mangalam runs two commercial lines. Coal mining: reviving the historic underground workings across all four Amlabad pits — Pit No. 1, 2, 3 and 4 — through revival, development and dewatering, positioned as powering India\'s industrial growth through responsible coal. Coal bed methane (CBM): commercially capturing the methane held inside the same coal seams as a cleaner energy stream, put to use rather than vented to the atmosphere. This is a new commercial vertical alongside coal.',
   },
   {
     title: 'The four Amlabad pits',
     source: '/operations',
-    text: 'Mangalam is reviving all four Amlabad pits in Eastern Jharia, Jharkhand: Pit No. 1 (revival), Pit No. 2 (development), Pit No. 3 (development) and Pit No. 4 (dewatering). These are general revival and development stages. The company does not publish production schedules, reserves, mine-plan economics or site-specific gas readings.',
+    text: 'Mangalam is reviving all four Amlabad pits in the Eastern Jharia Area, Bokaro, Jharkhand: Pit No. 1 (revival), Pit No. 2 (development), Pit No. 3 (development) and Pit No. 4 (dewatering). These are general revival and development stages. The company does not publish production schedules, reserves, mine-plan economics or site-specific gas readings.',
   },
   {
     title: 'Capabilities',
@@ -47,7 +47,7 @@ export const STATIC_CORPUS: CorpusChunk[] = [
   {
     title: 'Careers',
     source: '/careers',
-    text: 'Mangalam hires for roles in Indian coal mining — mining engineers, statutory safety, and electrical and mechanical positions — based at the Amlabad block in Eastern Jharia, Jharkhand. Candidates apply through the careers page by submitting their details and a résumé. The bot cannot make hiring decisions, promise interviews, or commit to any role.',
+    text: 'Mangalam hires for roles in Indian coal mining — mining engineers, statutory safety, and electrical and mechanical positions — based at the Amlabad block in the Eastern Jharia Area, Bokaro, Jharkhand. Candidates apply through the careers page by submitting their details and a résumé. The bot cannot make hiring decisions, promise interviews, or commit to any role.',
   },
   {
     title: 'Knowledge hub — how coal mining works',

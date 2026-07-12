@@ -28,7 +28,7 @@ const jobLd = jobs.map((j) => ({
   datePosted: j.posted_at || undefined,
   employmentType: empType(j.type),
   hiringOrganization: { '@type': 'Organization', name: SITE.legalName, sameAs: 'https://mangalamcoal.com', logo: 'https://mangalamcoal.com/mangalam_logo.png' },
-  jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', streetAddress: j.location || 'Amlabad, Eastern Jharia', addressLocality: 'Amlabad, Eastern Jharia', addressRegion: 'Jharkhand', addressCountry: 'IN' } },
+  jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', streetAddress: j.location || 'Amlabad Colliery, Eastern Jharia Area', addressLocality: 'District Bokaro', addressRegion: 'Jharkhand', addressCountry: 'IN' } },
   ...(j.dept ? { occupationalCategory: j.dept } : {}),
   directApply: true,
 }));
@@ -48,7 +48,7 @@ const jobLd = jobs.map((j) => ({
       <div class="mb-10 max-w-2xl">
         <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Open roles</span>
         <h2 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Current openings.</h2>
-        <p class="mt-4 text-muted-foreground">All roles are based at the Amlabad block in Eastern Jharia, Jharkhand unless stated otherwise.</p>
+        <p class="mt-4 text-muted-foreground">All roles are based at the Amlabad block in the Eastern Jharia Area, Bokaro, Jharkhand unless stated otherwise.</p>
       </div>
 
       {depts.length > 1 && (

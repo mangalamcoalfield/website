@@ -43,7 +43,7 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
 }
 
 /* ---------- Marquee ---------- */
-const tokens = ['Amlabad Pit No. 1', 'DGMS Compliance', 'Coal Bed Methane', 'Pit No. 2', 'Eastern Jharia', 'Bord & Pillar', 'Pit No. 3', 'Mines Act 1952', 'Ventilation Discipline', 'Pit No. 4', 'Coal Mines Regulations 2017', 'Responsible Coal'];
+const tokens = ['Amlabad Pit No. 1', 'DGMS Compliance', 'Coal Bed Methane', 'Pit No. 2', 'Eastern Jharia Area', 'Bord & Pillar', 'Pit No. 3', 'Mines Act 1952', 'Ventilation Discipline', 'Pit No. 4', 'Coal Mines Regulations 2017', 'Responsible Coal'];
 export function Marquee() {
   return (
     <section className="relative overflow-hidden border-y border-white/10 bg-background py-6">
