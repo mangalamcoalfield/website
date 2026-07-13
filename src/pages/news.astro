@@ -4,18 +4,16 @@ import ShaderHero from '../components/magic/ShaderHero.tsx';
 import news from '../data/news.json';
 
 interface NewsItem { title: string; titleHi?: string; publication: string; date: string; url: string; summary: string; clip?: string; lang?: string; sensitive?: boolean }
-// Publish only non-sensitive, verified items (sensitive ones are held for review).
-const items = (news as NewsItem[]).filter((n) => !n.sensitive);
 
 const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const fmtDate = (d: string) => { if (!/^\d{4}-\d{2}-\d{2}/.test(d)) return ''; const [y, m, dd] = d.slice(0, 10).split('-'); return `${+dd} ${MON[+m]} ${y}`; };
+const byDateDesc = (a: NewsItem, b: NewsItem) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
-// Short masthead initials for the thumbnail tile when there's no clipping image.
-const MASTHEAD: Record<string, string> = {
-  'Navbharat Times': 'NBT', 'Dainik Jagran': 'जागरण', 'Live Hindustan': 'हिन्दुस्तान',
-  'Indian PSU': 'PSU', 'Prabhat Khabar': 'प्रभात', 'Dainik Bhaskar': 'भास्कर',
-};
-const initials = (p: string) => MASTHEAD[p] || p.split(' ').map((w) => w[0]).join('').slice(0, 3).toUpperCase();
+// Publish only non-sensitive, verified items. Items with a clipping image lead the
+// page as a gallery; the rest are listed as online coverage.
+const visible = (news as NewsItem[]).filter((n) => !n.sensitive);
+const clipped = visible.filter((n) => n.clip).sort(byDateDesc);
+const online = visible.filter((n) => !n.clip && n.url).sort(byDateDesc);
 
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'CollectionPage',
@@ -23,14 +21,6 @@ const breadcrumbLd = {
   url: 'https://mangalamcoal.com/news',
   isPartOf: { '@type': 'WebSite', name: 'Mangalam Coalfield', url: 'https://mangalamcoal.com' },
 };
-
-// Print / e-paper coverage (no online link) — shown as clippings.
-const DOCS = 'https://docs.mangalamcoal.com/media/press';
-const clippings = [
-  { img: `${DOCS}/press-four-2025.jpg`, pub: 'Dainik Bhaskar · Bokaro', date: '1 Jan 2025', cap: 'Four closed collieries in Bokaro district set to restart in 2025 — Amlabad, shut since 2008, is listed first, with Mangalam engaged to reopen it on a revenue-sharing basis.' },
-  { img: `${DOCS}/press-bridge-2024.jpg`, pub: 'Dainik Bhaskar · Bokaro', date: '6 Jul 2024', cap: 'Amlabad to reopen after 16 years; a new bridge over the Damodar will link the colliery directly to Dhanbad, bringing the local economy back to life.' },
-  { img: `${DOCS}/press-1year-2024.jpg`, pub: 'Dainik Bhaskar · Dhanbad', date: '10 May 2024', cap: '“Coal mining at Amlabad to begin within a year” — Mangalam and BCCL officials inspect the colliery and appeal for villagers’ cooperation.' },
-];
 ---
 <Site title="In the News" description="Press coverage of the Amlabad colliery revival and Mangalam Coalfield Private Limited — from Prabhat Khabar, Dainik Bhaskar, Dainik Jagran, Live Hindustan and Navbharat Times." jsonLd={breadcrumbLd}>
   <ShaderHero
@@ -44,75 +34,78 @@ const clippings = [
   <section class="relative bg-background pb-6 pt-2">
     <div class="mx-auto max-w-3xl px-6">
       <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 leading-relaxed text-muted-foreground backdrop-blur-sm">
-        <p>Amlabad is a more than century-old underground <strong class="text-foreground/80">coking-coal</strong> colliery in Eastern Jharia, part of Bharat Coking Coal Limited (BCCL), a Coal India company. Closed since 2008, it is being revived — with <strong class="text-foreground/80">Mangalam Coalfield Private Limited</strong> engaged as the mine developer &amp; operator (MDO) on a long-term revenue-sharing basis. Its prime coking coal matters for India's steel-making, import substitution and energy security.</p>
+        <p>Amlabad is a more than century-old underground <strong class="text-foreground/80">coking-coal</strong> colliery in the Eastern Jharia Area, Bokaro, part of Bharat Coking Coal Limited (BCCL), a Coal India company. Closed since 2008, it is being revived — with <strong class="text-foreground/80">Mangalam Coalfield Private Limited</strong> engaged as the mine developer &amp; operator (MDO) on a long-term revenue-sharing basis. Its prime coking coal matters for India's steel-making, import substitution and energy security.</p>
       </div>
     </div>
   </section>
 
+  <!-- Clippings gallery -->
   <section class="relative bg-background py-14">
-    <div class="mx-auto max-w-3xl px-6">
-      <div class="flex flex-col gap-4">
-        {items.map((n) => (
-          <div class="group flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/30 sm:gap-5 sm:p-5">
-            {n.clip ? (
-              <a href={n.clip} target="_blank" rel="noopener noreferrer" title="View the clipping"
-                class="relative block w-[84px] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-neutral-100 sm:w-[116px]">
-                <img src={n.clip} alt={`Clipping — ${n.title}`} loading="lazy" class="aspect-[3/4] w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]" />
-                <span class="absolute bottom-1 right-1 rounded bg-black/60 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white/90">Clipping</span>
-              </a>
-            ) : (
-              <div class="relative flex w-[84px] shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 sm:w-[116px]"
-                style="background:linear-gradient(150deg,#173a22,#0b0e0b)">
-                <svg class="absolute -top-2 opacity-[0.13]" width="120" height="120" viewBox="0 0 100 96" fill="none" aria-hidden="true"><path d="M6 46 L50 10 L94 46 L94 61 L50 25 L6 61 Z" fill="#9cc24e"/><path d="M22 60 L50 38 L78 60 L78 72 L50 50 L22 72 Z" fill="#9cc24e"/></svg>
-                <span class="relative px-1 text-center font-[var(--font-display)] text-base font-bold leading-tight text-primary sm:text-lg">{initials(n.publication)}</span>
-              </div>
-            )}
-            <div class="min-w-0 flex-1">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mb-9 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">The clippings</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">As it appeared in the papers.</h2>
+        <p class="mt-3 leading-relaxed text-muted-foreground">Coverage of the revival in the regional and national press — tap any clipping to read the full page.</p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        {clipped.map((n) => (
+          <article class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all hover:border-primary/30">
+            <a href={n.clip} target="_blank" rel="noopener noreferrer" title="View the full clipping"
+              class="flex items-center justify-center overflow-hidden bg-neutral-100 p-2.5">
+              <img src={n.clip} alt={`Newspaper clipping — ${n.title}`} loading="lazy"
+                class="max-h-[440px] w-auto object-contain transition-transform duration-300 group-hover:scale-[1.015]" />
+            </a>
+            <div class="flex flex-1 flex-col p-6">
               <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground/80">
                 <span class="font-semibold text-primary">{n.publication}</span>
                 {fmtDate(n.date) && <span>· {fmtDate(n.date)}</span>}
               </div>
-              <a href={n.url} target="_blank" rel="noopener noreferrer" class="group/link">
-                <h2 class="mt-1.5 font-[var(--font-display)] text-lg font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">{n.title}</h2>
-              </a>
+              <h3 class="mt-1.5 font-[var(--font-display)] text-lg font-semibold leading-snug text-foreground">{n.title}</h3>
               {n.titleHi && <p class="mt-1 text-[14px] text-muted-foreground/70">{n.titleHi}</p>}
               {n.summary && <p class="mt-2.5 text-sm leading-relaxed text-muted-foreground">{n.summary}</p>}
-              <a href={n.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:underline">Read the article
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
+              <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] font-semibold">
+                <a href={n.clip} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-primary hover:underline">View clipping
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+                </a>
+                {n.url && (
+                  <a href={n.url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary">Read online
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
-      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Coverage is reproduced in summary with links to the original publications for reference; copyright remains with the respective publishers.</p>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Clippings are reproduced for reference; copyright remains with the respective publishers.</p>
     </div>
   </section>
 
-  <!-- Print / e-paper clippings -->
-  <section class="relative bg-background pb-20">
-    <div class="mx-auto max-w-5xl px-6">
-      <div class="mb-8 max-w-2xl">
-        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Also in print</span>
-        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">From the local papers.</h2>
-        <p class="mt-3 leading-relaxed text-muted-foreground">The Amlabad revival has been followed closely by the regional Hindi press. A few clippings — tap to read the full page.</p>
-      </div>
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {clippings.map((c) => (
-          <a href={c.img} target="_blank" rel="noopener noreferrer"
-            class="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition-all hover:-translate-y-0.5 hover:border-primary/30">
-            <div class="flex items-center justify-center bg-neutral-100 p-2">
-              <img src={c.img} alt={c.cap} loading="lazy" class="max-h-[360px] w-auto object-contain" />
-            </div>
-            <div class="p-5">
-              <div class="flex flex-wrap items-center gap-x-3 text-[12px] text-muted-foreground/80">
-                <span class="font-semibold text-primary">{c.pub}</span><span>· {c.date}</span>
+  {online.length > 0 && (
+    <section class="relative bg-background pb-20">
+      <div class="mx-auto max-w-3xl px-6">
+        <div class="mb-7 max-w-2xl">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">More coverage</span>
+          <h2 class="mt-3 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground md:text-3xl">Also reported online.</h2>
+        </div>
+        <div class="flex flex-col divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+          {online.map((n) => (
+            <a href={n.url} target="_blank" rel="noopener noreferrer" class="group block p-5 transition-colors hover:bg-white/[0.03] sm:p-6">
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-muted-foreground/80">
+                <span class="font-semibold text-primary">{n.publication}</span>
+                {fmtDate(n.date) && <span>· {fmtDate(n.date)}</span>}
               </div>
-              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{c.cap}</p>
-            </div>
-          </a>
-        ))}
+              <h3 class="mt-1.5 font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">{n.title}</h3>
+              {n.summary && <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{n.summary}</p>}
+              <span class="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary">Read the article
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+        <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Coverage is reproduced in summary with links to the original publications; copyright remains with the respective publishers.</p>
       </div>
-      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">Clippings shown for reference; copyright remains with the respective publishers.</p>
-    </div>
-  </section>
+    </section>
+  )}
 </Site>
