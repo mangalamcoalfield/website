@@ -72,3 +72,59 @@ insert it:
 npx supabase db query --linked "insert into nci_history (month,value,sub_index,source_url,published) values ('YYYY-MM', <coking value>, 'Coking coal · NCI sub-index','https://coal.gov.in/nominated-authority/national-coal-index', true);"
 ```
 (Latest seeded: May 2026 = 156.43, Apr 2026 = 157.11.)
+
+---
+
+## Troubleshooting — Hostinger FTPS uploads
+
+All site media (regulation PDFs, press clippings, the drone video) lives on
+`docs.mangalamcoal.com` and is uploaded over **explicit FTPS** (port 21, AUTH TLS).
+Creds: `.hostinger.env` (gitignored). HTTP *serving* of docs and FTPS *uploading* are
+independent — serving can be perfectly fine while uploads fail.
+
+### Symptom: every upload fails with `504`
+
+```
+> AUTH SSL
+< 504 Command not implemented for that parameter
+> AUTH TLS
+< 504 Command not implemented for that parameter
+```
+
+`504` here is an **FTP reply code** ("command not implemented for that parameter"),
+*not* an HTTP gateway timeout. curl surfaces it via `%{http_code}`, which makes it
+look like a network problem. It means the server refused to start TLS.
+
+### Diagnose first (no credentials sent)
+
+Ask the server what it supports — `FEAT` needs no login:
+
+```powershell
+python - <<'PY'
+import socket
+s=socket.create_connection(("ftp.docs.mangalamcoal.com",21),timeout=12); s.settimeout(8)
+print(s.recv(512).decode()); s.sendall(b"FEAT\r\n")
+import time; time.sleep(1); print(s.recv(2048).decode()); s.sendall(b"QUIT\r\n")
+PY
+```
+
+* **`AUTH TLS` IS listed** → the server *does* support FTPS, so the `504` is a
+  **transient Hostinger-side fault**. Nothing to fix on our end: wait and retry.
+  (Seen 2026-07-13: failed solidly for hours — 40 retry rounds — then recovered on
+  its own by 2026-07-16 with no config change.)
+* **`AUTH TLS` NOT listed** → TLS really is off on the account. Raise it with
+  Hostinger support; do not work around it.
+
+### Rules
+
+* **Never fall back to plaintext FTP.** It sends the password in the clear. If FTPS
+  is down, either wait, or host the file elsewhere temporarily.
+* If a deadline forces a workaround, put the asset in `public/media/...` (served by
+  Vercel, same-origin) and **switch it back to docs once FTPS recovers** so media
+  stays in one place and the repo stays light.
+* Verify after uploading — check both HTTP status *and* that the byte size matches
+  the local file:
+
+```bash
+curl -s -o /dev/null -w "%{http_code} %{size_download}\n" "https://docs.mangalamcoal.com/media/press/<file>.jpg"
+```
