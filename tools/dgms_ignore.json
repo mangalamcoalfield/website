@@ -1,0 +1,48 @@
+{
+  "_readme": [
+    "Files on the DGMS listings we have CONSCIOUSLY decided not to catalogue, with the reason.",
+    "Used by tools/discover_dgms.mjs so that 'what's new?' reports only genuine novelties.",
+    "If a file is here, that is a decision — not an oversight. Delete an entry to resurface it.",
+    "Reviewed 2026-07-17."
+  ],
+  "ignore": [
+    { "file": "CIRCULARSNew_19092025.pdf", "reason": "held-elsewhere: the pre-2017 circular compilation already backs the Circular Finder" },
+    { "file": "DGMScircularsfrom20182024_06122024.pdf", "reason": "held-elsewhere: the 2018-2024 compilation already backs the Circular Finder" },
+    { "file": "Occupationalaa.pdf", "reason": "held-elsewhere: OSH&WC Code 2020 is already catalogued" },
+    { "file": "Ease_Compliance_Rules.pdf", "reason": "held-elsewhere: G.S.R. 154(E) ease-of-compliance rules already catalogued" },
+    { "file": "Gadgetnotification637637570592008385.pdf", "reason": "held-elsewhere: first-aid training standards under CMR 2017 already catalogued" },
+    { "file": "SCALE.pdf", "reason": "held-elsewhere: superseded by G.S.R. 640(E) assistant-manager scale (2025), which is catalogued" },
+    { "file": "BYE.pdf", "reason": "held-elsewhere: bye-laws for exchange/duplicate certificates already covered by the CMR bye-law entries" },
+    { "file": "222068.pdf", "reason": "out-of-scope: authorisation of an individual inspector under s.75 — administrative, not a standard" },
+
+    { "file": "MMRPrePublished_11022026.pdf", "reason": "out-of-scope: metalliferous mines draft; this site covers coal (Amlabad)" },
+    { "file": "MMR_Notification637186539489175908.pdf", "reason": "out-of-scope: metalliferous mines draft regulations" },
+    { "file": "WithdrawalMMR_1961_GN_23032026.pdf", "reason": "out-of-scope: MMR 1961 (metalliferous) side of the 23.03.2026 bye-law withdrawal; the CMR 2017 side IS catalogued" },
+    { "file": "draftOMR_16122025.pdf", "reason": "out-of-scope: oil mines draft regulations" },
+
+    { "file": "MineGNNew_30092025.pdf", "reason": "superseded-draft: draft rules for mines workers, superseded by the notified OSH&WC (Central) Rules 2026" },
+    { "file": "MotorTransport_06102025.pdf", "reason": "out-of-scope: motor transport workers, not mining" },
+    { "file": "BeediCigarNew_03102025.pdf", "reason": "out-of-scope: beedi and cigar workers, not mining" },
+    { "file": "DockNew_03102025.pdf", "reason": "out-of-scope: dock workers, not mining" },
+    { "file": "FactoryNew_03102025.pdf", "reason": "out-of-scope: factory workers, not mining" },
+    { "file": "PlantationNotification_06102025.pdf", "reason": "out-of-scope: plantation workers, not mining" },
+    { "file": "BoCWNotification_06102025.pdf", "reason": "out-of-scope: building and other construction workers, not mining" },
+
+    { "file": "GeM_Notification_08052026.pdf", "reason": "exam-admin: GeM tender for an exam platform" },
+    { "file": "InstructiontoCBT2025_22012026.pdf", "reason": "exam-admin" },
+    { "file": "PROVISIONAL_LIST_05122025.pdf", "reason": "exam-admin: candidate list" },
+    { "file": "Rejected_List_05122025.pdf", "reason": "exam-admin: candidate list" },
+    { "file": "Debarred_List2026.pdf", "reason": "exam-admin: candidate list" },
+    { "file": "Annexure1_08082025.pdf", "reason": "exam-admin: exam schedule" },
+    { "file": "ScheduleManager_02022025.pdf", "reason": "exam-admin: exam schedule" },
+    { "file": "ScheduleOtherManager_02022025.pdf", "reason": "exam-admin: exam schedule" },
+    { "file": "InstructionOralExaminations_27012025.pdf", "reason": "exam-admin" },
+    { "file": "Noticefakecalls_10062024.pdf", "reason": "exam-admin: fraud warning notice" },
+    { "file": "Notic_Submission_31052024.pdf", "reason": "exam-admin: affidavit submission notice" },
+    { "file": "Notice638292417208369455.pdf", "reason": "exam-admin: candidate instructions" },
+    { "file": "Instruction to Candidate - Exemption basis638311531040122916.pdf", "reason": "exam-admin: candidate instructions for competency-certificate applications" },
+    { "file": "AffidavitInstructionfororal.pdf", "reason": "exam-admin: candidate instructions" },
+    { "file": "OralExam.pdf", "reason": "exam-admin: exam notification" },
+    { "file": "overman.pdf", "reason": "exam-admin: exam instructions" }
+  ]
+}

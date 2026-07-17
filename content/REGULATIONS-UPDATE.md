@@ -11,6 +11,40 @@ because they involve fetching from DGMS + re-seeding + a deploy. To change/stop 
 
 ---
 
+## A0. FIRST — ask DGMS what's actually new  ⭐
+
+```powershell
+cd "C:\Users\Mangalam\Mangalam_Website"
+node tools\discover_dgms.mjs          # add --json for machine-readable
+```
+
+This crawls the **live** DGMS listings and diffs them against
+`src/data/regulations-full-seed.json`. It prints only genuine novelties;
+deliberate exclusions live in `tools/dgms_ignore.json` (each with a reason).
+
+**Why this step exists:** `download_archive.ps1` (step A) only re-downloads a
+**fixed CSV list** of filenames — it can never discover anything new. That is how
+the catalogue silently drifted ~3 months behind (found in the 17 Jul 2026 audit:
+Circulars 03 & 04 of 2026 and 14 gazette notifications were missing). Always run
+A0 first; step A is only for re-pulling the known archive.
+
+Listings crawled: `mid=1648` (circulars), `mid=1655` (gazette), `mid=1603`
+(notifications). **`mid=1313` is stale — nothing after 2024. Don't use it.**
+
+> ⚠️ **Two traps, both hit for real:**
+> 1. **DGMS's own listing labels are wrong.** A file listed as the
+>    "Inspector-cum-Facilitator" notification was actually G.S.R. 604(E) on
+>    medical-exam notices. **Always title an entry from the PDF itself**, never
+>    from the listing label.
+> 2. **Filenames lie too.** `cir_26_30062026.pdf` is *Circular 03 of 2026*, not
+>    "circular 26" — an auto-generated title from the filename got this wrong and
+>    shipped. Open the document.
+>
+> Reading the PDFs: `WebFetch` can't (many are scanned) and `Read` can't (no
+> poppler here). What works: `python -c "from pdfminer.high_level import
+> extract_text; ..."` for text-layer PDFs, or Playwright navigate-to-PDF +
+> screenshot for scanned ones.
+
 ## A. Refresh the source archive  (folder: `C:\Users\Mangalam\Mining Regulation`)
 
 ```powershell
