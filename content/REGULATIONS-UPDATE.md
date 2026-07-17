@@ -75,6 +75,23 @@ plain-language summary, a category, and an accurate `status`/`status_note` per n
 doc — that's judgement, not a pure script. Easiest: open this repo in Claude Code and
 say *"fold the new docs listed in `Mining Regulation\UPDATE_LOG.md` into
 `regulations-full-seed.json`, then regenerate `supabase/regulations_full_seed.sql`."*
+
+> 🚨 **`src/data/regulations-full-seed.json` is the SOURCE OF TRUTH. Never hand-edit
+> the `.sql` files.** Regenerate them:
+>
+> ```powershell
+> node tools\gen_regs_sql.mjs          # rewrites both .sql files
+> node tools\gen_regs_sql.mjs --check  # exits 1 if they're stale
+> ```
+>
+> Until Jul 2026 nothing generated `regulations_full_seed.sql`, so it drifted: the
+> JSON had 467 entries while the SQL still carried the mis-titled "Circular 26 of
+> 2026" and none of the 16 new docs — **re-seeding would have silently reverted the
+> fixes**. Also remember the seed is an **upsert, not a sync**: if you change
+> `published`, a date, or a title in the DB, make the same change in the JSON or the
+> next re-seed will undo it. (That bit us three ways at once: the unpublished OSH&WC
+> duplicate, the enriched canonical row, and 5 normalised dates.) Deleting a JSON
+> entry does NOT delete the DB row — do that explicitly.
 Always re-read `Mining Regulation\INDEX.md` → **"Supersessions & Draft-watch"** so a
 newly-superseded instrument gets `status: superseded` + a `status_note`.
 
