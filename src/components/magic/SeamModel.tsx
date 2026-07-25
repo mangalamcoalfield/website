@@ -14,7 +14,11 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import model from '../../data/seam-model.json';
 
 interface Seam { name: string; color: string; z: number[]; t: number[] }
-const M = model as unknown as { nx: number; ny: number; ext: { x: number; y: number }; seams: Seam[] };
+interface Hole { id: string; x: number; y: number; z: number; d: number; tier: 'A' | 'B' | 'C' }
+const M = model as unknown as {
+  nx: number; ny: number; ext: { x: number; y: number };
+  seams: Seam[]; holes: Hole[]; tiers: Record<string, string>;
+};
 
 const VERT = `
 precision highp float;
@@ -60,6 +64,37 @@ void main(){
   gl_FragColor = vec4(base * d, u_alpha);
 }`;
 
+// Boreholes: plain coloured lines/points, drawn without depth testing so the
+// drill traces read *through* the seam stack instead of being buried inside it.
+const LINE_VERT = `
+precision highp float;
+attribute vec3 a_pos;
+uniform mat4 u_mvp;
+uniform float u_exag;
+uniform float u_size;
+void main(){
+  gl_Position = u_mvp * vec4(a_pos.xy, a_pos.z * u_exag, 1.0);
+  gl_PointSize = u_size;
+}`;
+const LINE_FRAG = `
+precision highp float;
+uniform vec3 u_color;
+uniform float u_alpha;
+uniform float u_round;
+void main(){
+  if (u_round > 0.5) {
+    vec2 d = gl_PointCoord - vec2(0.5);
+    if (dot(d, d) > 0.25) discard;
+  }
+  gl_FragColor = vec4(u_color, u_alpha);
+}`;
+
+const TIER_COLOR: Record<string, [number, number, number]> = {
+  A: [0.61, 0.76, 0.30],  // surveyed — lime
+  B: [0.85, 0.65, 0.28],  // transformed — amber
+  C: [0.55, 0.57, 0.52],  // estimated — stone
+};
+
 // --- tiny mat4 helpers (avoids a matrix dependency) ------------------------
 type M4 = Float32Array;
 // a·b in column-major (WebGL) order: element [col][row] lives at m[col*4+row].
@@ -102,13 +137,21 @@ export default function SeamModel() {
   const [solo, setSolo] = useState<number | null>(null);
   const [exag, setExag] = useState(2.2);
   const [iso, setIso] = useState(false);
+  const [holes, setHoles] = useState(true);
   // refs so the render loop reads live values without re-initialising WebGL
-  const st = useRef({ solo: null as number | null, exag: 2.2, iso: false, az: -0.65, el: 0.46, dist: 1.85 });
+  const st = useRef({ solo: null as number | null, exag: 2.2, iso: false, holes: true, az: -0.65, el: 0.46, dist: 1.85 });
   useEffect(() => { st.current.solo = solo; }, [solo]);
   useEffect(() => { st.current.exag = exag; }, [exag]);
   useEffect(() => { st.current.iso = iso; }, [iso]);
+  useEffect(() => { st.current.holes = holes; }, [holes]);
 
   const thickMax = useMemo(() => M.seams.reduce((m, s) => Math.max(m, ...s.t), 0), []);
+  // mean thickness per seam, for the legend's relative-thickness bars
+  const meanThick = useMemo(
+    () => M.seams.map((s) => s.t.reduce((a, b) => a + b, 0) / s.t.length), []);
+  const meanMax = useMemo(() => Math.max(...meanThick), [meanThick]);
+  const tierCounts = useMemo(
+    () => M.holes.reduce<Record<string, number>>((a, h) => ((a[h.tier] = (a[h.tier] || 0) + 1), a), {}), []);
 
   useEffect(() => {
     const canvas = canvasRef.current, wrap = wrapRef.current;
@@ -165,6 +208,39 @@ export default function SeamModel() {
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, idx, gl.STATIC_DRAW);
       return { vb, ib, count: idx.length, color: hex(s.color) };
     });
+
+    // ---- borehole program + per-tier line/point buffers -------------------
+    let lprog: WebGLProgram | null = null;
+    const holeSets: { tier: string; stems: WebGLBuffer; nStem: number; collars: WebGLBuffer; nCollar: number }[] = [];
+    try {
+      lprog = gl.createProgram()!;
+      gl.attachShader(lprog, compile(gl.VERTEX_SHADER, LINE_VERT));
+      gl.attachShader(lprog, compile(gl.FRAGMENT_SHADER, LINE_FRAG));
+      gl.linkProgram(lprog);
+      if (!gl.getProgramParameter(lprog, gl.LINK_STATUS)) throw new Error('link');
+      for (const tier of ['A', 'B', 'C']) {
+        const hs = M.holes.filter((h) => h.tier === tier);
+        if (!hs.length) continue;
+        const stem = new Float32Array(hs.length * 6);
+        const col = new Float32Array(hs.length * 3);
+        hs.forEach((h, i) => {
+          stem[i * 6] = h.x; stem[i * 6 + 1] = h.y; stem[i * 6 + 2] = h.z;
+          stem[i * 6 + 3] = h.x; stem[i * 6 + 4] = h.y; stem[i * 6 + 5] = h.z - h.d;
+          col[i * 3] = h.x; col[i * 3 + 1] = h.y; col[i * 3 + 2] = h.z;
+        });
+        const sb = gl.createBuffer()!, cb = gl.createBuffer()!;
+        gl.bindBuffer(gl.ARRAY_BUFFER, sb); gl.bufferData(gl.ARRAY_BUFFER, stem, gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, cb); gl.bufferData(gl.ARRAY_BUFFER, col, gl.STATIC_DRAW);
+        holeSets.push({ tier, stems: sb, nStem: hs.length * 2, collars: cb, nCollar: hs.length });
+      }
+    } catch { lprog = null; }
+    const lPos = lprog ? gl.getAttribLocation(lprog, 'a_pos') : -1;
+    const lMvp = lprog ? gl.getUniformLocation(lprog, 'u_mvp') : null;
+    const lExag = lprog ? gl.getUniformLocation(lprog, 'u_exag') : null;
+    const lColor = lprog ? gl.getUniformLocation(lprog, 'u_color') : null;
+    const lAlpha = lprog ? gl.getUniformLocation(lprog, 'u_alpha') : null;
+    const lSize = lprog ? gl.getUniformLocation(lprog, 'u_size') : null;
+    const lRound = lprog ? gl.getUniformLocation(lprog, 'u_round') : null;
 
     const aPos = gl.getAttribLocation(prog, 'a_pos');
     const aGrad = gl.getAttribLocation(prog, 'a_grad');
@@ -239,6 +315,8 @@ export default function SeamModel() {
         Math.sin(s.el) * d + 0.12,
       ];
       const mvp = mul(perspective(0.85, w / Math.max(h, 1), 0.05, 20), lookAt(eye, [0, 0, 0], [0, 0, 1]));
+      gl.useProgram(prog);
+      gl.enable(gl.DEPTH_TEST);
       gl.uniformMatrix4fv(uMvp, false, mvp);
       gl.uniform1f(uExag, s.exag);
       gl.uniform1f(uIso, s.iso ? 1 : 0);
@@ -259,6 +337,33 @@ export default function SeamModel() {
         gl.uniform1f(uAlpha, s.solo !== null ? 1.0 : 0.93);
         gl.drawElements(gl.TRIANGLES, m.count, gl.UNSIGNED_SHORT, 0);
       });
+
+      // boreholes last, depth-test off so the traces read through the block
+      if (lprog && s.holes && holeSets.length) {
+        gl.useProgram(lprog);
+        gl.disable(gl.DEPTH_TEST);
+        gl.uniformMatrix4fv(lMvp, false, mvp);
+        gl.uniform1f(lExag!, s.exag);
+        for (const hs of holeSets) {
+          const c = TIER_COLOR[hs.tier];
+          gl.uniform3fv(lColor!, c);
+          gl.enableVertexAttribArray(lPos);
+          // stems
+          gl.bindBuffer(gl.ARRAY_BUFFER, hs.stems);
+          gl.vertexAttribPointer(lPos, 3, gl.FLOAT, false, 0, 0);
+          gl.uniform1f(lAlpha!, 0.42);
+          gl.uniform1f(lSize!, 1);
+          gl.uniform1f(lRound!, 0);
+          gl.drawArrays(gl.LINES, 0, hs.nStem);
+          // collar markers
+          gl.bindBuffer(gl.ARRAY_BUFFER, hs.collars);
+          gl.vertexAttribPointer(lPos, 3, gl.FLOAT, false, 0, 0);
+          gl.uniform1f(lAlpha!, 0.95);
+          gl.uniform1f(lSize!, 5.5 * Math.min(window.devicePixelRatio || 1, 2));
+          gl.uniform1f(lRound!, 1);
+          gl.drawArrays(gl.POINTS, 0, hs.nCollar);
+        }
+      }
     };
     draw();
 
@@ -273,7 +378,9 @@ export default function SeamModel() {
       window.removeEventListener('touchend', up);
       canvas.removeEventListener('wheel', onWheel);
       meshes.forEach((m) => { gl.deleteBuffer(m.vb); gl.deleteBuffer(m.ib); });
+      holeSets.forEach((h) => { gl.deleteBuffer(h.stems); gl.deleteBuffer(h.collars); });
       gl.deleteProgram(prog);
+      if (lprog) gl.deleteProgram(lprog);
     };
   }, [thickMax]);
 
@@ -288,14 +395,42 @@ export default function SeamModel() {
 
   return (
     <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0d120e] to-[#080a08]">
-      <div ref={wrapRef} className="relative h-[380px] w-full cursor-grab active:cursor-grabbing md:h-[520px]">
-        <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" aria-label="Interactive 3D model of the Amlabad seam sequence" />
-        <div className="pointer-events-none absolute left-4 top-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">
-          Amlabad seam sequence
+      <div className="flex flex-col lg:flex-row">
+        {/* viewport */}
+        <div ref={wrapRef} className="relative h-[380px] w-full cursor-grab active:cursor-grabbing md:h-[520px] lg:flex-1">
+          <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" aria-label="Interactive 3D model of the Amlabad seam sequence" />
+          <div className="pointer-events-none absolute left-4 top-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">
+            Amlabad seam sequence
+          </div>
+          <div className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-muted-foreground/60">
+            drag to rotate · scroll to zoom
+          </div>
         </div>
-        <div className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-muted-foreground/60">
-          drag to rotate · scroll to zoom
-        </div>
+
+        {/* stratigraphic legend — ordered as the seams actually lie, roof to floor */}
+        <aside className="border-t border-white/10 lg:w-[248px] lg:shrink-0 lg:border-l lg:border-t-0">
+          <div className="flex items-baseline justify-between px-4 pt-4">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Seam sequence</span>
+            <span className="text-[10px] text-muted-foreground/60">roof → floor</span>
+          </div>
+          <div className="mt-2 max-h-[210px] overflow-y-auto px-2 pb-2 lg:max-h-[392px]">
+            {M.seams.map((s, i) => (
+              <button key={s.name} onClick={() => setSolo(solo === i ? null : i)}
+                title={`Isolate seam ${s.name}`}
+                className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors ${solo === i ? 'bg-primary/15 ring-1 ring-primary/40' : 'hover:bg-white/[0.05]'}`}>
+                <span className="h-4 w-1.5 shrink-0 rounded-sm" style={{ background: s.color }} />
+                <span className={`w-14 shrink-0 text-[11.5px] font-semibold ${solo === i ? 'text-primary' : 'text-foreground/85'}`}>{s.name}</span>
+                <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
+                  <span className="absolute inset-y-0 left-0 rounded-full"
+                    style={{ width: `${Math.max(6, (meanThick[i] / meanMax) * 100)}%`, background: s.color, opacity: 0.75 }} />
+                </span>
+              </button>
+            ))}
+          </div>
+          <div className="border-t border-white/10 px-4 py-3 text-[10px] leading-relaxed text-muted-foreground/60">
+            Bar length shows each seam’s thickness relative to the thickest in the sequence.
+          </div>
+        </aside>
       </div>
 
       {/* controls */}
@@ -308,6 +443,10 @@ export default function SeamModel() {
               className="h-1 w-28 cursor-pointer accent-[#9cc24e] md:w-40" />
             <span className="w-8 tabular-nums text-foreground/80">{exag.toFixed(1)}×</span>
           </label>
+          <button onClick={() => setHoles((v) => !v)}
+            className={`rounded-full border px-3 py-1 text-[12px] font-semibold transition-colors ${holes ? 'border-primary bg-primary/15 text-primary' : 'border-white/15 text-muted-foreground hover:border-primary/40'}`}>
+            Boreholes ({M.holes.length})
+          </button>
           <button onClick={() => setIso((v) => !v)}
             className={`rounded-full border px-3 py-1 text-[12px] font-semibold transition-colors ${iso ? 'border-primary bg-primary/15 text-primary' : 'border-white/15 text-muted-foreground hover:border-primary/40'}`}>
             Thickness shading
@@ -320,21 +459,27 @@ export default function SeamModel() {
           )}
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {M.seams.map((s, i) => (
-            <button key={s.name} onClick={() => setSolo(solo === i ? null : i)}
-              title={`Isolate seam ${s.name}`}
-              className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium transition-all ${solo === i ? 'bg-primary/20 text-primary ring-1 ring-primary/40' : 'text-muted-foreground/80 hover:bg-white/[0.06]'}`}>
-              <span className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: s.color }} />
-              {s.name}
-            </button>
-          ))}
-        </div>
+        {/* borehole survey-confidence key — the caveats are the credibility */}
+        {holes && (
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">Collar position</span>
+            {(['A', 'B', 'C'] as const).map((t) => (
+              tierCounts[t] ? (
+                <span key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                  <span className="h-2 w-2 rounded-full"
+                    style={{ background: `rgb(${TIER_COLOR[t].map((v) => Math.round(v * 255)).join(',')})` }} />
+                  {tierCounts[t]} × {M.tiers[t]}
+                </span>
+              ) : null
+            ))}
+          </div>
+        )}
 
         <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground/60">
-          An illustration of the seam sequence, built from our own geological model of the block. Shown as
-          relative geometry only — deliberately not to scale, and carrying no depths, grades, coordinates or
-          borehole positions. Not a survey document.
+          Built from our own geological model of the block — 19 seams reconciled across {M.holes.length} boreholes,
+          from historic drilling records and our own survey work. Shown as relative geometry only: deliberately
+          not to scale, and carrying no depths, grades or real-world coordinates. An illustration of the deposit,
+          not a survey document.
         </p>
       </div>
     </div>

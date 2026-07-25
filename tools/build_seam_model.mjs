@@ -22,6 +22,11 @@
  *   - standard Jharia stratigraphic seam names (XVIII T … IV), which are public
  *     geology, and the per-seam display colours
  *   - relative thickness, for the isopach shading
+ *   - borehole collars in the SAME normalised space, with their public IDs and a
+ *     survey-accuracy tier. This shows the drilling pattern (and that 21 holes are
+ *     surveyed to ~1-2 m) without giving anyone a georeferenced drill location:
+ *     the true origin and scale are gone, so nothing maps back to the ground.
+ *     Real eastings/northings/RLs and depths in metres are NOT emitted.
  *
  * The full model — real coordinates, grades, collars — is NOT published here.
  * It belongs behind the Operations Portal login.
@@ -80,6 +85,18 @@ const out = {
   // normalised half-extents, so the renderer knows the footprint's aspect
   ext: { x: r((e1 - e0) / S / 2), y: r((n1 - n0) / S / 2) },
   regular,
+  // Collars in normalised space + a coarse survey-accuracy tier. The raw
+  // pos_src strings are internal notes, so they are mapped to public labels.
+  holes: (m.holes || []).map((h) => ({
+    id: h.id,
+    x: r((h.E - cE) / S),
+    y: r((h.N - cN) / S),
+    z: r((h.RL - cZ) / S),
+    d: r((h.td || 0) / S, 4),      // relative depth of the stem, not metres
+    tier: String(h.pos_tier || '').startsWith('A') ? 'A'
+        : String(h.pos_tier || '').startsWith('B') ? 'B' : 'C',
+  })),
+  tiers: { A: 'Surveyed to ~1–2 m', B: 'Transformed, ~35 m', C: 'Estimated position' },
   seams: seams.map((s) => {
     const z = [], t = [];
     for (let j = 0; j < ny; j++) {
@@ -101,13 +118,28 @@ const kb = (fs.statSync(OUT).size / 1024).toFixed(0);
 // "borehole" etc. while describing what was removed.
 const raw = JSON.stringify({ ...out, _note: undefined });
 const leaks = [];
-if (/EPSG|32645|UTM|utm/.test(raw)) leaks.push("CRS/UTM reference");
-if (/\b4353\d\d|\b4373\d\d|\b26182\d\d|\b26203\d\d/.test(raw)) leaks.push("real-world coordinate");
+if (/EPSG|UTM|utm/.test(raw)) leaks.push("CRS reference");
+// Walk the real values: everything emitted is normalised (|v| << 2) apart from
+// the grid counts, so any large magnitude means a raw metric value slipped in.
+// (Regexing the text gives false positives on the fractions of tiny numbers.)
+const big = (v, key = "") => {
+  if (typeof v === "number") return Math.abs(v) >= 1000 && key !== "nx" && key !== "ny";
+  if (Array.isArray(v)) return v.some((x) => big(x, key));
+  if (v && typeof v === "object") return Object.entries(v).some(([k, x]) => big(x, k));
+  return false;
+};
+if (big(out)) leaks.push("real-world-magnitude number");
 if (/W-I|W-II|W-III|coking|grade/i.test(raw)) leaks.push("coal grade");
-if (/BH[-_ ]?\d|collar|borehole/i.test(raw)) leaks.push("borehole reference");
-if (/lease|gallery|old_working|fault/i.test(raw)) leaks.push("lease/workings/fault layer");
-if (leaks.length) { console.error("✗ REFUSING: leaked ->", leaks.join(", ")); process.exit(1); }
+if (/lease|gallery|old_working|fault|pos_src|pos_acc/i.test(raw)) leaks.push("lease/workings/fault/provenance field");
+// boreholes are intentional, but only as normalised x/y/z/d — never raw survey fields
+for (const h of out.holes) {
+  if (['E', 'N', 'RL', 'td'].some((k) => k in h)) { leaks.push("raw borehole survey field"); break; }
+  if (Math.abs(h.x) > 2 || Math.abs(h.y) > 2 || Math.abs(h.z) > 2 || h.d > 2) { leaks.push("un-normalised borehole value"); break; }
+}
+if (leaks.length) { console.error("✗ REFUSING: leaked ->", [...new Set(leaks)].join(", ")); process.exit(1); }
 
-console.log(`✓ ${path.relative(REPO, OUT)}  ${kb} KB  (${seams.length} seams, ${nx}x${ny} grid)`);
-console.log(`  stripped: CRS, true origin, absolute scale, grades, collars, lease, workings, faults`);
-console.log(`  kept:     relative shape + aspect, seam order/names/colours, relative thickness`);
+const tierCount = out.holes.reduce((a, h) => ((a[h.tier] = (a[h.tier] || 0) + 1), a), {});
+console.log(`✓ ${path.relative(REPO, OUT)}  ${kb} KB  (${seams.length} seams, ${nx}x${ny} grid, ${out.holes.length} boreholes ${JSON.stringify(tierCount)})`);
+console.log(`  stripped: CRS, true origin, absolute scale, grades, lease, workings, faults, raw survey fields`);
+console.log(`  kept:     relative shape + aspect, seam order/names/colours, relative thickness,`);
+console.log(`            borehole pattern (normalised x/y/z/depth + id + accuracy tier)`);
