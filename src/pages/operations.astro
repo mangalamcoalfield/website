@@ -3,6 +3,7 @@ import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import PitMap from '../components/magic/PitMap.tsx';
 import MagicBento from '../components/magic/MagicBento.tsx';
+import SeamModel from '../components/magic/SeamModel.tsx';
 import { Lines } from '../components/magic/MagicSections.tsx';
 ---
 <Site title="Operations & Capabilities" description="Mangalam's two commercial lines — underground coal across all four Amlabad pits, and coal bed methane — run under one operator in the Eastern Jharia Area, Bokaro.">
@@ -49,6 +50,18 @@ import { Lines } from '../components/magic/MagicSections.tsx';
           <span class="mt-3 inline-block text-[13px] font-semibold text-primary">The framework →</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- The deposit in 3D -->
+  <section class="relative bg-background pb-8">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-8 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">The deposit in three dimensions</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Nineteen seams, mapped.</h2>
+        <p class="mt-4 leading-relaxed text-muted-foreground">Reviving a century-old colliery starts with knowing exactly what lies beneath it. We have rebuilt the Amlabad block as a full three-dimensional geological model — every seam floor, its thickness and the faulting between them — from historic borehole records and our own survey work. Drag to explore the sequence.</p>
+      </div>
+      <SeamModel client:visible />
     </div>
   </section>
 
