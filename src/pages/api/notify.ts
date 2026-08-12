@@ -19,12 +19,38 @@ const json = (d: unknown, s = 200) =>
 
 const clip = (s: unknown, n = 4000) => String(s ?? '').slice(0, n);
 
-export const POST: APIRoute = async ({ request }) => {
+// Best-effort per-IP throttle (per warm instance), same approach as /api/ask.
+// Without this the endpoint is an open relay into the enquiry inbox: it is
+// unauthenticated by necessity, so anyone could POST it in a loop.
+const RL_WINDOW_MS = 60_000;
+const RL_MAX = 4;
+const hits = new Map<string, number[]>();
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RL_WINDOW_MS);
+  arr.push(now);
+  hits.set(ip, arr);
+  return arr.length > RL_MAX;
+}
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Not configured yet → succeed quietly (the DB record was already saved).
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return json({ ok: false, error: 'email_not_configured' });
 
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  if (rateLimited(ip)) return json({ ok: false, error: 'rate_limited' }, 429);
+
   let body: Record<string, unknown>;
   try { body = await request.json(); } catch { return json({ ok: false, error: 'bad_request' }, 400); }
+
+  // Both forms always send a name and an email; anything without them is not a
+  // real submission, so don't turn it into an email.
+  const name = clip(body.name, 200).trim();
+  const email = clip(body.email, 200).trim();
+  const message = clip(body.message).trim();
+  const okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+  if (!name || !okEmail) return json({ ok: false, error: 'invalid_submission' }, 400);
+  if (body.type !== 'application' && !message) return json({ ok: false, error: 'invalid_submission' }, 400);
 
   const type = body.type === 'application' ? 'application' : 'lead';
   const subject = type === 'application'

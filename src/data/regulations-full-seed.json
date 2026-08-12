@@ -8141,5 +8141,22 @@
     "sort_order": 320,
     "published": true,
     "featured": false
+  },
+  {
+    "slug": "dgms-tech-circular-05-2026-transport-machinery-otr-tyre-safety",
+    "title": "DGMS (Tech) Circular 05 of 2026 — Safety measures for trucks, tippers, dumpers and OTR tyre handling",
+    "category": "dgms_circular",
+    "summary": "Addressed to owners, agents and managers of all coal and metalliferous mines. Citing an alarming rise in accidents involving wheeled trackless transportation machinery — dumpers, tippers and trucks — DGMS notes that over 2023-2025 such machinery accounted for 39 of the fatal accidents in coal mines (33%), and that in 2026 up to 31 July it accounted for 36% of coal-mine fatal accidents. The circular strengthens the required safety measures for operating this machinery and for off-the-road (OTR) tyre handling operations.",
+    "doc_number": "DGMS (Tech) Circular No. MHQ/2026/05",
+    "authority": "DGMS",
+    "issued_date": "2026-08-04",
+    "status": "in_force",
+    "status_note": "PDF served from the DGMS source; a copy will be mirrored to our library.",
+    "source_url": "https://www.dgms.gov.in/writereaddata/UploadFile/Circular05_04082026.pdf",
+    "source_filename": "Circular05_04082026.pdf",
+    "relevance": 3,
+    "sort_order": 230,
+    "published": true,
+    "featured": false
   }
 ]
