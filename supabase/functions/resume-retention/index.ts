@@ -8,7 +8,10 @@
 
 import { adminClient, authorized, json } from '../_shared/util.ts';
 
-const RETENTION_DAYS = Number(Deno.env.get('RETENTION_DAYS') ?? '30');
+// 90 days, matching the retention window stated on /privacy. If the
+// RETENTION_DAYS secret is ever set on the function it overrides this default —
+// keep the two in step, or the site will promise one window and apply another.
+const RETENTION_DAYS = Number(Deno.env.get('RETENTION_DAYS') ?? '90');
 const TEST_ARTIFACT = '__rlstest__/rlscheck.txt';
 
 Deno.serve(async (req) => {

@@ -1,18 +1,30 @@
 {
   "crons": [
-    { "path": "/api/weekly-applications", "schedule": "0 4 * * 1" },
-    { "path": "/api/purge-applications", "schedule": "30 2 * * *" }
+    {
+      "path": "/api/weekly-applications",
+      "schedule": "0 4 * * 1"
+    }
   ],
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "careers.mangalamcoal.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "careers.mangalamcoal.com"
+        }
+      ],
       "destination": "https://mangalamcoal.com/careers",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "careers.mangalamcoal.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "careers.mangalamcoal.com"
+        }
+      ],
       "destination": "https://mangalamcoal.com/careers",
       "permanent": true
     }

@@ -27,7 +27,7 @@ Set with `supabase secrets set NAME=value` (applies to deployed functions on nex
 | `SMTP_HOST` `SMTP_PORT` `SMTP_USER` `SMTP_PASS` | Hostinger SMTP fallback (port 465 = TLS). |
 | `FROM_EMAIL` | e.g. `careers@mangalamcoal.com` (default). |
 | `HR_EMAIL` | recipient, default `hr@mangalamcoal.com`. |
-| `RETENTION_DAYS` | résumé grace window before purge, default `30`. |
+| `RETENTION_DAYS` | résumé grace window before purge, default `90` (must match the window stated on /privacy). |
 | `WEBHOOK_SECRET` | optional shared secret to lock down the functions (see below). |
 
 The Supabase **service role key is auto-injected** into edge functions — you do NOT set it.
