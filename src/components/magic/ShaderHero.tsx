@@ -109,6 +109,11 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
 
   const words = title.split(' ');
   const accentFrom = words.length - accentWords;
+  // Devanagari (and other complex scripts) shape across a consonant plus its
+  // matras, so splitting a word into code units shatters it — the vowel marks
+  // detach and the glyphs render as loose fragments. For those scripts animate
+  // whole words instead; Latin keeps the per-letter reveal.
+  const complexScript = /[ऀ-ॿ؀-ۿ฀-๿ঀ-৿਀-੿]/.test(title);
 
   return (
     <section ref={wrapRef} className={cn('relative flex w-full items-center justify-center overflow-hidden bg-background', compact ? 'min-h-[46vh] pt-32 pb-12' : 'min-h-screen')} aria-label="Hero">
@@ -131,7 +136,7 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
             const accent = wi >= accentFrom && accentWords > 0;
             return (
               <span key={wi} className="mr-3 inline-block last:mr-0">
-                {word.split('').map((ch, ci) => (
+                {(complexScript ? [word] : word.split('')).map((ch, ci) => (
                   <motion.span key={`${wi}-${ci}`} initial={{ y: 90, opacity: 0, filter: 'blur(10px)' }} animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     transition={{ delay: wi * 0.06 + ci * 0.02, type: 'spring', stiffness: 110, damping: 16 }}
                     className={cn('inline-block bg-clip-text pb-[0.16em] text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}

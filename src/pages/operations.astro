@@ -17,6 +17,36 @@ import { Lines } from '../components/magic/MagicSections.tsx';
     primary={{ label: 'Safety & compliance', href: '/safety' }}
   />
 
+  <!-- The mandate, as a procurement reader wants it: the facts in one panel. -->
+  <section class="relative bg-background pt-14">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+        <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-white/10 px-7 py-5">
+          <div>
+            <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">The mandate</span>
+            <h2 class="mt-1.5 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground md:text-3xl">Amlabad Colliery</h2>
+          </div>
+          <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">Revival under way</span>
+        </div>
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-5 px-7 py-6 md:grid-cols-3 lg:grid-cols-6">
+          {[
+            ['Client', 'Bharat Coking Coal Limited (BCCL), a Coal India company'],
+            ['Location', 'Amlabad, Eastern Jharia Area, District Bokaro, Jharkhand'],
+            ['Commodity', 'Prime coking coal, plus coal bed methane'],
+            ['Scope', 'Underground mine development & operation across all four pits'],
+            ['Contract type', 'Mine developer & operator (MDO), revenue-sharing'],
+            ['Term', '25 years'],
+          ].map(([k, v]) => (
+            <div>
+              <dt class="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">{k}</dt>
+              <dd class="mt-1.5 text-[13.5px] font-medium leading-snug text-foreground/90">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
   <section class="relative bg-background py-16">
     <div class="mx-auto max-w-6xl px-6">
       <div class="max-w-3xl">

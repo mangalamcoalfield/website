@@ -1,0 +1,62 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+---
+<Site
+  title="हमारे बारे में"
+  description="मंगलम कोलफील्ड की कहानी — विरासत, दृढ़ता और साझा मूल्यों की नींव, तथा अमलाबाद में उसे आगे ले जाता नेतृत्व।">
+  <ShaderHero
+    client:load compact
+    eyebrow="मंगलम के बारे में"
+    title="टिकने के लिए बनी नींव"
+    accentWords={2}
+    description="मंगलम कोलफील्ड प्राइवेट लिमिटेड पूर्वी झरिया क्षेत्र, जिला बोकारो में अमलाबाद की ऐतिहासिक पिटों का पुनरुद्धार करने वाली माइन डेवलपर एवं ऑपरेटर कंपनी है।"
+    primary={{ label: 'हमारे संचालन', href: '/hi/operations' }}
+  />
+
+  <section class="relative bg-background py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 lg:grid-cols-[1.2fr_.8fr]">
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">हमारी कहानी</span>
+          <h2 class="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">एक दृष्टि, आगे ले जाई जाती हुई।</h2>
+          <div class="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+            <p>मंगलम समृद्ध विरासत, दृढ़ता और साझा मूल्यों की नींव पर खड़ा है — अपने संस्थापक की दृष्टि को आगे ले जाते हुए। अब एक नई पीढ़ी नेतृत्व कर रही है, जो विश्वास, ईमानदारी और उत्कृष्टता के प्रति समर्पित है।</p>
+            <p>आज यही प्रतिबद्धता अमलाबाद में दिखती है — पूर्वी झरिया क्षेत्र, जिला बोकारो की सौ वर्ष से अधिक पुरानी भूमिगत कोलियरी, जो <strong class="text-foreground/80">प्राइम कोकिंग कोल</strong> देती है, वही श्रेणी जिससे भारत का इस्पात बनता है। भारत कोकिंग कोल लिमिटेड (BCCL), कोल इंडिया की अनुषंगी, की यह खदान 2008 से बंद थी। मंगलम कोलफील्ड को <strong class="text-foreground/80">माइन डेवलपर एवं ऑपरेटर (MDO)</strong> के रूप में, दीर्घकालिक राजस्व-साझेदारी पर, इसे पुनः उत्पादन में लाने के लिए नियुक्त किया गया है — और उन्हीं सीमों की कोल बेड मीथेन को स्वच्छ ऊर्जा के रूप में विकसित करने के लिए भी।</p>
+            <p>कंपनी कोयला खान विनियम 2017 तथा खान अधिनियम 1952 के अनुसार कार्य करती है, और हर अनिवार्य पद पर योग्य वैधानिक अधिकारी नियुक्त हैं।</p>
+            <p>हमारे संस्थापक की इच्छा थी कि अमलाबाद से केवल कोयला ही न निकले, बल्कि लोगों का जीवन भी खुशहाल हो। फरवरी 2026 में, उनकी 60वीं जयंती पर, उनकी धर्मपत्नी श्रीमती उर्मिल अग्रवाल ने कोलियरी में <strong class="text-foreground/80">मंगलम चिकित्सालय</strong> का उद्घाटन किया — जहाँ हमारे कर्मियों और आसपास के गाँवों के लिए इलाज नि:शुल्क है। <a href="/hi/cares" class="text-primary underline">हमारे कार्य देखें →</a></p>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.04] overflow-hidden">
+          <div class="relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-br from-[#15301f]/50 to-[#0b0e0b]">
+            <img src="/images/chairman.jpg" alt="स्व. श्री श्रीगोपाल अग्रवाल, चेयरमैन एमेरिटस" class="h-full w-full object-cover object-top" loading="lazy" />
+          </div>
+          <div class="p-7">
+            <div class="font-[var(--font-display)] text-xl font-bold text-foreground">स्व. श्री श्रीगोपाल अग्रवाल</div>
+            <div class="mt-2 text-[13px] font-semibold uppercase tracking-wide text-primary">संस्थापक एवं चेयरमैन एमेरिटस</div>
+            <p class="mt-4 italic leading-relaxed text-muted-foreground">“हर कठिनाई और हर असफलता के बीच उन्होंने दिखाया कि दृढ़ता और बेहतर दिनों में अटूट विश्वास सबसे बड़े संघर्ष को भी स्थायी सफलता में बदल सकते हैं।”</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
+          <span class="text-sm font-semibold text-primary">01</span>
+          <h3 class="mt-3 font-[var(--font-display)] text-xl font-bold text-foreground">विश्वास</h3>
+          <p class="mt-3 text-sm text-muted-foreground">निरंतरता से अर्जित — अपने कर्मियों, साझेदारों और खदान के आसपास के समुदाय के साथ।</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
+          <span class="text-sm font-semibold text-primary">02</span>
+          <h3 class="mt-3 font-[var(--font-display)] text-xl font-bold text-foreground">ईमानदारी</h3>
+          <p class="mt-3 text-sm text-muted-foreground">क़ानून के अनुसार और अपने वचन के अनुसार काम — सुरक्षा और अनुपालन न्यूनतम आधार हैं।</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
+          <span class="text-sm font-semibold text-primary">03</span>
+          <h3 class="mt-3 font-[var(--font-display)] text-xl font-bold text-foreground">उत्कृष्टता</h3>
+          <p class="mt-3 text-sm text-muted-foreground">हर पाली में अभियांत्रिकी अनुशासन — भूमिगत भी और सतह पर भी।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Site>

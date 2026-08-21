@@ -1,0 +1,101 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import { SITE } from '../../data/site';
+import { UI } from '../../i18n/ui';
+
+const facts = [
+  ['ग्राहक', 'भारत कोकिंग कोल लिमिटेड (BCCL), कोल इंडिया की अनुषंगी'],
+  ['स्थान', 'अमलाबाद, पूर्वी झरिया क्षेत्र, जिला बोकारो, झारखंड'],
+  ['खनिज', 'प्राइम कोकिंग कोल, तथा कोल बेड मीथेन'],
+  ['कार्यक्षेत्र', 'चारों पिटों में भूमिगत खदान विकास एवं संचालन'],
+  ['अनुबंध', 'माइन डेवलपर एवं ऑपरेटर (MDO), राजस्व-साझेदारी'],
+  ['अवधि', '25 वर्ष'],
+];
+---
+<Site
+  title="मंगलम कोलफील्ड"
+  description="मंगलम कोलफील्ड प्राइवेट लिमिटेड — पूर्वी झरिया क्षेत्र, जिला बोकारो में अमलाबाद कोलियरी का पुनरुद्धार करने वाली माइन डेवलपर एवं ऑपरेटर कंपनी।">
+  <ShaderHero
+    client:load
+    eyebrow="माइन डेवलपर एवं ऑपरेटर · अमलाबाद · पूर्वी झरिया क्षेत्र, बोकारो"
+    title="भूमिगत कोयले का पुनरुद्धार"
+    accentWords={1}
+    description="मंगलम कोलफील्ड प्राइवेट लिमिटेड पूर्वी झरिया क्षेत्र, जिला बोकारो में अमलाबाद की ऐतिहासिक कोलियरी को पुनः जीवित कर रही है — सुरक्षा, वैधानिक अनुपालन और अभियांत्रिकी अनुशासन के साथ।"
+    primary={{ label: 'हमारे संचालन', href: '/hi/operations' }}
+    secondary={{ label: 'करियर', href: '/hi/careers' }}
+  />
+
+  <!-- अधिदेश -->
+  <section class="relative bg-background pt-14">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+        <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-white/10 px-7 py-5">
+          <div>
+            <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">अधिदेश</span>
+            <h2 class="mt-1.5 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground md:text-3xl">अमलाबाद कोलियरी</h2>
+          </div>
+          <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold text-primary">पुनरुद्धार जारी</span>
+        </div>
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-5 px-7 py-6 md:grid-cols-3 lg:grid-cols-6">
+          {facts.map(([k, v]) => (
+            <div>
+              <dt class="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/70">{k}</dt>
+              <dd class="mt-1.5 text-[13.5px] font-medium leading-snug text-foreground/90">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- कहानी -->
+  <section class="relative bg-background py-16">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 lg:grid-cols-[1.15fr_.85fr]">
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">हमारी कहानी</span>
+          <h2 class="mt-4 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">एक विरासत, आगे ले जाई जाती हुई।</h2>
+          <div class="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+            <p>अमलाबाद सौ वर्ष से अधिक पुरानी भूमिगत कोलियरी है, जो <strong class="text-foreground/80">प्राइम कोकिंग कोल</strong> देती है — वही श्रेणी जिस पर भारत का इस्पात उद्योग निर्भर है। भारत कोकिंग कोल लिमिटेड (BCCL) की यह खदान वर्ष 2008 से बंद पड़ी थी।</p>
+            <p>मंगलम कोलफील्ड को इसे पुनः चालू करने के लिए <strong class="text-foreground/80">माइन डेवलपर एवं ऑपरेटर (MDO)</strong> के रूप में, दीर्घकालिक राजस्व-साझेदारी के आधार पर नियुक्त किया गया है — साथ ही उन्हीं सीमों में मौजूद कोल बेड मीथेन को स्वच्छ ऊर्जा स्रोत के रूप में विकसित करने के लिए भी।</p>
+            <p>कंपनी कोयला खान विनियम 2017 तथा खान अधिनियम 1952 के अनुसार कार्य करती है, और हर वैधानिक पद पर योग्य अधिकारी नियुक्त हैं।</p>
+          </div>
+          <a href="/hi/about" class="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:underline">हमारे बारे में और पढ़ें
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><use href="#arrow"/></svg>
+          </a>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
+          <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">दो व्यावसायिक धाराएँ</span>
+          <div class="mt-6 space-y-6">
+            <div>
+              <h3 class="font-[var(--font-display)] text-lg font-semibold text-foreground">कोयला खनन</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">बोर्ड एवं पिलर पद्धति से चारों अमलाबाद पिटों में भूमिगत खनन।</p>
+            </div>
+            <div>
+              <h3 class="font-[var(--font-display)] text-lg font-semibold text-foreground">कोल बेड मीथेन</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">सीमों में मौजूद मीथेन को व्यावसायिक रूप से एकत्र करना — इससे भूमिगत सुरक्षा भी बढ़ती है।</p>
+            </div>
+          </div>
+          <p class="mt-7 text-[11.5px] leading-relaxed text-muted-foreground/60">{UI.hi.englishOnlyNote}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative bg-background pb-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="rounded-3xl border border-primary/20 bg-primary/[0.05] p-9 text-center md:p-12">
+        <h2 class="font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">हमसे जुड़ें</h2>
+        <p class="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">चाहे आप नौकरी की तलाश में हों या किसी पूछताछ के लिए — हम सुनने के लिए उपलब्ध हैं।</p>
+        <div class="mt-7 flex flex-wrap justify-center gap-3">
+          <a href="/hi/careers" class="rounded-xl bg-primary px-6 py-3 text-[14px] font-semibold text-[#10130d] transition-opacity hover:opacity-90">रिक्तियाँ देखें</a>
+          <a href="/hi/contact" class="rounded-xl border border-white/15 px-6 py-3 text-[14px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">संपर्क करें</a>
+        </div>
+        <p class="mt-6 text-[13px] text-muted-foreground">{SITE.phone} · {SITE.hrEmail}</p>
+      </div>
+    </div>
+  </section>
+</Site>

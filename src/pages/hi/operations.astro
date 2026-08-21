@@ -1,0 +1,100 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import SeamModel from '../../components/magic/SeamModel.tsx';
+
+const facts = [
+  ['ग्राहक', 'भारत कोकिंग कोल लिमिटेड (BCCL), कोल इंडिया की अनुषंगी'],
+  ['स्थान', 'अमलाबाद, पूर्वी झरिया क्षेत्र, जिला बोकारो, झारखंड'],
+  ['खनिज', 'प्राइम कोकिंग कोल, तथा कोल बेड मीथेन'],
+  ['कार्यक्षेत्र', 'चारों पिटों में भूमिगत खदान विकास एवं संचालन'],
+  ['अनुबंध', 'माइन डेवलपर एवं ऑपरेटर (MDO), राजस्व-साझेदारी'],
+  ['अवधि', '25 वर्ष'],
+];
+const timeline = [
+  ['सौ वर्षों का खनन', 'अमलाबाद ने झरिया कोलफील्ड से सौ वर्ष से भी पहले कोयला निकालना शुरू किया। इसकी पिट-हेडफ्रेम पूर्वी झरिया क्षेत्र की सबसे पुरानी पहचानों में हैं।'],
+  ['2008 · संचालन रुका', 'नंबर 2 पिट के चानक का गाइड रस्सा टूटने के बाद सुरक्षा कारणों से खदान बंद कर दी गई। यह लगभग दो दशक बंद रही।'],
+  ['एक बहुमूल्य भंडार, बेकार पड़ा', 'वर्षों तक सीमें अछूती रहीं, जबकि देश उसी श्रेणी का कोकिंग कोल आयात करता रहा जिस पर उसके इस्पात संयंत्र निर्भर हैं।'],
+  ['MDO के माध्यम से पुनरुद्धार', 'BCCL ने राजस्व-साझेदारी पर MDO मॉडल से खदान को पुनः चालू करने का निर्णय लिया और मंगलम कोलफील्ड को ऑपरेटर नियुक्त किया।'],
+  ['औपचारिकताएँ पूर्ण, पुनरारंभ का निर्देश', 'स्वीकृतियाँ और अनुबंध पूरे होने पर BCCL नेतृत्व ने MDO मोड में अमलाबाद को पुनः चालू करने का निर्देश दिया।'],
+  ['25 वर्ष का क्षितिज', 'पुनः खुलने पर अमलाबाद लगभग दो दशकों तक प्राइम कोकिंग कोल देगा — आयात प्रतिस्थापन और ऊर्जा सुरक्षा — साथ ही कोल बेड मीथेन एक दूसरी, स्वच्छ धारा के रूप में।'],
+  ['फरवरी 2026 · कोयले से आगे', 'संस्थापक की 60वीं जयंती पर कोलियरी में मंगलम चिकित्सालय खुला — कर्मियों और आसपास के गाँवों के लिए नि:शुल्क इलाज।'],
+];
+---
+<Site
+  title="संचालन एवं क्षमताएँ"
+  description="मंगलम की दो व्यावसायिक धाराएँ — चारों अमलाबाद पिटों में भूमिगत कोयला, और कोल बेड मीथेन।">
+  <ShaderHero
+    client:load compact
+    eyebrow="संचालन एवं क्षमताएँ"
+    title="दो धाराएँ, एक ऑपरेटर"
+    accentWords={2}
+    description="पूर्वी झरिया क्षेत्र, जिला बोकारो के अमलाबाद ब्लॉक के माध्यम से मंगलम दो व्यावसायिक धाराएँ चलाता है — चारों पिटों में भूमिगत कोयला, और उन्हीं सीमों में मौजूद कोल बेड मीथेन।"
+    primary={{ label: 'सुरक्षा एवं अनुपालन', href: '/hi/safety' }}
+  />
+
+  <section class="relative bg-background pt-14">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-sm">
+        <div class="flex flex-wrap items-baseline justify-between gap-3 border-b border-white/10 px-7 py-5">
+          <div>
+            <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">अधिदेश</span>
+            <h2 class="mt-1.5 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground md:text-3xl">अमलाबाद कोलियरी</h2>
+          </div>
+          <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold text-primary">पुनरुद्धार जारी</span>
+        </div>
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-5 px-7 py-6 md:grid-cols-3 lg:grid-cols-6">
+          {facts.map(([k, v]) => (
+            <div>
+              <dt class="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/70">{k}</dt>
+              <dd class="mt-1.5 text-[13.5px] font-medium leading-snug text-foreground/90">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-background py-16">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="max-w-3xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">कोयला कैसे निकाला जाता है</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">प्राइम कोकिंग कोल, भूमिगत से।</h2>
+        <p class="mt-4 text-[16.5px] leading-8 text-muted-foreground">अमलाबाद ब्लॉक झरिया कोलफील्ड में है — भारत का प्राइम कोकिंग कोल का प्रमुख स्रोत — दामोदर घाटी की गोंडवाना बराकर कोयला श्रेणियों के भीतर। कोयला <strong class="text-foreground/80">बोर्ड एवं पिलर</strong> पद्धति से भूमिगत निकाला जाता है, और यह वाशरी-श्रेणी का कोकिंग कोल है, जो इस्पात निर्माण का कच्चा माल है। उन्हीं सीमों में कोल बेड मीथेन भी है; उसे एकत्र करने से भूमिगत सुरक्षा बढ़ती है और एक दूसरी ऊर्जा धारा भी मिलती है। हर कार्य वैधानिक नियम-पुस्तिका के अनुसार होता है — खान अधिनियम, कोयला खान विनियम 2017 और DGMS की निगरानी।</p>
+      </div>
+      <div class="mt-10 overflow-hidden rounded-3xl border border-white/10">
+        <img src="/images/amlabad-headframe.jpg" alt="अमलाबाद कोलियरी की पिट हेडफ्रेम" class="aspect-[16/9] w-full object-cover" loading="lazy" width="2000" height="1500" />
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-background pb-8">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-8 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">त्रि-आयामी दृष्टि</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">उन्नीस सीमें, मानचित्रित।</h2>
+        <p class="mt-4 leading-relaxed text-muted-foreground">सौ वर्ष पुरानी कोलियरी को पुनर्जीवित करने की शुरुआत यह जानने से होती है कि नीचे क्या है। हमने ऐतिहासिक बोरहोल अभिलेखों और अपने सर्वेक्षण से अमलाबाद ब्लॉक का पूरा त्रि-आयामी भूवैज्ञानिक मॉडल बनाया है। घुमाकर देखिए।</p>
+      </div>
+      <SeamModel client:visible />
+    </div>
+  </section>
+
+  <section class="relative bg-background py-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">पुनरुद्धार, क्रमशः</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">अमलाबाद की वापसी।</h2>
+      </div>
+      <ol class="relative ml-2 space-y-9 border-l border-white/12 pl-8">
+        {timeline.map(([k, b]) => (
+          <li class="relative">
+            <span class="absolute -left-[41px] top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 border-primary bg-background"><span class="h-1.5 w-1.5 rounded-full bg-primary"></span></span>
+            <h3 class="font-[var(--font-display)] text-lg font-semibold text-foreground">{k}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{b}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-10 text-[12px] leading-relaxed text-muted-foreground/60">यह क्रम सार्वजनिक समाचार रिपोर्टों के आधार पर बनाया गया है। उत्पादन के आँकड़े और आंतरिक योजनाएँ यहाँ प्रकाशित नहीं की जातीं।</p>
+    </div>
+  </section>
+</Site>

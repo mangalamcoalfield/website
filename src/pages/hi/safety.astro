@@ -1,0 +1,59 @@
+---
+import Site from '../../layouts/Site.astro';
+import ShaderHero from '../../components/magic/ShaderHero.tsx';
+
+const pillars = [
+  { ix: '01', title: 'वैधानिक पद', body: 'DGMS द्वारा अनिवार्य सभी पद — प्रबंधक, सुरक्षा अधिकारी, सर्वेयर एवं इंजीनियर — प्रमाणित एवं नियुक्त।' },
+  { ix: '02', title: 'रजिस्टर एवं अभिलेख', body: 'वैधानिक रजिस्टर नियमित रूप से भरे जाते हैं और उपकरणों का परीक्षण समय-सारणी के अनुसार होता है।' },
+  { ix: '03', title: 'गैस एवं वेंटिलेशन', body: 'वायु-प्रवाह अनुशासन और गैस की निगरानी भूमिगत वातावरण को सुरक्षित रखती है।' },
+  { ix: '04', title: 'कर्मचारी चिकित्सा परीक्षण', body: 'अपने तथा ठेका श्रमिकों की आवधिक चिकित्सा जाँच एवं दक्षता का लेखा-जोखा।' },
+];
+---
+<Site
+  title="सुरक्षा एवं अनुपालन"
+  description="मंगलम कोलफील्ड में सुरक्षा — DGMS ढाँचा, वैधानिक पद, रजिस्टर, गैस एवं वेंटिलेशन अनुशासन।">
+  <ShaderHero
+    client:load compact
+    eyebrow="सुरक्षा एवं अनुपालन"
+    title="काम करने की पहली शर्त"
+    accentWords={2}
+    description="भूमिगत कोयला खनन में वास्तविक जोखिम है। हमारे लिए वैधानिक सुरक्षा न्यूनतम आधार है — और खदान चलाने की अनुमति की शर्त भी।"
+  />
+
+  <section class="relative bg-background py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 max-w-2xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">व्यवहार में</span>
+        <h2 class="mt-3 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">हमारी सुरक्षा प्रणाली के स्तंभ</h2>
+        <p class="mt-4 text-muted-foreground">वे वैधानिक अनुशासन जिनके अंतर्गत भूमिगत संचालन होता है — DGMS ढाँचा, जिसे हम न्यूनतम मानते हैं।</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {pillars.map((p) => (
+          <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-primary/30">
+            <span class="font-[var(--font-display)] text-sm font-bold text-primary">{p.ix}</span>
+            <h3 class="mt-4 font-[var(--font-display)] text-lg font-semibold text-foreground">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-primary/20 bg-primary/[0.05] p-8 md:p-10">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">अमलाबाद में सुरक्षा</span>
+        <p class="mt-4 max-w-3xl text-[16.5px] leading-8 text-foreground/90">
+          अमलाबाद एक भूमिगत कोकिंग कोल खदान है, और ऐसी सीमें स्वभाव से गैसयुक्त होती हैं। इसीलिए हर वैधानिक पद,
+          रजिस्टर, वेंटिलेशन योजना और गैस जाँच का अस्तित्व है — और इसीलिए हम इन्हें काग़ज़ी औपचारिकता नहीं,
+          बल्कि अनिवार्यता मानते हैं। हम खान गैस एवं वेंटिलेशन का विज्ञान सार्वजनिक रूप से समझाते हैं;
+          परंतु खदान-विशिष्ट माप, योजनाएँ या आँकड़े कभी प्रकाशित नहीं करते।
+        </p>
+        <div class="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+          <a href="/learn/dgms-and-the-rules-of-the-mine" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary">DGMS एवं खदान के नियम (अंग्रेज़ी)
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#arrow"/></svg>
+          </a>
+          <a href="/regulations" class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-secondary">विनियम पुस्तकालय (अंग्रेज़ी)
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><use href="#arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Site>
