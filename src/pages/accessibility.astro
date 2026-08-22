@@ -1,0 +1,58 @@
+---
+import Site from '../layouts/Site.astro';
+import { SITE } from '../data/site';
+
+// Every claim here was checked against the code before it was written. Where the
+// site falls short, it says so — an accessibility statement that only lists
+// successes is worth nothing to the person who needs it.
+const updated = 'August 2026';
+---
+<Site title="Accessibility" description="How accessible the Mangalam Coalfield website is, what we have done, where we fall short, and how to tell us about a barrier.">
+  <section class="relative bg-background px-6 pb-24 pt-32">
+    <div class="mx-auto max-w-3xl">
+      <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Accessibility</span>
+      <h1 class="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Accessibility statement</h1>
+      <p class="mt-4 text-sm text-muted-foreground">Last reviewed: {updated}</p>
+
+      <div class="mt-10 space-y-8 text-[15px] leading-relaxed text-muted-foreground">
+        <p>We want this site to be usable by everyone who works at Amlabad, lives near it, or wants to work with us — including people who use a screen reader, navigate by keyboard, need larger text, or are sensitive to motion. This page sets out what we have done, and — just as importantly — where we know we fall short.</p>
+
+        <div>
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground">What we aim for</h2>
+          <p class="mt-2">We aim to meet the <strong class="text-foreground/80">Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA</strong>. That is also the standard referenced by the Guidelines for Indian Government Websites, and it sits behind the accessibility duties in the Rights of Persons with Disabilities Act, 2016. We have not commissioned an independent audit, so we describe this as our target and our own assessment — not as certified conformance.</p>
+        </div>
+
+        <div>
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground">What is in place</h2>
+          <ul class="mt-3 list-disc space-y-2 pl-5">
+            <li><strong class="text-foreground/80">Keyboard access.</strong> Every link, button and form field can be reached and operated with a keyboard, and a "Skip to content" link is the first thing you reach on each page so you can jump past the navigation.</li>
+            <li><strong class="text-foreground/80">Reduced motion.</strong> If your device is set to reduce motion, the animated hero, the scrolling sections, the regulatory ticker and the 3D seam model all drop their animation.</li>
+            <li><strong class="text-foreground/80">Text alternatives.</strong> Every photograph and diagram carries alternative text, and icons that convey meaning have accessible labels.</li>
+            <li><strong class="text-foreground/80">Language.</strong> Each page declares its language, so a screen reader pronounces Hindi and English correctly. Core pages are available in <a href="/hi" class="text-primary underline">हिन्दी</a>.</li>
+            <li><strong class="text-foreground/80">Structure.</strong> Pages use real headings, lists and landmarks rather than styled text, so you can navigate by structure.</li>
+            <li><strong class="text-foreground/80">Zoom and reflow.</strong> Text can be enlarged and the layout reflows down to a phone-sized screen without horizontal scrolling.</li>
+            <li><strong class="text-foreground/80">Contrast.</strong> The site uses light text on a dark ground, chosen to stay legible at normal viewing sizes.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground">Where we fall short</h2>
+          <p class="mt-2">We would rather tell you than let you discover it:</p>
+          <ul class="mt-3 list-disc space-y-2 pl-5">
+            <li><strong class="text-foreground/80">The regulations library is a library of PDFs.</strong> Most are scans of gazette notifications and DGMS circulars issued by the Government of India. Many have no text layer, which means a screen reader cannot read them and you cannot search inside them. We did not create these documents and cannot alter them, but the title, summary, issuing authority and date of every one of them are readable on our own pages. If you need a particular document in an accessible form, ask us and we will help.</li>
+            <li><strong class="text-foreground/80">The 3D seam model is visual.</strong> It conveys the shape of the coal seams and cannot be made meaningful through a screen reader. Where a browser does not support the technology it uses, a written description of the seam sequence appears instead.</li>
+            <li><strong class="text-foreground/80">Newspaper clippings are images.</strong> The press coverage on our news page consists of photographs of printed pages. Each carries a written summary in English alongside it.</li>
+            <li><strong class="text-foreground/80">The drone footage has no captions,</strong> because it has no speech or audio content.</li>
+            <li><strong class="text-foreground/80">Hindi is partial.</strong> The core pages are translated; the regulations library, the explainers and the news pages remain in English, because their source documents are in English.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground">Tell us about a barrier</h2>
+          <p class="mt-2">If something on this site stopped you doing what you came to do, please tell us — it is the fastest way for us to fix it. Email <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a> or call <a class="text-primary underline" href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>, and say which page you were on and what happened. We will reply, and if we cannot fix it quickly we will tell you how else to get what you needed.</p>
+          <p class="mt-3">If you need information from this site in another format — large print, plain text, or read aloud over the phone — ask, and we will arrange it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Site>
