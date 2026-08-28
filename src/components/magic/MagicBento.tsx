@@ -55,7 +55,7 @@ export default function MagicBento() {
             <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent">Capabilities</span>
             <h2 className="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight md:text-5xl">How we operate.</h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">Four core capabilities run every working district to standard — a real 21st.dev Magic bento, themed to the Mangalam palette.</p>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">Four capabilities that run every working district to standard, shift after shift.</p>
         </header>
 
         <div className="grid grid-cols-1 gap-3 md:auto-rows-[minmax(130px,auto)] md:grid-cols-6">

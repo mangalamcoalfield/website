@@ -14,7 +14,12 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://mangalamcoal.com',
   output: 'static',
-  integrations: [sitemap(), react()],
+  integrations: [
+    // Keep the password-gated admin view out of the sitemap — no reason to
+    // advertise its URL to crawlers.
+    sitemap({ filter: (page) => !page.includes('/admin/') }),
+    react(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

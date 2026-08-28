@@ -2,7 +2,7 @@
 // glass design, green/lime on coal-black. Adds: animated count-up Stats,
 // 3D-tilt business Lines, a keyword Marquee, dramatic Safety, glowing CTA.
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
 import { Flame, Mountain, ShieldCheck, ArrowRight, Check } from 'lucide-react';
 
@@ -33,9 +33,21 @@ function useTilt<T extends HTMLElement>(max = 9) {
 function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-  const [val, setVal] = useState(0);
+  // Start at the TRUE figure so the server-rendered HTML carries it. Crawlers,
+  // social scrapers and no-JS visitors previously saw "0 pits / 0+ workforce /
+  // 0% statutory positions filled", which is the worst possible reading of a
+  // company that has none of those problems.
+  const [val, setVal] = useState(to);
+  // Drop to zero before the browser paints, so the count-up still animates
+  // without a visible flash of the final number.
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setVal(0);
+  }, []);
   useEffect(() => {
     if (!inView) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setVal(to); return; }
     const c = animate(0, to, { duration: 1.5, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => setVal(Math.round(v)) });
     return () => c.stop();
   }, [inView, to]);

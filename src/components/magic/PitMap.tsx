@@ -20,7 +20,7 @@ export default function PitMap() {
         <div className="mb-12 max-w-2xl">
           <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">The four Amlabad pits · Eastern Jharia Area, Bokaro</span>
           <h2 className="mt-3 font-[var(--font-display)] text-4xl font-bold tracking-tight text-foreground md:text-5xl">Reviving every shaft.</h2>
-          <p className="mt-4 text-muted-foreground">Hover or tap a shaft to see its stage. Interactive cross-section — built with Magic motion.</p>
+          <p className="mt-4 text-muted-foreground">Hover or tap a shaft to see the stage it has reached.</p>
         </div>
 
         <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">

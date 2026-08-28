@@ -16,8 +16,12 @@ const { items = [] } = Astro.props as { items: Item[] };
         <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent"></div>
         <div class="flex w-max gap-8 lt-track">
-          {[...items, ...items].map((it) => (
-            <a href={it.href} class="flex shrink-0 items-center gap-2.5 whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-primary">
+          {/* The list is duplicated so the marquee can loop seamlessly. The second
+              copy is decorative: hide it from assistive tech and take it out of the
+              tab order, or every headline is announced and tabbed through twice. */}
+          {[...items.map((it) => ({ it, dup: false })), ...items.map((it) => ({ it, dup: true }))].map(({ it, dup }) => (
+            <a href={it.href} aria-hidden={dup ? 'true' : undefined} tabindex={dup ? -1 : undefined}
+              class="flex shrink-0 items-center gap-2.5 whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-primary">
               <span class="rounded bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold text-primary">{it.date}</span>
               <span class="max-w-[46ch] truncate">{it.title}</span>
               <span class="text-primary/40">•</span>
