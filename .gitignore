@@ -31,7 +31,8 @@ Thumbs.db
 .playwright-mcp/
 
 # local credentials (never commit)
-.hostinger.env
+.hostinger.env*
+*.env.txt
 .r2.env
 
 # generated at upload time (applied only AFTER PDFs are live)
