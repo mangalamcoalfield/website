@@ -3,7 +3,11 @@
 // Includes a required DPDP consent checkbox. Email + bot hooks are left for
 // later (see the commented hook in the submit handler).
 ---
-<form class="form" id="leadForm" novalidate>
+<!-- method="post" matters even though JS intercepts the submit: with no method,
+     HTML defaults to GET, so if the script ever fails the browser would put the
+     name, email and message into the query string — and therefore into browser
+     history, server logs and any referrer header. Failing visibly beats leaking. -->
+<form class="form" id="leadForm" method="post" novalidate>
   <div class="row two">
     <div class="row">
       <label for="lead-name">Name <span class="req">*</span></label>

@@ -14,12 +14,39 @@ const ADMIN_PASSWORD = env('ADMIN_PASSWORD');
 const json = (d: unknown, s = 200) =>
   new Response(JSON.stringify(d), { status: s, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
-export const POST: APIRoute = async ({ request }) => {
+// This endpoint returns every applicant's name, email, phone, role answers and a
+// 24h signed résumé link, gated only by a shared password. Without a throttle it
+// could be guessed at full speed, so it gets a stricter limit than the public
+// endpoints. Per warm instance, like the others — best-effort, not a hard cap.
+const RL_WINDOW_MS = 60_000;
+const RL_MAX = 5;
+const hits = new Map<string, number[]>();
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const arr = (hits.get(ip) ?? []).filter((t) => now - t < RL_WINDOW_MS);
+  arr.push(now);
+  hits.set(ip, arr);
+  return arr.length > RL_MAX;
+}
+
+// Constant-time compare so a wrong password can't be narrowed down by timing.
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!SUPABASE_URL || !SERVICE_KEY) return json({ error: 'not_configured' });
   if (!ADMIN_PASSWORD) return json({ error: 'no_password_set' });
+
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  if (rateLimited(ip)) return json({ error: 'rate_limited' }, 429);
+
   let body: { password?: string } = {};
   try { body = await request.json(); } catch { return json({ error: 'bad_request' }, 400); }
-  if (!body.password || body.password !== ADMIN_PASSWORD) return json({ error: 'unauthorized' }, 401);
+  if (!body.password || !safeEqual(body.password, ADMIN_PASSWORD)) return json({ error: 'unauthorized' }, 401);
 
   const db = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
   const { data: apps, error } = await db.from('applications')

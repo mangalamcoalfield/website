@@ -9,7 +9,9 @@ const { jobs = [], jobId } = Astro.props;
 // Map job id -> department so the form can reveal role-relevant questions.
 const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
 ---
-<form class="form" id="appForm" novalidate data-jobdept={JSON.stringify(jobDept)}>
+<!-- method="post": see ContactForm — prevents applicant details landing in the
+     URL if the submit handler ever fails to run. -->
+<form class="form" id="appForm" method="post" novalidate data-jobdept={JSON.stringify(jobDept)}>
   <div class="row two">
     <div class="row">
       <label for="app-name">Full name <span class="req">*</span></label>

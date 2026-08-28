@@ -1,9 +1,10 @@
-// resume-retention — scheduled daily (pg_cron). Enforces résumé retention:
-// for applications that were NOTIFIED (delivered) and are older than the grace
-// window, delete the résumé from Storage and mark it purged. Also removes the
-// one-off RLS test artifact. Uses the service role (server-side only).
+// resume-retention — scheduled daily (pg_cron). Enforces résumé retention: for
+// applications older than the grace window, delete the résumé from Storage and
+// mark it purged. Also removes the one-off RLS test artifact. Uses the service
+// role (server-side only).
 //
-// Policy: forward → confirm delivery (notified_at set) → grace window → purge.
+// Policy: purge every résumé older than the grace window, whether or not the
+// notification email was ever delivered.
 // RETENTION_DAYS overrides the default grace window. --no-verify-jwt + guard.
 
 import { adminClient, authorized, json } from '../_shared/util.ts';
@@ -24,12 +25,19 @@ Deno.serve(async (req) => {
   const { data: removedTest } = await supabase.storage.from('resumes').remove([TEST_ARTIFACT]);
   summary.test_artifact_removed = (removedTest?.length ?? 0) > 0;
 
-  // 1) Find delivered applications past the grace window with a résumé still stored.
+  // 1) Find applications past the grace window with a résumé still stored.
+  //
+  // Deliberately NOT filtered on notified_at. This previously required delivery
+  // to be confirmed, but notified_at is only stamped when the notification email
+  // actually sends — and that pipeline is designed to no-op gracefully when SMTP
+  // is unconfigured or failing. So a mail outage would have quietly parked those
+  // résumés outside the purge forever, breaking the 90-day retention promised on
+  // /privacy. Retention is a legal maximum: it runs on the age of the record,
+  // regardless of whether HR ever got an email about it.
   const cutoff = new Date(Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const { data: due, error } = await supabase
     .from('applications')
     .select('id, resume_url')
-    .not('notified_at', 'is', null)   // delivery confirmed
     .is('resume_purged_at', null)      // not already purged
     .not('resume_url', 'is', null)     // still has a file
     .lt('created_at', cutoff);         // past grace window
