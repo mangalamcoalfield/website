@@ -16,12 +16,7 @@ export const SITE = {
     'Mangalam Coalfield Private Limited is reviving the historic Amlabad pits in the Eastern Jharia Area of District Bokaro, Jharkhand — producing coal and coal bed methane with safety, statutory compliance, and engineering rigour at the core of every shift.',
 };
 
-export const NAV = [
-  { href: '/about', label: 'About' },
-  { href: '/operations', label: 'Operations' },
-  { href: '/safety', label: 'Safety' },
-  { href: '/learn', label: 'Learn' },
-  { href: '/cares', label: 'Cares' },
-  { href: '/careers', label: 'Careers' },
-  { href: '/contact', label: 'Contact' },
-];
+// The navigation lives in src/i18n/ui.ts, which is what Site.astro renders and
+// is the only version that carries both languages. A second copy used to sit
+// here; nothing imported it and it had drifted (no Regulations, no News), so
+// editing it would have silently changed nothing.

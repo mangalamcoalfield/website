@@ -147,9 +147,16 @@
   function close() {
     root.dataset.state = 'closed';
     launch.setAttribute('aria-expanded', 'false');
+    // Send focus back to the launcher, or a keyboard user is left with the
+    // focus ring stranded inside a panel that is no longer visible.
+    launch.focus();
   }
   launch.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
+  // Escape closes the panel, as it does for any dialog.
+  panel.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape') { e.stopPropagation(); close(); }
+  });
 
   function addMsg(text: string, cls: 'bot' | 'user' | 'note', sources?: { title: string; source: string }[]) {
     const div = document.createElement('div');

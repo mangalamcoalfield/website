@@ -1,6 +1,7 @@
 // Premium supporting sections — framer-motion (Magic's motion) + ui-ux-pro-max
 // glass design, green/lime on coal-black. Adds: animated count-up Stats,
-// 3D-tilt business Lines, a keyword Marquee, dramatic Safety, glowing CTA.
+// 3D-tilt business Lines, dramatic Safety, glowing CTA. (A keyword marquee
+// lived here until the live LatestTicker replaced it.)
 'use client';
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
@@ -54,24 +55,6 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
   return <span ref={ref}>{val}{suffix}</span>;
 }
 
-/* ---------- Marquee ---------- */
-const tokens = ['Amlabad Pit No. 1', 'DGMS Compliance', 'Coal Bed Methane', 'Pit No. 2', 'Eastern Jharia Area', 'Bord & Pillar', 'Pit No. 3', 'Mines Act 1952', 'Ventilation Discipline', 'Pit No. 4', 'Coal Mines Regulations 2017', 'Responsible Coal'];
-export function Marquee() {
-  return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-background py-6">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
-      <div className="flex w-max gap-10 marq-track">
-        {[...tokens, ...tokens].map((t, i) => (
-          <span key={i} className="flex items-center gap-10 whitespace-nowrap font-[var(--font-display)] text-lg font-semibold tracking-tight text-muted-foreground">
-            {t}<span className="size-1.5 rounded-full bg-primary/60" />
-          </span>
-        ))}
-      </div>
-      <style>{`.marq-track{animation:marq 38s linear infinite}@keyframes marq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.marq-track{animation:none}}`}</style>
-    </section>
-  );
-}
 
 const stats = [
   { to: 4, suffix: '', label: 'Amlabad pits under revival & development' },
