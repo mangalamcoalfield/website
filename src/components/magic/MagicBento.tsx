@@ -26,7 +26,11 @@ export default function MagicBento() {
         @keyframes mb-pulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}
         @keyframes mb-tilt{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}100%{transform:rotate(-3deg)}}
         @keyframes mb-drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(6%,-6%,0)}}
-        @keyframes mb-card{0%{opacity:0;transform:translate3d(0,18px,0) scale(.96)}100%{opacity:1;transform:none}}`;
+        @keyframes mb-card{0%{opacity:0;transform:translate3d(0,18px,0) scale(.96)}100%{opacity:1;transform:none}}
+        /* The icon idle loops are set as inline styles, which Tailwind's
+           motion-safe: variant cannot reach — only !important overrides an
+           inline style, so the reduced-motion opt-out lives here. */
+        @media(prefers-reduced-motion:reduce){.mb-icon{animation:none!important}}`;
       document.head.appendChild(s);
     }
     const node = ref.current;
@@ -70,7 +74,7 @@ export default function MagicBento() {
                 <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06]">
-                    <Icon className="h-6 w-6 text-primary" strokeWidth={1.6} style={{ animation: f.anim }} />
+                    <Icon className="mb-icon h-6 w-6 text-primary" strokeWidth={1.6} style={{ animation: f.anim }} />
                   </div>
                   <div className="flex-1">
                     <header className="flex items-start gap-3">

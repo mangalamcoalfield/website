@@ -402,7 +402,7 @@ export default function SeamModel() {
           <div className="pointer-events-none absolute left-4 top-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">
             Amlabad seam sequence
           </div>
-          <div className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-muted-foreground/60">
+          <div className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-muted-foreground/80">
             drag to rotate · scroll to zoom
           </div>
         </div>
@@ -411,7 +411,7 @@ export default function SeamModel() {
         <aside className="border-t border-white/10 lg:w-[248px] lg:shrink-0 lg:border-l lg:border-t-0">
           <div className="flex items-baseline justify-between px-4 pt-4">
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Seam sequence</span>
-            <span className="text-[10px] text-muted-foreground/60">roof → floor</span>
+            <span className="text-[10px] text-muted-foreground/80">roof → floor</span>
           </div>
           <div className="mt-2 max-h-[210px] overflow-y-auto px-2 pb-2 lg:max-h-[392px]">
             {M.seams.map((s, i) => (
@@ -427,7 +427,7 @@ export default function SeamModel() {
               </button>
             ))}
           </div>
-          <div className="border-t border-white/10 px-4 py-3 text-[10px] leading-relaxed text-muted-foreground/60">
+          <div className="border-t border-white/10 px-4 py-3 text-[10px] leading-relaxed text-muted-foreground/80">
             Bar length shows each seam’s thickness relative to the thickest in the sequence.
           </div>
         </aside>
@@ -462,7 +462,7 @@ export default function SeamModel() {
         {/* borehole survey-confidence key — the caveats are the credibility */}
         {holes && (
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">Collar position</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">Collar position</span>
             {(['A', 'B', 'C'] as const).map((t) => (
               tierCounts[t] ? (
                 <span key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
@@ -475,7 +475,7 @@ export default function SeamModel() {
           </div>
         )}
 
-        <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground/60">
+        <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground/80">
           Built from our own geological model of the block — 19 seams reconciled across {M.holes.length} boreholes,
           from historic drilling records and our own survey work. Shown as relative geometry only: deliberately
           not to scale, and carrying no depths, grades or real-world coordinates. An illustration of the deposit,

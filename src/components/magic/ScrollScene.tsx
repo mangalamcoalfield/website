@@ -25,7 +25,10 @@ export default function ScrollScene() {
     if (document.getElementById(id)) return;
     const s = document.createElement('style');
     s.id = id;
-    s.textContent = '@keyframes ssRise{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}';
+    s.textContent =
+      '@keyframes ssRise{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-6px);opacity:1}}' +
+      // Inline animation styles need !important to be overridable here.
+      '@media(prefers-reduced-motion:reduce){.ss-bubble{animation:none!important}}';
     document.head.appendChild(s);
   }, []);
 
@@ -94,7 +97,7 @@ export default function ScrollScene() {
                 {/* methane rising */}
                 <motion.g style={{ opacity: methaneOp, y: methaneY }}>
                   {[26, 38, 50, 62, 74].map((x, i) => (
-                    <circle key={x} cx={x} cy={38} r="1.1" fill="#bcd25f" style={{ animation: `ssRise 2.4s ${i * 0.3}s ease-in-out infinite` }} />
+                    <circle key={x} className="ss-bubble" cx={x} cy={38} r="1.1" fill="#bcd25f" style={{ animation: `ssRise 2.4s ${i * 0.3}s ease-in-out infinite` }} />
                   ))}
                 </motion.g>
               </svg>

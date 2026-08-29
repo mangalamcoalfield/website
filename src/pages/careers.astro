@@ -20,7 +20,12 @@ const depts = DEPT_ORDER.filter((d) => jobs.some((j) => j.dept === d));
 const empType = (t: string | null) =>
   /part/i.test(t || '') ? 'PART_TIME' : /contract/i.test(t || '') ? 'CONTRACTOR' : 'FULL_TIME';
 
-const jobLd = jobs.map((j) => ({
+// Structured data only for real, published vacancies. The placeholders exist to
+// keep the page from looking broken if the database is unreachable or paused —
+// emitting JobPosting markup for them would be submitting fabricated vacancies
+// to Google, which is both a search-spam violation and a promise of jobs that
+// do not exist.
+const jobLd = (usingPlaceholders ? [] : jobs).map((j) => ({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',
   title: j.title,

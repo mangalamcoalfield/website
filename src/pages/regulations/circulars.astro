@@ -61,7 +61,7 @@ const breadcrumbLd = {
               <div class="min-w-0">
                 {c.description && <p class="font-[var(--font-display)] font-semibold leading-snug text-foreground">{c.description}</p>}
                 <p class="mt-1 text-[13px] text-muted-foreground">{c.ref}</p>
-                <p class="mt-1.5 text-[12px] text-muted-foreground/60">In the {c.setLabel} compilation</p>
+                <p class="mt-1.5 text-[12px] text-muted-foreground/80">In the {c.setLabel} compilation</p>
               </div>
               <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.anchor_page}`} target="_blank" rel="noopener noreferrer"
                 class="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
@@ -76,9 +76,9 @@ const breadcrumbLd = {
       <div class="mt-8 flex flex-col items-center gap-3">
         <button id="showmore" class="rounded-full border border-white/15 bg-white/[0.04] px-6 py-2.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Show more</button>
         <p id="cnone" class="hidden text-center text-muted-foreground">No circulars match your search.</p>
-        <p id="ccount" class="text-[12px] text-muted-foreground/60"></p>
+        <p id="ccount" class="text-[12px] text-muted-foreground/80"></p>
       </div>
-      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/70">These circulars are reproduced inside the DGMS consolidated compilations (scanned documents). “Open compilation” launches the relevant compilation in a new tab at its circulars section — use your PDF reader's search to jump to the exact circular. Reproduced from the official DGMS archive for public reference.</p>
+      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/80">These circulars are reproduced inside the DGMS consolidated compilations (scanned documents). “Open compilation” launches the relevant compilation in a new tab at its circulars section — use your PDF reader's search to jump to the exact circular. Reproduced from the official DGMS archive for public reference.</p>
     </div>
   </section>
 

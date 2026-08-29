@@ -76,12 +76,40 @@ const tickerItems = latestRegs
         <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-6">
           <p class="text-sm font-medium text-white/90">The Amlabad colliery — Eastern Jharia Area, Bokaro, Jharkhand</p>
         </div>
+        <!-- WCAG 2.2.2: anything that moves for more than five seconds needs a
+             way to stop it. The clip is decorative and silent, so a single
+             pause/play control is enough — no full player chrome. -->
+        <button id="heroVideoToggle" type="button" aria-label="Pause background video"
+          class="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/50 text-white backdrop-blur transition-colors hover:border-primary hover:text-primary">
+          <svg id="heroVideoIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+        </button>
       </div>
       <script is:inline>
         (() => {
           const v = document.getElementById('heroVideo');
           const l = document.getElementById('heroLogo');
+          const btn = document.getElementById('heroVideoToggle');
+          const icon = document.getElementById('heroVideoIcon');
           if (!v || !l) return;
+
+          const PLAY = '<path d="M8 5v14l11-7z" />';
+          const PAUSE = '<rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" />';
+          const sync = () => {
+            if (!btn || !icon) return;
+            const paused = v.paused;
+            icon.innerHTML = paused ? PLAY : PAUSE;
+            btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+          };
+
+          // Readers who ask for reduced motion get the poster frame, not a loop.
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            v.removeAttribute('autoplay');
+            v.pause();
+          }
+          if (btn) btn.addEventListener('click', () => { v.paused ? v.play() : v.pause(); sync(); });
+          v.addEventListener('play', sync);
+          v.addEventListener('pause', sync);
+          sync();
           // Fade the logo in over the final zoom-out, hold, then fade out just before the loop.
           const onTick = () => {
             const d = v.duration || 24;

@@ -110,24 +110,34 @@
 
   // Reveal the launcher only after we know the endpoint exists at all.
   // (A static-only deploy without the function would 405/404 → stay hidden.)
+  // GET, not POST: the health check is exempt from the per-IP question budget,
+  // so probing can never spend a visitor's allowance before they ask anything.
+  const PROBE_KEY = 'am-available';
   async function probe() {
     try {
-      const r = await fetch('/api/ask', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ probe: true }), // → 200 if live+key, 503 if no key
-      });
+      const r = await fetch('/api/ask', { method: 'GET' }); // 200 if live+key, 503 if no key
       if (r.status === 503) { available = false; return false; }
-      // 200 (probe ok), 429 all mean the function is deployed & enabled.
-      return r.status !== 404 && r.status !== 405;
+      return r.ok;
     } catch {
       return false;
     }
   }
 
-  probe().then((ok) => {
-    if (ok) root.hidden = false;
-  });
+  // Cached for the session: the answer is the same on every page, and probing
+  // per pageview cost one serverless invocation each time.
+  let cached: string | null = null;
+  try { cached = sessionStorage.getItem(PROBE_KEY); } catch { /* private mode */ }
+
+  if (cached === 'yes') {
+    root.hidden = false;
+  } else if (cached === 'no') {
+    available = false;
+  } else {
+    probe().then((ok) => {
+      if (ok) root.hidden = false;
+      try { sessionStorage.setItem(PROBE_KEY, ok ? 'yes' : 'no'); } catch { /* private mode */ }
+    });
+  }
 
   function open() {
     root.dataset.state = 'open';
@@ -149,6 +159,10 @@
       const wrap = document.createElement('div');
       wrap.className = 'am-src';
       sources.slice(0, 3).forEach((s) => {
+        // Defence in depth: sources come from our own database, but this value
+        // is assigned straight to an href. Accept only same-site paths, so a
+        // bad row can never render a javascript: or off-site link.
+        if (typeof s.source !== 'string' || !/^\/(?!\/)/.test(s.source)) return;
         const a = document.createElement('a');
         a.href = s.source; a.textContent = s.title;
         wrap.appendChild(a);

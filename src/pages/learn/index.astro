@@ -100,7 +100,7 @@ const monthLabel = (m: string) => {
             <span class="text-[11px] font-semibold uppercase tracking-[0.08em] text-primary">{catLabel[e.category] || e.category}{e.type === 'reg_link' ? ' · Source' : e.type === 'download' ? ' · Download' : ''}</span>
             <h3 class="mt-2 font-[var(--font-display)] text-lg font-semibold text-foreground">{e.title}</h3>
             {e.body && <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{e.body.slice(0, 130)}{e.body.length > 130 ? '…' : ''}</p>}
-            {e.source_date && <p class="mt-2 text-[12px] text-muted-foreground/70">Source dated {e.source_date}</p>}
+            {e.source_date && <p class="mt-2 text-[12px] text-muted-foreground/80">Source dated {e.source_date}</p>}
           </a>
         ))}
       </div>

@@ -15,9 +15,10 @@ export default defineConfig({
   site: 'https://mangalamcoal.com',
   output: 'static',
   integrations: [
-    // Keep the password-gated admin view out of the sitemap — no reason to
-    // advertise its URL to crawlers.
-    sitemap({ filter: (page) => !page.includes('/admin/') }),
+    // Keep the password-gated admin view and the staff webmail redirect out of
+    // the sitemap — neither is a page the public should be landing on from
+    // search, and there is no reason to advertise the admin URL to crawlers.
+    sitemap({ filter: (page) => !page.includes('/admin/') && !page.includes('/mail') }),
     react(),
   ],
   vite: {

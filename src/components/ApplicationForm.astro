@@ -42,8 +42,8 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
   <div class="roledetails" data-dept="Mining" hidden>
     <div class="row two">
       <div class="row">
-        <label>Statutory certificate held</label>
-        <select name="Certificate">
+        <label for="app-mining-statutory-certificate-held">Statutory certificate held</label>
+        <select id="app-mining-statutory-certificate-held" name="Certificate">
           <option value="">Select…</option>
           <option>First Class Manager's Certificate</option>
           <option>Second Class Manager's Certificate</option>
@@ -54,13 +54,13 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
           <option>None</option>
         </select>
       </div>
-      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+      <div class="row"><label for="app-mining-certificate-number">Certificate number</label><input id="app-mining-certificate-number" name="Certificate no." type="text" /></div>
     </div>
     <div class="row two">
-      <div class="row"><label>Total underground experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+      <div class="row"><label for="app-mining-total-underground-experience-years">Total underground experience (years)</label><input id="app-mining-total-underground-experience-years" name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
       <div class="row">
-        <label>Valid Gas Testing & First-Aid certificates?</label>
-        <select name="Gas Testing / First-Aid"><option value="">Select…</option><option>Yes — both valid</option><option>Gas Testing only</option><option>First-Aid only</option><option>No</option></select>
+        <label for="app-mining-valid-gas-testing-and">Valid Gas Testing & First-Aid certificates?</label>
+        <select id="app-mining-valid-gas-testing-and" name="Gas Testing / First-Aid"><option value="">Select…</option><option>Yes — both valid</option><option>Gas Testing only</option><option>First-Aid only</option><option>No</option></select>
       </div>
     </div>
   </div>
@@ -68,39 +68,39 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
   <div class="roledetails" data-dept="Mechanical" hidden>
     <div class="row two">
       <div class="row">
-        <label>Competency certificate held</label>
-        <select name="Certificate">
+        <label for="app-mechanical-competency-certificate-held">Competency certificate held</label>
+        <select id="app-mechanical-competency-certificate-held" name="Certificate">
           <option value="">Select…</option>
           <option>Engineer's Certificate of Competency (Mechanical)</option>
           <option>Foreman's Certificate (Mechanical)</option>
           <option>None</option>
         </select>
       </div>
-      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+      <div class="row"><label for="app-mechanical-certificate-number">Certificate number</label><input id="app-mechanical-certificate-number" name="Certificate no." type="text" /></div>
     </div>
-    <div class="row"><label>Relevant mining experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+    <div class="row"><label for="app-mechanical-relevant-mining-experience-years">Relevant mining experience (years)</label><input id="app-mechanical-relevant-mining-experience-years" name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
   </div>
 
   <div class="roledetails" data-dept="Electrical" hidden>
     <div class="row two">
       <div class="row">
-        <label>Competency certificate held</label>
-        <select name="Certificate">
+        <label for="app-electrical-competency-certificate-held">Competency certificate held</label>
+        <select id="app-electrical-competency-certificate-held" name="Certificate">
           <option value="">Select…</option>
           <option>Electrical Supervisor's Certificate of Competency (Mining)</option>
           <option>None</option>
         </select>
       </div>
-      <div class="row"><label>Certificate number</label><input name="Certificate no." type="text" /></div>
+      <div class="row"><label for="app-electrical-certificate-number">Certificate number</label><input id="app-electrical-certificate-number" name="Certificate no." type="text" /></div>
     </div>
-    <div class="row"><label>Relevant mining experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+    <div class="row"><label for="app-electrical-relevant-mining-experience-years">Relevant mining experience (years)</label><input id="app-electrical-relevant-mining-experience-years" name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
   </div>
 
   <div class="roledetails" data-dept="Admin" hidden>
     <div class="row two">
       <div class="row">
-        <label>Highest qualification</label>
-        <select name="Qualification">
+        <label for="app-admin-highest-qualification">Highest qualification</label>
+        <select id="app-admin-highest-qualification" name="Qualification">
           <option value="">Select…</option>
           <option>CA (Chartered Accountant)</option>
           <option>CS (Company Secretary)</option>
@@ -109,20 +109,20 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
           <option>Other</option>
         </select>
       </div>
-      <div class="row"><label>Membership / registration no. (ICAI / ICSI, if any)</label><input name="Membership no." type="text" /></div>
+      <div class="row"><label for="app-admin-membership-registration-no-icai">Membership / registration no. (ICAI / ICSI, if any)</label><input id="app-admin-membership-registration-no-icai" name="Membership no." type="text" /></div>
     </div>
-    <div class="row"><label>Relevant experience (years)</label><input name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
+    <div class="row"><label for="app-admin-relevant-experience-years">Relevant experience (years)</label><input id="app-admin-relevant-experience-years" name="Experience (yrs)" type="number" min="0" step="0.5" /></div>
   </div>
 
   {/* ---- Common questions (shown once a role is picked) ---- */}
   <div id="commondetails" hidden>
     <div class="row two">
-      <div class="row"><label>Current location</label><input name="Current location" type="text" /></div>
-      <div class="row"><label>Notice period</label><input name="Notice period" type="text" placeholder="e.g. 30 days / Immediate" /></div>
+      <div class="row"><label for="app-admin-current-location">Current location</label><input id="app-admin-current-location" name="Current location" type="text" /></div>
+      <div class="row"><label for="app-admin-notice-period">Notice period</label><input id="app-admin-notice-period" name="Notice period" type="text" placeholder="e.g. 30 days / Immediate" /></div>
     </div>
     <div class="row two">
-      <div class="row"><label>Current CTC (optional)</label><input name="Current CTC" type="text" /></div>
-      <div class="row"><label>Expected CTC (optional)</label><input name="Expected CTC" type="text" /></div>
+      <div class="row"><label for="app-admin-current-ctc-optional">Current CTC (optional)</label><input id="app-admin-current-ctc-optional" name="Current CTC" type="text" /></div>
+      <div class="row"><label for="app-admin-expected-ctc-optional">Expected CTC (optional)</label><input id="app-admin-expected-ctc-optional" name="Expected CTC" type="text" /></div>
     </div>
   </div>
 

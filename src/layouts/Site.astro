@@ -10,14 +10,16 @@ import '@fontsource/hanken-grotesk/600.css';
 import '../styles/magic.css';
 import AskMangalam from '../components/AskMangalam.astro';
 import { SITE } from '../data/site';
-import { NAV, UI, detectLang, altHref } from '../i18n/ui';
+import { NAV, UI, detectLang, altHref, hasAlt } from '../i18n/ui';
 
 interface Props {
   title?: string;
   description?: string;
   jsonLd?: object | object[];
+  /** Staff utilities and gated views: reachable, but not for search results. */
+  noindex?: boolean;
 }
-const { title, description = SITE.description, jsonLd } = Astro.props;
+const { title, description = SITE.description, jsonLd, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — Mine Developer & Operator`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
 const ogImage = new URL('/og.png', Astro.site ?? Astro.url.origin).href;
@@ -29,6 +31,13 @@ const lang = detectLang(path);
 const t = UI[lang];
 const nav = NAV[lang];
 const altUrl = altHref(path, lang);
+// The alternate must be byte-identical to the URL that page declares as its own
+// canonical, or Google drops the hreflang pair as non-reciprocal. Canonicals are
+// built from Astro.url.pathname, which carries a trailing slash; altHref strips
+// it for nav links. Re-add it here for the link tags only.
+const altCanonical = new URL(altUrl.endsWith("/") ? altUrl : `${altUrl}/`, Astro.site ?? Astro.url.origin).href;
+// Only pages that actually exist in both languages get an hreflang pair.
+const translated = hasAlt(path, lang);
 const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 ---
 <!doctype html>
@@ -38,9 +47,13 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={canonical} />
-  <link rel="alternate" hreflang={lang === "hi" ? "en" : "hi"} href={new URL(altUrl, Astro.site ?? Astro.url.origin).href} />
-  <link rel="alternate" hreflang={lang} href={canonical} />
+  {translated && <link rel="alternate" hreflang={lang === "hi" ? "en" : "hi"} href={altCanonical} />}
+  {translated && <link rel="alternate" hreflang={lang} href={canonical} />}
+  {/* x-default is the English page: it is the complete version, and the Hindi
+      site covers only the main marketing pages. */}
+  {translated && <link rel="alternate" hreflang="x-default" href={lang === "hi" ? altCanonical : canonical} />}
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -132,7 +145,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
           <a href="/accessibility" class="transition-colors hover:text-primary">Accessibility</a>
         </div>
       </div>
-      <p class="mt-3 text-[12px] leading-relaxed text-muted-foreground/60">Registered office: {SITE.regOffice} · Operations: {SITE.location}</p>
+      <p class="mt-3 text-[12px] leading-relaxed text-muted-foreground/80">Registered office: {SITE.regOffice} · Operations: {SITE.location}</p>
     </div>
   </footer>
 

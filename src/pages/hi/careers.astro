@@ -8,7 +8,10 @@ import { placeholderJobs } from '../../data/placeholders';
 let jobs = await safeSelect<Job>((c) =>
   c.from('jobs').select('*').eq('status', 'published').order('posted_at', { ascending: false })
 );
-if (jobs.length === 0) jobs = placeholderJobs;
+// Mirrors the English page: if the fallback roles are showing, say so, rather
+// than letting Hindi readers take sample postings for real vacancies.
+const usingPlaceholders = jobs.length === 0;
+if (usingPlaceholders) jobs = placeholderJobs;
 ---
 <Site
   title="करियर"
@@ -40,6 +43,10 @@ if (jobs.length === 0) jobs = placeholderJobs;
           </div>
         ))}
       </div>
+
+      {usingPlaceholders && (
+        <p class="mt-8 text-sm text-muted-foreground">नमूना पद दिखाए गए हैं। वास्तविक रिक्तियाँ भर्ती प्रणाली से प्रकाशित की जाती हैं।</p>
+      )}
 
       <!-- आवेदन कैसे करें -->
       <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-sm">

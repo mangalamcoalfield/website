@@ -9,6 +9,7 @@
 // FTPS (explicit TLS). Files land in public_html/regs -> https://docs.mangalamcoal.com/regs/<slug>.pdf
 import fs from "node:fs";
 import path from "node:path";
+import tls from "node:tls";
 
 const GO = process.argv.includes("--go");
 const REPO = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/(\w:)/, "$1")), "..");
@@ -79,7 +80,25 @@ async function connect() {
   const cl = new Client(45000);
   await cl.access({
     host: c.FTP_HOST, port: Number(c.FTP_PORT || 21), user: c.FTP_USER, password: c.FTP_PASS,
-    secure: true, secureOptions: { rejectUnauthorized: false },
+    secure: true,
+    secureOptions: {
+      // Certificate validation was previously switched off entirely, so the FTP
+      // password travelled over a session any MITM could impersonate — the very
+      // credential that later had to be rotated.
+      //
+      // It cannot simply be switched on: Hostinger terminates FTPS on shared
+      // infrastructure whose certificate is a genuine, publicly-trusted Sectigo
+      // cert for *.hstgr.io and does not list our vanity FTP hostname as a SAN,
+      // so a strict check fails on hostname mismatch alone. Keep full chain
+      // verification — a forged or self-signed certificate is still rejected —
+      // and relax only the name check, to exactly the identity we expect.
+      rejectUnauthorized: true,
+      checkServerIdentity: (_host, cert) => {
+        const err = tls.checkServerIdentity("ftp.hstgr.io", cert);
+        if (err) return new Error(`unexpected FTPS certificate: CN=${cert?.subject?.CN ?? "?"}`);
+        return undefined;
+      },
+    },
   });
   await cl.ensureDir("regs"); // creates public_html/regs and cd's in
   return cl;

@@ -2,7 +2,7 @@
 import Site from '../layouts/Site.astro';
 import { SITE } from '../data/site';
 ---
-<Site title="Employee Mail" description="Sign in to your @mangalamcoal.com mailbox — the Mangalam Coalfield employee webmail gateway.">
+<Site noindex title="Employee Mail" description="Sign in to your @mangalamcoal.com mailbox — the Mangalam Coalfield employee webmail gateway.">
   <section class="relative flex min-h-[72vh] items-center justify-center bg-background px-6 py-24">
     <div class="w-full max-w-md rounded-3xl border border-white/10 bg-white/[0.03] p-9 text-center backdrop-blur-sm">
       <div class="mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/[0.08]">
@@ -16,7 +16,7 @@ import { SITE } from '../data/site';
         Log in to Employee Mail
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
       </a>
-      <p class="mt-4 text-[12px] leading-relaxed text-muted-foreground/60">For your security, you'll enter your password on the Hostinger mail server itself — never on this site.</p>
+      <p class="mt-4 text-[12px] leading-relaxed text-muted-foreground">For your security, you'll enter your password on the Hostinger mail server itself — never on this site.</p>
     </div>
   </section>
 </Site>

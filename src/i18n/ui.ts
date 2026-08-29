@@ -10,6 +10,17 @@ export const TRANSLATED = ['', 'about', 'operations', 'safety', 'cares', 'career
 export const detectLang = (pathname: string): Lang =>
   pathname === '/hi' || pathname.startsWith('/hi/') ? 'hi' : 'en';
 
+/**
+ * Whether this page genuinely exists in the other language. The nav toggle can
+ * fall back to the other language's home, but an hreflang tag must not: claiming
+ * the Hindi equivalent of /news is the Hindi home page is simply false, and the
+ * pairing is not reciprocal, so search engines discard it either way.
+ */
+export function hasAlt(pathname: string, lang: Lang): boolean {
+  const slug = (lang === 'hi' ? pathname.replace(/^\/hi\/?/, '') : pathname.replace(/^\//, '')).replace(/\/$/, '');
+  return (TRANSLATED as readonly string[]).includes(slug);
+}
+
 /** The same page in the other language, falling back to that language's home. */
 export function altHref(pathname: string, lang: Lang): string {
   const slug = (lang === 'hi' ? pathname.replace(/^\/hi\/?/, '') : pathname.replace(/^\//, '')).replace(/\/$/, '');

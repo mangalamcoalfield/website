@@ -20,7 +20,7 @@ const SYSTEM_INSTRUCTION = `You are "Ask Mangalam", the assistant on the public 
 
 WHAT YOU MAY ANSWER:
 1) Questions about Mangalam Coalfield itself — answer using ONLY the facts in CONTEXT below. Never invent company specifics (figures, dates, sites, production, reserves, schedules). If a company detail is not in CONTEXT, say you don't have that specific detail and suggest the contact form.
-2) General Indian coal-mining and regulatory topics — mining methods (e.g. bord & pillar), geology and coal seams (dip/gradient), ventilation and mine gases (methane, "air"/gas accumulations), roof support, safety, and the statutory framework: the Mines Act 1952, the Coal Mines Regulations 2017, DGMS circulars/notifications, and DGMS/statutory forms, returns, permits and notices. For ALL of these you MAY and SHOULD answer accurately from general knowledge even when CONTEXT doesn't cover the exact item — do not refuse a genuine coal-mining or DGMS regulatory question just because it isn't in CONTEXT. Be factual, educational and concise, prefer CONTEXT where relevant, and where useful point the user to the site's Regulations hub at /regulations (452+ DGMS documents with a circular finder). If you are unsure of a very specific detail (an exact form number or clause), say so plainly rather than guessing.
+2) General Indian coal-mining and regulatory topics — mining methods (e.g. bord & pillar), geology and coal seams (dip/gradient), ventilation and mine gases (methane, "air"/gas accumulations), roof support, safety, and the statutory framework: the Mines Act 1952, the Coal Mines Regulations 2017, DGMS circulars/notifications, and DGMS/statutory forms, returns, permits and notices. For ALL of these you MAY and SHOULD answer accurately from general knowledge even when CONTEXT doesn't cover the exact item — do not refuse a genuine coal-mining or DGMS regulatory question just because it isn't in CONTEXT. Be factual, educational and concise, prefer CONTEXT where relevant, and where useful point the user to the site's Regulations hub at /regulations (several hundred DGMS documents with a circular finder). If you are unsure of a very specific detail (an exact form number or clause), say so plainly rather than guessing.
 
 REFUSE politely anything that is NOT about coal mining or Mangalam (sports, politics, weather, other industries, general chit-chat).
 
@@ -134,9 +134,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   // Graceful: the bot is "off" until the key is configured server-side.
   if (!GEMINI_KEY) return json({ error: 'unavailable' }, 503);
 
-  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
-  if (rateLimited(ip)) return json({ error: 'rate_limited' }, 429);
-
   let question = '';
   let body: { question?: string; probe?: boolean } = {};
   try {
@@ -145,16 +142,24 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   } catch {
     return json({ error: 'bad_request' }, 400);
   }
-  // Health probe from the widget — the key is present (we passed the 503 gate),
-  // so the bot is available. Return 200 so the browser console stays clean.
+  // Health probe — answered BEFORE the rate limiter. The widget probes to decide
+  // whether to show its launcher, so counting probes against the per-IP budget
+  // meant a visitor browsing a few pages, or anyone behind a shared/NAT address,
+  // could be refused on their first real question having never asked one. The
+  // probe costs no model call, so exempting it is safe.
   if (body?.probe) return json({ ok: true });
+
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  if (rateLimited(ip)) return json({ error: 'rate_limited' }, 429);
+
   if (!question) return json({ error: 'empty' }, 400);
   if (question.length > MAX_Q) question = question.slice(0, MAX_Q);
 
   try {
     const corpus = await buildCorpus();
     const scored = retrieveScored(question, corpus);
-    const top = scored.slice(0, 5).map((s) => s.chunk);
+    const topScored = scored.slice(0, 5);
+    const top = topScored.map((s) => s.chunk);
     const context =
       top.length > 0
         ? top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`).join('\n\n')
@@ -162,10 +167,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     const answer = await callGemini(question, context);
 
-    // Only cite sources that are genuinely relevant (matched an informative,
-    // non-ubiquitous term) — avoids noisy chips on general-knowledge answers.
-    const sources = scored
-      .filter((s) => s.rareHits >= 1)
+    // Cite only documents that actually informed the answer. Two earlier faults
+    // produced misleading chips: the list was built from the whole scored corpus
+    // rather than the chunks put in front of the model, so a document that never
+    // reached it could still be cited; and a single rare-term hit was enough to
+    // qualify, which is how "What mining method is used at Amlabad?" ended up
+    // citing the Mineral (Auction) Rules. Now: retrieved chunks only, at least
+    // two informative terms, and within a reasonable margin of the best match.
+    const best = topScored[0]?.score ?? 0;
+    const sources = topScored
+      .filter((s) => s.rareHits >= 2 && s.score >= best * 0.45)
       .slice(0, 2)
       .map((s) => ({ title: s.chunk.title, source: s.chunk.source }));
     return json({ answer, sources });
@@ -175,5 +186,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 };
 
-// Reject non-POST politely.
-export const GET: APIRoute = () => json({ error: 'method_not_allowed' }, 405);
+// GET is the widget's health check: it only reports whether the bot is
+// configured, never touches the model, and is not rate limited.
+export const GET: APIRoute = () =>
+  GEMINI_KEY ? json({ ok: true }) : json({ error: 'unavailable' }, 503);

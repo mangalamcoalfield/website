@@ -104,7 +104,26 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
     const io = new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; if (onScreen) startLoop(); }, { threshold: 0 });
     io.observe(wrap);
     wrap.addEventListener('pointermove', onMove);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); wrap.removeEventListener('pointermove', onMove); };
+
+    // A GPU can evict the context at any time — backgrounding a tab on mobile
+    // Safari is the common case. Without this the rAF loop keeps issuing draw
+    // calls into a dead context and the hero stays black for good; instead,
+    // stop the loop and fall back to the CSS gradient.
+    const onLost = (e: Event) => { e.preventDefault(); cancelAnimationFrame(raf); looping = false; setFailed(true); };
+    canvas.addEventListener('webglcontextlost', onLost);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+      wrap.removeEventListener('pointermove', onMove);
+      canvas.removeEventListener('webglcontextlost', onLost);
+      // Free GL resources. Islands never unmount in the current MPA, but this
+      // keeps the component honest under StrictMode double-mounts and would
+      // matter if client-side routing is ever introduced.
+      gl.deleteBuffer(buf); gl.deleteProgram(prog); gl.deleteShader(vs); gl.deleteShader(fs);
+      (gl.getExtension('WEBGL_lose_context') as { loseContext(): void } | null)?.loseContext();
+    };
   }, []);
 
   const words = title.split(' ');
@@ -131,11 +150,15 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
             <span className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary))]" />{eyebrow}
           </motion.span>
         )}
-        <h1 className={cn('font-[var(--font-display)] font-bold leading-[1.12] tracking-tight', compact ? 'text-4xl sm:text-5xl md:text-6xl' : 'text-5xl sm:text-6xl md:text-[5rem]')}>
+        {/* The per-letter reveal splits the heading into spans with no whitespace
+            between them, so the computed accessible name came out as one run-on
+            word ("Revivingundergroundcoal"). Label the heading with the real
+            string and hide the decorative pieces from assistive tech. */}
+        <h1 aria-label={title} className={cn('font-[var(--font-display)] font-bold leading-[1.12] tracking-tight', compact ? 'text-4xl sm:text-5xl md:text-6xl' : 'text-5xl sm:text-6xl md:text-[5rem]')}>
           {words.map((word, wi) => {
             const accent = wi >= accentFrom && accentWords > 0;
             return (
-              <span key={wi} className="mr-3 inline-block last:mr-0">
+              <span key={wi} aria-hidden="true" className="mr-3 inline-block last:mr-0">
                 {(complexScript ? [word] : word.split('')).map((ch, ci) => (
                   <motion.span key={`${wi}-${ci}`} initial={{ y: 90, opacity: 0, filter: 'blur(10px)' }} animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     transition={{ delay: wi * 0.06 + ci * 0.02, type: 'spring', stiffness: 110, damping: 16 }}

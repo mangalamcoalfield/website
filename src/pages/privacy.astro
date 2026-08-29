@@ -3,13 +3,17 @@ import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import { SITE } from '../data/site';
 const updated = 'July 2026';
+// The layout injects GA4 when PUBLIC_GA_ID is set. Deriving the cookie wording
+// from the same flag means switching analytics on cannot silently turn this
+// notice into a false statement.
+const analyticsOn = Boolean(import.meta.env.PUBLIC_GA_ID);
 ---
 <Site title="Privacy Notice" description="How Mangalam Coalfield Private Limited collects and processes personal data submitted through this website, under the Digital Personal Data Protection Act, 2023.">
   <ShaderHero client:load compact eyebrow="Legal" title="Privacy notice" accentWords={1} />
 
   <section class="relative bg-background pb-28 pt-4">
     <article class="mx-auto max-w-3xl px-6 text-[16px] leading-8 text-muted-foreground">
-      <p class="mb-4 text-sm text-muted-foreground/70">Last updated: {updated}</p>
+      <p class="mb-4 text-sm text-muted-foreground/80">Last updated: {updated}</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Who we are</h2>
       <p class="mb-4">{SITE.legalName} ("Mangalam", "we") operates this website. Registered office: {SITE.regOffice}. CIN: {SITE.cin}. For any privacy question or request, contact <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a> or call <a class="text-primary underline" href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>.</p>
@@ -35,7 +39,10 @@ const updated = 'July 2026';
       <p class="mb-4">Your résumé file is kept for <strong class="text-foreground/80">90 days</strong> from the date you apply, and is then deleted automatically from our file storage. The rest of your application is retained only as long as needed for the recruitment process. Enquiry data is kept only as long as needed to respond and follow up. You may ask us to delete your data sooner, at any time.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Cookies &amp; analytics</h2>
-      <p class="mb-4">We do not use advertising or cross-site tracking cookies. If we enable basic, aggregate website analytics to understand traffic, this notice will be updated to say so.</p>
+      <p class="mb-4">We do not use advertising or cross-site tracking cookies.{' '}
+        {analyticsOn
+          ? 'We use Google Analytics to measure website traffic in aggregate. It sets cookies in your browser and records your visit; we use it only to understand how the site is used, never to build an advertising profile.'
+          : 'We do not run any website analytics on this site. If that changes, this notice will be updated to say so.'}</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Your rights</h2>
       <p class="mb-4">Under the DPDP Act you may ask us to access, correct, update or erase the personal data you have submitted, withdraw your consent, or nominate another person to exercise your rights. To do so, email <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>. We will respond within a reasonable period. If you are not satisfied, you may raise a grievance with us at the same address before approaching the Data Protection Board of India.</p>
@@ -43,7 +50,7 @@ const updated = 'July 2026';
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Sharing</h2>
       <p class="mb-4">We do not sell your data and we do not share it for marketing. We disclose it only to the service providers described above, to our authorised personnel, or where required by law.</p>
 
-      <p class="mt-10 text-sm text-muted-foreground/70">See also our <a class="text-primary underline" href="/terms">Terms of Use &amp; Disclaimer</a>.</p>
+      <p class="mt-10 text-sm text-muted-foreground/80">See also our <a class="text-primary underline" href="/terms">Terms of Use &amp; Disclaimer</a>.</p>
     </article>
   </section>
 </Site>
