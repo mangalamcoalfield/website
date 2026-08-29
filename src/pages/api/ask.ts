@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { STATIC_CORPUS, type CorpusChunk } from '../../lib/bot-corpus';
-import { retrieveScored } from '../../lib/retrieval';
+import { retrieve } from '../../lib/retrieval';
 import { safeSelect, type KnowledgeEntry, type Regulation } from '../../lib/supabase';
 
 // On-demand (serverless) — NOT prerendered. Runs server-side on Vercel so the
@@ -157,28 +157,17 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   try {
     const corpus = await buildCorpus();
-    const scored = retrieveScored(question, corpus);
-    const topScored = scored.slice(0, 5);
-    const top = topScored.map((s) => s.chunk);
+    const found = retrieve(question, corpus);
     const context =
-      top.length > 0
-        ? top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`).join('\n\n')
+      found.top.length > 0
+        ? found.top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`).join('\n\n')
         : '(no closely matching public content found)';
 
     const answer = await callGemini(question, context);
 
-    // Cite only documents that actually informed the answer. Two earlier faults
-    // produced misleading chips: the list was built from the whole scored corpus
-    // rather than the chunks put in front of the model, so a document that never
-    // reached it could still be cited; and a single rare-term hit was enough to
-    // qualify, which is how "What mining method is used at Amlabad?" ended up
-    // citing the Mineral (Auction) Rules. Now: retrieved chunks only, at least
-    // two informative terms, and within a reasonable margin of the best match.
-    const best = topScored[0]?.score ?? 0;
-    const sources = topScored
-      .filter((s) => s.rareHits >= 2 && s.score >= best * 0.45)
-      .slice(0, 2)
-      .map((s) => ({ title: s.chunk.title, source: s.chunk.source }));
+    // Sources are chosen by what the answer actually says, not by what the
+    // question happened to match — see retrieval.ts.
+    const sources = found.cite(answer).map((c) => ({ title: c.title, source: c.source }));
     return json({ answer, sources });
   } catch (err) {
     console.error('[ask] error:', err);
