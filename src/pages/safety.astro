@@ -7,7 +7,7 @@ const pillars = [
   { ix: '01', title: 'Statutory positions', body: 'DGMS-mandated officials — manager, safety officer, surveyors and engineers — appointed and certified for every district.' },
   { ix: '02', title: 'Registers & records', body: 'Statutory registers maintained and equipment tested on schedule, with structured reporting.' },
   { ix: '03', title: 'Gas & ventilation', body: 'Ventilation discipline and gas monitoring keep the air safe underground. We teach the science publicly; we never publish site-specific readings.' },
-  { ix: '04', title: 'Workforce medicals', body: 'Periodic medical examinations and competency tracking for own and contractor labour.' },
+  { ix: '04', title: 'Workforce medicals', body: 'Periodic medical examinations and competency tracking for own and contractor labour, through health camps held at the colliery every six months.' },
 ];
 ---
 <Site title="Safety & Compliance" description="DGMS focus, statutory positions, registers, gas and ventilation discipline, and workforce medicals — how Mangalam treats statutory safety as the condition for permission to operate.">
@@ -37,6 +37,31 @@ const pillars = [
           </div>
         ))}
       </div>
+      {/* Concrete evidence for pillar 04. Everything here was reported in the
+          regional press; no individual medical information is published. */}
+      <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Health surveillance in practice</span>
+        <h3 class="mt-3 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground">A health camp at the colliery every six months.</h3>
+        <p class="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
+          Workforce medicals are not a policy statement — they run on a schedule. Mangalam holds a health
+          check-up camp at Amlabad Colliery every six months, open to its own and contractor workforce.
+          At the camp held in July 2026, around <strong class="text-foreground/85">150 workers and staff</strong>
+          were examined by a team of visiting doctors, who also advised each person individually on keeping
+          up regular check-ups and observing safety standards at work.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          {['X-ray', 'Blood test', 'Urine test', 'Eye examination'].map((t) => (
+            <span class="rounded-full border border-white/12 bg-white/[0.05] px-4 py-1.5 text-[13px] font-medium text-muted-foreground">{t}</span>
+          ))}
+        </div>
+        <p class="mt-6 max-w-3xl text-[13px] leading-relaxed text-muted-foreground">
+          Periodical medical examination is a statutory duty, not a courtesy: rule 111 of the Occupational
+          Safety, Health and Working Conditions (Central) Rules, 2026 prescribes the notices an employer and
+          manager must issue for it. Those forms are in our
+          <a href="/regulations" class="text-primary hover:underline">regulations library</a>.
+        </p>
+      </div>
+
       <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3">
         <a href="/learn/dgms-and-the-rules-of-the-mine" class="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-secondary">
           DGMS &amp; the rules of the mine

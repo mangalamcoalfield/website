@@ -6,7 +6,7 @@ const pillars = [
   { ix: '01', title: 'वैधानिक पद', body: 'DGMS द्वारा अनिवार्य सभी पद — प्रबंधक, सुरक्षा अधिकारी, सर्वेयर एवं इंजीनियर — प्रमाणित एवं नियुक्त।' },
   { ix: '02', title: 'रजिस्टर एवं अभिलेख', body: 'वैधानिक रजिस्टर नियमित रूप से भरे जाते हैं और उपकरणों का परीक्षण समय-सारणी के अनुसार होता है।' },
   { ix: '03', title: 'गैस एवं वेंटिलेशन', body: 'वायु-प्रवाह अनुशासन और गैस की निगरानी भूमिगत वातावरण को सुरक्षित रखती है।' },
-  { ix: '04', title: 'कर्मचारी चिकित्सा परीक्षण', body: 'अपने तथा ठेका श्रमिकों की आवधिक चिकित्सा जाँच एवं दक्षता का लेखा-जोखा।' },
+  { ix: '04', title: 'कर्मचारी चिकित्सा परीक्षण', body: 'अपने तथा ठेका श्रमिकों की आवधिक चिकित्सा जाँच एवं दक्षता का लेखा-जोखा — हर छह माह पर कोलियरी में स्वास्थ्य शिविर।' },
 ];
 ---
 <Site
@@ -35,6 +35,31 @@ const pillars = [
             <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
           </div>
         ))}
+      </div>
+
+      {/* स्तंभ 04 का ठोस प्रमाण — सब कुछ प्रेस में प्रकाशित; किसी व्यक्ति की
+          चिकित्सा जानकारी प्रकाशित नहीं की जाती। */}
+      <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">व्यवहार में स्वास्थ्य निगरानी</span>
+        <h3 class="mt-3 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground">हर छह माह पर कोलियरी में स्वास्थ्य शिविर।</h3>
+        <p class="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
+          कर्मचारियों की चिकित्सा जाँच केवल नीति नहीं, एक नियत व्यवस्था है। मंगलम अमलाबाद कोलियरी में
+          हर छह माह पर स्वास्थ्य जाँच शिविर आयोजित करती है, जो अपने तथा ठेका श्रमिकों दोनों के लिए खुला है।
+          जुलाई 2026 के शिविर में लगभग <strong class="text-foreground/85">150 श्रमिकों एवं कर्मचारियों</strong>
+          की जाँच विशेषज्ञ चिकित्सकों की टीम ने की, और प्रत्येक को नियमित जाँच तथा कार्यस्थल पर सुरक्षा
+          मानकों के पालन की सलाह दी।
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          {['एक्स-रे', 'रक्त जाँच', 'यूरिन जाँच', 'नेत्र परीक्षण'].map((t) => (
+            <span class="rounded-full border border-white/12 bg-white/[0.05] px-4 py-1.5 text-[13px] font-medium text-muted-foreground">{t}</span>
+          ))}
+        </div>
+        <p class="mt-6 max-w-3xl text-[13px] leading-relaxed text-muted-foreground">
+          आवधिक चिकित्सा परीक्षण वैधानिक दायित्व है — व्यावसायिक सुरक्षा, स्वास्थ्य एवं कार्यदशा (केंद्रीय)
+          नियम, 2026 का नियम 111 इसके लिए नियोक्ता एवं प्रबंधक द्वारा जारी की जाने वाली सूचनाओं का प्रारूप
+          निर्धारित करता है। ये प्रपत्र हमारी
+          <a href="/regulations" class="text-primary hover:underline">विनियम लाइब्रेरी</a> में उपलब्ध हैं।
+        </p>
       </div>
 
       <div class="mt-12 rounded-3xl border border-primary/20 bg-primary/[0.05] p-8 md:p-10">
