@@ -1,44 +1,47 @@
-[
-  {
-    "title": "Draft OSH&WC (Coal Mines) Regulations, 2026",
-    "status": "Draft",
-    "when": "G.S.R. 67(E) · 28 Jan 2026",
-    "note": "Proposed successor to CMR 2017, made under the OSH&WC Code 2020 (s.136). In 45-day public consultation — NOT in force. CMR 2017 remains fully operative.",
-    "href": "/regulations/draft-oshwc-coal-mines-regulations-2026"
-  },
-  {
-    "title": "Mining Plan & Mine Closure Guidelines, 2026",
-    "status": "Draft",
-    "when": "Issued 31 Jul 2026",
-    "note": "The Ministry of Coal has put a redrafted set of mining plan and mine closure guidelines out for stakeholder comment. It would supersede MPG-2025 and comes into force 30 days after issue; plans already uploaded before commencement stay under the 2025 regime. MPG-2025 remains in force meanwhile.",
-    "href": "/regulations"
-  },
-  {
-    "title": "The four Labour Codes — rollout",
-    "status": "In transition",
-    "when": "In force 21 Nov 2025",
-    "note": "Wages, Industrial Relations, Social Security and OSH&WC Codes brought into force; the (Central) Rules, 2026 were finalised 8 May 2026. Jharkhand notified its own Code on Wages and OSH&WC rules back in 2021, ahead of the Codes commencing.",
-    "href": "/regulations"
-  },
-  {
-    "title": "NCWA-XII wage settlement",
-    "status": "Pending",
-    "when": "Effective 1 Jul 2026",
-    "note": "The Twelfth National Coal Wage Agreement is under negotiation; no signed instrument has issued yet.",
-    "href": null
-  },
-  {
-    "title": "CMR 2017 — Assistant Manager scale",
-    "status": "Notified",
-    "when": "G.S.R. 640(E) · 9 Oct 2025",
-    "note": "Amendment fixing the scale of appointment of Assistant Managers in coal mines.",
-    "href": "/regulations/cmr-2017-amendment-assistant-manager-2025"
-  },
-  {
-    "title": "Forest clearance — Van Rules 2023",
-    "status": "In effect",
-    "when": "In force 1 Dec 2023",
-    "note": "The Van (Sanrakshan Evam Samvardhan) Rules, 2023 replaced the Forest (Conservation) Rules, 2022.",
-    "href": null
-  }
-]
+{
+  "reviewed": "2026-09-04",
+  "items": [
+    {
+      "title": "Draft OSH&WC (Coal Mines) Regulations, 2026",
+      "status": "Draft",
+      "when": "G.S.R. 67(E) · 28 Jan 2026",
+      "note": "Proposed successor to CMR 2017, made under the OSH&WC Code 2020 (s.136). The 45-day consultation window closed in March 2026 and no final notification has issued since, so the draft remains pending. CMR 2017 stays fully operative until it does.",
+      "href": "/regulations/draft-oshwc-coal-mines-regulations-2026"
+    },
+    {
+      "title": "Mining Plan & Mine Closure Guidelines, 2026",
+      "status": "Draft",
+      "when": "Stakeholder consultation · 31 Jul 2026",
+      "note": "The Ministry of Coal has redrafted the mining plan and mine closure guidelines and held stakeholder consultation on 31 July 2026. No final instrument has been issued. MPG-2025 therefore remains in force; if the 2026 guidelines are notified they would supersede it, with plans uploaded before commencement staying under the 2025 regime.",
+      "href": "/regulations"
+    },
+    {
+      "title": "The four Labour Codes — rollout",
+      "status": "In transition",
+      "when": "In force 21 Nov 2025",
+      "note": "Wages, Industrial Relations, Social Security and OSH&WC Codes brought into force; the (Central) Rules, 2026 were finalised 8 May 2026. Jharkhand notified its own Code on Wages and OSH&WC rules back in 2021, ahead of the Codes commencing.",
+      "href": "/regulations"
+    },
+    {
+      "title": "NCWA-XII wage settlement",
+      "status": "Pending",
+      "when": "NCWA-XI ran to 30 Jun 2026",
+      "note": "The Eleventh National Coal Wage Agreement, signed 20 May 2023, covered 1 July 2021 to 30 June 2026. The Twelfth has not been signed, and JBCCI-XII — the joint bipartite committee that negotiates it — is reported as not yet constituted. Nothing has issued to report.",
+      "href": null
+    },
+    {
+      "title": "CMR 2017 — Assistant Manager scale",
+      "status": "Notified",
+      "when": "G.S.R. 640(E) · 9 Oct 2025",
+      "note": "Amendment fixing the scale of appointment of Assistant Managers in coal mines.",
+      "href": "/regulations/cmr-2017-amendment-assistant-manager-2025"
+    },
+    {
+      "title": "Forest clearance — Van Rules 2023",
+      "status": "In effect",
+      "when": "In force 1 Dec 2023",
+      "note": "The Van (Sanrakshan Evam Samvardhan) Rules, 2023 replaced the Forest (Conservation) Rules, 2022.",
+      "href": null
+    }
+  ]
+}

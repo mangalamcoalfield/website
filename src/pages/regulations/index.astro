@@ -35,6 +35,10 @@ const latestDgms = regs
   .sort((a, b) => (a.issued_date! < b.issued_date! ? 1 : -1))
   .slice(0, 6);
 // Tracker 2 — "Draft-Watch": curated pending/changing instruments.
+// draft-watch.json carries its own review date so the panel can say when its
+// statuses were last checked against the sources.
+const draftWatchItems = draftWatch.items;
+const reviewedOn = fmtD(draftWatch.reviewed);
 const dwBadge = (s: string) => s === 'Draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'Pending' || s === 'In transition' ? 'bg-[#e0b86a]/15 text-[#e0b86a]' : 'bg-primary/15 text-primary';
 
 const collectionLd = {
@@ -93,8 +97,12 @@ const breadcrumbLd = {
         <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
           <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Draft-watch</span>
           <p class="mt-1.5 text-sm text-muted-foreground">What's changing — drafts, roll-outs and pending settlements.</p>
+          {/* Consultation windows and pending settlements go stale silently, so
+              the panel states when it was last checked rather than implying it
+              is live. */}
+          <p class="mt-1 text-[12px] text-muted-foreground/80">Status last reviewed {reviewedOn}.</p>
           <ul class="mt-4 flex flex-col gap-3">
-            {draftWatch.map((d) => (
+            {draftWatchItems.map((d) => (
               <li class="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4">
                 <div class="flex items-start justify-between gap-3">
                   <div class="font-[var(--font-display)] text-[15px] font-semibold text-foreground">{d.href ? <a href={d.href} class="transition-colors hover:text-primary">{d.title}</a> : d.title}</div>
