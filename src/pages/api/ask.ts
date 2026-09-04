@@ -47,7 +47,22 @@ function json(body: unknown, status = 200): Response {
   });
 }
 
+// The corpus is ~320 rows fetched from Supabase. Rebuilding it per question
+// added a round trip to every answer and hammered the database on a busy page.
+// It changes only when regulations are re-seeded, so a short TTL is plenty.
+let corpusCache: { at: number; chunks: CorpusChunk[] } | null = null;
+const CORPUS_TTL_MS = 10 * 60 * 1000;
+
 async function buildCorpus(): Promise<CorpusChunk[]> {
+  const now = Date.now();
+  if (corpusCache && now - corpusCache.at < CORPUS_TTL_MS) return corpusCache.chunks;
+  const built = await buildCorpusUncached();
+  // Never cache a failed/thin fetch, or one blip poisons answers for 10 minutes.
+  if (built.length > 0) corpusCache = { at: now, chunks: built };
+  return built;
+}
+
+async function buildCorpusUncached(): Promise<CorpusChunk[]> {
   // Static page copy + published knowledge entries + the public regulations hub
   // (all public content — same publish-filter as the rest of the site).
   const [entries, regs] = await Promise.all([
@@ -84,12 +99,14 @@ async function buildCorpus(): Promise<CorpusChunk[]> {
 }
 
 async function callGemini(question: string, context: string): Promise<string> {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
+  // Key travels in a header, not the query string: URLs end up in proxy logs,
+  // error traces and metrics; headers generally do not.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
   const userMsg = `CONTEXT (the only facts you may use):\n${context}\n\nQUESTION: ${question}`;
 
   const res = await fetch(url, {
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', 'x-goog-api-key': GEMINI_KEY as string },
     body: JSON.stringify({
       system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
       contents: [{ role: 'user', parts: [{ text: userMsg }] }],

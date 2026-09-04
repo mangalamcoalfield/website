@@ -311,13 +311,21 @@ export default function SeamModel() {
     window.addEventListener('touchend', up);
     canvas.addEventListener('wheel', onWheel, { passive: false });
 
+    let raf = 0;
+
+    // A GPU can drop the context at any time (backgrounded mobile tabs are the
+    // usual cause). Without this the loop keeps issuing draw calls into a dead
+    // context and the model stays black for good; instead stop and show the
+    // same static fallback used when WebGL is unavailable.
+    const onLost = (e: Event) => { e.preventDefault(); cancelAnimationFrame(raf); setFailed(true); };
+    canvas.addEventListener('webglcontextlost', onLost);
+
     // ---- loop ------------------------------------------------------------
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let visible = true;
     const io = new IntersectionObserver((es) => { visible = es[0].isIntersecting; }, { threshold: 0.01 });
     io.observe(wrap);
 
-    let raf = 0;
     const draw = () => {
       raf = requestAnimationFrame(draw);
       if (!visible) return;
@@ -402,6 +410,7 @@ export default function SeamModel() {
       canvas.removeEventListener('touchmove', onTM);
       window.removeEventListener('touchend', up);
       canvas.removeEventListener('wheel', onWheel);
+      canvas.removeEventListener('webglcontextlost', onLost);
       meshes.forEach((m) => { gl.deleteBuffer(m.vb); gl.deleteBuffer(m.ib); });
       holeSets.forEach((h) => { gl.deleteBuffer(h.stems); gl.deleteBuffer(h.collars); });
       gl.deleteProgram(prog);

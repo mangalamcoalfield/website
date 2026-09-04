@@ -20,6 +20,11 @@ export const STATIC_CORPUS: CorpusChunk[] = [
     text: 'Mangalam Coalfield Private Limited is a mine developer and operator reviving the historic Amlabad pits in the Eastern Jharia Area of District Bokaro, Jharkhand. It runs two commercial lines: underground coal mining and coal bed methane (CBM). The company stands on a foundation of rich legacy, resilience and shared values, carrying forward the vision of its founder; a new generation now leads, committed to trust, integrity and excellence. Late Shree Gopal Agarwal is honoured as Chairman Emeritus.',
   },
   {
+    title: 'The Amlabad mandate — client, scope and term',
+    source: '/operations',
+    text: 'Amlabad is worked under a mine developer and operator (MDO) mandate. Client: Bharat Coking Coal Limited (BCCL), a Coal India company. Location: Amlabad, Eastern Jharia Area, District Bokaro, Jharkhand. Commodity: prime coking coal, plus coal bed methane. Scope: underground mine development and operation across all four pits. Contract type: mine developer and operator (MDO) on a revenue-sharing basis. Term: 25 years. Amlabad is a more than century-old underground coking-coal colliery that closed in 2008 and is being revived; its prime coking coal matters for Indian steel-making, import substitution and energy security. Indian underground coal mines, Amlabad included, are worked by the bord and pillar method — a grid of roadways driven through the seam leaving pillars of coal to support the roof.',
+  },
+  {
     title: 'Operations — the two business lines',
     source: '/operations',
     text: 'Through the Amlabad block in the Eastern Jharia Area of District Bokaro, Jharkhand, Mangalam runs two commercial lines. Coal mining: reviving the historic underground workings across all four Amlabad pits — Pit No. 1, 2, 3 and 4 — through revival, development and dewatering, positioned as powering India\'s industrial growth through responsible coal. Coal bed methane (CBM): commercially capturing the methane held inside the same coal seams as a cleaner energy stream, put to use rather than vented to the atmosphere. This is a new commercial vertical alongside coal.',
