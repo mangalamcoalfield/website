@@ -6,8 +6,9 @@ import draftWatch from '../../data/draft-watch.json';
 
 // Data-driven from `regulations` (published only). Files hosted externally;
 // download_url filled after upload. Placeholder fallback keeps the build green.
-let regs = await safeSelect<Regulation>((c) =>
-  c.from('regulations').select('*').eq('published', true).order('sort_order', { ascending: true })
+let regs = await safeSelect<Regulation>(
+  (c) => c.from('regulations').select('*').eq('published', true).order('sort_order', { ascending: true }),
+  { expectAtLeast: 200, label: 'regulations hub' },
 );
 const usingPlaceholder = regs.length === 0;
 if (usingPlaceholder) regs = [

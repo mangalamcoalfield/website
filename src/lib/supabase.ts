@@ -94,24 +94,61 @@ export interface Regulation {
 }
 
 /**
+ * Escape hatch for the `expectAtLeast` floor below. Set only when a thin result
+ * is genuinely correct — a first seed, or a deliberate emptying of a table.
+ */
+const allowThinData = import.meta.env.ALLOW_THIN_DATA === '1' || process.env.ALLOW_THIN_DATA === '1';
+
+/**
  * Build-time fetch helper. Wraps a Supabase select in a try/catch so a paused
  * or empty free-tier project never breaks the static build — pages fall back to
  * curated placeholder content instead. Returns [] on any failure.
+ *
+ * `expectAtLeast` guards the case where that graceful fallback is the wrong
+ * answer. A transient connection timeout mid-build once returned no rows for
+ * the regulations table: getStaticPaths fell back to the single placeholder, so
+ * the build emitted 3 regulation pages instead of 316 and still reported
+ * success. The hub went on claiming "314 regulations" while every detail link
+ * would have 404'd. Silence is the danger — an empty result is indistinguishable
+ * from a real one unless something asserts a floor.
+ *
+ * So: pass `expectAtLeast` on queries that must not come back thin, and a
+ * production build fails loudly instead of shipping a hollow site. Dev builds
+ * only warn, so working offline still works.
  */
 export async function safeSelect<T>(
-  fn: (client: SupabaseClient) => Promise<{ data: T[] | null; error: unknown }>
+  fn: (client: SupabaseClient) => Promise<{ data: T[] | null; error: unknown }>,
+  opts?: { expectAtLeast?: number; label?: string }
 ): Promise<T[]> {
+  const floor = opts?.expectAtLeast;
+  const label = opts?.label ?? 'query';
+
+  const shortfall = (rows: number, why: string): T[] => {
+    if (floor === undefined || rows >= floor || allowThinData) return [] as T[];
+    const msg =
+      `[supabase] ${label} returned ${rows} row(s), expected at least ${floor} (${why}). ` +
+      `Refusing to build a site with missing content. If this is genuinely correct, ` +
+      `rebuild with ALLOW_THIN_DATA=1.`;
+    if (import.meta.env.PROD) throw new Error(msg);
+    console.warn(msg + ' [dev build — continuing]');
+    return [] as T[];
+  };
+
   const client = getSupabase();
-  if (!client) return [];
+  if (!client) return shortfall(0, 'Supabase is not configured');
   try {
     const { data, error } = await fn(client);
     if (error) {
       console.warn('[supabase] select failed, using fallback:', error);
-      return [];
+      return shortfall(0, 'the query errored');
     }
-    return data ?? [];
+    const rows = data ?? [];
+    if (floor !== undefined && rows.length < floor) {
+      return shortfall(rows.length, 'fewer rows than expected');
+    }
+    return rows;
   } catch (err) {
     console.warn('[supabase] select threw, using fallback:', err);
-    return [];
+    return shortfall(0, 'the query threw');
   }
 }
