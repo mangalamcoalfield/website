@@ -193,5 +193,41 @@
     "lang": "hi",
     "sensitive": false,
     "sensitiveWhy": ""
+  },
+  {
+    "title": "Workers examined at health check-up camp",
+    "titleHi": "स्वास्थ्य जांच शिविर में श्रमिकों की हुई जांच",
+    "publication": "Dainik Bhaskar",
+    "date": "2026-07-25",
+    "url": "",
+    "summary": "Mangalam Coalfield held a health check-up camp at Amlabad Colliery. Around 150 workers were examined by a team of specialist doctors, with X-ray, blood test, urine test and eye examination. Doctors advised the workforce to keep up regular check-ups and to observe safety standards at work.",
+    "clip": "/images/press/press-healthcamp-2026.jpg",
+    "lang": "hi",
+    "sensitive": false,
+    "sensitiveWhy": ""
+  },
+  {
+    "title": "Amlabad Mangalam Coalfield holds a sports day",
+    "titleHi": "अमलाबाद मंगलम कोलफील्ड ने किया खेल दिवस का आयोजन",
+    "publication": "Prabhat Khabar",
+    "date": "2026-08-13",
+    "url": "",
+    "summary": "A sports day for employees at the Amlabad colliery, inaugurated jointly with Bharat Coking Coal Limited's Eastern Jharia Area management. The company described the aim as building goodwill, team spirit, health and an enthusiasm for sport among employees. The finals were played on 15 August.",
+    "clip": "/images/press/press-sportsday-pk-2026.jpg",
+    "lang": "hi",
+    "sensitive": false,
+    "sensitiveWhy": ""
+  },
+  {
+    "title": "Mangalam Coalfield employees show their mettle on sports day",
+    "titleHi": "खेल दिवस पर मंगलम कोलफील्ड के कर्मचारियों ने लगाया दमखम",
+    "publication": "Dainik Bhaskar",
+    "date": "2026-08-13",
+    "url": "",
+    "summary": "Officers and employees took part in the sports day at Amlabad colliery, competing keenly across events. The stated aim was to keep employees alert to sport and health amid a busy working routine, and to strengthen coordination and team spirit. The finals were set for 15 August.",
+    "clip": "/images/press/press-sportsday-db-2026.jpg",
+    "lang": "hi",
+    "sensitive": false,
+    "sensitiveWhy": ""
   }
 ]
