@@ -3,15 +3,18 @@ import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import ApplicationForm from '../components/ApplicationForm.astro';
 import { safeSelect, type Job } from '../lib/supabase';
-import { placeholderJobs } from '../data/placeholders';
 import { SITE } from '../data/site';
 
 // Data-driven from `jobs` (status='published'); fallback to placeholders.
 let jobs = await safeSelect<Job>((c) =>
   c.from('jobs').select('*').eq('status', 'published').order('posted_at', { ascending: false })
 );
-const usingPlaceholders = jobs.length === 0;
-if (usingPlaceholders) jobs = placeholderJobs;
+// No placeholder roles. Zero vacancies is a legitimate state here — roles are
+// taken down as they are filled — so the honest answer is to say there are
+// none, not to invent three. Inventing them also meant a transient database
+// failure at build time would publish fabricated vacancies to a careers page
+// that real candidates act on.
+const noOpenings = jobs.length === 0;
 
 // Department filter tabs (only render depts that currently have openings).
 const DEPT_ORDER = ['Mining', 'Mechanical', 'Electrical', 'Admin'];
@@ -25,7 +28,7 @@ const empType = (t: string | null) =>
 // emitting JobPosting markup for them would be submitting fabricated vacancies
 // to Google, which is both a search-spam violation and a promise of jobs that
 // do not exist.
-const jobLd = (usingPlaceholders ? [] : jobs).map((j) => ({
+const jobLd = jobs.map((j) => ({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',
   title: j.title,
@@ -110,8 +113,12 @@ const jobLd = (usingPlaceholders ? [] : jobs).map((j) => ({
         ))}
       </div>
       <p id="jobnone" class="hidden py-8 text-center text-muted-foreground">No current openings in this department.</p>
-      {usingPlaceholders && (
-        <p class="mt-8 text-sm text-muted-foreground">Placeholder roles shown. Live openings are published from the careers pipeline.</p>
+      {noOpenings && (
+        <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-10 text-center">
+          <p class="font-[var(--font-display)] text-lg font-semibold text-foreground">No vacancies are open at the moment.</p>
+          <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">Roles come down as they are filled. You are welcome to send your CV anyway — we keep applications on file and will come back to you when something suits.</p>
+          <a href="#apply" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-[14px] font-semibold text-primary-foreground">Send your CV</a>
+        </div>
       )}
     </div>
   </section>

@@ -167,7 +167,7 @@ const breadcrumbLd = {
 
       <div id="reglist" class="divide-y divide-white/[0.06] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
         {regs.map((r) => (
-          <a href={`/regulations/${r.slug}`} data-title={`${r.title} ${r.doc_number || ''} ${r.authority || ''}`.toLowerCase()} data-cat={r.category}
+          <a href={`/regulations/${r.slug}`} data-title={`${r.title} ${r.doc_number || ''} ${r.authority || ''} ${r.summary || ''} ${(r.tags || []).join(' ')}`.toLowerCase()} data-cat={r.category}
             class="regrow group flex items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-white/[0.04]">
             <div class="min-w-0">
               <div class="flex items-center gap-2">

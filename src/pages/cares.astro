@@ -4,8 +4,11 @@ import ShaderHero from '../components/magic/ShaderHero.tsx';
 import { safeSelect, type CsrProject } from '../lib/supabase';
 import { placeholderCsr } from '../data/placeholders';
 
-let projects = await safeSelect<CsrProject>((c) =>
-  c.from('csr_projects').select('*').eq('published', true).order('date', { ascending: false })
+// Floored: a build that cannot reach the database would otherwise publish the
+// placeholder programmes as though they were real CSR work.
+let projects = await safeSelect<CsrProject>(
+  (c) => c.from('csr_projects').select('*').eq('published', true).order('date', { ascending: false }),
+  { expectAtLeast: 1, label: 'CSR projects' },
 );
 const usingPlaceholder = projects.length === 0;
 if (usingPlaceholder) projects = placeholderCsr;

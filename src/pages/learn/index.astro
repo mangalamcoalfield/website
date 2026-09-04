@@ -4,8 +4,11 @@ import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import { safeSelect, type KnowledgeEntry, type NciPoint } from '../../lib/supabase';
 import { placeholderKnowledge, placeholderNci } from '../../data/placeholders';
 
-let entries = await safeSelect<KnowledgeEntry>((c) =>
-  c.from('knowledge_entries').select('*').eq('published', true).order('source_date', { ascending: false })
+// Floored for the same reason as /cares — placeholder explainers must never
+// reach the live site because a query blipped.
+let entries = await safeSelect<KnowledgeEntry>(
+  (c) => c.from('knowledge_entries').select('*').eq('published', true).order('source_date', { ascending: false }),
+  { expectAtLeast: 1, label: 'knowledge entries' },
 );
 const usingPlaceholderEntries = entries.length === 0;
 if (usingPlaceholderEntries) entries = placeholderKnowledge;

@@ -265,16 +265,41 @@ export default function SeamModel() {
       st.current.el = Math.max(-0.15, Math.min(1.35, st.current.el + (y - ly) * 0.006));
       lx = x; ly = y;
     };
-    const up = () => { drag = false; };
+    const up = () => { drag = false; gesture = 'undecided'; };
     const onMD = (e: MouseEvent) => down(e.clientX, e.clientY);
     const onMM = (e: MouseEvent) => move(e.clientX, e.clientY);
-    const onTS = (e: TouchEvent) => { if (e.touches[0]) down(e.touches[0].clientX, e.touches[0].clientY); };
-    const onTM = (e: TouchEvent) => {
-      if (!drag || !e.touches[0]) return;
-      e.preventDefault();
-      move(e.touches[0].clientX, e.touches[0].clientY);
+    // On a phone this canvas is full-width and ~380px tall, so a touch that was
+    // meant to scroll past the model used to be swallowed by it: any touch
+    // started a drag and every move was preventDefault()ed. Wait until the
+    // gesture proves itself horizontal before claiming it — a vertical swipe
+    // scrolls the page as the reader expects.
+    const TOUCH_SLOP = 8;
+    let tStartX = 0, tStartY = 0, gesture: 'undecided' | 'rotate' | 'scroll' = 'undecided';
+    const onTS = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      tStartX = t.clientX; tStartY = t.clientY;
+      gesture = 'undecided';
+      lx = t.clientX; ly = t.clientY;
     };
+    const onTM = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      if (gesture === 'undecided') {
+        const dx = Math.abs(t.clientX - tStartX), dy = Math.abs(t.clientY - tStartY);
+        if (dx < TOUCH_SLOP && dy < TOUCH_SLOP) return;   // not yet enough to tell
+        gesture = dx > dy ? 'rotate' : 'scroll';
+        if (gesture === 'rotate') { drag = true; lx = t.clientX; ly = t.clientY; }
+      }
+      if (gesture !== 'rotate') return;                    // let the page scroll
+      e.preventDefault();
+      move(t.clientX, t.clientY);
+    };
+    // Likewise the wheel: hijacking it meant the page stopped scrolling as soon
+    // as the pointer crossed the model. Zoom on Ctrl/Cmd + wheel, the same
+    // gesture maps use; a plain wheel scrolls the page.
     const onWheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       st.current.dist = Math.max(1.25, Math.min(4.5, st.current.dist + e.deltaY * 0.0016));
     };

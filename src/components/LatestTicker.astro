@@ -30,6 +30,14 @@ const { items = [] } = Astro.props as { items: Item[] };
         </div>
       </div>
     </div>
-    <style>{`.lt-track{animation:lt 46s linear infinite}@keyframes lt{to{transform:translateX(-50%)}}.lt-track:hover{animation-play-state:paused}@media(prefers-reduced-motion:reduce){.lt-track{animation:none}}`}</style>
+    {/* Astro's <style> takes no expression child: written as {`...`} the braces
+        and backticks were emitted as literal text, the sheet parsed to zero
+        rules, and the ticker never actually scrolled. Plain CSS text. */}
+    <style is:global>
+      .lt-track { animation: lt 46s linear infinite; }
+      @keyframes lt { to { transform: translateX(-50%); } }
+      .lt-track:hover { animation-play-state: paused; }
+      @media (prefers-reduced-motion: reduce) { .lt-track { animation: none; } }
+    </style>
   </section>
 )}
