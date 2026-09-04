@@ -16,6 +16,8 @@ const RETENTION_DAYS = Number(Deno.env.get('RETENTION_DAYS') ?? '90');
 const TEST_ARTIFACT = '__rlstest__/rlscheck.txt';
 
 Deno.serve(async (req) => {
+  // Without this a plain GET or OPTIONS ran the whole job.
+  if (req.method !== 'POST') return json({ error: 'method_not_allowed' }, 405);
   if (!authorized(req)) return json({ error: 'unauthorized' }, 401);
 
   const supabase = adminClient();
