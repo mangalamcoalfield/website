@@ -99,6 +99,76 @@
       ],
       "destination": "https://mangalamcoal.com/careers",
       "permanent": true
+    },
+    {
+      "source": "/regulations/bocwnotification-06102025",
+      "destination": "/regulations/draft-bocw-rules-oshwc-gsr-709e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/bocwnotification-06102025/",
+      "destination": "/regulations/draft-bocw-rules-oshwc-gsr-709e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/occupentationlnotification-31122025",
+      "destination": "/regulations/draft-oshwc-central-rules-gsr-934e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/occupentationlnotification-31122025/",
+      "destination": "/regulations/draft-oshwc-central-rules-gsr-934e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/plantationnotification-06102025",
+      "destination": "/regulations/draft-plantation-workers-rules-gsr-716e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/plantationnotification-06102025/",
+      "destination": "/regulations/draft-plantation-workers-rules-gsr-716e-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/safetyalert01042024",
+      "destination": "/regulations/dgms-safety-alert-01-2024-continuous-miner-depillaring/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/safetyalert01042024/",
+      "destination": "/regulations/dgms-safety-alert-01-2024-continuous-miner-depillaring/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/safetyalert210623",
+      "destination": "/regulations/dgms-safety-alert-2021-06-23-tyre-rim-sonepur-bazari/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/safetyalert210623/",
+      "destination": "/regulations/dgms-safety-alert-2021-06-23-tyre-rim-sonepur-bazari/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/standard-operetaing-procedure",
+      "destination": "/regulations/dgms-sop-covid-19-cmr-mmr-examinations/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/standard-operetaing-procedure/",
+      "destination": "/regulations/dgms-sop-covid-19-cmr-mmr-examinations/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/standard2019",
+      "destination": "/regulations/dgms-standard-note-2019/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/standard2019/",
+      "destination": "/regulations/dgms-standard-note-2019/",
+      "permanent": true
     }
   ]
 }

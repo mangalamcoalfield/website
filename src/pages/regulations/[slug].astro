@@ -79,11 +79,14 @@ const breadcrumbLd = {
       <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div class="font-[var(--font-display)] font-semibold text-foreground">Download</div>
-            <div class="text-sm text-muted-foreground">{reg.download_url ? `PDF${reg.file_size_kb ? ` · ${(reg.file_size_kb/1024).toFixed(1)} MB` : ''}` : 'Preparing hosted copy — use the official source below in the meantime.'}</div>
+            <div class="font-[var(--font-display)] font-semibold text-foreground">Document</div>
+            <div class="text-sm text-muted-foreground">{reg.download_url ? `PDF${reg.file_size_kb ? ` · ${(reg.file_size_kb/1024).toFixed(1)} MB` : ''} · opens in your browser, save it from there` : 'Preparing hosted copy — use the official source below in the meantime.'}</div>
           </div>
+          {/* The copies live on docs.mangalamcoal.com, and browsers ignore the
+              `download` attribute across origins — so this always opened the PDF.
+              Say so, rather than promise a download that doesn't happen. */}
           {reg.download_url ? (
-            <a href={reg.download_url} rel="noopener" download class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Download PDF</a>
+            <a href={reg.download_url} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Open PDF</a>
           ) : reg.source_url ? (
             <a href={reg.source_url} rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           ) : null}

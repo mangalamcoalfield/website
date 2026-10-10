@@ -49,6 +49,12 @@ const seen = new Set();
 for (const r of seed) {
   if (seen.has(r.slug)) throw new Error(`duplicate slug in seed json: ${r.slug}`);
   seen.add(r.slug);
+  // A library that badges a draft "In force" is wrong in the one way a compliance
+  // reference must not be. Four drafts once shipped like that, because DGMS
+  // listings carry no status and the default is in_force.
+  if (/\b(re)?draft\b/i.test(r.title) && r.status === "in_force") {
+    throw new Error(`"${r.slug}" is titled as a draft but has status in_force — set draft or superseded`);
+  }
 }
 const rows = seed.map((r) => "(" + COLS.map((c) => q(r[c])).join(",") + ")");
 const updates = COLS.filter((c) => c !== "slug").map((c) => `${c}=excluded.${c}`).join(",");

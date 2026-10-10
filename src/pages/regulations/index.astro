@@ -111,6 +111,8 @@ const breadcrumbLd = {
                 </div>
                 <div class="mt-1 text-[12px] text-muted-foreground/80">{d.when}</div>
                 <p class="mt-2 text-[13px] leading-relaxed text-muted-foreground">{d.note}</p>
+                {/* A claim that rests on a press report links to it, so readers can check it. */}
+                {d.source && <p class="mt-1.5 text-[12px] text-muted-foreground/80">Source: <a href={d.source.url} target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">{d.source.label}</a></p>}
               </li>
             ))}
           </ul>
