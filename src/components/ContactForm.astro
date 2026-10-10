@@ -87,12 +87,8 @@
     // Best-effort email notification (never blocks the success message).
     fetch('/api/notify', {
       method: 'POST', headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        type: 'lead',
-        name: String(data.get('name') || ''),
-        email: String(data.get('email') || ''),
-        message: String(data.get('message') || ''),
-      }),
+      // The server builds the email from the saved row; it only needs to find it.
+      body: JSON.stringify({ type: 'lead', email: String(data.get('email') || '') }),
     }).catch(() => {});
 
     form.reset();

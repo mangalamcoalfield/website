@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
+import { createHash, timingSafeEqual } from 'node:crypto';
 
 // Password-gated read of applications for the admin view. Requires the
 // SERVICE-ROLE key (server-only) + ADMIN_PASSWORD env. Résumé links are signed
@@ -30,11 +31,12 @@ function rateLimited(ip: string): boolean {
 }
 
 // Constant-time compare so a wrong password can't be narrowed down by timing.
+// Both sides are hashed first: comparing equal-length digests means an early
+// exit on a length mismatch can't reveal how long the real password is.
 function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return diff === 0;
+  const ha = createHash('sha256').update(a).digest();
+  const hb = createHash('sha256').update(b).digest();
+  return timingSafeEqual(ha, hb);
 }
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
@@ -52,7 +54,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const { data: apps, error } = await db.from('applications')
     .select('created_at,name,email,phone,job_id,resume_url,details')
     .order('created_at', { ascending: false }).limit(500);
-  if (error) return json({ error: 'query_failed', detail: error.message }, 500);
+  // Log the detail server-side only; the database's error text is not for the client.
+  if (error) { console.error('[admin-applications] query failed:', error.message); return json({ error: 'query_failed' }, 500); }
 
   const { data: jobs } = await db.from('jobs').select('id,title');
   const jt: Record<string, string> = Object.fromEntries((jobs ?? []).map((j) => [j.id, j.title]));
