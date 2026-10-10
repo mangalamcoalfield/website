@@ -52,7 +52,7 @@ export const STATIC_CORPUS: CorpusChunk[] = [
   {
     title: 'Careers',
     source: '/careers',
-    text: 'Mangalam hires for roles in Indian coal mining — mining engineers, statutory safety, and electrical and mechanical positions — based at the Amlabad block in the Eastern Jharia Area, Bokaro, Jharkhand. Candidates apply through the careers page by submitting their details and a résumé. The bot cannot make hiring decisions, promise interviews, or commit to any role.',
+    text: 'Jobs, current openings and any vacancy at Mangalam are listed on the careers page, and candidates apply there online with their details and a résumé — that page is always the up-to-date list of vacancies and who is hiring for what. Mangalam recruits for roles in Indian coal mining — the mining engineer and colliery manager posts, statutory safety and ventilation posts, electrical and mechanical engineers, and administration such as HR and stores — based at the Amlabad colliery. The bot cannot make hiring decisions, promise interviews, or commit to any role.',
   },
   {
     title: 'Knowledge hub — how coal mining works',

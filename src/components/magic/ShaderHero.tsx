@@ -4,7 +4,6 @@
 // a shorter hero for interior pages. Respects prefers-reduced-motion.
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -145,10 +144,10 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         {eyebrow && (
-          <motion.span initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
-            className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">
+          <span style={{ '--sh-y': '16px' } as React.CSSProperties}
+            className="sh-in mb-8 inline-flex items-center gap-2.5 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">
             <span className="size-1.5 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary))]" />{eyebrow}
-          </motion.span>
+          </span>
         )}
         {/* The per-letter reveal splits the heading into spans with no whitespace
             between them, so the computed accessible name came out as one run-on
@@ -160,22 +159,21 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
             return (
               <span key={wi} aria-hidden="true" className="mr-3 inline-block last:mr-0">
                 {(complexScript ? [word] : word.split('')).map((ch, ci) => (
-                  <motion.span key={`${wi}-${ci}`} initial={{ y: 90, opacity: 0, filter: 'blur(10px)' }} animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                    transition={{ delay: wi * 0.06 + ci * 0.02, type: 'spring', stiffness: 110, damping: 16 }}
-                    className={cn('inline-block bg-clip-text pb-[0.16em] text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}
-                    style={accent ? { textShadow: '0 0 34px rgba(174,207,62,.4)' } : undefined}>{ch}</motion.span>
+                  <span key={`${wi}-${ci}`}
+                    className={cn('sh-in sh-letter inline-block bg-clip-text pb-[0.16em] text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}
+                    style={{ animationDelay: `${(wi * 0.06 + ci * 0.02).toFixed(2)}s`, ...(accent ? { textShadow: '0 0 34px rgba(174,207,62,.4)' } : {}) }}>{ch}</span>
                 ))}
               </span>
             );
           })}
         </h1>
         {description && (
-          <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.5 }}
-            className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground">{description}</motion.p>
+          <p style={{ '--sh-y': '24px', '--sh-d': '.9s', animationDelay: '.5s' } as React.CSSProperties}
+            className="sh-in mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground">{description}</p>
         )}
         {(primary || secondary) && (
-          <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.85 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div style={{ '--sh-y': '0px', '--sh-s': '.94', animationDelay: '.85s' } as React.CSSProperties}
+            className="sh-in mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {primary && (
               <a href={primary.href} className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_45px_-6px_hsl(var(--primary)/0.7)] transition-all duration-300 hover:scale-[1.03]">
                 {primary.label}<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
@@ -183,7 +181,7 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
             {secondary && (
               <a href={secondary.href} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur transition-colors duration-300 hover:border-primary hover:text-primary">{secondary.label}</a>
             )}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

@@ -60,6 +60,17 @@ const B = 0.75;
 const DISTINCTIVE_DF = 0.15;
 /** Distinctive terms a source must share with the answer to be cited. */
 const MIN_ANSWER_OVERLAP = 3;
+/** A word on more than this share of a section's pages is that section's boilerplate. */
+const BOILERPLATE_SHARE = 0.5;
+/** Too few pages and "most of them" means nothing. */
+const MIN_SECTION_PAGES = 4;
+
+/** Which part of the site a source belongs to. */
+function sectionOf(source: string): string {
+  if (source.startsWith('/regulations/')) return 'regulations';
+  if (source.startsWith('/learn/')) return 'learn';
+  return 'site';
+}
 const TOP_K = 5;
 
 export function retrieve(question: string, corpus: CorpusChunk[], k = TOP_K): Retrieval {
@@ -79,6 +90,32 @@ export function retrieve(question: string, corpus: CorpusChunk[], k = TOP_K): Re
     return Math.log(1 + (N - n + 0.5) / (n + 0.5));
   };
   const distinctive = (t: string) => (df.get(t) || 0) / N < DISTINCTIVE_DF;
+
+  // Per-section vocabulary, counted over pages rather than chunks: the site's
+  // own pages, the Learn explainers and the regulations library each have words
+  // that nearly all their pages share.
+  const sectionPages = new Map<string, Map<string, Set<string>>>();
+  corpus.forEach((c, i) => {
+    const sec = sectionOf(c.source);
+    const pages = sectionPages.get(sec) ?? new Map<string, Set<string>>();
+    const toks = pages.get(c.source) ?? new Set<string>();
+    docs[i].forEach((t) => toks.add(t));
+    pages.set(c.source, toks);
+    sectionPages.set(sec, pages);
+  });
+  const boilerCache = new Map<string, boolean>();
+  const boilerplate = (t: string, source: string): boolean => {
+    const sec = sectionOf(source);
+    const key = `${sec}\u0000${t}`;
+    let hit = boilerCache.get(key);
+    if (hit === undefined) {
+      const pages = [...(sectionPages.get(sec)?.values() ?? [])];
+      const n = pages.filter((p) => p.has(t)).length;
+      hit = pages.length >= MIN_SECTION_PAGES && n / pages.length > BOILERPLATE_SHARE;
+      boilerCache.set(key, hit);
+    }
+    return hit;
+  };
 
   const results = corpus
     .map((chunk, i) => {
@@ -107,17 +144,30 @@ export function retrieve(question: string, corpus: CorpusChunk[], k = TOP_K): Re
     // contain "mining" and "method", but nothing it says reached the answer.
     // Requiring real overlap with the answer removes those, and ordering by
     // that overlap puts the page the answer actually came from first.
+    //
+    // "Distinctive" is judged against the whole corpus, which is mostly
+    // regulations — so the site's own vocabulary (Amlabad, Jharia, Bokaro) counts
+    // as distinctive, yet nearly every site page carries it. That let /careers be
+    // cited for a mining-method answer on those words alone. So a term must also
+    // not be boilerplate within the source's own section: a word most site pages
+    // share says nothing about which page the answer came from.
     cite(answer: string, max = 2): CorpusChunk[] {
-      const answerTerms = new Set(tokenize(answer));
-      return topScored
+      const answerTerms = [...new Set(tokenize(answer))];
+      // Merge chunks by source: several chunks of one page are one source.
+      const bySource = new Map<string, { chunk: CorpusChunk; tokens: Set<string> }>();
+      for (const s of topScored) {
+        const cur = bySource.get(s.chunk.source);
+        if (cur) s.tokens.forEach((t) => cur.tokens.add(t));
+        else bySource.set(s.chunk.source, { chunk: s.chunk, tokens: new Set(s.tokens) });
+      }
+      const ranked = [...bySource.values()]
         .map((s) => ({
           chunk: s.chunk,
-          overlap: [...answerTerms].filter((t) => s.tokens.has(t) && distinctive(t)).length,
+          overlap: answerTerms.filter((t) => s.tokens.has(t) && distinctive(t) && !boilerplate(t, s.chunk.source)).length,
         }))
         .filter((s) => s.overlap >= MIN_ANSWER_OVERLAP)
-        .sort((a, b) => b.overlap - a.overlap)
-        .slice(0, max)
-        .map((s) => s.chunk);
+        .sort((a, b) => b.overlap - a.overlap);
+      return ranked.slice(0, max).map((s) => s.chunk);
     },
   };
 }

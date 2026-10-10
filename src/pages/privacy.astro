@@ -2,7 +2,7 @@
 import Site from '../layouts/Site.astro';
 import ShaderHero from '../components/magic/ShaderHero.tsx';
 import { SITE } from '../data/site';
-const updated = 'September 2026';
+const updated = 'October 2026';
 // The layout injects GA4 when PUBLIC_GA_ID is set. Deriving the cookie wording
 // from the same flag means switching analytics on cannot silently turn this
 // notice into a false statement.
@@ -26,6 +26,9 @@ const analyticsOn = Boolean(import.meta.env.PUBLIC_GA_ID);
       </ul>
       <p class="mb-4">We do not ask for, and you should not submit, any sensitive information beyond what the form requests.</p>
 
+      <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">The "Ask Mangalam" assistant</h2>
+      <p class="mb-4">If you type a question into the Ask Mangalam assistant, that question is sent, together with relevant passages of this website's public content, to Google's Gemini service, which generates the answer. We do not save your questions or link them to you. Google processes them under its own terms, and on the service tier we use it may use them to improve its products. Please do not type personal details — your name, phone number, email address or anything about your health or finances — into the assistant. To contact us or apply for a role, use the forms instead.</p>
+
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Why we collect it &amp; your consent</h2>
       <p class="mb-4">We process this data only to respond to your enquiry or to consider your job application. We collect it on the basis of the consent you give via the checkbox on each form, in line with the Digital Personal Data Protection Act, 2023 (DPDP Act). You may withdraw consent at any time by contacting us.</p>
 
@@ -33,7 +36,7 @@ const analyticsOn = Boolean(import.meta.env.PUBLIC_GA_ID);
       <p class="mb-4">When you submit a form, a notification is emailed to the relevant internal mailbox so that we can respond. Job applications are additionally compiled into a periodic internal summary for our recruitment leads. Access to submissions and résumés is restricted to authorised personnel.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Where your data is stored</h2>
-      <p class="mb-4">This website is hosted on Vercel. Form submissions and uploaded résumés are stored in our Supabase database and file storage. Notification and summary emails are sent through our email provider. These providers process data on our behalf, under their own security and data-protection commitments; some may store or process data outside India.</p>
+      <p class="mb-4">This website is hosted on Vercel. Form submissions and uploaded résumés are stored in our Supabase database and file storage. Notification and summary emails are sent through our email provider. Questions typed into the Ask Mangalam assistant go to Google (Gemini) to generate an answer, as described above. These providers process data on our behalf, under their own security and data-protection commitments; some may store or process data outside India.</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">How long we keep it</h2>
       <p class="mb-4">Your résumé file is kept for <strong class="text-foreground/80">90 days</strong> from the date you apply, and is then deleted automatically from our file storage. The rest of your application is retained only as long as needed for the recruitment process. Enquiry data is kept only as long as needed to respond and follow up. You may ask us to delete your data sooner, at any time.</p>

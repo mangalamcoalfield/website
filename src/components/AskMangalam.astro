@@ -3,36 +3,39 @@
 // endpoint (Gemini key stays server-side). Degrades gracefully: if the endpoint
 // returns 503 (no key configured) the widget hides itself. Lead capture stays
 // in the contact form, never in chat.
+import { UI, type Lang } from '../i18n/ui';
+const { lang = 'en' } = Astro.props as { lang?: Lang };
+const t = UI[lang];
+// Runtime messages are created by the script, so hand them over as data.
+const msgs = { unavailable: t.askUnavailable, tooFast: t.askTooFast, noAnswer: t.askNoAnswer, noReach: t.askNoReach };
 ---
-<div id="am-root" class="am-root" data-state="closed" hidden>
+<div id="am-root" class="am-root" data-state="closed" data-msgs={JSON.stringify(msgs)} hidden>
   <button id="am-launch" class="am-launch" aria-expanded="false" aria-controls="am-panel">
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-    <span>Ask Mangalam</span>
+    <span>{t.askName}</span>
   </button>
 
-  <div id="am-panel" class="am-panel" role="dialog" aria-label="Ask Mangalam" aria-modal="false">
+  <div id="am-panel" class="am-panel" role="dialog" aria-label={t.askName} aria-modal="false">
     <div class="am-head">
       <div>
-        <strong>Ask Mangalam</strong>
-        <span>Our coal-mining knowledge, completely open to you</span>
+        <strong>{t.askName}</strong>
+        <span>{t.askTag}</span>
       </div>
-      <button id="am-close" class="am-close" aria-label="Close">&times;</button>
+      <button id="am-close" class="am-close" aria-label={t.close}>&times;</button>
     </div>
 
     <div id="am-log" class="am-log" aria-live="polite">
-      <div class="am-msg bot">
-        Hi — I can answer questions about Mangalam Coalfield and Indian coal mining using information from this site. I can't make commitments on the company's behalf. For enquiries, please use the <a href="/contact">contact form</a>.
-      </div>
+      <div class="am-msg bot" set:html={t.askHello} />
     </div>
 
     <form id="am-form" class="am-form">
       <input id="am-input" type="text" maxlength="500" autocomplete="off"
-        placeholder="Ask about operations, safety, careers…" aria-label="Your question" />
-      <button type="submit" id="am-send" aria-label="Send">
+        placeholder={t.askPlaceholder} aria-label={t.askQuestion} />
+      <button type="submit" id="am-send" aria-label={t.askSend}>
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </form>
-    <p class="am-foot">Here to help and inform — for anything official, please <a href="/contact">get in touch</a></p>
+    <p class="am-foot" set:html={t.askFoot} />
   </div>
 </div>
 
@@ -97,6 +100,7 @@
 
 <script>
   const root = document.getElementById('am-root') as HTMLElement;
+  const M: Record<string, string> = JSON.parse(root?.dataset.msgs || '{}');
   const panel = document.getElementById('am-panel') as HTMLElement;
   const launch = document.getElementById('am-launch') as HTMLButtonElement;
   const closeBtn = document.getElementById('am-close') as HTMLButtonElement;
@@ -207,17 +211,17 @@
       });
       typing.remove();
       if (r.status === 503) {
-        addMsg('Ask Mangalam is currently unavailable. Please use the contact form.', 'note');
+        addMsg(M.unavailable, 'note');
         available = false;
       } else if (r.status === 429) {
-        addMsg('You\'re sending messages a little fast — please wait a moment and try again.', 'note');
+        addMsg(M.tooFast, 'note');
       } else {
         const data = await r.json().catch(() => ({}));
-        addMsg(data.answer || "Sorry — I couldn't answer that. Please try the contact form.", 'bot', data.sources);
+        addMsg(data.answer || M.noAnswer, 'bot', data.sources);
       }
     } catch {
       typing.remove();
-      addMsg("Sorry — I couldn't reach the assistant. Please try again later.", 'note');
+      addMsg(M.noReach, 'note');
     } finally {
       input.disabled = false; sendBtn.disabled = false;
       if (available) input.focus();

@@ -12,6 +12,13 @@ const { items = [] } = Astro.props as { items: Item[] };
         <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span></span>
         Latest from DGMS
       </a>
+      {/* WCAG 2.2.2: anything that moves for more than five seconds needs a way
+          to stop it. Hover-to-pause alone leaves keyboard and touch users out. */}
+      <button type="button" id="lt-toggle" aria-pressed="false" aria-label="Pause the DGMS headlines" title="Pause"
+        class="lt-toggle relative z-20 grid h-7 w-7 shrink-0 place-items-center rounded-lg border border-white/15 bg-white/[0.04] text-foreground transition-colors hover:border-primary hover:text-primary">
+        <svg class="lt-ico-pause" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>
+        <svg class="lt-ico-play" width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      </button>
       <div class="relative flex-1 overflow-hidden">
         <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent"></div>
         <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent"></div>
@@ -36,8 +43,25 @@ const { items = [] } = Astro.props as { items: Item[] };
     <style is:global>
       .lt-track { animation: lt 46s linear infinite; }
       @keyframes lt { to { transform: translateX(-50%); } }
-      .lt-track:hover { animation-play-state: paused; }
-      @media (prefers-reduced-motion: reduce) { .lt-track { animation: none; } }
+      .lt-track:hover,
+      .lt-paused .lt-track,
+      .lt-track:focus-within { animation-play-state: paused; }
+      .lt-ico-play, .lt-paused .lt-ico-pause { display: none; }
+      .lt-paused .lt-ico-play { display: block; }
+      @media (prefers-reduced-motion: reduce) {
+        .lt-track { animation: none; }
+        .lt-toggle { display: none; } /* nothing moves, so nothing to pause */
+      }
     </style>
+    <script>
+      const btn = document.getElementById('lt-toggle');
+      const host = btn?.closest('section');
+      btn?.addEventListener('click', () => {
+        const paused = host!.classList.toggle('lt-paused');
+        // A toggle keeps one label; aria-pressed carries the state.
+        btn.setAttribute('aria-pressed', String(paused));
+        btn.title = paused ? 'Play' : 'Pause';
+      });
+    </script>
   </section>
 )}

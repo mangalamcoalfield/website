@@ -93,3 +93,19 @@
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Hero entrance (ShaderHero). Pure CSS so the heading is in the server HTML and
+   animates on first paint: it used to be driven by framer-motion, which shipped
+   every letter at opacity 0 and left the hero blank until ~117 KB of JS had
+   downloaded and hydrated — and blank for good if the JS failed. */
+@keyframes sh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sh-y, 16px)) scale(var(--sh-s, 1));
+    filter: blur(var(--sh-b, 0px));
+  }
+}
+.sh-in { animation: sh-rise var(--sh-d, .7s) cubic-bezier(.2, .8, .2, 1) both; }
+/* Letters rise further and settle with a slight overshoot, as the spring did. */
+.sh-letter { --sh-y: 90px; --sh-b: 10px; --sh-d: .9s; animation-timing-function: cubic-bezier(.34, 1.3, .64, 1); }
+@media (prefers-reduced-motion: reduce) { .sh-in { animation: none; } }

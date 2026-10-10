@@ -104,7 +104,7 @@ async function callGemini(question: string, context: string): Promise<string> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
   const userMsg = `CONTEXT (the only facts you may use):\n${context}\n\nQUESTION: ${question}`;
 
-  const res = await fetch(url, {
+  const generate = () => fetch(url, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-goog-api-key': GEMINI_KEY as string },
     body: JSON.stringify({
@@ -122,6 +122,16 @@ async function callGemini(question: string, context: string): Promise<string> {
       ],
     }),
   });
+
+  // Gemini sheds load with 503 "model is currently experiencing high demand"
+  // (seen in production, Oct 2026), and those spikes usually clear in under a
+  // second. One short retry turns most of them into an answer instead of an
+  // error in front of the visitor; more would risk the function's time limit.
+  let res = await generate();
+  if ([429, 500, 503].includes(res.status)) {
+    await new Promise((r) => setTimeout(r, 900));
+    res = await generate();
+  }
 
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
