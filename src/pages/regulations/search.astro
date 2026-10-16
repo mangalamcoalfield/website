@@ -291,7 +291,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
     const sortSel = $<HTMLSelectElement>('f-sort');
     const scopeBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('#scope [data-scope]'));
     const LABEL: Record<string, string> = { instrument: 'Instrument', doc: 'Document', dept: 'Department', year: 'Year', collection: 'Collection', topic: 'Topic' };
-    const PAGE = 20;
+    const PAGE = 10;                                   // each result loads its page fragment; a whole Act can be 100 KB+
     let scope: Scope = '';
     let pf: PF | null = null, hits: Hit[] = [], shown = 0, seq = 0;
 
@@ -305,7 +305,16 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
     // ---- scope ---------------------------------------------------------------
     function setScope(s: Scope) {
       scope = s;
-      scopeBtns.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.scope === s)));
+      scopeBtns.forEach((b) => { const on = b.dataset.scope === s; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      // The desk's tab bar: "DGMS circulars" is this page with the circulars scope.
+      document.querySelectorAll<HTMLAnchorElement>('.regnav a').forEach((a) => {
+        const key = a.getAttribute('href') === '/regulations/search?scope=circulars' ? 'circulars' : a.getAttribute('href') === '/regulations/search' ? 'search' : '';
+        if (!key) return;
+        const on = key === (s === 'circulars' ? 'circulars' : 'search');
+        if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        a.classList.toggle('bg-primary', on); a.classList.toggle('text-primary-foreground', on);
+        a.classList.toggle('text-muted-foreground', !on);
+      });
       document.querySelectorAll<HTMLElement>('[data-scopes]').forEach((box) => {
         const ok = box.dataset.scopes!.split(' ').includes(s || 'all');
         box.hidden = !ok;
@@ -333,7 +342,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
     }
 
     // ---- exact circular-number lookup ("2 of 2009", "02/2009", "Tech circular 2 of 2009")
-    type NumRow = { u: string; r: string; t: string; d: string; y: number | null; c: string; p: [number, number][] };
+    type NumRow = { u: string; r: string; t: string; d: string; y: number | null; c: string; p: [number, number][]; g?: [string, number] };
     let numbers: NumRow[] | null = null;
     const ROMAN: Record<string, number> = { i: 1, v: 5, x: 10, l: 50 };
     const roman = (s: string) => [...s].reduce((n, ch, i) => { const v = ROMAN[ch], w = ROMAN[s[i + 1]] ?? 0; return n + (v < w ? -v : v); }, 0);
@@ -343,22 +352,27 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       [/\belectrical\b/i, 'Electrical'], [/\b(?:tech|technical)\b/i, 'Technical'],
     ];
     function parseNumber(q: string) {
-      const m = q.match(/(?:^|[^\d])(\d{1,3}|[ivxl]{1,6})\s*(?:of|\/)\s*((?:19|20)\d{2})\b/i);
+      // Whole words only: "withdrawal of 1967" is not circular L (50) of 1967.
+      const m = q.match(/(?:^|[^\w])(\d{1,3}|[ivxl]{1,6})[a-z]?\.?\s*(?:\((?:revised|rev\.?)\)\s*)?(?:of|\/)\s*((?:19|20)\d{2})\b/i);
       if (!m) return null;
       const n = /^\d/.test(m[1]) ? parseInt(m[1], 10) : roman(m[1].toLowerCase());
       const hint = WING_HINT.find(([re]) => re.test(q))?.[1] ?? '';
       return n > 0 ? { n, y: parseInt(m[2], 10), hint } : null;
     }
+    function parseGazette(q: string) {
+      const m = q.match(/(?:^|[^\w])(g\.?\s*s\.?\s*r|s\.?\s*o)\.?\s*(\d{1,4})\b/i);
+      return m ? { t: /^g/i.test(m[1]) ? 'gsr' : 'so', n: parseInt(m[2], 10) } : null;
+    }
     async function exactCirculars(q: string, f: Record<string, string>) {
-      const num = parseNumber(q);
-      if (!num || scope === 'statutes') return [] as NumRow[];
+      const num = parseNumber(q), gz = num ? null : parseGazette(q);
+      if ((!num && !gz) || scope === 'statutes') return [] as NumRow[];
       if (!numbers) {
         try { numbers = await (await fetch('/regulations/circulars/numbers.json')).json(); } catch { numbers = []; }
       }
       return numbers!
-        .filter((r) => r.p.some(([n, y]) => n === num.n && y === num.y))
-        .filter((r) => (!f.dept || r.d === f.dept) && (!f.year || String(r.y) === f.year) && (!f.collection || r.c === f.collection))
-        .sort((a, b) => Number(b.d === num.hint) - Number(a.d === num.hint));
+        .filter((r) => num ? r.p.some(([n, y]) => n === num.n && y === num.y) : !!r.g && r.g[0] === gz!.t && r.g[1] === gz!.n)
+        .filter((r) => (!f.dept || r.d === f.dept) && (!f.year || (r.y ? String(r.y) : 'Undated') === f.year) && (!f.collection || r.c === f.collection))
+        .sort((a, b) => num ? Number(b.d === num.hint) - Number(a.d === num.hint) : 0);
     }
     function circularMatchCard(r: NumRow) {
       const li = el('li', 'rounded-2xl border border-primary/45 bg-primary/[0.06] p-5');
@@ -366,7 +380,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       top.append(el('span', 'rounded-md bg-primary px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-foreground', r.r));
       top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', r.d));
       if (r.y) top.append(el('span', 'text-[12px] text-muted-foreground', String(r.y)));
-      top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-primary', 'Circular number match'));
+      top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-primary', 'Number match'));
       li.append(top, link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', r.t, r.u), el('div', 'mt-2 text-[12px] text-muted-foreground/80', r.c));
       return li;
     }
@@ -395,14 +409,23 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       if (!provIdx) {
         try { provIdx = await (await fetch('/regulations/search/provisions.json')).json(); } catch { provIdx = { docs: [], p: [] }; }
       }
-      const rest = ` ${pr.rest.replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
-      // Documents the query names, by their usual short names or their title.
-      const named = new Set<number>();
+      const norm = (t: string) => ` ${t.toLowerCase().replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ').trim()} `;
+      const rest = norm(pr.rest);
+      // Documents the query names, by their usual short names or their title ("colliery
+      // control rules", "mines rules 1955"). The longest name wins, so "cmr 1957" names
+      // CMR 1957 only, not also CMR 2017 through its bare "cmr".
+      const hits: { i: number; len: number; name: string }[] = [];
       provIdx!.docs.forEach((d, i) => {
-        if (d.a.some((a) => rest.includes(` ${a} `))) named.add(i);
-        if (f.doc && d.t === f.doc) named.add(i);
+        const core = norm(d.t.replace(/^the\s+/i, '').replace(/\(.*?\)/g, ' ')).replace(/ (?:19|20)\d{2} $/, ' ');
+        for (const name of [...d.a.map((a) => ` ${a} `), norm(d.t.replace(/^the\s+/i, '')), core])
+          if (name.trim().length > 2 && rest.includes(name)) hits.push({ i, len: name.length, name });
+        if (f.doc && d.t === f.doc) hits.push({ i, len: 999, name: '' });
       });
+      const named = new Set(hits.filter((h) => !hits.some((o) => o.i !== h.i && o.len > h.len && o.name.includes(h.name))).map((h) => h.i));
       if (!pr.noun && !named.size) return [];          // "headgear 2" is not a provision lookup
+      // Other words that name nothing in the index ("rule 9 colliery control rules",
+      // "section 5 mmdr"): say nothing rather than offer every other "Rule 9".
+      if (!named.size && rest.split(' ').some((w) => w.length > 2 && !/^(?:the|and|for|under|with|about)$/.test(w))) return [];
       const rows = provIdx!.p.filter(([i, n, label]) =>
         n === pr.num && (named.size ? named.has(i) : true) && (!pr.noun || label.toLowerCase().startsWith(pr.noun)));
       const def = DEFAULT_DOC[pr.noun];
@@ -525,15 +548,16 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
 
     function renderActive() {
       active.replaceChildren();
-      for (const s of selects) if (s.value) {
+      for (const s of selects) if (s.value && !s.closest<HTMLElement>('[data-scopes]')!.hidden) {
         const b = el('button', 'chip-x', `${LABEL[s.dataset.filter!]}: ${s.value}`) as HTMLButtonElement;
         b.type = 'button'; b.setAttribute('aria-label', `Remove filter ${LABEL[s.dataset.filter!]}: ${s.value}`);
         b.append(el('span', '', '×'));
-        b.addEventListener('click', () => { s.value = ''; run(); });
+        b.addEventListener('click', () => { s.value = ''; pushRun(); });
         active.append(b);
       }
     }
 
+    let pushNext = false;                               // the next URL change is a new history entry
     function syncUrl() {
       const u = new URL(location.href);
       const q = input.value.trim();
@@ -542,7 +566,9 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       if (scope) u.searchParams.set('scope', scope);
       for (const s of selects) if (s.value) u.searchParams.set(s.dataset.filter!, s.value);
       if (sortSel.value) u.searchParams.set('sort', sortSel.value);
-      history.replaceState(null, '', u);
+      if (u.href === location.href) return;
+      if (pushNext) history.pushState(null, '', u); else history.replaceState(null, '', u);
+      pushNext = false;
     }
 
     async function run() {
@@ -583,7 +609,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
           const n = kc[k] ?? 0;
           if (!n) continue;
           const b = el('button', 'split-b', `${n.toLocaleString('en-IN')} in ${k}`) as HTMLButtonElement;
-          b.type = 'button'; b.addEventListener('click', () => { setScope(s); run(); });
+          b.type = 'button'; b.addEventListener('click', () => { setScope(s); pushRun(); });
           split.append(b);
         }
       }
@@ -594,7 +620,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       const num = parseNumber(q);
       const lead = [
         exP.length ? `${exP.length} provision${exP.length === 1 ? '' : 's'} by number` : '',
-        exC.length ? `${exC.length} circular${exC.length === 1 ? '' : 's'} numbered ${num!.n} of ${num!.y}` : '',
+        exC.length ? (num ? `${exC.length} circular${exC.length === 1 ? '' : 's'} numbered ${num.n} of ${num.y}` : `${exC.length} gazette notification${exC.length === 1 ? '' : 's'} by number`) : '',
       ].filter(Boolean).join(' · ');
       status.textContent = hits.length || exC.length || exP.length
         ? `${lead ? lead + ' · ' : ''}${n} ${noun}${hits.length === 1 ? '' : 's'}${q ? ` containing “${q}”` : ''}${scopeTxt ? ` · ${scopeTxt}` : ''}`
@@ -602,18 +628,38 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       await page();
     }
 
-    input.addEventListener('input', run);
-    selects.forEach((s) => s.addEventListener('change', run));
-    sortSel.addEventListener('change', run);
+    // Typing refines the current history entry; a pause, a filter or a scope starts a new
+    // one, so Back steps through searches instead of leaving the page.
+    let typing: number | undefined;
+    input.addEventListener('input', () => { clearTimeout(typing); typing = window.setTimeout(() => { pushNext = true; }, 1200); run(); });
+    const pushRun = () => { pushNext = true; run(); };
+    selects.forEach((s) => s.addEventListener('change', pushRun));
+    sortSel.addEventListener('change', pushRun);
     more.addEventListener('click', page);
-    scopeBtns.forEach((b) => b.addEventListener('click', () => { setScope((b.dataset.scope || '') as Scope); run(); }));
-    $('clear').addEventListener('click', () => { input.value = ''; selects.forEach((s) => (s.value = '')); sortSel.value = ''; run(); input.focus(); });
+    scopeBtns.forEach((b, i) => {
+      b.addEventListener('click', () => { setScope((b.dataset.scope || '') as Scope); pushRun(); });
+      // A radio group is one tab stop; arrow keys move the choice.
+      b.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const n = scopeBtns[(i + d + scopeBtns.length) % scopeBtns.length];
+        n.focus(); n.click();
+      });
+    });
+    $('clear').addEventListener('click', () => { input.value = ''; selects.forEach((s) => (s.value = '')); sortSel.value = ''; pushRun(); input.focus(); });
 
     // Browse tiles set a filter (and the circulars scope).
     document.querySelectorAll<HTMLButtonElement>('[data-set-filter]').forEach((b) => b.addEventListener('click', () => {
       if (b.dataset.setScope) setScope(b.dataset.setScope as Scope);
       const s = selects.find((x) => x.dataset.filter === b.dataset.setFilter);
-      if (s) { s.value = b.dataset.value || ''; run(); wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      if (s) {
+        s.value = b.dataset.value || ''; pushRun();
+        // The tiles disappear with the results; move focus to the results summary so
+        // keyboard and screen-reader users aren't dropped back at the top of the page.
+        status.tabIndex = -1; status.focus({ preventScroll: true });
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }));
 
     // Tabs (arrow keys move between them).
@@ -636,14 +682,23 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       if (e.key === '/' && document.activeElement !== input && !(e.target as HTMLElement).closest('input,select,textarea')) { e.preventDefault(); input.focus(); }
     });
 
-    // Restore state from the URL (shareable searches; the hub's search box posts here).
-    const sp = new URLSearchParams(location.search);
-    const sc = sp.get('scope');
-    setScope(sc === 'statutes' || sc === 'circulars' ? sc : '');
-    if (scope === 'circulars') selectTab($('tab-year') as HTMLButtonElement);
-    input.value = sp.get('q') || '';
-    for (const s of selects) { const v = sp.get(s.dataset.filter!); if (v && [...s.options].some((o) => o.value === v)) s.value = v; }
-    sortSel.value = sp.get('sort') || '';
+    // Restore state from the URL (shareable searches; the hub's search box posts here;
+    // Back/Forward between searches).
+    function restore() {
+      const sp = new URLSearchParams(location.search);
+      const sc = sp.get('scope');
+      setScope(sc === 'statutes' || sc === 'circulars' ? sc : '');
+      if (scope === 'circulars') selectTab($('tab-year') as HTMLButtonElement);
+      input.value = sp.get('q') || '';
+      for (const s of selects) {
+        const v = sp.get(s.dataset.filter!);
+        const shown = !s.closest<HTMLElement>('[data-scopes]')!.hidden;
+        s.value = v && shown && [...s.options].some((o) => o.value === v) ? v : '';
+      }
+      sortSel.value = sp.get('sort') || '';
+    }
+    restore();
+    addEventListener('popstate', () => { restore(); pushNext = false; run(); });
     if (input.value || selects.some((s) => s.value)) run();
     else input.focus({ preventScroll: true });
   </script>

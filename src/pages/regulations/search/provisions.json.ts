@@ -27,7 +27,8 @@ const ALIASES: Record<string, string[]> = {
   'industrial-relations-code-central-rules-2026': ['ir rules', 'industrial relations rules'],
   'code-on-social-security-2020': ['social security code', 'ss code', 'coss'],
   'social-security-code-central-rules-2026': ['social security rules', 'ss rules'],
-  'mmdr-act-1957': ['mmdr', 'mmdr act'],
+  // The hosted 'MMDR Act, 1957' PDF is the 2023 Amendment Act; don't answer "section N mmdr" with it.
+  'mmdr-act-1957': ['mmdr amendment', 'mmdr amendment act', 'mmdr 2023'],
   'mineral-concession-rules-2016': ['mcr', 'concession rules'],
   'mineral-conservation-development-rules-2017': ['mcdr', 'conservation and development rules'],
   'mineral-auction-rules-2015': ['auction rules'],

@@ -4,24 +4,47 @@ import corpus from '../../../data/circulars-corpus.json';
 import RegNav from '../../../components/RegNav.astro';
 import { collectionOf, searchVariants, type CircularEntry } from '../../../lib/circulars';
 import { KIND_CIRCULAR } from '../../../lib/statutes';
+import seed from '../../../data/regulations-full-seed.json';
 
 // One page per DGMS circular (or digest instruction / gazette notification),
 // carrying its full text. These pages are what Pagefind indexes, so a search on
 // /regulations/search returns individual circulars rather than whole
 // compilations. Built from src/data/circulars-corpus.json (tools/build_circular_corpus.py).
 export function getStaticPaths() {
-  return (corpus as CircularEntry[]).map((c) => ({ params: { id: c.id }, props: { c } }));
+  // The same text is sometimes in two places (a circular in a compilation and again
+  // as its own PDF in the library). Each copy keeps its page, but only the first is
+  // indexed, by search engines (canonical) and by the site search.
+  const first = new Map<string, string>();
+  const key = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  return (corpus as CircularEntry[]).map((c) => {
+    const k = key(c.text);
+    const dupOf = k.length > 200 && first.has(k) ? first.get(k)! : null;
+    if (!dupOf && k.length > 200) first.set(k, c.id);
+    return { params: { id: c.id }, props: { c, dupOf } };
+  });
 }
-const { c } = Astro.props as { c: CircularEntry };
+const { c, dupOf } = Astro.props as { c: CircularEntry; dupOf: string | null };
+// Library entries carry the library's status; an instrument replaced since says so here.
+const libRow = c.library_slug ? (seed as { slug: string; status: string; status_note: string | null; category: string }[]).find((r) => r.slug === c.library_slug) : undefined;
 const DOCS_BASE = 'https://docs.mangalamcoal.com/regs';
 const isLib = c.set === 'library';
 const pdfUrl = /^https?:/.test(c.pdf) ? c.pdf : `${DOCS_BASE}/${c.pdf}#page=${c.page}`;
 const collection = collectionOf(c);
 const paras = c.text.split('\n').filter(Boolean);
 const pages = isLib ? `${c.page_end} p.` : c.page_end > c.page ? `pp. ${c.page}–${c.page_end}` : `p. ${c.page}`;
+// Some corpus titles are a run-on first sentence; the page heading keeps it whole,
+// but the <title> is cut at a word near 70 characters.
 const heading = c.title || c.ref;
+const clip = (t: string, n: number) => (t.length <= n ? t : t.slice(0, n).replace(/\s+\S*$/, '') + '…');
+// What the document is: most are DGMS circulars, but the library also holds rules,
+// regulations, gazette notifications and DGMS publications.
+const kindLabel = c.dept === 'Rules & regulations' ? 'rules & regulations' : c.dept === 'Gazette notifications' || c.kind === 'notification' ? 'gazette notification'
+  : c.dept === 'Reports & statistics' ? 'DGMS publication' : c.dept === 'Safety conference recommendations' ? 'safety conference' : 'DGMS circular';
+// Generic subjects ("Coal mining equipment approval") repeat across dozens of circulars;
+// the reference makes each title unique.
+const pageTitle = c.ref && !heading.includes(c.ref) ? `${clip(heading, 60)} (${clip(c.ref, 40)})` : clip(heading, 90);
 const variants = searchVariants(`${c.title} ${c.text}`);
-const description = `${c.ref ? c.ref + ' — ' : ''}${heading}. Full text of the DGMS ${c.kind === 'notification' ? 'notification' : 'circular'}${c.year ? ` (${c.year})` : ''}, from the official DGMS ${isLib ? 'document' : 'compilation'}.`.slice(0, 300);
+const description = `${c.ref ? c.ref + ' — ' : ''}${heading}. Full text of the ${kindLabel}${c.year ? ` (${c.year})` : ''}, from the official DGMS ${isLib ? 'document' : 'compilation'}.`.slice(0, 300);
 
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -33,7 +56,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Site title={`${heading} — DGMS circular`} description={description} jsonLd={breadcrumbLd}>
+<Site title={`${pageTitle} — ${kindLabel}`} description={description} jsonLd={breadcrumbLd} canonicalPath={dupOf ? `/regulations/circulars/${dupOf}/` : undefined}>
   <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
       <RegNav active="circulars" class="mb-8" />
@@ -43,7 +66,12 @@ const breadcrumbLd = {
         <span>/</span><span class="text-foreground/70">{collection}</span>
       </nav>
 
-      <article data-pagefind-body>
+      <article data-pagefind-body={dupOf ? undefined : ''}>
+        {libRow?.status === 'superseded' && (
+          <p class="mb-5 rounded-2xl border border-[#e0b86a]/40 bg-[#e0b86a]/10 px-4 py-3 text-[13px] leading-relaxed text-[#e0b86a]" data-pagefind-ignore>
+            <span class="font-semibold">Superseded.</span> {libRow.status_note || 'This instrument has been replaced; check the current one before relying on it.'}
+          </p>
+        )}
         {c.ref && <p class="font-mono text-[13px] font-semibold tracking-wide text-primary" data-pagefind-weight="7">{c.ref}</p>}
         <h1 class="mt-3 font-[var(--font-display)] text-3xl font-bold leading-[1.12] tracking-tight text-foreground md:text-4xl" data-pagefind-weight="8">{heading}</h1>
         <dl class="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-[13px] sm:grid-cols-4" data-pagefind-ignore>
@@ -63,7 +91,7 @@ const breadcrumbLd = {
           {c.ocr && <p class="mt-4 text-[12px] leading-relaxed text-[#e0b86a]">Part of this text was machine-read from a scanned page and may contain recognition errors. Check the original page before relying on it.</p>}
         </div>
 
-        <div class="mt-8 space-y-4 text-[15px] leading-7 text-muted-foreground">
+        <div class="mt-8 space-y-4 text-[15px] leading-7 text-muted-foreground [overflow-wrap:anywhere]">
           {paras.map((p) => <p>{p}</p>)}
         </div>
         {/* Other spellings of words this circular uses (e.g. "head gear" -> "headgear"), for search only. */}

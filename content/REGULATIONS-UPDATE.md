@@ -54,8 +54,6 @@ powershell -ExecutionPolicy Bypass -File tools\download_archive.ps1
 # 2. OCR + catalogue only the newly-added PDFs
 python tools\catalog_new.py
 python tools\ocr_all.py           # OCRs any image-only PDFs so they're searchable
-# 3. Rebuild the buried-circular index (feeds the Circular Finder)
-python tools\build_circular_index.py
 python tools\gen_index.py          # refreshes INDEX.md + MANIFEST.csv
 ```
 
@@ -63,12 +61,32 @@ Check `UPDATE_LOG.md` / `git status` in that folder to see what changed.
 
 ## B. Fold the new docs into the website catalogue  (assisted)
 
-The **Circular Finder** index is fully scripted — regenerate it directly:
+The **regulations search** (circular pages, full-text Acts/Rules/Regulations and the
+Pagefind index) is built from two corpora. Regenerate them after new PDFs arrive or the
+catalogue changes (Windows: the OCR step uses `tools\ocr_pages.ps1`):
 
 ```powershell
 cd "C:\Users\Mangalam\Mangalam_Website"
-python tools\build_circular_index_json.py   # CIRCULAR_INDEX.csv -> src/data/circular-index.json
+pip install -r tools\requirements.txt          # pymupdf
+# Optional elsewhere: $env:MINING_REGULATION_DIR = "D:\path\to\Mining Regulation"
+python tools\circular_pages.py  ..\corpus-work                  # compilations -> page text (+OCR)
+python tools\library_pages.py   ..\corpus-work                  # library circulars -> page text
+python tools\library_pages.py   ..\corpus-work --regulations    # library Acts/Rules/Regs -> page text
+python tools\build_circular_corpus.py ..\corpus-work            # -> src/data/circulars-corpus.json
+python tools\build_statute_corpus.py  ..\corpus-work            # -> src/data/statutes-corpus.json
 ```
+
+- Both builders strip personal contact details (`tools/pii.py`: e-mail addresses,
+  +91 mobiles, the DGMS officers' telephone directory). Never commit a corpus that
+  skipped this.
+- Circular pages keep their first-published URL. An id that disappears gets a
+  redirect in `src/data/circular-redirects.json` automatically — commit that file too.
+- `build_statute_corpus.py` prints the numbering gaps per Act/Rules. Gaps of omitted
+  sections are normal; a long list (flagged `<-- check`) means headings were lost.
+- `supabase/regulations_download_urls.sql` (gitignored, from `node tools\gen_regs_sql.mjs`)
+  must exist first, or PDF links fall back to the government source URLs.
+- Only the JSON at hand (no PDFs)? `python tools\corpus_fixups.py` re-applies the
+  scrub, the statute split and the statuses from `regulations-full-seed.json`.
 
 The **document catalogue** (`regulations-full-seed.json`) needs a clean title, a
 plain-language summary, a category, and an accurate `status`/`status_note` per new

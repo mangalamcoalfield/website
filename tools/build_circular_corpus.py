@@ -53,13 +53,14 @@ def mojibake(line):
     odd = sum(1 for ch in line if ch in 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ¸¾´¤¿†™¬»«±')
     return odd >= 3 and odd > len(line) * 0.15
 
-# Circulars and drafts print officers' e-mail addresses (distribution lists,
-# comment addresses, some personal); the search pages don't republish them.
-EMAIL = re.compile(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+')
+# Circulars and drafts print officers' e-mail addresses and the Standard Notes a
+# telephone directory with personal mobiles; the search pages don't republish them.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from pii import scrub
 
 def clean(text):
     out = []
-    text = EMAIL.sub('', text)
+    text = scrub(text)
     for raw in text.split('\n'):
         line = PAGE_PREFIX.sub('', re.sub(r'\s+', ' ', raw).strip())
         if not line or FURNITURE.match(line) or mojibake(line):
@@ -375,6 +376,54 @@ def library(work):
                         ocr_pages=[p['page'] for p in pages if p.get('ocr')]))
     return out
 
+# ------------------------------------------------------------------ stable ids
+REDIRECTS = os.path.join(ROOT, 'src', 'data', 'circular-redirects.json')
+
+def entry_key(e):
+    """What identifies an entry across rebuilds: where it sits in its source, and its
+    reference. Titles are not part of it, so a better title doesn't move the page."""
+    return f"{e['set']}|{e.get('library_slug') or ''}|{e['page']}|{re.sub(r'[^a-z0-9]', '', (e['ref'] or '').lower())}"
+
+def assign_ids(entries):
+    """Every circular page's URL is in the sitemap and in search engines, so an entry
+    keeps the id it was first published under. New entries get a slug of their
+    reference and title; ids that disappear are redirected (src/data/circular-redirects.json,
+    read by astro.config.mjs) to the entry now at the same place, else to the finder."""
+    prev = json.load(open(OUT, encoding='utf-8')) if os.path.exists(OUT) else []
+    old = {}
+    for e in prev:
+        old.setdefault(entry_key(e), e['id'])
+    redirects = json.load(open(REDIRECTS, encoding='utf-8')) if os.path.exists(REDIRECTS) else {}
+    taken = set()
+    for e in entries:                                 # keep published ids
+        i = old.get(entry_key(e))
+        if i and i not in taken:
+            e['id'] = i
+            taken.add(i)
+        else:
+            e['id'] = None
+    reserved = taken | {e['id'] for e in prev} | set(redirects)
+    for e in entries:                                 # new entries
+        if e['id']:
+            continue
+        base = slugify(f"{e['ref'] or e['title']} {e['title'] if e['ref'] else ''}")
+        i, n = base, 1
+        while i in reserved:
+            n += 1
+            i = f'{base}-{n}'
+        e['id'] = i
+        reserved.add(i)
+    now = {e['id'] for e in entries}
+    by_key = {entry_key(e): e['id'] for e in entries}
+    for e in prev:
+        if e['id'] not in now:
+            redirects[e['id']] = by_key.get(entry_key(e)) or ''
+    for k in [k for k in redirects if k in now]:      # an id that came back
+        del redirects[k]
+    json.dump(dict(sorted(redirects.items())), open(REDIRECTS, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    if redirects:
+        print(f'redirected ids: {len(redirects)}')
+
 def main(work):
     up = json.load(open(os.path.join(work, 'pages_upto2017.json'), encoding='utf-8'))
     new = json.load(open(os.path.join(work, 'pages_2018_2024.json'), encoding='utf-8'))
@@ -388,7 +437,6 @@ def main(work):
     entries += by_contents(new, '2018_2024')
     lib = library(work)
     # ids, OCR flags, file links
-    seen = Counter()
     for e in entries:
         ocrset = ocr_up if e['set'] == 'upto2017' else ocr_new
         e['ocr'] = any(p in ocrset for p in range(e['page'], e['page_end'] + 1))
@@ -404,9 +452,7 @@ def main(work):
         if e['year'] and re.search(r'Circular', e['ref'] or '', re.I) and re.search(r'\d', e['ref']) \
                 and not YEAR.search(e['ref']):
             e['ref'] = f"{e['ref'].rstrip(' .,')} of {e['year']}"
-        base = slugify(f"{e['ref'] or e['title']} {e['title'] if e['ref'] else ''}")
-        seen[base] += 1
-        e['id'] = base if seen[base] == 1 else f'{base}-{seen[base]}'
+    assign_ids(entries)
     json.dump(entries, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     by = Counter((e['set'], e['kind']) for e in entries)
     print('entries:', len(entries), dict(by))

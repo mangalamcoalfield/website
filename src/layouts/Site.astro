@@ -18,13 +18,18 @@ interface Props {
   jsonLd?: object | object[];
   /** Staff utilities and gated views: reachable, but not for search results. */
   noindex?: boolean;
+  /** Path of the page this one duplicates, when it does (search engines index that one). */
+  canonicalPath?: string;
 }
-const { title, description = SITE.description, jsonLd, noindex = false } = Astro.props;
+const { title, description = SITE.description, jsonLd, noindex = false, canonicalPath } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — Mine Developer & Operator`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
 const ogImage = new URL('/og.png', Astro.site ?? Astro.url.origin).href;
 const GA_ID = import.meta.env.PUBLIC_GA_ID as string | undefined; // set to activate GA4
 const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+// JSON-LD goes into a <script> raw, and it carries titles from the circular corpus;
+// escape "<" so a "</script>" in any title can't end the block.
+const ldJson = (o: object) => JSON.stringify(o).replace(/</g, '\\u003c');
 
 const path = Astro.url.pathname;
 const lang = detectLang(path);
@@ -72,7 +77,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
-  {ldArray.map((obj) => (<script type="application/ld+json" set:html={JSON.stringify(obj)} />))}
+  {ldArray.map((obj) => (<script type="application/ld+json" set:html={ldJson(obj)} />))}
   {GA_ID && (
     <Fragment>
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>

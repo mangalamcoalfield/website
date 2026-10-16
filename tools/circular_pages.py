@@ -10,7 +10,8 @@ OCR is cached in <work_dir>/ocr_<key>/ (PNG + TXT per page), so re-runs are chea
 import json, os, re, subprocess, sys
 import pymupdf
 
-REG = r'C:\Users\Mangalam\Mining Regulation\sources\dgms_archive'
+# The source archive lives outside the repo; set MINING_REGULATION_DIR on another machine.
+REG = os.path.join(os.environ.get('MINING_REGULATION_DIR', r'C:\Users\Mangalam\Mining Regulation'), 'sources', 'dgms_archive')
 SOURCES = {
     'upto2017': os.path.join(REG, 'CIRCULARSNew_19092025.pdf'),
     '2018_2024': os.path.join(REG, 'DGMScircularsfrom20182024_06122024.pdf'),

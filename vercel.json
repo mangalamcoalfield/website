@@ -62,6 +62,24 @@
       ]
     },
     {
+      "source": "/pagefind/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/regulations/(circulars/numbers|search/provisions).json",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "has": [
         {

@@ -11,7 +11,8 @@ import json, os, re, subprocess, sys
 import pymupdf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = r'C:\Users\Mangalam\Mining Regulation'
+# The source archive lives outside the repo; set MINING_REGULATION_DIR on another machine.
+SRC = os.environ.get('MINING_REGULATION_DIR', r'C:\Users\Mangalam\Mining Regulation')
 OCR_PS1 = os.path.join(ROOT, 'tools', 'ocr_pages.ps1')
 CATEGORIES = {'dgms_circular', 'dgms_notification'}
 # `--regulations` selects every other library category instead (Acts, Rules, Codes,
