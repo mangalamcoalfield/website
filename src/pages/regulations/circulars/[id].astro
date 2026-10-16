@@ -1,0 +1,78 @@
+---
+import Site from '../../../layouts/Site.astro';
+import corpus from '../../../data/circulars-corpus.json';
+import { collectionOf, type CircularEntry } from '../../../lib/circulars';
+
+// One page per DGMS circular (or digest instruction / gazette notification),
+// carrying its full text. These pages are what Pagefind indexes, so a search on
+// /regulations/circulars returns individual circulars rather than whole
+// compilations. Built from src/data/circulars-corpus.json (tools/build_circular_corpus.py).
+export function getStaticPaths() {
+  return (corpus as CircularEntry[]).map((c) => ({ params: { id: c.id }, props: { c } }));
+}
+const { c } = Astro.props as { c: CircularEntry };
+const DOCS_BASE = 'https://docs.mangalamcoal.com/regs';
+const pdfUrl = `${DOCS_BASE}/${c.pdf}#page=${c.page}`;
+const collection = collectionOf(c);
+const paras = c.text.split('\n').filter(Boolean);
+const pages = c.page_end > c.page ? `pp. ${c.page}–${c.page_end}` : `p. ${c.page}`;
+const heading = c.title || c.ref;
+const description = `${c.ref ? c.ref + ' — ' : ''}${heading}. Full text of the DGMS ${c.kind === 'notification' ? 'notification' : 'circular'}${c.year ? ` (${c.year})` : ''}, from the official DGMS compilation.`.slice(0, 300);
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: 'Circular Finder', item: 'https://mangalamcoal.com/regulations/circulars' },
+    { '@type': 'ListItem', position: 4, name: heading, item: `https://mangalamcoal.com/regulations/circulars/${c.id}` },
+  ],
+};
+---
+<Site title={`${heading} — DGMS circular`} description={description} jsonLd={breadcrumbLd}>
+  <section class="relative bg-background px-6 pb-8 pt-32">
+    <div class="mx-auto max-w-3xl">
+      <nav class="mb-6 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/regulations" class="transition-colors hover:text-primary">Regulations</a>
+        <span>/</span><a href="/regulations/circulars" class="transition-colors hover:text-primary">Circular Finder</a>
+        <span>/</span><span class="text-foreground/70">{collection}</span>
+      </nav>
+
+      <article data-pagefind-body>
+        <div class="flex flex-wrap items-center gap-2.5" data-pagefind-ignore>
+          <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">{collection}</span>
+          {c.year && <span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{c.year}</span>}
+        </div>
+        <h1 class="mt-4 font-[var(--font-display)] text-3xl font-bold leading-[1.12] tracking-tight text-foreground md:text-4xl" data-pagefind-weight="8">{heading}</h1>
+        <div class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
+          {c.ref && <span data-pagefind-weight="6"><span class="text-foreground/60">Ref.</span> {c.ref}</span>}
+          {c.date && <span><span class="text-foreground/60">Dated</span> {c.date}</span>}
+          {c.section && <span><span class="text-foreground/60">Topic</span> {c.section}</span>}
+          {c.regulation && <span><span class="text-foreground/60">Under</span> {c.regulation}</span>}
+        </div>
+
+        <div class="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm" data-pagefind-ignore>
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="text-sm text-muted-foreground">In the {c.set === '2018_2024' ? 'DGMS Circulars 2018–2024' : 'DGMS Circulars (up to June 2017)'} compilation, {pages}.</div>
+            <a href={pdfUrl} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]">Open at {pages.replace('pp.', 'page').replace('p.', 'page')}</a>
+          </div>
+          {c.ocr && <p class="mt-4 text-[12px] leading-relaxed text-[#e0b86a]">Part of this text was machine-read from a scanned page and may contain recognition errors. Check the original page before relying on it.</p>}
+        </div>
+
+        <div class="mt-8 space-y-4 text-[15px] leading-7 text-muted-foreground">
+          {paras.map((p) => <p>{p}</p>)}
+        </div>
+      </article>
+
+      <span hidden data-pagefind-meta="ref">{c.ref}</span>
+      <span hidden data-pagefind-meta="year">{c.year ?? ''}</span>
+      <span hidden data-pagefind-meta="pdf">{pdfUrl}</span>
+      <span hidden data-pagefind-meta="pages">{pages}</span>
+      <span hidden data-pagefind-filter="collection">{collection}</span>
+      {c.section && <span hidden data-pagefind-filter="topic">{c.section}</span>}
+
+      <p class="mt-10 text-[12px] leading-relaxed text-muted-foreground/80">Reproduced from the official DGMS circular compilations for public reference. The PDF is the authoritative text; DGMS may have amended or withdrawn older instructions since.</p>
+      <a href="/regulations/circulars" class="mt-4 inline-block text-sm font-semibold text-primary hover:underline">← Search all circulars</a>
+    </div>
+  </section>
+</Site>

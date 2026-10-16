@@ -45,7 +45,8 @@ function indexPdfs() {
 }
 
 const seed = JSON.parse(fs.readFileSync(path.join(REPO, "src/data/regulations-full-seed.json"), "utf8"));
-const circ = JSON.parse(fs.readFileSync(path.join(REPO, "src/data/circular-index.json"), "utf8"));
+// The circular corpus (tools/build_circular_corpus.py) names the compilation each circular lives in.
+const circ = JSON.parse(fs.readFileSync(path.join(REPO, "src/data/circulars-corpus.json"), "utf8"));
 const idx = indexPdfs();
 
 // jobs: { local, remoteName, slug|null }
@@ -62,7 +63,7 @@ for (const e of seed) {
   sqlRows.push(`update public.regulations set download_url='${PUBLIC_BASE}/${remoteName}', file_size_kb=${kb} where slug='${e.slug}';`);
 }
 // Compilations under ORIGINAL names (Circular Finder links depend on these).
-for (const name of [...new Set(circ.map((c) => c.compilation_filename))]) {
+for (const name of [...new Set(circ.map((c) => c.pdf))]) {
   const local = idx.get(path.basename(name));
   if (!local) { console.warn("MISSING COMPILATION:", name); continue; }
   jobs.push({ local, remoteName: name });

@@ -1,20 +1,36 @@
 ---
 import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
-import circulars from '../../data/circular-index.json';
+import corpus from '../../data/circulars-corpus.json';
+import { collectionOf, COLLECTIONS, type CircularEntry } from '../../lib/circulars';
 
-// "Circular Finder" — a searchable catalogue of DGMS circulars & notifications
-// that live inside the two big consolidated compilations. These are scanned
-// documents, so we index each circular's number, year and subject and open the
-// compilation at its circulars section — search inside for the exact text.
-const DOCS_BASE = 'https://docs.mangalamcoal.com/regs';
-interface CItem { ref: string; description: string; year: string; set: string; compilation_filename: string; anchor_page: number; snippet: string }
-const items = (circulars as CItem[]).map((c) => ({
-  ...c,
-  setLabel: c.set === '2018-2024' ? '2018–2024' : '1995–2017',
-}));
-const count2017 = items.filter((c) => c.set !== '2018-2024').length;
-const count2018 = items.filter((c) => c.set === '2018-2024').length;
+// "Circular Finder" — full-text search over every DGMS circular in the two
+// consolidated compilations. Each circular has its own page with its full text
+// (regulations/circulars/[id].astro); Pagefind indexes those pages at build time
+// and this page queries that index in the browser, so results are individual
+// circulars with the matching passage highlighted. It used to search only a
+// hand-written list of 123 one-line summaries, so a word like "headgear" that
+// appears in the circulars themselves found nothing.
+const items = corpus as CircularEntry[];
+const counts = Object.fromEntries(COLLECTIONS.map((k) => [k, items.filter((c) => collectionOf(c) === k).length]));
+
+// Browse view (no query): grouped by topic for the digest, by year for full circulars.
+const groups = new Map<string, CircularEntry[]>();
+for (const c of items) {
+  const col = collectionOf(c);
+  const key = col === 'Regulation-wise digest (to 2017)' ? `Digest — ${c.section || 'General'}`
+    : col === 'Safety conference recommendations' ? 'Safety conference recommendations'
+    : `${col.replace(/\s.*$/, '')} — ${c.year ?? 'Undated'}`;
+  if (!groups.has(key)) groups.set(key, []);
+  groups.get(key)!.push(c);
+}
+const byYear = (k: string) => Number(k.match(/(\d{4})$/)?.[1] ?? 0);
+const groupList = [...groups.entries()].sort((a, b) => {
+  const da = a[0].startsWith('Digest'), db = b[0].startsWith('Digest');
+  if (da !== db) return da ? 1 : -1;                 // dated circulars first, newest first
+  if (!da) return byYear(b[0]) - byYear(a[0]);
+  return a[1][0].page - b[1][0].page;                // digest in compilation order
+});
 
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -26,8 +42,8 @@ const breadcrumbLd = {
 };
 ---
 <Site
-  title="DGMS Circular Finder — 1995–present archive"
-  description="A searchable catalogue of DGMS circulars and notifications (1995–present) held in the consolidated compilations — search by number, year or subject and open the compilation to read the full text."
+  title="DGMS Circular Finder — full-text search"
+  description={`Full-text search across ${items.length.toLocaleString('en-IN')} DGMS circulars, digest instructions and notifications, from the regulation-wise digest to the 2018–2024 circulars. Every result opens the circular and its page in the official compilation.`}
   jsonLd={breadcrumbLd}
 >
   <ShaderHero
@@ -35,84 +51,156 @@ const breadcrumbLd = {
     eyebrow="Regulation desk"
     title="DGMS Circular Finder"
     accentWords={1}
-    description="Search DGMS circulars and notifications (1995–present) held inside the consolidated compilations — by number, year or subject — and open the compilation to read the full text."
+    description="Search the full text of every DGMS circular in the official compilations — up to June 2017 and 2018–2024 — and go straight to the circular and its page."
     primary={{ label: 'Back to the library', href: '/regulations' }}
   />
 
   <section class="relative bg-background py-16">
     <div class="mx-auto max-w-5xl px-6">
-      <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <p class="max-w-2xl text-muted-foreground">{items.length} indexed circulars &amp; notifications. Search by subject, number or year — each opens its compilation; use your reader's search (Ctrl&#8209;F) to jump to the exact text.</p>
-        <input id="cfind" type="search" placeholder="e.g. inundation, ventilation, No. 2 of 2024…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-80" aria-label="Search circulars" />
-      </div>
+      <label for="cq" class="sr-only">Search the text of all circulars</label>
+      <input id="cq" type="search" autocomplete="off" placeholder="Search any word or phrase — e.g. headgear, detaching hook, inundation, Circular 02 of 2009"
+        class="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-[16px] text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none" />
+      <p class="mt-3 text-[13px] text-muted-foreground">{items.length.toLocaleString('en-IN')} circulars, instructions and notifications, searched word for word. Put a phrase in "quotes" to match it exactly.</p>
 
-      <div id="setchips" class="mb-8 flex flex-wrap gap-2.5">
-        <button class="setchip active rounded-full border border-primary bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground" data-set="all">All ({items.length})</button>
-        <button class="setchip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-set="2018-2024">2018–2024 ({count2018})</button>
-        <button class="setchip rounded-full border border-white/12 px-4 py-2 text-[13px] font-semibold text-muted-foreground transition-colors hover:border-primary" data-set="1995-2017">1995–2017 ({count2017})</button>
-      </div>
-
-      <div id="clist" class="flex flex-col gap-3">
-        {items.map((c) => (
-          <div class="citem rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm transition-colors hover:border-primary/30"
-            data-text={`${c.ref} ${c.description} ${c.year} ${c.setLabel}`.toLowerCase()}
-            data-set={c.set === '2018-2024' ? '2018-2024' : '1995-2017'}>
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <div class="min-w-0">
-                {c.description && <p class="font-[var(--font-display)] font-semibold leading-snug text-foreground">{c.description}</p>}
-                <p class="mt-1 text-[13px] text-muted-foreground">{c.ref}</p>
-                <p class="mt-1.5 text-[12px] text-muted-foreground/80">In the {c.setLabel} compilation</p>
-              </div>
-              <a href={`${DOCS_BASE}/${c.compilation_filename}#page=${c.anchor_page}`} target="_blank" rel="noopener noreferrer"
-                class="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
-                Open compilation
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-              </a>
-            </div>
-          </div>
+      <div id="chips" class="mt-5 flex flex-wrap gap-2.5">
+        <button type="button" data-col="" aria-pressed="true" class="chip rounded-full border px-4 py-2 text-[13px] font-semibold">All</button>
+        {COLLECTIONS.map((k) => (
+          <button type="button" data-col={k} aria-pressed="false" class="chip rounded-full border px-4 py-2 text-[13px] font-semibold">{k} <span class="opacity-70">({counts[k]})</span></button>
         ))}
       </div>
 
-      <div class="mt-8 flex flex-col items-center gap-3">
-        <button id="showmore" class="rounded-full border border-white/15 bg-white/[0.04] px-6 py-2.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Show more</button>
-        <p id="cnone" class="hidden text-center text-muted-foreground">No circulars match your search.</p>
-        <p id="ccount" class="text-[12px] text-muted-foreground/80"></p>
+      <p id="status" class="mt-6 min-h-[1.5em] text-[13px] text-muted-foreground" aria-live="polite"></p>
+      <div id="results" class="flex flex-col gap-3"></div>
+      <div class="mt-6 flex justify-center"><button id="more" type="button" hidden class="rounded-full border border-white/15 bg-white/[0.04] px-6 py-2.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Show more results</button></div>
+
+      <div id="browse" class="mt-4">
+        <h2 class="mb-4 font-[var(--font-display)] text-xl font-semibold text-foreground">Browse</h2>
+        <div class="flex flex-col gap-2">
+          {groupList.map(([name, list]) => (
+            <details class="group rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3">
+              <summary class="cursor-pointer list-none text-[14px] font-semibold text-foreground marker:hidden">{name} <span class="font-normal text-muted-foreground">({list.length})</span></summary>
+              <ul class="mt-3 space-y-1.5 border-t border-white/10 pt-3">
+                {list.map((c) => (
+                  <li class="text-[13px] leading-snug"><a href={`/regulations/circulars/${c.id}`} class="text-muted-foreground transition-colors hover:text-primary">{c.title || c.ref}</a>{c.ref && c.title && <span class="text-muted-foreground/60"> · {c.ref}</span>}</li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </div>
       </div>
-      <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/80">These circulars are reproduced inside the DGMS consolidated compilations (scanned documents). “Open compilation” launches the relevant compilation in a new tab at its circulars section — use your PDF reader's search to jump to the exact circular. Reproduced from the official DGMS archive for public reference.</p>
+
+      <p class="mt-10 text-[12px] leading-relaxed text-muted-foreground/80">Text is taken from the official DGMS compilations. Scanned pages were machine-read and may contain recognition errors; each circular links to its page in the PDF, which is the authoritative text. DGMS may have amended or withdrawn older instructions since.</p>
     </div>
   </section>
 
+  <style is:global>
+    .chip { border-color: rgb(255 255 255 / .12); color: hsl(var(--muted-foreground)); }
+    .chip:hover { border-color: hsl(var(--primary)); }
+    .chip[aria-pressed="true"] { background: hsl(var(--primary)); border-color: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+    #results mark { background: hsl(var(--primary) / .25); color: hsl(var(--foreground)); border-radius: 3px; padding: 0 2px; }
+  </style>
+
   <script>
-    const PAGE = 24;
-    const items = Array.from(document.querySelectorAll('#clist .citem')) as HTMLElement[];
-    const input = document.getElementById('cfind') as HTMLInputElement;
-    const none = document.getElementById('cnone');
-    const more = document.getElementById('showmore') as HTMLButtonElement;
-    const countEl = document.getElementById('ccount');
-    const chips = document.querySelectorAll('#setchips .setchip');
-    let activeSet = 'all';
-    let shown = PAGE;
-    function matches(el: HTMLElement, q: string) {
-      const okSet = activeSet === 'all' || el.dataset.set === activeSet;
-      const okQ = !q || (el.dataset.text || '').includes(q);
-      return okSet && okQ;
+    type PF = {
+      options: (o: object) => Promise<void>;
+      init: () => Promise<void>;
+      debouncedSearch: (q: string, o?: object, ms?: number) => Promise<null | { results: { data: () => Promise<any> }[]; unfilteredResultCount: number }>;
+    };
+    const input = document.getElementById('cq') as HTMLInputElement;
+    const out = document.getElementById('results')!;
+    const status = document.getElementById('status')!;
+    const more = document.getElementById('more') as HTMLButtonElement;
+    const browse = document.getElementById('browse')!;
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('#chips .chip'));
+    const PAGE = 15;
+    let pf: PF | null = null;
+    let col = '';
+    let hits: { data: () => Promise<any> }[] = [];
+    let shown = 0;
+    let seq = 0;
+
+    async function load(): Promise<PF | null> {
+      if (pf) return pf;
+      try {
+        const path = '/pagefind/pagefind.js';
+        pf = (await import(/* @vite-ignore */ path)) as PF;
+        await pf.options({ excerptLength: 34 });
+        await pf.init();
+      } catch {
+        status.textContent = 'Search is unavailable right now. Use Browse below, or try again later.';
+        pf = null;
+      }
+      return pf;
     }
-    function render() {
-      const q = (input?.value || '').trim().toLowerCase();
-      const filtered = items.filter((el) => matches(el, q));
-      items.forEach((el) => { el.style.display = 'none'; });
-      filtered.slice(0, shown).forEach((el) => { el.style.display = ''; });
-      none?.classList.toggle('hidden', filtered.length !== 0);
-      if (more) more.style.display = filtered.length > shown ? '' : 'none';
-      if (countEl) countEl.textContent = filtered.length ? `Showing ${Math.min(shown, filtered.length)} of ${filtered.length}` : '';
+
+    function card(d: any): HTMLElement {
+      const el = document.createElement('article');
+      el.className = 'rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-colors hover:border-primary/30';
+      const a = document.createElement('a');
+      a.href = d.url; a.className = 'font-[var(--font-display)] text-[16px] font-semibold leading-snug text-foreground hover:text-primary';
+      a.textContent = d.meta?.title || 'Circular';
+      const meta = document.createElement('p');
+      meta.className = 'mt-1 text-[12px] text-muted-foreground';
+      meta.textContent = [d.meta?.ref, d.meta?.year, d.filters?.collection?.[0]].filter(Boolean).join(' · ');
+      const ex = document.createElement('p');
+      ex.className = 'mt-2.5 text-[14px] leading-relaxed text-muted-foreground';
+      ex.innerHTML = d.excerpt;            // Pagefind's excerpt: our own page text, escaped, with <mark>
+      const links = document.createElement('p');
+      links.className = 'mt-3 flex flex-wrap gap-4 text-[13px] font-semibold';
+      const open = document.createElement('a'); open.href = d.url; open.className = 'text-primary hover:underline'; open.textContent = 'Read the circular';
+      links.append(open);
+      if (d.meta?.pdf) {
+        const p = document.createElement('a'); p.href = d.meta.pdf; p.target = '_blank'; p.rel = 'noopener';
+        p.className = 'text-muted-foreground hover:text-primary'; p.textContent = `PDF ${d.meta.pages || ''} ↗`;
+        links.append(p);
+      }
+      el.append(a, meta, ex, links);
+      return el;
     }
-    input?.addEventListener('input', () => { shown = PAGE; render(); });
-    more?.addEventListener('click', () => { shown += PAGE; render(); });
-    chips.forEach((chip) => chip.addEventListener('click', () => {
-      chips.forEach((c) => { c.classList.remove('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); c.classList.add('text-muted-foreground', 'border-white/12'); });
-      chip.classList.add('active', 'bg-primary', 'text-primary-foreground', 'border-primary'); chip.classList.remove('text-muted-foreground', 'border-white/12');
-      activeSet = (chip as HTMLElement).dataset.set || 'all'; shown = PAGE; render();
+
+    async function showMore() {
+      const my = seq;
+      const batch = await Promise.all(hits.slice(shown, shown + PAGE).map((h) => h.data()));
+      if (my !== seq) return;
+      batch.forEach((d) => out.append(card(d)));
+      shown += batch.length;
+      more.hidden = shown >= hits.length;
+    }
+
+    async function run() {
+      const q = input.value.trim();
+      const my = ++seq;
+      if (!q) {
+        out.replaceChildren(); status.textContent = ''; more.hidden = true; browse.hidden = false;
+        return;
+      }
+      browse.hidden = true;
+      const p = await load();
+      if (!p || my !== seq) return;
+      status.textContent = 'Searching…';
+      const res = await p.debouncedSearch(q, col ? { filters: { collection: col } } : {}, 250);
+      if (!res || my !== seq) return;
+      hits = res.results; shown = 0; out.replaceChildren();
+      status.textContent = hits.length
+        ? `${hits.length.toLocaleString('en-IN')} circular${hits.length === 1 ? '' : 's'} match “${q}”${col ? ` in ${col}` : ''}.`
+        : `No circulars contain “${q}”${col ? ` in ${col}` : ''}. Try a different word or another collection.`;
+      await showMore();
+    }
+
+    input.addEventListener('input', run);
+    more.addEventListener('click', showMore);
+    chips.forEach((c) => c.addEventListener('click', () => {
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+      col = c.dataset.col || '';
+      run();
     }));
-    render();
+    // Deep links: /regulations/circulars?q=headgear
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) { input.value = initial; run(); }
+    input.addEventListener('change', () => {
+      const u = new URL(location.href);
+      input.value.trim() ? u.searchParams.set('q', input.value.trim()) : u.searchParams.delete('q');
+      history.replaceState(null, '', u);
+    });
   </script>
 </Site>
