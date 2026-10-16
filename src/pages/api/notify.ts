@@ -33,6 +33,11 @@ const json = (d: unknown, s = 200) =>
 
 const clip = (s: unknown, n = 4000) => String(s ?? '').slice(0, n);
 
+// Every outcome after the lookup (sent, no matching row, already notified, send
+// failed) returns this same body and status. Otherwise the endpoint would be an
+// oracle telling anyone whether a given address applied / enquired recently.
+const accepted = () => json({ ok: true });
+
 // Best-effort per-IP throttle (per warm instance), same approach as /api/ask.
 const RL_WINDOW_MS = 60_000;
 const RL_MAX = 4;
@@ -78,7 +83,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       .select('id,name,email,phone,job_id')
       .eq('email', email).gte('created_at', since)
       .order('created_at', { ascending: false }).limit(1).maybeSingle();
-    if (!row) return json({ ok: false, error: 'not_found' }, 404);
+    if (!row) return accepted();
     rowId = `a:${row.id}`;
     let role = 'General';
     if (row.job_id) {
@@ -95,7 +100,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       .select('id,name,email,message')
       .eq('email', email).gte('created_at', since)
       .order('created_at', { ascending: false }).limit(1).maybeSingle();
-    if (!row) return json({ ok: false, error: 'not_found' }, 404);
+    if (!row) return accepted();
     rowId = `l:${row.id}`;
     subject = `New website enquiry — ${clip(row.name, 120)}`;
     lines = ['New enquiry via mangalamcoal.com', '', `Name: ${clip(row.name, 200)}`,
@@ -103,7 +108,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     replyTo = row.email;
   }
 
-  if (notified.has(rowId)) return json({ ok: true, duplicate: true });
+  if (notified.has(rowId)) return accepted();
 
   try {
     const nodemailer = (await import('nodemailer')).default;
@@ -119,10 +124,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       text: lines.join('\n'),
     });
     notified.add(rowId);
-    return json({ ok: true });
+    return accepted();
   } catch (e) {
     console.error('[notify] send failed:', e);
-    return json({ ok: false, error: 'send_failed' });
+    return accepted();
   }
 };
 

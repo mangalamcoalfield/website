@@ -8,6 +8,7 @@ Two subsystems, two secret stores. All values are server-side only.
 |------|----------|-------|
 | `GEMINI_API_KEY` | yes | Google AI Studio key (free tier). **Do NOT** prefix with `PUBLIC_`. |
 | `GEMINI_MODEL` | no | Defaults to `gemini-2.0-flash-lite`. |
+| `CRON_SECRET` | **yes** | Any random string. `/api/weekly-applications` (Vercel Cron) refuses to run (500) while it is unset and returns 401 without `Authorization: Bearer $CRON_SECRET`, which Vercel Cron sends automatically. |
 
 Add via CLI:
 ```
@@ -28,21 +29,32 @@ Set with `supabase secrets set NAME=value` (applies to deployed functions on nex
 | `FROM_EMAIL` | e.g. `careers@mangalamcoal.com` (default). |
 | `HR_EMAIL` | recipient, default `hr@mangalamcoal.com`. |
 | `RETENTION_DAYS` | résumé grace window before purge, default `90` (must match the window stated on /privacy). |
-| `WEBHOOK_SECRET` | optional shared secret to lock down the functions (see below). |
+| `WEBHOOK_SECRET` | **REQUIRED.** Shared secret; functions reject every call (401) while it is unset (see below). |
 
 The Supabase **service role key is auto-injected** into edge functions — you do NOT set it.
 
-### Optional: lock the functions with a shared secret
-Pick one random string; set it in BOTH places (same value):
-```
-supabase secrets set WEBHOOK_SECRET=<random>
-```
-```sql
--- in the SQL editor (Vault):
-select vault.create_secret('<random>', 'webhook_secret');
-```
-Without it, the functions accept calls unauthenticated (fine for launch, but the
-secret stops anyone from invoking them directly).
+### Required: the shared webhook secret (`WEBHOOK_SECRET`)
+The edge functions **fail closed**: if `WEBHOOK_SECRET` is unset, or the caller's
+`x-webhook-secret` header does not match, they return 401 and do nothing
+(no emails, no digest, no résumé purge). Pick one random string and set it in
+BOTH places (same value):
+
+1. **Supabase function secrets** (read by `supabase/functions/_shared/util.ts`):
+   ```
+   supabase secrets set WEBHOOK_SECRET=<random>
+   ```
+   (or Dashboard → Edge Functions → Secrets)
+2. **Supabase Vault**, entry name `webhook_secret` — read by `supabase/pipeline.sql`
+   (the `handle_new_application` trigger and both pg_cron jobs) and sent as the
+   `x-webhook-secret` header:
+   ```sql
+   -- in the SQL editor:
+   select vault.create_secret('<random>', 'webhook_secret');
+   -- rotating later:
+   -- select vault.update_secret((select id from vault.secrets where name='webhook_secret'), '<new>');
+   ```
+
+Generate a value with e.g. `openssl rand -hex 32`.
 
 ## What is already created (no action needed)
 - DB tables, RLS, `resumes` bucket — applied & verified.

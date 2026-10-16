@@ -69,7 +69,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     }
     out.push({
       created_at: a.created_at, name: a.name, email: a.email, phone: a.phone || '',
-      role: jt[a.job_id] || '', details: a.details || {}, resume,
+      role: a.job_id ? (jt[a.job_id] || '') : 'General', details: a.details || {}, resume,
     });
   }
   return json({ ok: true, count: out.length, applications: out });

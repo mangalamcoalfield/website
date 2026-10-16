@@ -1,0 +1,37 @@
+name: Build
+
+# Proves every push / PR installs from the lockfile and builds. No secrets are
+# needed: without PUBLIC_SUPABASE_* the data-driven sections render empty, and
+# ALLOW_THIN_DATA=1 stops safeSelect's minimum-row guards from failing the build
+# (production builds on Vercel run with the real env and without this flag).
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'   # package.json engines: 22.x (matches Vercel)
+          cache: npm
+
+      - name: Install (lockfile only)
+        run: npm ci
+
+      - name: Build
+        env:
+          ALLOW_THIN_DATA: '1'
+        run: npm run build

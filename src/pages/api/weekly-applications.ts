@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 import ExcelJS from 'exceljs';
+import { createHash, timingSafeEqual } from 'node:crypto';
 
 // Weekly job (Vercel Cron): compiles the last 7 days of applications into an
 // .xlsx and emails it to the recruitment leads. Reads the private `applications`
@@ -35,7 +36,8 @@ async function run(): Promise<Response> {
   const { data: apps, error } = await db.from('applications')
     .select('created_at,name,email,phone,job_id,resume_url,details')
     .gte('created_at', sinceIso).order('created_at', { ascending: false });
-  if (error) return json({ ok: false, error: 'query_failed', detail: error.message });
+  // Log the detail server-side only; the database's error text is not for the client.
+  if (error) { console.error('[weekly-applications] query failed:', error.message); return json({ ok: false, error: 'query_failed' }, 500); }
 
   const { data: jobs } = await db.from('jobs').select('id,title');
   const jobTitle: Record<string, string> = Object.fromEntries((jobs ?? []).map((j) => [j.id, j.title]));
@@ -62,7 +64,7 @@ async function run(): Promise<Response> {
     const d = (a.details || {}) as Record<string, string>;
     const row: Record<string, unknown> = {
       submitted: a.created_at ? new Date(a.created_at).toISOString().slice(0, 16).replace('T', ' ') : '',
-      name: a.name, role: jobTitle[a.job_id] || a.job_id || '', email: a.email, phone: a.phone || '', resume,
+      name: a.name, role: a.job_id ? (jobTitle[a.job_id] || a.job_id) : 'General', email: a.email, phone: a.phone || '', resume,
     };
     for (const c of DETAIL_COLS) row[c] = d[c] || '';
     ws.addRow(row);
@@ -87,11 +89,22 @@ async function run(): Promise<Response> {
   return json({ ok: true, count });
 }
 
+// Constant-time compare so the secret can't be recovered byte-by-byte via timing.
+function safeEqual(a: string, b: string): boolean {
+  const ha = createHash('sha256').update(a).digest();
+  const hb = createHash('sha256').update(b).digest();
+  return timingSafeEqual(ha, hb);
+}
+
 export const GET: APIRoute = async ({ request }) => {
-  if (CRON_SECRET) {
-    const auth = request.headers.get('authorization');
-    if (auth !== `Bearer ${CRON_SECRET}`) return json({ error: 'unauthorized' }, 401);
+  // Fail closed: without CRON_SECRET this endpoint would let anyone trigger an
+  // email of every applicant's personal data, so it does no work at all.
+  if (!CRON_SECRET) {
+    console.error('[weekly-applications] CRON_SECRET is not set; refusing to run.');
+    return json({ error: 'not_configured' }, 500);
   }
+  const auth = request.headers.get('authorization') ?? '';
+  if (!safeEqual(auth, `Bearer ${CRON_SECRET}`)) return json({ error: 'unauthorized' }, 401);
   try { return await run(); } catch (e) {
     console.error('[weekly-applications] failed:', e);
     return json({ ok: false, error: 'failed' }, 500);

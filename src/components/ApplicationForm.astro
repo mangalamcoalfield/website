@@ -8,6 +8,11 @@ interface Props {
 const { jobs = [], jobId } = Astro.props;
 // Map job id -> department so the form can reveal role-relevant questions.
 const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
+// "General application" (no specific role) is always offered, and preselected
+// when nothing is open, so "Send your CV" works with zero vacancies. It is sent
+// as job_id = null (the column is nullable; HR sees it as "General").
+const GENERAL = 'general';
+const preselectGeneral = !jobId && jobs.length === 0;
 ---
 <!-- method="post": see ContactForm — prevents applicant details landing in the
      URL if the submit handler ever fails to run. -->
@@ -30,10 +35,11 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
     <div class="row">
       <label for="app-job">Role <span class="req">*</span></label>
       <select id="app-job" name="job_id" required>
-        <option value="" disabled selected={!jobId}>Select a role…</option>
+        <option value="" disabled selected={!jobId && !preselectGeneral}>Select a role…</option>
         {jobs.map((j) => (
           <option value={j.id} selected={j.id === jobId}>{j.title}</option>
         ))}
+        <option value={GENERAL} selected={preselectGeneral}>General application (no specific role)</option>
       </select>
     </div>
   </div>
@@ -223,7 +229,8 @@ const jobDept = Object.fromEntries(jobs.map((j) => [j.id, j.dept || '']));
       name: String(data.get('name') || ''),
       email: String(data.get('email') || ''),
       phone: String(data.get('phone') || '') || null,
-      job_id: String(data.get('job_id') || '') || null,
+      // 'general' (or anything that isn't a real role) is stored as null.
+      job_id: ((v) => (v && v !== 'general' ? v : null))(String(data.get('job_id') || '')),
       resume_url: path,
       details,
       consent: true,

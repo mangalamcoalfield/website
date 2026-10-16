@@ -40,3 +40,6 @@ supabase/regulations_download_urls.sql
 
 # Source media/assets dump (large; not for git)
 Mangalam Website Data/
+
+# Scratch file tools/gen_regs_sql.mjs leaves behind when the DB is unreachable
+.tmp_urls.sql
