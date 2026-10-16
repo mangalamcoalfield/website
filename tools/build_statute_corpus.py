@@ -157,11 +157,12 @@ def main(work):
         r = seed.get(slug)
         if not r or not pages:
             continue
+        # Drafts and forwarded letters print officers' e-mail addresses (comment
+        # addresses, distribution lists); the search pages don't need to republish them.
+        for p in pages:
+            p['text'] = re.sub(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+', '', p['text'])
         raw = '\n'.join(p['text'] for p in pages)
         dev = len(DEVANAGARI.findall(raw))
-        # Drafts sometimes print the officers' personal e-mail addresses for comments;
-        # the search pages don't need to republish them.
-        raw = re.sub(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+', '', raw)
         body = clean(english(raw))
         if len(body) < 80:
             continue

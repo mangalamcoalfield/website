@@ -53,8 +53,13 @@ def mojibake(line):
     odd = sum(1 for ch in line if ch in 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ¸¾´¤¿†™¬»«±')
     return odd >= 3 and odd > len(line) * 0.15
 
+# Circulars and drafts print officers' e-mail addresses (distribution lists,
+# comment addresses, some personal); the search pages don't republish them.
+EMAIL = re.compile(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+')
+
 def clean(text):
     out = []
+    text = EMAIL.sub('', text)
     for raw in text.split('\n'):
         line = PAGE_PREFIX.sub('', re.sub(r'\s+', ' ', raw).strip())
         if not line or FURNITURE.match(line) or mojibake(line):
