@@ -1,0 +1,26 @@
+---
+// The regulation desk's own tab bar, on every regulations page, so search, the
+// library and the circulars are each one click from anywhere in the section
+// (the Circular Finder used to sit three levels down, behind a card).
+interface Props { active: 'search' | 'library' | 'circulars' | 'changes' | null; class?: string }
+const { active, class: cls = '' } = Astro.props;
+const TABS = [
+  { key: 'search', label: 'Search', href: '/regulations/search' },
+  { key: 'library', label: 'Library', href: '/regulations#library' },
+  { key: 'circulars', label: 'DGMS circulars', href: '/regulations/search?scope=circulars' },
+  { key: 'changes', label: 'Latest & Draft-Watch', href: '/regulations#tracker' },
+] as const;
+---
+<nav aria-label="Regulation desk" class={`regnav ${cls}`}>
+  <ul class="flex gap-1 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] p-1 backdrop-blur-sm [scrollbar-width:none]">
+    {TABS.map((t) => (
+      <li class="shrink-0">
+        <a href={t.href} aria-current={active === t.key ? 'page' : undefined}
+          class={`flex items-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-[13px] font-semibold transition-colors ${active === t.key ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-white/[0.05] hover:text-foreground'}`}>
+          {t.key === 'search' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>}
+          {t.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

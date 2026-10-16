@@ -14,6 +14,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = r'C:\Users\Mangalam\Mining Regulation'
 OCR_PS1 = os.path.join(ROOT, 'tools', 'ocr_pages.ps1')
 CATEGORIES = {'dgms_circular', 'dgms_notification'}
+# `--regulations` selects every other library category instead (Acts, Rules, Codes,
+# CMR 2017, MMDR, environment, Ministry of Coal, CEA, drafts) for the regulations index.
+REGULATIONS = '--regulations' in sys.argv
 # The compilations are listed in the library too, but are split up separately.
 COMPILATIONS = {'CIRCULARSNew_19092025.pdf', 'DGMScircularsfrom20182024_06122024.pdf'}
 
@@ -27,9 +30,10 @@ def main(work):
         for f in fs:
             if f.lower().endswith('.pdf') and f not in idx:
                 idx[f] = os.path.join(dp, f)
-    rows = [r for r in seed if r.get('published') and r.get('category') in CATEGORIES
+    pick = (lambda c: c not in CATEGORIES) if REGULATIONS else (lambda c: c in CATEGORIES)
+    rows = [r for r in seed if r.get('published') and pick(r.get('category'))
             and os.path.basename(r.get('source_filename') or '') not in COMPILATIONS]
-    cache = os.path.join(work, 'ocr_library')
+    cache = os.path.join(work, 'ocr_regulations' if REGULATIONS else 'ocr_library')
     os.makedirs(cache, exist_ok=True)
     docs, need, skipped = {}, 0, []
     for r in rows:
@@ -68,8 +72,9 @@ def main(work):
                         txt, ocr = o, True
             res.append({'page': p['page'], 'text': txt, 'ocr': ocr})
         out[slug] = res
-    json.dump(out, open(os.path.join(work, 'pages_library.json'), 'w', encoding='utf-8'), ensure_ascii=False)
-    print(f'library: wrote pages_library.json ({sum(q["ocr"] for v in out.values() for q in v)} OCR pages)', flush=True)
+    name = 'pages_regulations.json' if REGULATIONS else 'pages_library.json'
+    json.dump(out, open(os.path.join(work, name), 'w', encoding='utf-8'), ensure_ascii=False)
+    print(f'library: wrote {name} ({sum(q["ocr"] for v in out.values() for q in v)} OCR pages)', flush=True)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main([a for a in sys.argv[1:] if not a.startswith('--')][0])

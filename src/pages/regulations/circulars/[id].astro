@@ -1,11 +1,13 @@
 ---
 import Site from '../../../layouts/Site.astro';
 import corpus from '../../../data/circulars-corpus.json';
+import RegNav from '../../../components/RegNav.astro';
 import { collectionOf, searchVariants, type CircularEntry } from '../../../lib/circulars';
+import { KIND_CIRCULAR } from '../../../lib/statutes';
 
 // One page per DGMS circular (or digest instruction / gazette notification),
 // carrying its full text. These pages are what Pagefind indexes, so a search on
-// /regulations/circulars returns individual circulars rather than whole
+// /regulations/search returns individual circulars rather than whole
 // compilations. Built from src/data/circulars-corpus.json (tools/build_circular_corpus.py).
 export function getStaticPaths() {
   return (corpus as CircularEntry[]).map((c) => ({ params: { id: c.id }, props: { c } }));
@@ -26,17 +28,18 @@ const breadcrumbLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
     { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
-    { '@type': 'ListItem', position: 3, name: 'Circular Finder', item: 'https://mangalamcoal.com/regulations/circulars' },
+    { '@type': 'ListItem', position: 3, name: 'DGMS circulars', item: 'https://mangalamcoal.com/regulations/search?scope=circulars' },
     { '@type': 'ListItem', position: 4, name: heading, item: `https://mangalamcoal.com/regulations/circulars/${c.id}` },
   ],
 };
 ---
 <Site title={`${heading} — DGMS circular`} description={description} jsonLd={breadcrumbLd}>
-  <section class="relative bg-background px-6 pb-8 pt-32">
+  <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
+      <RegNav active="circulars" class="mb-8" />
       <nav class="mb-6 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground" aria-label="Breadcrumb">
         <a href="/regulations" class="transition-colors hover:text-primary">Regulations</a>
-        <span>/</span><a href="/regulations/circulars" class="transition-colors hover:text-primary">Circular Finder</a>
+        <span>/</span><a href="/regulations/search?scope=circulars" class="transition-colors hover:text-primary">DGMS circulars</a>
         <span>/</span><span class="text-foreground/70">{collection}</span>
       </nav>
 
@@ -74,6 +77,7 @@ const breadcrumbLd = {
       <span hidden data-pagefind-meta="dept">{c.dept}</span>
       <span hidden data-pagefind-meta="pdf">{pdfUrl}</span>
       <span hidden data-pagefind-meta="pages">{pages}</span>
+      <span hidden data-pagefind-filter="kind">{KIND_CIRCULAR}</span>
       <span hidden data-pagefind-filter="collection">{collection}</span>
       <span hidden data-pagefind-filter="dept">{c.dept}</span>
       <span hidden data-pagefind-filter="year">{c.year ? String(c.year) : 'Undated'}</span>
@@ -82,7 +86,7 @@ const breadcrumbLd = {
       <span hidden data-pagefind-sort="year">{String(c.year ?? 0).padStart(4, '0')}</span>
 
       <p class="mt-10 text-[12px] leading-relaxed text-muted-foreground/80">Reproduced from the official DGMS circular compilations for public reference. The PDF is the authoritative text; DGMS may have amended or withdrawn older instructions since.</p>
-      <a href="/regulations/circulars" class="mt-4 inline-block text-sm font-semibold text-primary hover:underline">← Search all circulars</a>
+      <a href="/regulations/search?scope=circulars" class="mt-4 inline-block text-sm font-semibold text-primary hover:underline">← Search all circulars</a>
     </div>
   </section>
 </Site>

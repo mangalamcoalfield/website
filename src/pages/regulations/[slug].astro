@@ -1,6 +1,9 @@
 ---
 import Site from '../../layouts/Site.astro';
 import { safeSelect, type Regulation } from '../../lib/supabase';
+import RegNav from '../../components/RegNav.astro';
+import statutes from '../../data/statutes-corpus.json';
+import circulars from '../../data/circulars-corpus.json';
 
 export async function getStaticPaths() {
   // This is the query that generates every regulation detail page. If it comes
@@ -24,6 +27,11 @@ const CAT: Record<string, string> = {
   env_forest: 'Environment & Forest', moc: 'Ministry of Coal Guidelines', cea: 'Electrical (CEA)', draft: 'Drafts & Consultations',
 };
 const catLabel = CAT[reg.category] || reg.category;
+// Where this document's searchable full text lives, if it has one: its own text
+// page (Acts, rules, regulations — or the copy it duplicates), or its circular page.
+const st = (statutes as { slug: string; also?: string[] }[]).find((d) => d.slug === reg.slug || d.also?.includes(reg.slug));
+const circ = (circulars as { id: string; library_slug: string }[]).find((c) => c.library_slug === reg.slug);
+const fullText = st ? `/regulations/${st.slug}/text` : circ ? `/regulations/circulars/${circ.id}` : null;
 const statusLabel = reg.status === 'in_force' ? 'In force' : reg.status === 'draft' ? 'Draft — not in force' : 'Superseded';
 
 const legislationLd = {
@@ -50,8 +58,9 @@ const breadcrumbLd = {
 };
 ---
 <Site title={`${reg.title} — Regulation`} description={reg.summary || `${reg.title}: official Indian coal-mining regulation — summary, source and download.`} jsonLd={[legislationLd, breadcrumbLd]}>
-  <section class="relative bg-background px-6 pb-8 pt-32">
+  <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
+      <RegNav active="library" class="mb-8" />
       <nav class="mb-6 flex items-center gap-2 text-[13px] text-muted-foreground" aria-label="Breadcrumb">
         <a href="/regulations" class="transition-colors hover:text-primary">Regulations</a>
         <span>/</span><span class="text-foreground/70">{catLabel}</span>
@@ -85,11 +94,14 @@ const breadcrumbLd = {
           {/* The copies live on docs.mangalamcoal.com, and browsers ignore the
               `download` attribute across origins — so this always opened the PDF.
               Say so, rather than promise a download that doesn't happen. */}
+          <div class="flex shrink-0 flex-wrap gap-2">
+          {fullText && <a href={fullText} class="rounded-full border border-primary/50 bg-primary/10 px-6 py-3 text-center text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Read full text</a>}
           {reg.download_url ? (
             <a href={reg.download_url} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Open PDF</a>
           ) : reg.source_url ? (
             <a href={reg.source_url} rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           ) : null}
+          </div>
         </div>
       </div>
 

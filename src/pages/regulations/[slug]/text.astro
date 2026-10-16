@@ -1,0 +1,136 @@
+---
+import Site from '../../../layouts/Site.astro';
+import RegNav from '../../../components/RegNav.astro';
+import corpus from '../../../data/statutes-corpus.json';
+import { searchVariants } from '../../../lib/circulars';
+import { KIND_STATUTE, provisionHeading, type StatuteDoc } from '../../../lib/statutes';
+
+// Full text of one Act, Code, Rules or Regulations from the library, one anchored
+// section per provision. Pagefind indexes these pages, and because every
+// provision is a heading with an id, a search returns "Regulation 78 — Construction
+// and installation of winding equipment" and links straight to it.
+// Built from src/data/statutes-corpus.json (tools/build_statute_corpus.py).
+export function getStaticPaths() {
+  return (corpus as StatuteDoc[]).map((d) => ({ params: { slug: d.slug }, props: { d } }));
+}
+const { d } = Astro.props as { d: StatuteDoc };
+const statusLabel = d.status === 'in_force' ? 'In force' : d.status === 'draft' ? 'Draft — not in force' : d.status === 'superseded' ? 'Superseded' : '';
+const numbered = d.provisions.filter((p) => p.num).length;
+const unit = numbered ? d.provisions.find((p) => p.num)!.label.split(' ')[0].toLowerCase() : '';
+const variants = searchVariants(d.provisions.map((p) => p.text).join(' '));
+const paras = (t: string) => t.split('\n').filter(Boolean);
+const description = `Full text of ${d.title}${numbered ? `, ${numbered} ${unit}s` : ''} — searchable, with a link to each provision and the official PDF.`.slice(0, 300);
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: d.title, item: `https://mangalamcoal.com/regulations/${d.slug}` },
+    { '@type': 'ListItem', position: 4, name: 'Full text', item: `https://mangalamcoal.com/regulations/${d.slug}/text` },
+  ],
+};
+---
+<Site title={`${d.title} — full text`} description={description} jsonLd={breadcrumbLd}>
+  <section class="relative bg-background px-6 pb-8 pt-28">
+    <div class="mx-auto max-w-6xl">
+      <RegNav active={null} class="mb-8" />
+      <nav class="mb-6 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/regulations" class="transition-colors hover:text-primary">Regulations</a>
+        <span>/</span><a href={`/regulations/${d.slug}`} class="transition-colors hover:text-primary">{d.title}</a>
+        <span>/</span><span class="text-foreground/70">Full text</span>
+      </nav>
+    </div>
+  </section>
+
+  <section class="relative bg-background pb-28">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[17rem_1fr]">
+      {/* Contents: a sticky rail on wide screens, a collapsible list on phones. */}
+      <aside class="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto" data-pagefind-ignore>
+        <details class="group rounded-2xl border border-white/10 bg-white/[0.02] p-4 lg:open:bg-transparent" open>
+          <summary class="cursor-pointer list-none text-[12px] font-semibold uppercase tracking-[0.18em] text-primary">Contents <span class="text-muted-foreground/70">({d.provisions.length})</span></summary>
+          <input type="search" id="toc-filter" placeholder={numbered ? `Jump to a ${unit}…` : 'Filter…'} aria-label="Filter the contents"
+            class="mt-3 w-full rounded-lg border border-white/10 bg-[#0b120e] px-3 py-2 text-[13px] text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none" />
+          <ol id="toc" class="mt-3 flex flex-col gap-0.5 text-[13px]">
+            {d.provisions.map((p) => (
+              <li><a href={`#${p.id}`} data-key={`${p.num} ${p.label} ${p.title}`.toLowerCase()} class="block rounded-md px-2 py-1 leading-snug text-muted-foreground transition-colors hover:bg-white/[0.04] hover:text-foreground">
+                {p.num ? <><span class="font-mono text-primary/80">{p.num}</span> {p.title || p.label}</> : p.label}
+              </a></li>
+            ))}
+          </ol>
+        </details>
+      </aside>
+
+      <article data-pagefind-body class="min-w-0">
+        <div class="flex flex-wrap items-center gap-2" data-pagefind-ignore>
+          <span class="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">{d.category_label}</span>
+          {statusLabel && <span class={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ${d.status === 'in_force' ? 'bg-primary/15 text-primary' : d.status === 'draft' ? 'bg-secondary/20 text-[#9ed3c4]' : 'bg-white/10 text-muted-foreground'}`}>{statusLabel}</span>}
+        </div>
+        <h1 class="mt-4 font-[var(--font-display)] text-3xl font-bold leading-[1.1] tracking-tight text-foreground md:text-4xl" data-pagefind-weight="6">{d.title}</h1>
+        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground" data-pagefind-ignore>
+          {d.doc_number && <span><span class="text-foreground/60">No.</span> {d.doc_number}</span>}
+          {d.date && <span><span class="text-foreground/60">Date</span> {d.date}</span>}
+          <span>{numbered ? `${numbered} ${unit}s` : `${d.pages} page${d.pages === 1 ? '' : 's'}`}</span>
+        </div>
+
+        <div class="mt-6 rounded-3xl border border-white/10 bg-white/[0.03] p-5" data-pagefind-ignore>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm text-muted-foreground">Text taken from the official PDF so it can be searched and linked. The PDF is the authoritative copy.</p>
+            <div class="flex shrink-0 gap-2">
+              {d.pdf && <a href={d.pdf} target="_blank" rel="noopener" class="rounded-full bg-primary px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]">Open PDF</a>}
+              <a href={`/regulations/search?scope=statutes&doc=${encodeURIComponent(d.title)}`} class="rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Search inside</a>
+            </div>
+          </div>
+          {d.ocr && <p class="mt-3 text-[12px] leading-relaxed text-[#e0b86a]">Some pages were machine-read from scans and may contain recognition errors.</p>}
+          {!d.numbered && <p class="mt-3 text-[12px] leading-relaxed text-muted-foreground/80">This document isn't numbered throughout, so it is laid out by page.</p>}
+        </div>
+
+        <div class="mt-10 flex flex-col gap-10">
+          {d.provisions.map((p) => (
+            <section class="scroll-mt-28">
+              <h2 id={p.id} class="scroll-mt-28 font-[var(--font-display)] text-xl font-semibold leading-snug text-foreground">
+                <a href={`#${p.id}`} class="hover:text-primary">{provisionHeading(p)}</a>
+              </h2>
+              <div class="mt-3 space-y-3 text-[15px] leading-7 text-muted-foreground">
+                {paras(p.text).map((t) => <p>{t}</p>)}
+              </div>
+            </section>
+          ))}
+        </div>
+        {/* Other spellings of words this document uses ("head gear" -> "headgear"), for search only. */}
+        {variants.length > 0 && <p class="sr-only" aria-hidden="true">{variants.join(' ')}</p>}
+      </article>
+    </div>
+
+    {/* Search metadata and filters (read by Pagefind, not shown). */}
+    <span hidden data-pagefind-meta="title">{d.title}</span>
+    <span hidden data-pagefind-meta="instrument">{d.category_label}</span>
+    <span hidden data-pagefind-meta="status">{statusLabel}</span>
+    <span hidden data-pagefind-meta="pdf">{d.pdf}</span>
+    <span hidden data-pagefind-meta="year">{d.year ?? ''}</span>
+    <span hidden data-pagefind-filter="kind">{KIND_STATUTE}</span>
+    <span hidden data-pagefind-filter="instrument">{d.category_label}</span>
+    <span hidden data-pagefind-filter="doc">{d.title}</span>
+    <span hidden data-pagefind-filter="year">{d.year ? String(d.year) : 'Undated'}</span>
+    <span hidden data-pagefind-sort="year">{String(d.year ?? 0).padStart(4, '0')}</span>
+  </section>
+
+  <script>
+    // "Jump to a regulation…": filter the contents by number or heading.
+    const f = document.getElementById('toc-filter') as HTMLInputElement | null;
+    const items = Array.from(document.querySelectorAll<HTMLAnchorElement>('#toc a'));
+    const num = (a: HTMLAnchorElement) => (a.dataset.key || '').split(' ')[0];
+    f?.addEventListener('input', () => {
+      const q = f.value.trim().toLowerCase();
+      for (const a of items) a.parentElement!.hidden = !!q && (/^\d/.test(q) ? !num(a).startsWith(q) : !(a.dataset.key || '').includes(q));
+    });
+    f?.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const q = f.value.trim().toLowerCase();
+      const first = items.find((a) => num(a) === q) || items.find((a) => !a.parentElement!.hidden);
+      if (first) { e.preventDefault(); location.hash = first.hash; }
+    });
+    // On phones the contents start collapsed, so the text is the first thing seen.
+    if (matchMedia('(max-width: 1023px)').matches) document.querySelector('aside details')?.removeAttribute('open');
+  </script>
+</Site>

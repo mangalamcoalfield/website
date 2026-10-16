@@ -161,6 +161,16 @@
       "permanent": true
     },
     {
+      "source": "/regulations/circulars",
+      "destination": "/regulations/search/?scope=circulars",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/circulars/",
+      "destination": "/regulations/search/?scope=circulars",
+      "permanent": true
+    },
+    {
       "source": "/regulations/standard2019",
       "destination": "/regulations/dgms-standard-note-2019/",
       "permanent": true

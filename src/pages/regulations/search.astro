@@ -1,0 +1,650 @@
+---
+import Site from '../../layouts/Site.astro';
+import RegNav from '../../components/RegNav.astro';
+import circulars from '../../data/circulars-corpus.json';
+import statutes from '../../data/statutes-corpus.json';
+import { collectionOf, COLLECTIONS, type CircularEntry } from '../../lib/circulars';
+import { INSTRUMENT_ORDER, KIND_CIRCULAR, KIND_STATUTE, type StatuteDoc } from '../../lib/statutes';
+
+// One search for the whole regulation desk: the full text of the library's Acts,
+// Codes, Rules and Regulations, provision by provision (regulations/[slug]/text),
+// and every DGMS circular (regulations/circulars/[id]). Pagefind indexes those
+// pages at build time and this page queries the index in the browser. A scope
+// switch narrows it to one or the other, and each scope has its own filters.
+// Replaces the Circular Finder (/regulations/circulars redirects here), which
+// searched circulars only and sat three clicks deep.
+const items = circulars as CircularEntry[];
+const docs = statutes as StatuteDoc[];
+const totalC = items.length;
+const totalP = docs.reduce((n, d) => n + d.provisions.filter((p) => p.num).length, 0);
+
+const count = <K extends string>(f: (c: CircularEntry) => K | null) => {
+  const m = new Map<K, number>();
+  for (const c of items) { const k = f(c); if (k) m.set(k, (m.get(k) ?? 0) + 1); }
+  return m;
+};
+const DEPT_ORDER = ['Technical', 'Legislative', 'General', 'Approval', 'Examination', 'Electrical', 'Occupational Health', 'Safety alerts', 'Gazette notifications', 'Safety conference recommendations', 'Rules & regulations', 'Reports & statistics', 'Not stated'];
+const depts = [...count((c) => c.dept)].sort((a, b) => DEPT_ORDER.indexOf(a[0]) - DEPT_ORDER.indexOf(b[0]));
+const years = [...count((c) => (c.year ? String(c.year) : 'Undated'))].sort((a, b) => (b[0] === 'Undated' ? -1 : a[0] === 'Undated' ? 1 : +b[0] - +a[0]));
+const decades = new Map<string, [string, number][]>();
+for (const y of years) {
+  const d = y[0] === 'Undated' ? 'Undated' : `${y[0].slice(0, 3)}0s`;
+  if (!decades.has(d)) decades.set(d, []);
+  decades.get(d)!.push(y);
+}
+// The year filter covers both scopes, so its options include the statutes' years.
+const allYears = [...new Set([...years.map(([y]) => y), ...docs.map((d) => (d.year ? String(d.year) : 'Undated'))])]
+  .sort((a, b) => (b === 'Undated' ? -1 : a === 'Undated' ? 1 : +b - +a));
+const yearDecades = new Map<string, string[]>();
+for (const y of allYears) {
+  const d = y === 'Undated' ? 'Undated' : `${y.slice(0, 3)}0s`;
+  if (!yearDecades.has(d)) yearDecades.set(d, []);
+  yearDecades.get(d)!.push(y);
+}
+const cols = COLLECTIONS.map((k) => [k, items.filter((c) => collectionOf(c) === k).length] as const).filter(([, n]) => n > 0);
+const topics = [...count((c) => (c.section && collectionOf(c) === 'Regulation-wise digest (to 2017)' ? c.section : null))].sort((a, b) => a[0].localeCompare(b[0]));
+const DEPT_NOTE: Record<string, string> = {
+  'Technical': 'Technical wing, incl. S&T, SOMA, MAMID, Sapicom',
+  'Legislative': 'Law, rules and their interpretation',
+  'General': 'Administration, jurisdiction, procedure',
+  'Approval': 'Approval of equipment and materials',
+  'Examination': 'Board of Mining Examinations',
+  'Electrical': 'Electrical inspectorate',
+  'Occupational Health': 'Medical examination and health',
+  'Safety alerts': 'Alerts after accidents',
+  'Gazette notifications': 'G.S.R. / S.O. notifications',
+  'Safety conference recommendations': 'National Conferences on Safety in Mines',
+  'Rules & regulations': 'Rules published by DGMS, in full text',
+  'Reports & statistics': 'Statistics of Mines, SANKET, Standard Notes',
+  'Not stated': 'Older circulars that name no wing',
+};
+const instruments = INSTRUMENT_ORDER
+  .map((k) => [k, docs.filter((d) => d.category_label === k).sort((a, b) => Number(b.numbered) - Number(a.numbered) || (b.year ?? 0) - (a.year ?? 0))] as const)
+  .filter(([, ds]) => ds.length > 0);
+const newest = Math.max(...items.map((c) => c.year ?? 0));
+const oldest = Math.min(...items.filter((c) => c.year).map((c) => c.year!));
+const inr = (n: number) => n.toLocaleString('en-IN');
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: 'Search', item: 'https://mangalamcoal.com/regulations/search' },
+  ],
+};
+const searchLd = {
+  '@context': 'https://schema.org', '@type': 'WebSite', url: 'https://mangalamcoal.com/',
+  potentialAction: { '@type': 'SearchAction', target: 'https://mangalamcoal.com/regulations/search?q={search_term_string}', 'query-input': 'required name=search_term_string' },
+};
+const selectCls = 'w-full rounded-xl border border-white/10 bg-[#0b120e] px-3 py-2.5 text-[13px] text-foreground focus:border-primary focus:outline-none';
+const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground';
+---
+<Site
+  title="Search Indian mining regulations & DGMS circulars"
+  description={`Full-text search across the Coal Mines Regulations 2017, the Mines Act and Rules, the labour codes, MMDR and CEA rules — ${inr(totalP)} provisions — and ${inr(totalC)} DGMS circulars (${oldest}–${newest}). Look up a provision by number ("Regulation 78", "Section 40 Mines Act") or a circular by its number.`}
+  jsonLd={[breadcrumbLd, searchLd]}
+>
+  <section class="relative bg-background pb-24 pt-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <RegNav active="search" class="mb-8" />
+
+      <div class="mb-6 max-w-3xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Regulation desk</span>
+        <h1 class="mt-2 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">Search regulations &amp; circulars</h1>
+        <p class="mt-2 text-muted-foreground">Every word of {inr(docs.length)} Acts, rules, regulations and guidelines ({inr(totalP)} numbered provisions) and {inr(totalC)} DGMS circulars from {oldest} to {newest}.</p>
+      </div>
+
+      <!-- Search -->
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+        <div role="radiogroup" aria-label="Search in" id="scope" class="mb-4 inline-flex flex-wrap gap-1 rounded-xl border border-white/10 bg-[#0b120e] p-1">
+          <button type="button" role="radio" data-scope="" class="scope">Everything</button>
+          <button type="button" role="radio" data-scope="statutes" class="scope">Acts, rules &amp; regulations</button>
+          <button type="button" role="radio" data-scope="circulars" class="scope">DGMS circulars</button>
+        </div>
+        <label for="cq" class="sr-only">Search</label>
+        <div class="relative">
+          <svg class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="cq" type="search" autocomplete="off" spellcheck="false"
+            placeholder='Words, a "phrase", a provision or a circular number — e.g. headgear · Regulation 78 · 02 of 2009'
+            class="w-full rounded-2xl border border-white/10 bg-[#0b120e] py-4 pl-12 pr-24 text-[16px] text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none" />
+          <kbd class="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded-md border border-white/15 px-2 py-0.5 text-[11px] text-muted-foreground md:block">/ to search</kbd>
+        </div>
+
+        <!-- Filters: each shows only in the scopes it applies to. -->
+        <div class="mt-4 grid grid-cols-2 gap-3 md:grid-cols-5">
+          <div data-scopes="statutes">
+            <label for="f-inst" class={labelCls}>Instrument</label>
+            <select id="f-inst" data-filter="instrument" class={selectCls}>
+              <option value="">All instruments</option>
+              {instruments.map(([k, ds]) => <option value={k}>{k} ({ds.length})</option>)}
+            </select>
+          </div>
+          <div data-scopes="statutes" class="col-span-2 md:col-span-2">
+            <label for="f-doc" class={labelCls}>Document</label>
+            <select id="f-doc" data-filter="doc" class={selectCls}>
+              <option value="">All documents</option>
+              {instruments.map(([k, ds]) => (
+                <optgroup label={k}>{ds.map((d) => <option value={d.title}>{d.title}</option>)}</optgroup>
+              ))}
+            </select>
+          </div>
+          <div data-scopes="circulars">
+            <label for="f-dept" class={labelCls}>Department</label>
+            <select id="f-dept" data-filter="dept" class={selectCls}>
+              <option value="">All departments</option>
+              {depts.map(([d, n]) => <option value={d}>{d} ({n})</option>)}
+            </select>
+          </div>
+          <div data-scopes="circulars">
+            <label for="f-col" class={labelCls}>Collection</label>
+            <select id="f-col" data-filter="collection" class={selectCls}>
+              <option value="">All collections</option>
+              {cols.map(([k, n]) => <option value={k}>{k} ({n})</option>)}
+            </select>
+          </div>
+          <div data-scopes="circulars">
+            <label for="f-topic" class={labelCls}>Topic (digest)</label>
+            <select id="f-topic" data-filter="topic" class={selectCls}>
+              <option value="">All topics</option>
+              {topics.map(([t, n]) => <option value={t}>{t} ({n})</option>)}
+            </select>
+          </div>
+          <div data-scopes="all statutes circulars">
+            <label for="f-year" class={labelCls}>Year</label>
+            <select id="f-year" data-filter="year" class={selectCls}>
+              <option value="">All years</option>
+              {[...yearDecades].map(([d, ys]) => (
+                <optgroup label={d}>{ys.map((y) => <option value={y}>{y}</option>)}</optgroup>
+              ))}
+            </select>
+          </div>
+          <div data-scopes="all statutes circulars">
+            <label for="f-sort" class={labelCls}>Sort</label>
+            <select id="f-sort" class={selectCls}>
+              <option value="">Best match</option>
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results-wrap" class="mt-8" hidden>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p id="status" class="text-[14px] text-foreground" aria-live="polite"></p>
+          <button id="clear" type="button" class="text-[13px] font-semibold text-primary hover:underline">Clear search &amp; filters</button>
+        </div>
+        <div id="split" class="mt-2 flex flex-wrap gap-2"></div>
+        <div id="active" class="mt-3 flex flex-wrap gap-2"></div>
+        <ol id="results" class="mt-5 flex flex-col gap-3"></ol>
+        <div class="mt-6 flex justify-center"><button id="more" type="button" hidden class="rounded-full border border-white/15 bg-white/[0.04] px-6 py-2.5 text-[13px] font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Show more</button></div>
+      </div>
+
+      <!-- Browse (shown when nothing is searched or filtered) -->
+      <div id="browse" class="mt-10">
+        <div role="tablist" aria-label="Browse" class="flex flex-wrap gap-2 border-b border-white/10">
+          <button role="tab" id="tab-acts" aria-controls="panel-acts" aria-selected="true" class="tab">Acts, rules &amp; regulations</button>
+          <button role="tab" id="tab-year" aria-controls="panel-year" aria-selected="false" class="tab">Circulars by year</button>
+          <button role="tab" id="tab-dept" aria-controls="panel-dept" aria-selected="false" class="tab">Circulars by department</button>
+          <button role="tab" id="tab-topic" aria-controls="panel-topic" aria-selected="false" class="tab">Circulars by topic</button>
+        </div>
+
+        <div id="panel-acts" role="tabpanel" aria-labelledby="tab-acts" class="pt-6">
+          <div class="flex flex-col gap-8">
+            {instruments.map(([k, ds]) => (
+              <div>
+                <h3 class="mb-3 text-[12px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{k}</h3>
+                <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {ds.map((d) => {
+                    const n = d.provisions.filter((p) => p.num).length;
+                    return (
+                      <a href={`/regulations/${d.slug}/text`} class="group flex flex-col rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 transition-colors hover:border-primary">
+                        <span class="text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{d.title}</span>
+                        <span class="mt-1 text-[12px] text-muted-foreground">{n ? `${n} ${d.provisions.find((p) => p.num)!.label.split(' ')[0].toLowerCase()}s` : `${d.pages} page${d.pages === 1 ? '' : 's'}`}{d.status === 'draft' ? ' · Draft' : d.status === 'superseded' ? ' · Superseded' : ''}</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id="panel-year" role="tabpanel" aria-labelledby="tab-year" class="pt-6" hidden>
+          <div class="flex flex-col gap-5">
+            {[...decades].map(([d, ys]) => (
+              <div>
+                <h3 class="mb-2 text-[12px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{d}</h3>
+                <div class="flex flex-wrap gap-2">
+                  {ys.map(([y, n]) => (
+                    <button type="button" data-set-filter="year" data-value={y} data-set-scope="circulars" class="pick rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2 text-left text-[13px] transition-colors hover:border-primary">
+                      <span class="font-semibold text-foreground">{y}</span> <span class="text-muted-foreground">{n}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id="panel-dept" role="tabpanel" aria-labelledby="tab-dept" class="pt-6" hidden>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {depts.map(([d, n]) => (
+              <button type="button" data-set-filter="dept" data-value={d} data-set-scope="circulars" class="pick rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-left transition-colors hover:border-primary">
+                <span class="flex items-baseline justify-between gap-3"><span class="font-semibold text-foreground">{d}</span><span class="text-[13px] text-muted-foreground">{n}</span></span>
+                <span class="mt-1 block text-[12px] text-muted-foreground">{DEPT_NOTE[d] ?? ''}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div id="panel-topic" role="tabpanel" aria-labelledby="tab-topic" class="pt-6" hidden>
+          <p class="mb-4 text-[13px] text-muted-foreground">The regulation-wise digest of circulars up to 2017, arranged by the subject of the regulation they explain.</p>
+          <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {topics.map(([t, n]) => (
+              <button type="button" data-set-filter="topic" data-value={t} data-set-scope="circulars" class="pick flex items-baseline justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left text-[13px] transition-colors hover:border-primary">
+                <span class="font-semibold text-foreground">{t}</span><span class="text-muted-foreground">{n}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-12 text-[12px] leading-relaxed text-muted-foreground/80">Sources: the official PDFs in this library — the Acts, Codes, Rules and Regulations as published in the Gazette, and the DGMS compilations "DGMS Circulars (up to June 2017)" and "DGMS Circulars 2018–2024", split into individual circulars, plus the circulars and notifications held as individual PDFs. Scanned pages were machine-read and may contain recognition errors; every result links to the official PDF, which is the authoritative text. A circular's "Department" is the issuing DGMS wing stated in its reference; older circulars that name none are marked "Not stated". Amendments made after a document's date may not be reflected; check the current text before relying on it.</p>
+    </div>
+  </section>
+
+  <style is:global>
+    .tab { margin-bottom: -1px; border-bottom: 2px solid transparent; padding: .6rem 1rem; font-size: 14px; font-weight: 600; color: hsl(var(--muted-foreground)); }
+    .tab:hover { color: hsl(var(--foreground)); }
+    .tab[aria-selected="true"] { color: hsl(var(--foreground)); border-color: hsl(var(--primary)); }
+    .scope { border-radius: .65rem; padding: .5rem .9rem; font-size: 13px; font-weight: 600; color: hsl(var(--muted-foreground)); }
+    .scope:hover { color: hsl(var(--foreground)); }
+    .scope[aria-checked="true"] { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+    #results mark { background: hsl(var(--primary) / .28); color: hsl(var(--foreground)); border-radius: 3px; padding: 0 2px; }
+    .chip-x { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid hsl(var(--primary) / .5); background: hsl(var(--primary) / .1); color: hsl(var(--foreground)); border-radius: 999px; padding: .3rem .75rem; font-size: 12px; font-weight: 600; }
+    .chip-x:hover { border-color: hsl(var(--primary)); }
+    .split-b { border: 1px solid hsl(0 0% 100% / .12); border-radius: 999px; padding: .25rem .7rem; font-size: 12px; font-weight: 600; color: hsl(var(--muted-foreground)); }
+    .split-b:hover { border-color: hsl(var(--primary)); color: hsl(var(--foreground)); }
+  </style>
+
+  <script>
+    import { KIND_CIRCULAR, KIND_STATUTE } from '../../lib/statutes';
+    type Hit = { data: () => Promise<any> };
+    type Res = { results: Hit[]; filters?: Record<string, Record<string, number>> } | null;
+    type PF = {
+      options: (o: object) => Promise<void>;
+      init: () => Promise<void>;
+      filters: () => Promise<unknown>;
+      search: (q: string | null, o?: object) => Promise<Res>;
+      debouncedSearch: (q: string | null, o?: object, ms?: number) => Promise<Res>;
+    };
+    type Scope = '' | 'statutes' | 'circulars';
+    const KINDS = { statutes: KIND_STATUTE, circulars: KIND_CIRCULAR } as const;
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const input = $<HTMLInputElement>('cq');
+    const wrap = $('results-wrap'), out = $('results'), status = $('status'), more = $<HTMLButtonElement>('more');
+    const browse = $('browse'), active = $('active'), split = $('split');
+    const selects = Array.from(document.querySelectorAll<HTMLSelectElement>('select[data-filter]'));
+    const sortSel = $<HTMLSelectElement>('f-sort');
+    const scopeBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('#scope [data-scope]'));
+    const LABEL: Record<string, string> = { instrument: 'Instrument', doc: 'Document', dept: 'Department', year: 'Year', collection: 'Collection', topic: 'Topic' };
+    const PAGE = 20;
+    let scope: Scope = '';
+    let pf: PF | null = null, hits: Hit[] = [], shown = 0, seq = 0;
+
+    function el(tag: string, cls: string, text?: string) {
+      const e = document.createElement(tag); e.className = cls; if (text != null) e.textContent = text; return e;
+    }
+    function link(cls: string, text: string, href: string) {
+      const a = el('a', cls, text) as HTMLAnchorElement; a.href = href; return a;
+    }
+
+    // ---- scope ---------------------------------------------------------------
+    function setScope(s: Scope) {
+      scope = s;
+      scopeBtns.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.scope === s)));
+      document.querySelectorAll<HTMLElement>('[data-scopes]').forEach((box) => {
+        const ok = box.dataset.scopes!.split(' ').includes(s || 'all');
+        box.hidden = !ok;
+        // A filter that doesn't apply in this scope would silently empty the results.
+        if (!ok) box.querySelectorAll('select').forEach((x) => { if (x !== sortSel) (x as HTMLSelectElement).value = ''; });
+      });
+    }
+
+    async function load() {
+      if (pf) return pf;
+      try {
+        const path = '/pagefind/pagefind.js';
+        pf = (await import(/* @vite-ignore */ path)) as PF;
+        // A whole Act is far longer than a circular; soften the length penalty so a
+        // statute that deals with a subject isn't outranked by every short note mentioning it.
+        await pf.options({ excerptLength: 34, ranking: { pageLength: 0.5 } });
+        await pf.init();
+        await pf.filters();                             // loads filter counts, so results report how they split by scope
+      } catch {
+        wrap.hidden = false;
+        status.textContent = 'Search is unavailable right now. Please try again shortly.';
+        pf = null;
+      }
+      return pf;
+    }
+
+    // ---- exact circular-number lookup ("2 of 2009", "02/2009", "Tech circular 2 of 2009")
+    type NumRow = { u: string; r: string; t: string; d: string; y: number | null; c: string; p: [number, number][] };
+    let numbers: NumRow[] | null = null;
+    const ROMAN: Record<string, number> = { i: 1, v: 5, x: 10, l: 50 };
+    const roman = (s: string) => [...s].reduce((n, ch, i) => { const v = ROMAN[ch], w = ROMAN[s[i + 1]] ?? 0; return n + (v < w ? -v : v); }, 0);
+    const WING_HINT: [RegExp, string][] = [
+      [/\b(?:legis|legislative)\b/i, 'Legislative'], [/\b(?:genl|general)\b/i, 'General'], [/\bapproval\b/i, 'Approval'],
+      [/\b(?:exam|examination)\b/i, 'Examination'], [/\b(?:oh|occupational)\b/i, 'Occupational Health'],
+      [/\belectrical\b/i, 'Electrical'], [/\b(?:tech|technical)\b/i, 'Technical'],
+    ];
+    function parseNumber(q: string) {
+      const m = q.match(/(?:^|[^\d])(\d{1,3}|[ivxl]{1,6})\s*(?:of|\/)\s*((?:19|20)\d{2})\b/i);
+      if (!m) return null;
+      const n = /^\d/.test(m[1]) ? parseInt(m[1], 10) : roman(m[1].toLowerCase());
+      const hint = WING_HINT.find(([re]) => re.test(q))?.[1] ?? '';
+      return n > 0 ? { n, y: parseInt(m[2], 10), hint } : null;
+    }
+    async function exactCirculars(q: string, f: Record<string, string>) {
+      const num = parseNumber(q);
+      if (!num || scope === 'statutes') return [] as NumRow[];
+      if (!numbers) {
+        try { numbers = await (await fetch('/regulations/circulars/numbers.json')).json(); } catch { numbers = []; }
+      }
+      return numbers!
+        .filter((r) => r.p.some(([n, y]) => n === num.n && y === num.y))
+        .filter((r) => (!f.dept || r.d === f.dept) && (!f.year || String(r.y) === f.year) && (!f.collection || r.c === f.collection))
+        .sort((a, b) => Number(b.d === num.hint) - Number(a.d === num.hint));
+    }
+    function circularMatchCard(r: NumRow) {
+      const li = el('li', 'rounded-2xl border border-primary/45 bg-primary/[0.06] p-5');
+      const top = el('div', 'flex flex-wrap items-center gap-2');
+      top.append(el('span', 'rounded-md bg-primary px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-foreground', r.r));
+      top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', r.d));
+      if (r.y) top.append(el('span', 'text-[12px] text-muted-foreground', String(r.y)));
+      top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-primary', 'Circular number match'));
+      li.append(top, link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', r.t, r.u), el('div', 'mt-2 text-[12px] text-muted-foreground/80', r.c));
+      return li;
+    }
+
+    // ---- provision lookup ("Regulation 78", "CMR 78", "Section 40 Mines Act", "rule 29") ----
+    type ProvIdx = { docs: { s: string; t: string; st: string; a: string[] }[]; p: [number, string, string, string, string][] };
+    type ProvHit = { doc: ProvIdx['docs'][number]; label: string; title: string; url: string };
+    let provIdx: ProvIdx | null = null;
+    // With no document named, a bare "Regulation N" means CMR 2017, "Rule N" the Mines Rules, "Section N" the Mines Act.
+    const DEFAULT_DOC: Record<string, string> = { regulation: 'coal-mines-regulations-2017', rule: 'mines-rules-1955', section: 'mines-act-1952' };
+    function parseProvision(q: string) {
+      const s = q.toLowerCase();
+      const m = s.match(/\b(reg(?:ulation)?s?|r|rules?|sec(?:tion)?s?|s|u\/s|para(?:graph)?)\.?\s*(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/)\s*(?:19|20)\d{2})/);
+      if (m) {
+        const w = m[1];
+        const noun = /^reg/.test(w) ? 'regulation' : /^(r|rules?)$/.test(w) ? 'rule' : /^(sec|s$|u\/s)/.test(w) ? 'section' : 'para';
+        return { noun, num: m[2], rest: s.replace(m[0], ' ') };
+      }
+      // "cmr 78", "mines act 40": a known short name followed by a number that isn't a year.
+      const b = s.match(/\b([a-z&][a-z& ]{1,40}?)\s+(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/))/);
+      return b ? { noun: '', num: b[2], rest: b[1] } : null;
+    }
+    async function exactProvisions(q: string, f: Record<string, string>): Promise<ProvHit[]> {
+      const pr = parseProvision(q);
+      if (!pr || scope === 'circulars') return [];
+      if (!provIdx) {
+        try { provIdx = await (await fetch('/regulations/search/provisions.json')).json(); } catch { provIdx = { docs: [], p: [] }; }
+      }
+      const rest = ` ${pr.rest.replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
+      // Documents the query names, by their usual short names or their title.
+      const named = new Set<number>();
+      provIdx!.docs.forEach((d, i) => {
+        if (d.a.some((a) => rest.includes(` ${a} `))) named.add(i);
+        if (f.doc && d.t === f.doc) named.add(i);
+      });
+      if (!pr.noun && !named.size) return [];          // "headgear 2" is not a provision lookup
+      const rows = provIdx!.p.filter(([i, n, label]) =>
+        n === pr.num && (named.size ? named.has(i) : true) && (!pr.noun || label.toLowerCase().startsWith(pr.noun)));
+      const def = DEFAULT_DOC[pr.noun];
+      rows.sort((a, b) => {
+        const da = provIdx!.docs[a[0]], db = provIdx!.docs[b[0]];
+        return Number(db.s === def) - Number(da.s === def) || Number(db.st === 'in_force') - Number(da.st === 'in_force');
+      });
+      return rows.slice(0, named.size ? 3 : 4).map(([i, , label, title, id]) => {
+        const doc = provIdx!.docs[i];
+        return { doc, label, title, url: `/regulations/${doc.s}/text#${id}` };
+      });
+    }
+    function provisionMatchCard(h: ProvHit) {
+      const li = el('li', 'rounded-2xl border border-primary/45 bg-primary/[0.06] p-5');
+      const top = el('div', 'flex flex-wrap items-center gap-2');
+      top.append(el('span', 'rounded-md bg-primary px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-foreground', h.label));
+      if (h.doc.st && h.doc.st !== 'in_force') top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', h.doc.st === 'draft' ? 'Draft' : 'Superseded'));
+      top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-primary', 'Provision match'));
+      li.append(top,
+        link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', h.title || h.label, h.url),
+        el('div', 'mt-2 text-[12px] text-muted-foreground/80', h.doc.t));
+      return li;
+    }
+    let exactUrls = new Set<string>();
+
+    // ---- results -------------------------------------------------------------
+    function filters() {
+      const f: Record<string, string> = {};
+      for (const s of selects) if (s.value && !s.closest<HTMLElement>('[data-scopes]')!.hidden) f[s.dataset.filter!] = s.value;
+      return f;
+    }
+
+    function circularCard(d: any, q: string) {
+      const li = el('li', 'rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-colors hover:border-primary/35');
+      const top = el('div', 'flex flex-wrap items-center gap-2');
+      if (d.meta?.ref) top.append(el('span', 'rounded-md bg-primary/15 px-2.5 py-1 font-mono text-[12px] font-semibold text-primary', d.meta.ref));
+      if (d.meta?.dept) top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', d.meta.dept));
+      const when = d.meta?.date || d.meta?.year;
+      if (when) top.append(el('span', 'text-[12px] text-muted-foreground', when));
+      if (scope === '') top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70', 'DGMS circular'));
+      const ex = el('p', 'mt-2 text-[14px] leading-relaxed text-muted-foreground');
+      if (q) ex.innerHTML = d.excerpt;                  // Pagefind's excerpt of our own page text, escaped, with <mark>
+      else ex.textContent = (d.content || '').replace(/\s+/g, ' ').slice(0, 240) + '…';
+      const foot = el('div', 'mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px]');
+      foot.append(el('span', 'text-muted-foreground/80', d.filters?.collection?.[0] || ''));
+      foot.append(link('font-semibold text-primary hover:underline', 'Read full text', d.url));
+      if (d.meta?.pdf) {
+        const p = link('font-semibold text-muted-foreground hover:text-primary', `PDF ${d.meta.pages || ''} ↗`, d.meta.pdf) as HTMLAnchorElement;
+        p.target = '_blank'; p.rel = 'noopener';
+        foot.append(p);
+      }
+      li.append(top, link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', d.meta?.title || 'Circular', d.url), ex, foot);
+      return li;
+    }
+
+    function statuteCard(d: any, q: string) {
+      const li = el('li', 'rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-colors hover:border-primary/35');
+      const top = el('div', 'flex flex-wrap items-center gap-2');
+      top.append(el('span', 'rounded-md bg-primary/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary', d.meta?.instrument || 'Regulation'));
+      if (d.meta?.status && d.meta.status !== 'In force') top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', d.meta.status));
+      if (d.meta?.year) top.append(el('span', 'text-[12px] text-muted-foreground', d.meta.year));
+      if (scope === '') top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-muted-foreground/70', 'Act / rules / regulations'));
+      li.append(top, link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', d.meta?.title || 'Document', d.url));
+      // The provisions inside the document that match, each linking to its anchor.
+      const subs = (d.sub_results || []).filter((s: any) => s.url !== d.url && s.url.includes('#'));
+      if (q && subs.length) {
+        const ul = el('ul', 'mt-3 flex flex-col gap-2.5 border-l-2 border-primary/30 pl-4');
+        for (const s of subs.slice(0, 3)) {
+          const it = el('li', '');
+          it.append(link('text-[14px] font-semibold text-foreground hover:text-primary', s.title, s.url));
+          const ex = el('p', 'mt-0.5 text-[13.5px] leading-relaxed text-muted-foreground'); ex.innerHTML = s.excerpt;
+          it.append(ex); ul.append(it);
+        }
+        li.append(ul);
+        if (subs.length > 3) {
+          const u = new URL('/regulations/search', location.origin);
+          u.searchParams.set('scope', 'statutes'); u.searchParams.set('doc', d.meta?.title || ''); u.searchParams.set('q', q);
+          li.append(link('mt-2 inline-block text-[12px] font-semibold text-primary hover:underline', `${subs.length - 3} more matching provision${subs.length - 3 === 1 ? '' : 's'} in this document →`, u.pathname + u.search));
+        }
+      } else {
+        const ex = el('p', 'mt-2 text-[14px] leading-relaxed text-muted-foreground');
+        if (q) ex.innerHTML = d.excerpt; else ex.textContent = (d.content || '').replace(/\s+/g, ' ').slice(0, 220) + '…';
+        li.append(ex);
+      }
+      const foot = el('div', 'mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px]');
+      foot.append(link('font-semibold text-primary hover:underline', 'Full text', d.url));
+      if (d.meta?.pdf) { const p = link('font-semibold text-muted-foreground hover:text-primary', 'PDF ↗', d.meta.pdf) as HTMLAnchorElement; p.target = '_blank'; p.rel = 'noopener'; foot.append(p); }
+      li.append(foot);
+      return li;
+    }
+
+    // "Search inside one document" — each matching provision is its own result.
+    function provisionCards(d: any) {
+      const subs = (d.sub_results || []).filter((s: any) => s.url.includes('#'));
+      return (subs.length ? subs : [{ title: d.meta?.title, url: d.url, excerpt: d.excerpt }]).map((s: any) => {
+        const li = el('li', 'rounded-2xl border border-white/10 bg-white/[0.035] p-5 transition-colors hover:border-primary/35');
+        li.append(link('block font-[var(--font-display)] text-[16px] font-semibold leading-snug text-foreground hover:text-primary', s.title, s.url));
+        const ex = el('p', 'mt-1.5 text-[14px] leading-relaxed text-muted-foreground'); ex.innerHTML = s.excerpt;
+        li.append(ex);
+        return li;
+      });
+    }
+
+    async function page() {
+      const my = seq;
+      const batch = await Promise.all(hits.slice(shown, shown + PAGE).map((h) => h.data()));
+      if (my !== seq) return;
+      const q = input.value.trim();
+      const oneDoc = !!filters().doc && !!q;
+      batch.forEach((d) => {
+        if (exactUrls.has(d.url.replace(/\/$/, ''))) return;
+        if (d.filters?.kind?.[0] === KINDS.statutes) {
+          if (oneDoc) provisionCards(d).forEach((c: HTMLElement) => out.append(c));
+          else out.append(statuteCard(d, q));
+        } else out.append(circularCard(d, q));
+      });
+      shown += batch.length;
+      more.hidden = shown >= hits.length;
+    }
+
+    function renderActive() {
+      active.replaceChildren();
+      for (const s of selects) if (s.value) {
+        const b = el('button', 'chip-x', `${LABEL[s.dataset.filter!]}: ${s.value}`) as HTMLButtonElement;
+        b.type = 'button'; b.setAttribute('aria-label', `Remove filter ${LABEL[s.dataset.filter!]}: ${s.value}`);
+        b.append(el('span', '', '×'));
+        b.addEventListener('click', () => { s.value = ''; run(); });
+        active.append(b);
+      }
+    }
+
+    function syncUrl() {
+      const u = new URL(location.href);
+      const q = input.value.trim();
+      ['q', 'scope', ...selects.map((s) => s.dataset.filter!), 'sort'].forEach((k) => u.searchParams.delete(k));
+      if (q) u.searchParams.set('q', q);
+      if (scope) u.searchParams.set('scope', scope);
+      for (const s of selects) if (s.value) u.searchParams.set(s.dataset.filter!, s.value);
+      if (sortSel.value) u.searchParams.set('sort', sortSel.value);
+      history.replaceState(null, '', u);
+    }
+
+    async function run() {
+      const q = input.value.trim();
+      const f = filters();
+      const my = ++seq;
+      renderActive(); syncUrl();
+      if (!q && !Object.keys(f).length) {
+        wrap.hidden = true; browse.hidden = false; out.replaceChildren(); more.hidden = true;
+        return;
+      }
+      browse.hidden = true; wrap.hidden = false;
+      const p = await load();
+      if (!p || my !== seq) return;
+      status.textContent = 'Searching…';
+      const pff: Record<string, string> = { ...f };
+      if (scope) pff.kind = KINDS[scope];
+      // With no words, list everything in the chosen filters, newest first unless told otherwise.
+      const sortDir = sortSel.value || (q ? '' : 'desc');
+      const opts: any = { filters: pff };
+      if (sortDir) opts.sort = { year: sortDir };
+      const [res, exC, exP] = await Promise.all([
+        q ? p.debouncedSearch(q, opts, 220) : p.search(null, opts),
+        q ? exactCirculars(q, f) : Promise.resolve([] as NumRow[]),
+        q ? exactProvisions(q, f) : Promise.resolve([] as ProvHit[]),
+      ]);
+      if (!res || my !== seq) return;
+      hits = res.results; shown = 0; out.replaceChildren();
+      exactUrls = new Set(exC.map((r) => r.u));
+      exP.forEach((h) => out.append(provisionMatchCard(h)));
+      exC.forEach((r) => out.append(circularMatchCard(r)));
+
+      // How the results split between the two scopes, as one-click switches.
+      split.replaceChildren();
+      const kc = res.filters?.kind;
+      if (!scope && q && kc) {
+        for (const [s, k] of [['statutes', KINDS.statutes], ['circulars', KINDS.circulars]] as const) {
+          const n = kc[k] ?? 0;
+          if (!n) continue;
+          const b = el('button', 'split-b', `${n.toLocaleString('en-IN')} in ${k}`) as HTMLButtonElement;
+          b.type = 'button'; b.addEventListener('click', () => { setScope(s); run(); });
+          split.append(b);
+        }
+      }
+
+      const n = hits.length.toLocaleString('en-IN');
+      const noun = scope === 'statutes' ? (f.doc ? 'matching document' : 'document') : scope === 'circulars' ? 'circular' : 'result';
+      const scopeTxt = Object.entries(f).map(([k, v]) => `${LABEL[k].toLowerCase()} ${v}`).join(', ');
+      const num = parseNumber(q);
+      const lead = [
+        exP.length ? `${exP.length} provision${exP.length === 1 ? '' : 's'} by number` : '',
+        exC.length ? `${exC.length} circular${exC.length === 1 ? '' : 's'} numbered ${num!.n} of ${num!.y}` : '',
+      ].filter(Boolean).join(' · ');
+      status.textContent = hits.length || exC.length || exP.length
+        ? `${lead ? lead + ' · ' : ''}${n} ${noun}${hits.length === 1 ? '' : 's'}${q ? ` containing “${q}”` : ''}${scopeTxt ? ` · ${scopeTxt}` : ''}`
+        : `Nothing${q ? ` contains “${q}”` : ''}${scopeTxt ? ` for ${scopeTxt}` : ''}. Try fewer words, another scope, or remove a filter.`;
+      await page();
+    }
+
+    input.addEventListener('input', run);
+    selects.forEach((s) => s.addEventListener('change', run));
+    sortSel.addEventListener('change', run);
+    more.addEventListener('click', page);
+    scopeBtns.forEach((b) => b.addEventListener('click', () => { setScope((b.dataset.scope || '') as Scope); run(); }));
+    $('clear').addEventListener('click', () => { input.value = ''; selects.forEach((s) => (s.value = '')); sortSel.value = ''; run(); input.focus(); });
+
+    // Browse tiles set a filter (and the circulars scope).
+    document.querySelectorAll<HTMLButtonElement>('[data-set-filter]').forEach((b) => b.addEventListener('click', () => {
+      if (b.dataset.setScope) setScope(b.dataset.setScope as Scope);
+      const s = selects.find((x) => x.dataset.filter === b.dataset.setFilter);
+      if (s) { s.value = b.dataset.value || ''; run(); wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }));
+
+    // Tabs (arrow keys move between them).
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    function selectTab(t: HTMLButtonElement) {
+      tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; $(x.getAttribute('aria-controls')!).hidden = !on; });
+    }
+    tabs.forEach((t, i) => {
+      t.tabIndex = i === 0 ? 0 : -1;
+      t.addEventListener('click', () => selectTab(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        selectTab(n); n.focus();
+      });
+    });
+
+    // "/" focuses the search box.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== input && !(e.target as HTMLElement).closest('input,select,textarea')) { e.preventDefault(); input.focus(); }
+    });
+
+    // Restore state from the URL (shareable searches; the hub's search box posts here).
+    const sp = new URLSearchParams(location.search);
+    const sc = sp.get('scope');
+    setScope(sc === 'statutes' || sc === 'circulars' ? sc : '');
+    if (scope === 'circulars') selectTab($('tab-year') as HTMLButtonElement);
+    input.value = sp.get('q') || '';
+    for (const s of selects) { const v = sp.get(s.dataset.filter!); if (v && [...s.options].some((o) => o.value === v)) s.value = v; }
+    sortSel.value = sp.get('sort') || '';
+    if (input.value || selects.some((s) => s.value)) run();
+    else input.focus({ preventScroll: true });
+  </script>
+</Site>

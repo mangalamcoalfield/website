@@ -1,6 +1,9 @@
 ---
 import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
+import RegNav from '../../components/RegNav.astro';
+import statutes from '../../data/statutes-corpus.json';
+import circulars from '../../data/circulars-corpus.json';
 import { safeSelect, type Regulation } from '../../lib/supabase';
 import draftWatch from '../../data/draft-watch.json';
 
@@ -42,6 +45,16 @@ const draftWatchItems = draftWatch.items;
 const reviewedOn = fmtD(draftWatch.reviewed);
 const dwBadge = (s: string) => s === 'Draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'Pending' || s === 'In transition' ? 'bg-[#e0b86a]/15 text-[#e0b86a]' : 'bg-primary/15 text-primary';
 
+// Sizes for the search box's promise ("search every word of …").
+const searchDocs = (statutes as { provisions: { num: string }[] }[]).length;
+const searchProvisions = (statutes as { provisions: { num: string }[] }[]).reduce((n, d) => n + d.provisions.filter((p) => p.num).length, 0);
+const searchCirculars = (circulars as unknown[]).length;
+const inr = (n: number) => n.toLocaleString('en-IN');
+const EXAMPLES = [
+  { q: 'Regulation 78', note: 'CMR 2017' }, { q: 'headgear', note: '' }, { q: 'Section 40 Mines Act', note: '' },
+  { q: '02 of 2009', note: 'circular no.' }, { q: '"gas testing"', note: '' },
+];
+
 const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -70,10 +83,41 @@ const breadcrumbLd = {
     title="Indian coal-mining regulations, in one place"
     accentWords={2}
     description="A free, curated library of the regulations, circulars and codes that govern Indian coal mining — each with a plain-language summary, the official source, and a download. Built to help the industry, not to sell."
-    primary={{ label: 'Browse the library', href: '#library' }}
+    primary={{ label: 'Search regulations & circulars', href: '/regulations/search' }}
+    secondary={{ label: 'Browse the library', href: '#library' }}
   />
 
-  <section class="relative bg-background pt-14 pb-2">
+  {/* Search first: one box over every Act, rule, regulation and DGMS circular. */}
+  <section class="relative bg-background pt-10">
+    <div class="mx-auto max-w-6xl px-6">
+      <RegNav active="library" class="mb-6" />
+      <form action="/regulations/search/" method="get" role="search" class="rounded-3xl border border-primary/25 bg-primary/[0.05] p-5 md:p-7">
+        <label for="hubq" class="block font-[var(--font-display)] text-xl font-semibold text-foreground md:text-2xl">Search every word of the regulations</label>
+        <p class="mt-1 text-sm text-muted-foreground">{inr(searchDocs)} Acts, rules &amp; regulations ({inr(searchProvisions)} provisions) and {inr(searchCirculars)} DGMS circulars, in full text.</p>
+        <div class="mt-4 flex flex-col gap-3 md:flex-row">
+          <div class="relative flex-1">
+            <svg class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="hubq" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. headgear · Regulation 78 · 02 of 2009"
+              class="w-full rounded-2xl border border-white/10 bg-[#0b120e] py-4 pl-12 pr-4 text-[16px] text-foreground placeholder:text-muted-foreground/70 focus:border-primary focus:outline-none" />
+          </div>
+          <select name="scope" aria-label="Search in" class="rounded-2xl border border-white/10 bg-[#0b120e] px-4 py-4 text-[14px] text-foreground focus:border-primary focus:outline-none md:w-60">
+            <option value="">Everything</option>
+            <option value="statutes">Acts, rules &amp; regulations</option>
+            <option value="circulars">DGMS circulars</option>
+          </select>
+          <button type="submit" class="rounded-2xl bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.02]">Search</button>
+        </div>
+        <div class="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground">
+          <span>Try</span>
+          {EXAMPLES.map((e) => (
+            <a href={`/regulations/search/?q=${encodeURIComponent(e.q)}`} class="rounded-full border border-white/12 px-3 py-1 font-semibold text-foreground/90 transition-colors hover:border-primary hover:text-primary">{e.q}{e.note && <span class="font-normal text-muted-foreground"> · {e.note}</span>}</a>
+          ))}
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="tracker" class="relative scroll-mt-24 bg-background pt-14 pb-2">
     <div class="mx-auto max-w-6xl px-6">
       <div class="grid gap-6 lg:grid-cols-2">
         <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
@@ -121,15 +165,8 @@ const breadcrumbLd = {
     </div>
   </section>
 
-  <section id="library" class="relative bg-background py-16">
+  <section id="library" class="relative scroll-mt-24 bg-background py-16">
     <div class="mx-auto max-w-6xl px-6">
-      <a href="/regulations/circulars" class="mb-12 flex items-center justify-between gap-4 rounded-2xl border border-primary/25 bg-primary/[0.06] p-6 transition-colors hover:border-primary/50">
-        <div>
-          <div class="font-[var(--font-display)] text-lg font-semibold text-foreground">Looking for an older DGMS circular?</div>
-          <p class="mt-1 text-sm text-muted-foreground">Search the Circular Finder — a catalogue of DGMS circulars &amp; notifications (1995–present) held in the consolidated compilations, indexed by number, year and subject.</p>
-        </div>
-        <span class="shrink-0 rounded-full bg-primary px-5 py-2.5 text-[13px] font-semibold text-primary-foreground">Open Circular Finder →</span>
-      </a>
 
       {featured.length > 0 && (
         <div id="featured-section" class="mb-14">
@@ -157,9 +194,9 @@ const breadcrumbLd = {
       <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div class="max-w-2xl">
           <h2 class="font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground md:text-3xl">The full library</h2>
-          <p class="mt-1 text-muted-foreground">Search {regs.length} regulations, circulars, notifications and codes across {cats.length} areas. Each entry links to its official source, with a hosted copy where available.</p>
+          <p class="mt-1 text-muted-foreground">Search {regs.length} regulations, circulars, notifications and codes across {cats.length} areas. Each entry links to its official source, with a hosted copy where available. To search inside the documents, use the <a href="/regulations/search" class="text-primary hover:underline">full-text search</a>.</p>
         </div>
-        <input id="regsearch" type="search" placeholder="Search the library…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-72" aria-label="Search regulations" />
+        <input id="regsearch" type="search" placeholder="Filter the list by title…" class="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none md:w-72" aria-label="Filter the library list by title" />
       </div>
 
       <div id="chips" class="mb-6 flex flex-wrap gap-2.5">
