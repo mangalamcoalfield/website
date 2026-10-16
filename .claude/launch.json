@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 4321
+    },
+    {
+      "name": "mangalam-built",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4322", "--bind", "127.0.0.1", "--directory", ".vercel/output/static"],
+      "port": 4322
     }
   ]
 }

@@ -21,6 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'src', 'data', 'circulars-corpus.json')
 PDF = {'upto2017': 'DGMS_Circulars_UptoJune2017_CIRCULARSNew_19092025.pdf',
        '2018_2024': 'DGMS_Circulars_2018-2024_06122024.pdf'}     # names as hosted on docs.mangalamcoal.com/regs/
+# Library entries carry their own absolute PDF URL instead.
 
 # Chapters of the Upto-June-2017 digest (from its contents page).
 CHAPTERS = [
@@ -97,7 +98,7 @@ def slugify(s, n=70):
 
 YEAR = re.compile(r'(?<!\d)(19[3-9]\d|20[0-2]\d)(?!\d)')
 
-HEADING_LINE = re.compile(r'^(?:(?:CMR|MMR|OMR)\s*[\d&/ ,A-Za-z\.\-]{0,40}|Note|Notes?:?|\d{1,4}|[\d\.\s]+)$')
+HEADING_LINE = re.compile(r'^(?:(?:CMR|MMR|OMR)\s*[\d&/ ,A-Za-z\.\-]{0,40}|Note|Notes?:?|\d{1,4}|[\d\.\s]+|Notes?\s*[—–:\-].{0,160})$')   # a trailing "Note—See circulars under ..." belongs to the previous entry
 
 def make_title(body, max_len=140):
     """Title = the first real line of the entry, minus regulation headings and
@@ -279,6 +280,96 @@ def by_contents(pages, set_key):
                         page=p0, page_end=p1, text=body))
     return out
 
+# ------------------------------------------------------------------ DGMS wing ("department")
+# DGMS labels each circular with the wing that issued it — "(Tech)", "(Legis)",
+# "(Genl)", "(Approval)", "(Exam)" … — in the reference itself. The technical wing's
+# sub-units (S&T, SOMA, MAMID, Sapicom) are reported as Technical. Older digest
+# references such as "Cir. 65/1963" name no wing; those stay "Not stated" rather
+# than being guessed.
+WINGS = [
+    ('Occupational Health', r'\bOH\b|occupational health|medical exam'),
+    ('Electrical', r'\bElect(?:rical)?\b'),
+    ('Examination', r'\bExam(?:ination)?s?\b|Board of Mining Exam'),
+    ('Approval', r'\bApproval\b'),
+    ('Legislative', r'\bLegi?s(?:lative)?\.?\b'),
+    ('General', r'\bGenl\.?\b|\bGeneral\b'),
+    ('Technical', r'\bTech(?:nical)?\.?\b|\bS\s*&\s*T\b|\bSOMA\b|\bMAMID\b|\bSapicom\b'),
+]
+def wing(e):
+    if e['kind'] == 'conference':
+        return 'Safety conference recommendations'
+    if e['kind'] == 'notification' or re.match(r'^(?:G\.?\s*S\.?\s*R|S\.?\s*O)\b', e['ref'] or ''):
+        return 'Gazette notifications'
+    full = e.get('full_title') or e['title']
+    if re.search(r'safety\s*alert', f"{e['ref']} {full}", re.I):
+        return 'Safety alerts'
+    if e['set'] == 'library':
+        # DGMS publications that sit in the library but are not circulars.
+        if re.search(r'Statistics of Mines|SANKET|Standard Note|Annual Report', full, re.I):
+            return 'Reports & statistics'
+        if re.search(r'\b(?:Rules|Regulations|Act)\b,?\s*(?:\(|19|20)', full) and not re.search(r'Circular', full, re.I):
+            return 'Rules & regulations'
+    if e['set'] == '2018_2024':                       # the contents page states the type
+        typ = e['section'].replace(' circulars', '')
+        typ = {'Exam': 'Examination', 'Genl.': 'General', 'Genl': 'General'}.get(typ, typ)
+        if re.search(r'\bOH\b', e['ref']):
+            return 'Occupational Health'
+        return typ
+    # The wing comes from the reference only — never the subject, or "OEM spares in
+    # approved electrical equipment" (a Technical circular) reads as Electrical.
+    for name, pat in WINGS:
+        if re.search(pat, e['ref'] or '', re.I):
+            return name
+    return 'Not stated'
+
+# ------------------------------------------------------------------ individual PDFs in the library
+def library(work):
+    """DGMS circulars and notifications held as individual PDFs in the regulations
+    library (tools/library_pages.py): everything after the 2018–24 compilation and
+    older ones DGMS never compiled. One entry per document, full text, linked to
+    its hosted copy and its library page."""
+    path = os.path.join(work, 'pages_library.json')
+    if not os.path.exists(path):
+        print('library: pages_library.json not found — skipping individual PDFs')
+        return []
+    docs = json.load(open(path, encoding='utf-8'))
+    seed = {r['slug']: r for r in json.load(open(os.path.join(ROOT, 'src', 'data', 'regulations-full-seed.json'), encoding='utf-8'))}
+    urls = {}
+    sql = os.path.join(ROOT, 'supabase', 'regulations_download_urls.sql')   # generated from the live DB
+    if os.path.exists(sql):
+        for m in re.finditer(r"download_url='([^']+)'[^;]*where slug='([^']+)'", open(sql, encoding='utf-8').read()):
+            urls[m.group(2)] = m.group(1)
+    out = []
+    for slug, pages in docs.items():
+        r = seed.get(slug)
+        if not r:
+            continue
+        # The two compilations are also listed in the library (under other file
+        # names); they are already split circular by circular, so skip the whole copies.
+        if re.search(r'DGMS Circulars .*(?:Compilation|Consolidated)', r['title'], re.I):
+            continue
+        body = clean('\n'.join(p['text'] for p in pages))
+        if len(body) < 80:
+            body = clean(r.get('summary') or '') or r['title']
+        date = r.get('issued_date') or ''
+        ys = YEAR.findall(date) or YEAR.findall(r['title'])
+        # Library titles are "<number> — <subject>"; when no document number is stored,
+        # the number is the part before the dash.
+        ref, title = r.get('doc_number') or '', r['title']
+        parts =re.split(r'\s+[—–-]\s+', title, maxsplit=1)
+        if len(parts) == 2 and re.search(r'\d', parts[0]) and len(parts[0]) <= 70:
+            if not ref:
+                ref = parts[0].strip()
+            title = parts[1].strip()
+        out.append(dict(set='library', kind='notification' if r['category'] == 'dgms_notification' else 'circular',
+                        ref=ref, title=title, date=date, full_title=r['title'],
+                        year=int(ys[0]) if ys else None,
+                        section='DGMS notifications' if r['category'] == 'dgms_notification' else 'DGMS circulars',
+                        regulation='', page=1, page_end=max(1, len(pages)), text=body,
+                        pdf=urls.get(slug) or r.get('source_url') or '', library_slug=slug,
+                        ocr_pages=[p['page'] for p in pages if p.get('ocr')]))
+    return out
+
 def main(work):
     up = json.load(open(os.path.join(work, 'pages_upto2017.json'), encoding='utf-8'))
     new = json.load(open(os.path.join(work, 'pages_2018_2024.json'), encoding='utf-8'))
@@ -290,12 +381,24 @@ def main(work):
     entries += digest(up, 541, 675, 'upto2017')
     entries += full_circulars(up, 676, 1340, 'upto2017')
     entries += by_contents(new, '2018_2024')
+    lib = library(work)
     # ids, OCR flags, file links
     seen = Counter()
     for e in entries:
         ocrset = ocr_up if e['set'] == 'upto2017' else ocr_new
         e['ocr'] = any(p in ocrset for p in range(e['page'], e['page_end'] + 1))
         e['pdf'] = PDF[e['set']]
+        e['library_slug'] = ''
+    for e in lib:
+        e['ocr'] = bool(e.pop('ocr_pages'))
+    entries += lib
+    for e in entries:
+        e['dept'] = wing(e)
+        # "DGMS (Tech) Circular No. 10" -> "... No. 10 of 2026": a circular number is
+        # only unique with its year.
+        if e['year'] and re.search(r'Circular', e['ref'] or '', re.I) and re.search(r'\d', e['ref']) \
+                and not YEAR.search(e['ref']):
+            e['ref'] = f"{e['ref'].rstrip(' .,')} of {e['year']}"
         base = slugify(f"{e['ref'] or e['title']} {e['title'] if e['ref'] else ''}")
         seen[base] += 1
         e['id'] = base if seen[base] == 1 else f'{base}-{seen[base]}'
@@ -303,6 +406,7 @@ def main(work):
     by = Counter((e['set'], e['kind']) for e in entries)
     print('entries:', len(entries), dict(by))
     print('with year:', sum(1 for e in entries if e['year']), '| OCR-derived:', sum(e['ocr'] for e in entries))
+    print('by department:', dict(Counter(e['dept'] for e in entries).most_common()))
     print('text chars:', sum(len(e['text']) for e in entries), '| file MB:', round(os.path.getsize(OUT) / 1e6, 2))
 
 if __name__ == '__main__':
