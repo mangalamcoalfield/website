@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { STATIC_CORPUS, type CorpusChunk } from '../../lib/bot-corpus';
 import { retrieve } from '../../lib/retrieval';
+import { findProvisions, namesProvision, type ProvisionIndex, type ProvisionMatch } from '../../lib/provision-lookup';
 import { safeSelect, type KnowledgeEntry, type Regulation } from '../../lib/supabase';
 
 // On-demand (serverless) — NOT prerendered. Runs server-side on Vercel so the
@@ -28,6 +29,7 @@ ALWAYS:
 - Make NO commitments on the company's behalf: no hiring/interview promises, no pricing or quotes, no guarantees, no timelines, no legal/financial/safety advice.
 - Never reveal or guess Mangalam's internal/confidential or site-specific data (specific gas readings, reserves, mine-plan economics, production schedules).
 - Be concise (2-5 sentences), calm and professional. Do not fabricate sources, URLs or numbers.
+- When a question names a specific provision (e.g. "Regulation 78", "Section 40", "Rule 29"), say what that provision covers ONLY from its text in CONTEXT, and name the instrument it is from. If its text is not in CONTEXT, say you don't have that provision's text and point to the full-text search at /regulations/search — never describe a numbered provision from memory.
 - For enquiries or job applications, point to the contact form (/contact) or careers page (/careers) — you do not capture leads yourself.`;
 
 // --- naive per-IP rate limiter (per warm instance) -------------------------
@@ -96,6 +98,37 @@ async function buildCorpusUncached(): Promise<CorpusChunk[]> {
       };
     });
   return [...STATIC_CORPUS, ...fromDb, ...fromRegs];
+}
+
+// --- provision lookup ------------------------------------------------------
+// A question that names a provision ("What does Regulation 78 cover?") is
+// answered from that provision's own text. Retrieval over summaries can't supply
+// it, and left to memory the model described Regulation 78 of CMR 2017 as
+// ventilation (it is winding equipment). Both files are static on our own
+// origin; the index is cached per warm instance.
+let provIndex: { at: number; idx: ProvisionIndex } | null = null;
+
+async function provisionContext(question: string, origin: string): Promise<{ text: string; match: ProvisionMatch }[]> {
+  if (!namesProvision(question)) return [];
+  try {
+    if (!provIndex || Date.now() - provIndex.at > CORPUS_TTL_MS) {
+      const r = await fetch(`${origin}/regulations/search/provisions.json`);
+      if (!r.ok) return [];
+      provIndex = { at: Date.now(), idx: await r.json() };
+    }
+    const matches = findProvisions(question, provIndex.idx).slice(0, 2);
+    const out: { text: string; match: ProvisionMatch }[] = [];
+    for (const m of matches) {
+      const r = await fetch(`${origin}/regulations/${m.slug}/provisions.json`);
+      if (!r.ok) continue;
+      const doc = (await r.json()) as { provisions: { id: string; text: string }[] };
+      const p = doc.provisions.find((x) => x.id === m.anchor);
+      if (p) out.push({ text: p.text.slice(0, 3500), match: m });
+    }
+    return out;
+  } catch {
+    return [];                                        // the bot still answers, just without the provision text
+  }
 }
 
 async function callGemini(question: string, context: string): Promise<string> {
@@ -183,18 +216,22 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (question.length > MAX_Q) question = question.slice(0, MAX_Q);
 
   try {
-    const corpus = await buildCorpus();
+    const [corpus, provs] = await Promise.all([buildCorpus(), provisionContext(question, new URL(request.url).origin)]);
     const found = retrieve(question, corpus);
-    const context =
-      found.top.length > 0
-        ? found.top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`).join('\n\n')
-        : '(no closely matching public content found)';
+    const provBlocks = provs.map(({ text, match: m }, i) =>
+      `[P${i + 1}] ${m.label}${m.title ? ` — ${m.title}` : ''}, ${m.docTitle}${m.status === 'draft' ? ' (DRAFT, not in force)' : m.status === 'superseded' ? ' (superseded)' : ''} (${m.url})\n${text}`);
+    const blocks = [...provBlocks, ...found.top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`)];
+    const context = blocks.length > 0 ? blocks.join('\n\n') : '(no closely matching public content found)';
 
     const answer = await callGemini(question, context);
 
     // Sources are chosen by what the answer actually says, not by what the
-    // question happened to match — see retrieval.ts.
-    const sources = found.cite(answer).map((c) => ({ title: c.title, source: c.source }));
+    // question happened to match — see retrieval.ts. A provision the question
+    // named is always cited: it is what the answer was built from.
+    const sources = [
+      ...provs.map(({ match: m }) => ({ title: `${m.label}${m.title ? ` — ${m.title}` : ''} (${m.docTitle})`, source: m.url })),
+      ...found.cite(answer).map((c) => ({ title: c.title, source: c.source })),
+    ].slice(0, 4);
     return json({ answer, sources });
   } catch (err) {
     console.error('[ask] error:', err);

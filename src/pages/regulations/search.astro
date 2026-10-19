@@ -272,6 +272,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
 
   <script>
     import { KIND_CIRCULAR, KIND_STATUTE } from '../../lib/statutes';
+    import { findProvisions, namesProvision, type ProvisionIndex, type ProvisionMatch } from '../../lib/provision-lookup';
     type Hit = { data: () => Promise<any> };
     type Res = { results: Hit[]; filters?: Record<string, Record<string, number>> } | null;
     type PF = {
@@ -372,58 +373,24 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
     }
 
     // ---- provision lookup ("Regulation 78", "CMR 78", "Section 40 Mines Act", "rule 29") ----
-    type ProvIdx = { docs: { s: string; t: string; st: string; a: string[] }[]; p: [number, string, string, string, string][] };
-    type ProvHit = { doc: ProvIdx['docs'][number]; label: string; title: string; url: string };
-    let provIdx: ProvIdx | null = null;
-    // With no document named, a bare "Regulation N" means CMR 2017, "Rule N" the Mines Rules, "Section N" the Mines Act.
-    const DEFAULT_DOC: Record<string, string> = { regulation: 'coal-mines-regulations-2017', rule: 'mines-rules-1955', section: 'mines-act-1952' };
-    function parseProvision(q: string) {
-      const s = q.toLowerCase();
-      const m = s.match(/\b(reg(?:ulation)?s?|r|rules?|sec(?:tion)?s?|s|u\/s|para(?:graph)?)\.?\s*(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/)\s*(?:19|20)\d{2})/);
-      if (m) {
-        const w = m[1];
-        const noun = /^reg/.test(w) ? 'regulation' : /^(r|rules?)$/.test(w) ? 'rule' : /^(sec|s$|u\/s)/.test(w) ? 'section' : 'para';
-        return { noun, num: m[2], rest: s.replace(m[0], ' ') };
-      }
-      // "cmr 78", "mines act 40": a known short name followed by a number that isn't a year.
-      const b = s.match(/\b([a-z&][a-z& ]{1,40}?)\s+(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/))/);
-      return b ? { noun: '', num: b[2], rest: b[1] } : null;
-    }
+    type ProvHit = ProvisionMatch;
+    let provIdx: ProvisionIndex | null = null;
     async function exactProvisions(q: string, f: Record<string, string>): Promise<ProvHit[]> {
-      const pr = parseProvision(q);
-      if (!pr || scope === 'circulars') return [];
+      if (scope === 'circulars' || !namesProvision(q)) return [];
       if (!provIdx) {
         try { provIdx = await (await fetch('/regulations/search/provisions.json')).json(); } catch { provIdx = { docs: [], p: [] }; }
       }
-      const rest = ` ${pr.rest.replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
-      // Documents the query names, by their usual short names or their title.
-      const named = new Set<number>();
-      provIdx!.docs.forEach((d, i) => {
-        if (d.a.some((a) => rest.includes(` ${a} `))) named.add(i);
-        if (f.doc && d.t === f.doc) named.add(i);
-      });
-      if (!pr.noun && !named.size) return [];          // "headgear 2" is not a provision lookup
-      const rows = provIdx!.p.filter(([i, n, label]) =>
-        n === pr.num && (named.size ? named.has(i) : true) && (!pr.noun || label.toLowerCase().startsWith(pr.noun)));
-      const def = DEFAULT_DOC[pr.noun];
-      rows.sort((a, b) => {
-        const da = provIdx!.docs[a[0]], db = provIdx!.docs[b[0]];
-        return Number(db.s === def) - Number(da.s === def) || Number(db.st === 'in_force') - Number(da.st === 'in_force');
-      });
-      return rows.slice(0, named.size ? 3 : 4).map(([i, , label, title, id]) => {
-        const doc = provIdx!.docs[i];
-        return { doc, label, title, url: `/regulations/${doc.s}/text#${id}` };
-      });
+      return findProvisions(q, provIdx!, f.doc || '');
     }
     function provisionMatchCard(h: ProvHit) {
       const li = el('li', 'rounded-2xl border border-primary/45 bg-primary/[0.06] p-5');
       const top = el('div', 'flex flex-wrap items-center gap-2');
       top.append(el('span', 'rounded-md bg-primary px-2.5 py-1 font-mono text-[12px] font-semibold text-primary-foreground', h.label));
-      if (h.doc.st && h.doc.st !== 'in_force') top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', h.doc.st === 'draft' ? 'Draft' : 'Superseded'));
+      if (h.status && h.status !== 'in_force') top.append(el('span', 'rounded-md border border-white/12 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground', h.status === 'draft' ? 'Draft' : 'Superseded'));
       top.append(el('span', 'ml-auto text-[11px] font-semibold uppercase tracking-wide text-primary', 'Provision match'));
       li.append(top,
         link('mt-2.5 block font-[var(--font-display)] text-[17px] font-semibold leading-snug text-foreground hover:text-primary', h.title || h.label, h.url),
-        el('div', 'mt-2 text-[12px] text-muted-foreground/80', h.doc.t));
+        el('div', 'mt-2 text-[12px] text-muted-foreground/80', h.docTitle));
       return li;
     }
     let exactUrls = new Set<string>();
