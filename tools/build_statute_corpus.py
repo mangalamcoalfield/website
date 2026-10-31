@@ -23,7 +23,7 @@ CATEGORY = {
 DEVANAGARI = re.compile(r'[ऀ-ॿ]')
 FOOTNOTE = re.compile(r'^(?:Subs(?:tituted)?|Omitted|Ins(?:erted)?|Renumbered|Added|Amended|See|Vide|Re-?numbered)\b|\bby\s+(?:G\.?S\.?R|S\.?O|Notification|Act)\b', re.I)
 DUPLICATES = {'cmr-2017-notification': 'coal-mines-regulations-2017'}
-HEAD = re.compile(r'^(\d{1,3})([A-Z]{0,2})\.\s+(.{3,})$')
+HEAD = re.compile(r'^(?:\d{0,2}\[)?(\d{1,3})([A-Z]{0,2})\.\s*(.{3,})$')   # "1[26. Suspension…": amendment brackets
 
 # Only instruments that are numbered throughout are split by provision; FAQs, forms,
 # standards, guidelines and short notifications are indexed by page instead.
@@ -156,6 +156,7 @@ def main(work):
     for slug, pages in docs.items():
         r = seed.get(slug)
         if not r or not pages:
+            print('skipped (not in seed or no pages):', slug)
             continue
         # Drafts and forwarded letters print officers' e-mail addresses (comment
         # addresses, distribution lists); the search pages don't need to republish them.
@@ -163,8 +164,9 @@ def main(work):
             p['text'] = re.sub(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+', '', p['text'])
         raw = '\n'.join(p['text'] for p in pages)
         dev = len(DEVANAGARI.findall(raw))
-        body = clean(english(raw))
+        body = clean(english(raw), keep_numbered=True)
         if len(body) < 80:
+            print('skipped (no readable text):', slug)
             continue
         provs = provisions(body) if STATUTE.search(r['title']) and not NOT_STATUTE.search(r['title']) else []
         if sum(1 for p in provs if p['num']) < 15:

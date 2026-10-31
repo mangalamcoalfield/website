@@ -36,6 +36,9 @@ ALWAYS:
 const hits = new Map<string, number[]>();
 function rateLimited(ip: string): boolean {
   const now = Date.now();
+  // A warm instance lives for hours; forget visitors whose window has passed so
+  // the map doesn't grow with every address it has ever seen.
+  if (hits.size > 5000) for (const [k, v] of hits) if (now - v[v.length - 1] >= RL_WINDOW_MS) hits.delete(k);
   const arr = (hits.get(ip) ?? []).filter((t) => now - t < RL_WINDOW_MS);
   arr.push(now);
   hits.set(ip, arr);
@@ -104,24 +107,33 @@ async function buildCorpusUncached(): Promise<CorpusChunk[]> {
 // A question that names a provision ("What does Regulation 78 cover?") is
 // answered from that provision's own text. Retrieval over summaries can't supply
 // it, and left to memory the model described Regulation 78 of CMR 2017 as
-// ventilation (it is winding equipment). Both files are static on our own
-// origin; the index is cached per warm instance.
+// ventilation (it is winding equipment). Both files are static on the public
+// site, fetched from a fixed origin (never one taken from the request), and cached
+// per warm instance.
+const SITE_ORIGIN = 'https://mangalamcoal.com';
 let provIndex: { at: number; idx: ProvisionIndex } | null = null;
+const provDocs = new Map<string, { at: number; doc: { provisions: { id: string; text: string }[] } }>();
 
-async function provisionContext(question: string, origin: string): Promise<{ text: string; match: ProvisionMatch }[]> {
+async function provisionContext(question: string): Promise<{ text: string; match: ProvisionMatch }[]> {
   if (!namesProvision(question)) return [];
   try {
     if (!provIndex || Date.now() - provIndex.at > CORPUS_TTL_MS) {
-      const r = await fetch(`${origin}/regulations/search/provisions.json`);
+      const r = await fetch(`${SITE_ORIGIN}/regulations/search/provisions.json`);
       if (!r.ok) return [];
       provIndex = { at: Date.now(), idx: await r.json() };
     }
     const matches = findProvisions(question, provIndex.idx).slice(0, 2);
     const out: { text: string; match: ProvisionMatch }[] = [];
     for (const m of matches) {
-      const r = await fetch(`${origin}/regulations/${m.slug}/provisions.json`);
-      if (!r.ok) continue;
-      const doc = (await r.json()) as { provisions: { id: string; text: string }[] };
+      let cached = provDocs.get(m.slug);
+      if (!cached || Date.now() - cached.at > CORPUS_TTL_MS) {
+        const r = await fetch(`${SITE_ORIGIN}/regulations/${m.slug}/provisions.json`);
+        if (!r.ok) continue;
+        cached = { at: Date.now(), doc: await r.json() };
+        if (provDocs.size > 12) provDocs.clear();       // a handful of instruments is all anyone asks about
+        provDocs.set(m.slug, cached);
+      }
+      const doc = cached.doc;
       const p = doc.provisions.find((x) => x.id === m.anchor);
       if (p) out.push({ text: p.text.slice(0, 3500), match: m });
     }
@@ -209,14 +221,17 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   // probe costs no model call, so exempting it is safe.
   if (body?.probe) return json({ ok: true });
 
-  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+  // Astro's clientAddress getter throws when the adapter can't determine an address,
+  // which would turn a missing header into a 500 before any fallback ran.
+  let ip = 'unknown';
+  try { ip = clientAddress || ip; } catch { ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || ip; }
   if (rateLimited(ip)) return json({ error: 'rate_limited' }, 429);
 
   if (!question) return json({ error: 'empty' }, 400);
   if (question.length > MAX_Q) question = question.slice(0, MAX_Q);
 
   try {
-    const [corpus, provs] = await Promise.all([buildCorpus(), provisionContext(question, new URL(request.url).origin)]);
+    const [corpus, provs] = await Promise.all([buildCorpus(), provisionContext(question)]);
     const found = retrieve(question, corpus);
     const provBlocks = provs.map(({ text, match: m }, i) =>
       `[P${i + 1}] ${m.label}${m.title ? ` — ${m.title}` : ''}, ${m.docTitle}${m.status === 'draft' ? ' (DRAFT, not in force)' : m.status === 'superseded' ? ' (superseded)' : ''} (${m.url})\n${text}`);

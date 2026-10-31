@@ -492,7 +492,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
 
     function renderActive() {
       active.replaceChildren();
-      for (const s of selects) if (s.value) {
+      for (const s of selects) if (s.value && !s.closest<HTMLElement>('[data-scopes]')!.hidden) {
         const b = el('button', 'chip-x', `${LABEL[s.dataset.filter!]}: ${s.value}`) as HTMLButtonElement;
         b.type = 'button'; b.setAttribute('aria-label', `Remove filter ${LABEL[s.dataset.filter!]}: ${s.value}`);
         b.append(el('span', '', '×'));
@@ -507,7 +507,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       ['q', 'scope', ...selects.map((s) => s.dataset.filter!), 'sort'].forEach((k) => u.searchParams.delete(k));
       if (q) u.searchParams.set('q', q);
       if (scope) u.searchParams.set('scope', scope);
-      for (const s of selects) if (s.value) u.searchParams.set(s.dataset.filter!, s.value);
+      for (const s of selects) if (s.value && !s.closest<HTMLElement>('[data-scopes]')!.hidden) u.searchParams.set(s.dataset.filter!, s.value);
       if (sortSel.value) u.searchParams.set('sort', sortSel.value);
       history.replaceState(null, '', u);
     }

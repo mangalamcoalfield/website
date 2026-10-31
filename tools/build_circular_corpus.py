@@ -56,20 +56,52 @@ def mojibake(line):
 # Circulars and drafts print officers' e-mail addresses (distribution lists,
 # comment addresses, some personal); the search pages don't republish them.
 EMAIL = re.compile(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)+')
+# The DGMS Standard Notes carry the whole officer directory with personal mobile
+# numbers. Only +91 numbers are removed: statistics tables are full of bare
+# 10-digit figures that are not phones.
+PHONE = re.compile(r'\+\s?91[\s-]?(?:\d{10}|\d{3,5}[\s-]\d{5,7})(?!\d)')
 
-def clean(text):
+# Hindi typed in the legacy Kruti Dev font extracts as Latin letters
+# ("midj.kksa ds vlko/kkuh", "Hkkx II — [k.M 1"). It reads as gibberish and pollutes
+# search, so it is dropped where a line has enough of it to be sure.
+KRUTI_WORDS = {'ds', 'dk', 'dh', 'vkSj', 'gS', 'gSa', 'esa', 'dks', 'fd', 'ls', 'Hkh', 'gks', 'tks', 'rFkk', 'fy,',
+               'djus', 'ij', 'us', 'bl', 'mu', 'ugha', 'fd;k', 'x;k', 'vFkok', 'izdkj', 'ljdkj', 'Hkkx', 'ubZ',
+               'fnYyh]', 'vlk/kkj.k', 'izkf/kdkj', 'izdkf\'kr', 'lañ', '¼\'kd½'}
+KRUTI_SHAPE = re.compile(r"[a-z][;/\[\]`~|¼½'.][a-z]|[a-z][A-Z]|[a-z]\]$|^[¼½\[]|[ñ¼½]")
+
+def kruti_token(t):
+    w = t.strip('.,()')
+    return w in KRUTI_WORDS or (len(w) > 1 and bool(KRUTI_SHAPE.search(w)) and not re.match(r'^(?:https?|www)', w))
+
+def strip_kruti(line):
+    toks = line.split()
+    flags = [kruti_token(t) for t in toks]
+    n = sum(flags)
+    if n < 3 or n / len(toks) < 0.25:
+        return line
+    return ' '.join(t for t, f in zip(toks, flags) if not f)
+
+def clean(text, keep_numbered=False):
+    """Tidy extracted page text into paragraphs. `keep_numbered` (statutes) also
+    starts a new paragraph at every "5." / "72A." provision number, so a provision
+    is never glued onto the end of the one before it."""
     out = []
-    text = EMAIL.sub('', text)
+    text = PHONE.sub('', EMAIL.sub('', text))
     for raw in text.split('\n'):
         line = PAGE_PREFIX.sub('', re.sub(r'\s+', ' ', raw).strip())
         if not line or FURNITURE.match(line) or mojibake(line):
             continue
+        kept = strip_kruti(line)
+        if kept != line and len(re.findall(r'[A-Za-z]{3,}', kept)) < 2:
+            continue                                      # the line was all Kruti Dev
+        line = kept
         out.append(line)
     # Re-join wrapped lines into paragraphs: a line ending without terminal punctuation
     # usually continues on the next one.
     paras, cur = [], ''
     for line in out:
-        if cur and not re.search(r'[.:;?!)\]]$', cur) and not re.match(r'^(?:\(?[ivx]+\)|\(?[a-z]\)|\d+[.)]|•|[-–])\s', line):
+        numbered = keep_numbered and re.match(r'^\d{1,3}[A-Z]{0,2}\.(?:\s|$)', line)
+        if cur and not numbered and not re.search(r'[.:;?!)\]]$', cur) and not re.match(r'^(?:\(?[ivx]+\)|\(?[a-z]\)|\d+[.)]|•|[-–])\s', line):
             cur += ' ' + line
         else:
             if cur:
@@ -104,6 +136,18 @@ def slugify(s, n=70):
 YEAR = re.compile(r'(?<!\d)(19[3-9]\d|20[0-2]\d)(?!\d)')
 
 HEADING_LINE = re.compile(r'^(?:(?:CMR|MMR|OMR)\s*[\d&/ ,A-Za-z\.\-]{0,40}|Note|Notes?:?|\d{1,4}|[\d\.\s]+|Notes?\s*[—–:\-].{0,160})$')   # a trailing "Note—See circulars under ..." belongs to the previous entry
+
+def tidy_title(t, limit=110):
+    """Display title: no leading punctuation, and no run-on into the circular's
+    first sentence ("Calibration of Methanometers—It is recommended that…").
+    Applied after the page id is fixed, so URLs don't change."""
+    t = re.sub(r'^[\s.,;:–—\-]+', '', t).strip()
+    if len(t) <= limit:
+        return t
+    m = re.search(r'\s*[—–]\s*|\.\s+(?=[A-Z])|;\s', t[15:])
+    if m and 15 + m.start() <= limit + 30:
+        return t[:15 + m.start()].strip(' .:;,')
+    return t[:limit].rsplit(' ', 1)[0].rstrip(' .,;:') + '…'
 
 def make_title(body, max_len=140):
     """Title = the first real line of the entry, minus regulation headings and
@@ -407,6 +451,7 @@ def main(work):
         base = slugify(f"{e['ref'] or e['title']} {e['title'] if e['ref'] else ''}")
         seen[base] += 1
         e['id'] = base if seen[base] == 1 else f'{base}-{seen[base]}'
+        e['title'] = tidy_title(e['title'])
     json.dump(entries, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     by = Counter((e['set'], e['kind']) for e in entries)
     print('entries:', len(entries), dict(by))

@@ -20,6 +20,9 @@ const collection = collectionOf(c);
 const paras = c.text.split('\n').filter(Boolean);
 const pages = isLib ? `${c.page_end} p.` : c.page_end > c.page ? `pp. ${c.page}–${c.page_end}` : `p. ${c.page}`;
 const heading = c.title || c.ref;
+// Many approval circulars share a subject ("Coal mining equipment approval"); the
+// reference keeps each page title unique.
+const pageTitle = c.ref && !heading.includes(c.ref) ? `${c.ref} — ${heading}` : `${heading} — DGMS circular`;
 const variants = searchVariants(`${c.title} ${c.text}`);
 const description = `${c.ref ? c.ref + ' — ' : ''}${heading}. Full text of the DGMS ${c.kind === 'notification' ? 'notification' : 'circular'}${c.year ? ` (${c.year})` : ''}, from the official DGMS ${isLib ? 'document' : 'compilation'}.`.slice(0, 300);
 
@@ -33,7 +36,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Site title={`${heading} — DGMS circular`} description={description} jsonLd={breadcrumbLd}>
+<Site title={pageTitle} description={description} jsonLd={breadcrumbLd}>
   <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
       <RegNav active="circulars" class="mb-8" />

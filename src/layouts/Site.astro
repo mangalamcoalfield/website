@@ -72,7 +72,8 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
-  {ldArray.map((obj) => (<script type="application/ld+json" set:html={JSON.stringify(obj)} />))}
+  {/* Titles come from OCR'd PDFs; escape '<' so no string can close the script tag. */}
+  {ldArray.map((obj) => (<script type="application/ld+json" set:html={JSON.stringify(obj).replace(/</g, '\\u003c')} />))}
   {GA_ID && (
     <Fragment>
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>

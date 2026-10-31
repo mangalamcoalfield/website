@@ -31,6 +31,10 @@ const catLabel = CAT[reg.category] || reg.category;
 // page (Acts, rules, regulations — or the copy it duplicates), or its circular page.
 const st = (statutes as { slug: string; also?: string[] }[]).find((d) => d.slug === reg.slug || d.also?.includes(reg.slug));
 const circ = (circulars as { id: string; library_slug: string }[]).find((c) => c.library_slug === reg.slug);
+// Led by the title so documents that share a summary (e.g. 29 approval circulars)
+// still get distinct descriptions; kept under 300 characters.
+const metaRaw = reg.summary ? `${reg.title}: ${reg.summary}` : `${reg.title}: official Indian coal-mining regulation — summary, source and download.`;
+const metaDescription = metaRaw.length <= 300 ? metaRaw : metaRaw.slice(0, 297).replace(/\s+\S*$/, '') + '…';
 const fullText = st ? `/regulations/${st.slug}/text` : circ ? `/regulations/circulars/${circ.id}` : null;
 const statusLabel = reg.status === 'in_force' ? 'In force' : reg.status === 'draft' ? 'Draft — not in force' : 'Superseded';
 
@@ -57,7 +61,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Site title={`${reg.title} — Regulation`} description={reg.summary || `${reg.title}: official Indian coal-mining regulation — summary, source and download.`} jsonLd={[legislationLd, breadcrumbLd]}>
+<Site title={`${reg.title} — Regulation`} description={metaDescription} jsonLd={[legislationLd, breadcrumbLd]}>
   <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
       <RegNav active="library" class="mb-8" />

@@ -37,17 +37,23 @@ const DEFAULT_DOC: Record<string, string> = { regulation: 'coal-mines-regulation
 export type ProvisionIndex = { docs: { s: string; t: string; st: string; a: string[] }[]; p: [number, string, string, string, string][] };
 export type ProvisionMatch = { slug: string; docTitle: string; status: string; label: string; title: string; anchor: string; url: string };
 
+// The noun must stand alone: not "Mangalam's 3 projects" (a possessive 's'), and a
+// one-letter abbreviation only with its full stop ("r. 29", "s. 40").
+const NOUN = /(?<![\w'’])(regulations?|regs?\.?|rules?|r\.|sections?|secs?\.?|s\.|u\/s|paragraphs?|paras?)\s*(\d{1,3}[a-z]{0,2})\b(?:\s*(?:of|\/)\s*((?:19|20)\d{2})\b)?/;
+
 function parse(q: string) {
   const s = q.toLowerCase();
-  const m = s.match(/\b(reg(?:ulation)?s?|r|rules?|sec(?:tion)?s?|s|u\/s|para(?:graph)?)\.?\s*(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/)\s*(?:19|20)\d{2})/);
+  const m = s.match(NOUN);
   if (m) {
     const w = m[1];
-    const noun = /^reg/.test(w) ? 'regulation' : /^(r|rules?)$/.test(w) ? 'rule' : /^(sec|s$|u\/s)/.test(w) ? 'section' : 'para';
-    return { noun, num: m[2], rest: s.replace(m[0], ' ') };
+    const noun = /^reg/.test(w) ? 'regulation' : /^r/.test(w) ? 'rule' : /^(sec|s\.|u\/s)/.test(w) ? 'section' : 'para';
+    // "Regulation 78 of 2017" names the instrument's year, not a circular number.
+    return { noun, num: m[2], year: m[3] ?? '' };
   }
-  // "cmr 78", "mines act 40": a known short name followed by a number that isn't a year.
-  const b = s.match(/\b([a-z&][a-z& ]{1,40}?)\s+(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/))/);
-  return b ? { noun: '', num: b[2], rest: b[1] } : null;
+  // "cmr 78", "mines act 40": a known short name followed by a number that isn't a year
+  // (whether a short name was really given is checked against the index).
+  const b = s.match(/\b[a-z&][a-z& ]{1,40}?\s+(\d{1,3}[a-z]{0,2})\b(?!\s*(?:of|\/))/);
+  return b ? { noun: '', num: b[1], year: '' } : null;
 }
 
 /** Whether a query looks like it names a provision (cheap; no index needed). */
@@ -61,13 +67,19 @@ export const namesProvision = (q: string) => parse(q) !== null;
 export function findProvisions(q: string, idx: ProvisionIndex, docTitle = ''): ProvisionMatch[] {
   const pr = parse(q);
   if (!pr) return [];
-  const rest = ` ${pr.rest.replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
-  const named = new Set<number>();
-  idx.docs.forEach((d, i) => {
-    if (d.a.some((a) => rest.includes(` ${a} `))) named.add(i);
-    if (docTitle && d.t === docTitle) named.add(i);
-  });
+  // Short names are matched against the whole query ("mines rules 29" — the noun is
+  // part of the name), and a longer name beats one it contains ("cmr 1957" over "cmr").
+  const text = ` ${q.toLowerCase().replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
+  const hits: { i: number; a: string }[] = [];
+  idx.docs.forEach((d, i) => d.a.forEach((a) => { if (text.includes(` ${a} `)) hits.push({ i, a }); }));
+  const named = new Set<number>(
+    hits.filter((h) => !hits.some((o) => o.i !== h.i && o.a.length > h.a.length && o.a.includes(h.a))).map((h) => h.i));
+  if (docTitle) idx.docs.forEach((d, i) => { if (d.t === docTitle) named.add(i); });
   if (!pr.noun && !named.size) return [];
+  // "Regulation 78 of 2017": keep to instruments of that year when any has the provision.
+  if (pr.year && !named.size) {
+    idx.docs.forEach((d, i) => { if (d.t.includes(pr.year)) named.add(i); });
+  }
   const rows = idx.p.filter(([i, n, label]) =>
     n === pr.num && (named.size ? named.has(i) : true) && (!pr.noun || label.toLowerCase().startsWith(pr.noun)));
   const def = DEFAULT_DOC[pr.noun];
