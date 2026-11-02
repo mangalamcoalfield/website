@@ -65,7 +65,8 @@ select cron.schedule('mangalam-application-digest', '0 3 * * *', $job$
     url     := 'https://cxxocuprqztejsxqznye.supabase.co/functions/v1/application-digest',
     headers := jsonb_build_object('Content-Type','application/json',
                  'x-webhook-secret', coalesce((select decrypted_secret from vault.decrypted_secrets where name='webhook_secret' limit 1),'')),
-    body    := '{}'::jsonb
+    body    := '{}'::jsonb,
+    timeout_milliseconds := 60000
   );
 $job$);
 
@@ -74,7 +75,8 @@ select cron.schedule('mangalam-resume-retention', '30 3 * * *', $job$
     url     := 'https://cxxocuprqztejsxqznye.supabase.co/functions/v1/resume-retention',
     headers := jsonb_build_object('Content-Type','application/json',
                  'x-webhook-secret', coalesce((select decrypted_secret from vault.decrypted_secrets where name='webhook_secret' limit 1),'')),
-    body    := '{}'::jsonb
+    body    := '{}'::jsonb,
+    timeout_milliseconds := 60000
   );
 $job$);
 
