@@ -2,28 +2,30 @@
 // The regulation desk's own tab bar, on every regulations page, so search, the
 // library and the circulars are each one click from anywhere in the section
 // (the Circular Finder used to sit three levels down, behind a card).
-interface Props { active: 'search' | 'library' | 'circulars' | 'changes' | null; class?: string }
-const { active, class: cls = '' } = Astro.props;
+interface Props { active: 'search' | 'library' | 'circulars' | 'changes' | null; class?: string; lang?: 'en' | 'hi' }
+const { active, class: cls = '', lang = 'en' } = Astro.props;
+const hi = lang === 'hi';
+// The search has a Hindi interface; the library and Draft-Watch are English-only.
 const TABS = [
-  { key: 'search', label: 'Search', href: '/regulations/search' },
-  { key: 'library', label: 'Library', href: '/regulations#library' },
-  { key: 'circulars', label: 'DGMS circulars', href: '/regulations/search?scope=circulars' },
-  { key: 'changes', label: 'Latest & Draft-Watch', href: '/regulations#tracker' },
+  { key: 'search', label: hi ? 'खोज' : 'Search', href: hi ? '/hi/regulations/search' : '/regulations/search' },
+  { key: 'library', label: hi ? 'पुस्तकालय' : 'Library', href: '/regulations#library' },
+  { key: 'circulars', label: hi ? 'डीजीएमएस परिपत्र' : 'DGMS circulars', href: hi ? '/hi/regulations/search?scope=circulars' : '/regulations/search?scope=circulars' },
+  { key: 'changes', label: hi ? 'नवीनतम व ड्राफ़्ट-वॉच' : 'Latest & Draft-Watch', href: '/regulations#tracker' },
 ] as const;
 ---
-<nav aria-label="Regulation desk" class={`regnav ${cls}`}>
+<nav aria-label={hi ? 'विनियम डेस्क' : 'Regulation desk'} class={`regnav ${cls}`}>
   {/* The desk's own name and short address (regs.mangalamcoal.com serves these same pages). */}
   <p class="mb-2 flex flex-wrap items-baseline gap-x-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-primary">
-    Mangalam Regulation Desk <a href="https://regs.mangalamcoal.com" class="normal-case tracking-normal text-muted-foreground hover:text-primary">regs.mangalamcoal.com</a>
+    {hi ? 'मंगलम विनियम डेस्क' : 'Mangalam Regulation Desk'} <a href="https://regs.mangalamcoal.com" class="normal-case tracking-normal text-muted-foreground hover:text-primary">regs.mangalamcoal.com</a>
     <span class="ml-auto flex gap-3 normal-case tracking-normal">
-      <a href="/regulations/feed.xml" class="text-muted-foreground hover:text-primary" title="New documents as an RSS feed">RSS: new documents</a>
-      <a href="/regulations/draft-watch.xml" class="text-muted-foreground hover:text-primary" title="Draft-Watch as an RSS feed">RSS: Draft-Watch</a>
+      <a href="/regulations/feed.xml" class="text-muted-foreground hover:text-primary" title="New documents as an RSS feed">{hi ? 'RSS: नए दस्तावेज़' : 'RSS: new documents'}</a>
+      <a href="/regulations/draft-watch.xml" class="text-muted-foreground hover:text-primary" title="Draft-Watch as an RSS feed">{hi ? 'RSS: ड्राफ़्ट-वॉच' : 'RSS: Draft-Watch'}</a>
     </span>
   </p>
   <ul class="flex gap-1 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] p-1 backdrop-blur-sm [scrollbar-width:none]">
     {TABS.map((t) => (
       <li class="shrink-0">
-        <a href={t.href} aria-current={active === t.key ? 'page' : undefined}
+        <a href={t.href} data-tab={t.key} aria-current={active === t.key ? 'page' : undefined}
           class={`flex items-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-[13px] font-semibold transition-colors ${active === t.key ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-white/[0.05] hover:text-foreground'}`}>
           {t.key === 'search' && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>}
           {t.label}

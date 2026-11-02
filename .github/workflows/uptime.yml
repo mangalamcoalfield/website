@@ -1,5 +1,6 @@
-# Checks the live site every 30 minutes from GitHub's servers. A failed run is
-# e-mailed to the repository's watchers (GitHub's default for failed scheduled runs).
+# Checks the live site every 30 minutes from GitHub's servers. GitHub e-mails a
+# failed scheduled run to the person who last changed this workflow's schedule
+# (if their notification settings allow Actions e-mails).
 name: uptime
 on:
   schedule:

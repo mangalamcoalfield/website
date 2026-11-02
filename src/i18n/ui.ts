@@ -2,10 +2,11 @@
 // machine translation of the whole site: the document-heavy sections (the
 // regulations library, the Learn explainers, the press page) stay in English
 // because their source material is English, and the nav links straight to them.
+// The Regulation Desk search has a Hindi interface over the same English texts.
 export type Lang = 'en' | 'hi';
 
 /** Pages that exist in both languages. '' is the home page. */
-export const TRANSLATED = ['', 'about', 'operations', 'safety', 'cares', 'careers', 'contact'] as const;
+export const TRANSLATED = ['', 'about', 'operations', 'safety', 'cares', 'careers', 'contact', 'regulations/search'] as const;
 
 export const detectLang = (pathname: string): Lang =>
   pathname === '/hi' || pathname.startsWith('/hi/') ? 'hi' : 'en';
@@ -46,7 +47,7 @@ export const NAV: Record<Lang, { href: string; label: string }[]> = {
     { href: '/hi/operations', label: 'संचालन' },
     { href: '/hi/safety', label: 'सुरक्षा' },
     { href: '/learn', label: 'जानकारी' },
-    { href: '/regulations', label: 'विनियम' },
+    { href: '/hi/regulations/search', label: 'विनियम' },
     { href: '/hi/cares', label: 'मंगलम केयर्स' },
     { href: '/news', label: 'समाचार' },
     { href: '/hi/careers', label: 'करियर' },
