@@ -58,6 +58,7 @@ def mojibake(line):
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pii import scrub
 import gazette          # Gazette running headers inside the text
+import ocr_quality
 
 # Hindi typed in the legacy Kruti Dev font extracts as Latin letters
 # ("midj.kksa ds vlko/kkuh", "Hkkx II — [k.M 1"). It reads as gibberish and pollutes
@@ -495,6 +496,7 @@ def main(work):
             e['ref'] = f"{e['ref'].rstrip(' .,')} of {e['year']}"
         e['title'] = tidy_title(e['title'])
     assign_ids(entries)
+    ocr_quality.annotate(entries)
     json.dump(entries, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     by = Counter((e['set'], e['kind']) for e in entries)
     print('entries:', len(entries), dict(by))

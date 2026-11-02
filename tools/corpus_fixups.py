@@ -19,6 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 from pii import scrub
 import gazette
+import ocr_quality
 import build_statute_corpus as S
 
 DATA = os.path.join(ROOT, 'src', 'data')
@@ -42,6 +43,7 @@ def circulars():
                 t = gazette.strip(scrub(e[k])) if k == 'text' else scrub(e[k])
                 changed += t != e[k]
                 e[k] = t
+    ocr_quality.annotate(entries)
     save('circulars-corpus.json', entries)
     print(f'circulars: {len(entries)} entries, {changed} fields scrubbed')
 

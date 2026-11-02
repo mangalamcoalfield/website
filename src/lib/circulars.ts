@@ -21,6 +21,8 @@ export interface CircularEntry {
   /** Library entries: the original library title (number — subject). */
   full_title?: string;
   ocr: boolean;
+  /** OCR entries: share of words that are real words (tools/ocr_quality.py); under 0.6 is a garbled scan. */
+  ocr_quality?: number;
   text: string;
 }
 

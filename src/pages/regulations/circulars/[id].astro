@@ -31,6 +31,8 @@ const isLib = c.set === 'library';
 const pdfUrl = /^https?:/.test(c.pdf) ? c.pdf : `${DOCS_BASE}/${c.pdf}#page=${c.page}`;
 const collection = collectionOf(c);
 const paras = c.text.split('\n').filter(Boolean);
+// A scan the OCR read badly (tools/ocr_quality.py): warn, and keep its text out of the search index.
+const poorScan = c.ocr && (c.ocr_quality ?? 1) < 0.6;
 const pages = isLib ? `${c.page_end} p.` : c.page_end > c.page ? `pp. ${c.page}–${c.page_end}` : `p. ${c.page}`;
 // Some corpus titles are a run-on first sentence; the page heading keeps it whole,
 // but the <title> is cut at a word near 70 characters.
@@ -103,10 +105,12 @@ const breadcrumbLd = {
               : <div class="text-sm text-muted-foreground">In the {c.set === '2018_2024' ? 'DGMS Circulars 2018–2024' : 'DGMS Circulars (up to June 2017)'} compilation, {pages}.</div>}
             {pdfUrl && <a href={pdfUrl} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]">{isLib ? 'Open PDF' : `Open PDF at page ${c.page}`}</a>}
           </div>
-          {c.ocr && <p class="mt-4 text-[12px] leading-relaxed text-[#e0b86a]">Part of this text was machine-read from a scanned page and may contain recognition errors. Check the original page before relying on it.</p>}
+          {poorScan
+            ? <p class="mt-4 rounded-xl border border-[#e0b86a]/40 bg-[#e0b86a]/10 px-3 py-2 text-[13px] leading-relaxed text-[#e9cf98]"><span class="font-semibold">Poor scan.</span> The machine-read text below is largely unreadable (tables and stamps on a faint scan). Read the PDF instead; only the reference and title are searchable.</p>
+            : c.ocr && <p class="mt-4 text-[12px] leading-relaxed text-[#e0b86a]">Part of this text was machine-read from a scanned page and may contain recognition errors. Check the original page before relying on it.</p>}
         </div>
 
-        <div class="mt-8 space-y-4 text-[15px] leading-7 text-muted-foreground [overflow-wrap:anywhere]">
+        <div class={`mt-8 space-y-4 text-[15px] leading-7 text-muted-foreground [overflow-wrap:anywhere] ${poorScan ? 'opacity-60' : ''}`} data-pagefind-ignore={poorScan ? '' : undefined}>
           {paras.map((p) => <p>{p}</p>)}
         </div>
         {/* Other spellings of words this circular uses (e.g. "head gear" -> "headgear"), for search only. */}
