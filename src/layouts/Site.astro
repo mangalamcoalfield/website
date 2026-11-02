@@ -24,7 +24,8 @@ interface Props {
 const { title, description = SITE.description, jsonLd, noindex = false, canonicalPath } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} — Mine Developer & Operator`;
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
-const ogImage = new URL('/og.png', Astro.site ?? Astro.url.origin).href;
+// The Regulation Desk shares with its own card.
+const ogImage = new URL(Astro.url.pathname.startsWith('/regulations') ? '/og-regs.png' : '/og.png', Astro.site ?? Astro.url.origin).href;
 const GA_ID = import.meta.env.PUBLIC_GA_ID as string | undefined; // set to activate GA4
 const ldArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 // JSON-LD goes into a <script> raw, and it carries titles from the circular corpus;
@@ -59,6 +60,8 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   {/* x-default is the English page: it is the complete version, and the Hindi
       site covers only the main marketing pages. */}
   {translated && <link rel="alternate" hreflang="x-default" href={lang === "hi" ? altCanonical : canonical} />}
+  {path.startsWith('/regulations') && <link rel="alternate" type="application/rss+xml" title="Mangalam Regulation Desk — new documents" href="/regulations/feed.xml" />}
+  {path.startsWith('/regulations') && <link rel="alternate" type="application/rss+xml" title="Mangalam Regulation Desk — Draft-Watch" href="/regulations/draft-watch.xml" />}
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -24,6 +24,26 @@ const variants = searchVariants(d.provisions.map((p) => p.text).join(' '));
 const paras = (t: string) => t.split('\n').filter(Boolean);
 const description = `Full text of ${d.title}${numbered ? `, ${numbered} ${unit}s` : ''} — searchable, with a link to each provision and the official PDF.`.slice(0, 300);
 
+// schema.org's legal-force values, for the structured data search engines read.
+const legalForce = (s: string) => s === 'in_force' ? 'https://schema.org/InForce' : s ? 'https://schema.org/NotInForce' : undefined;
+// The full text as Legislation, with each numbered provision as a part linked to its anchor.
+const legislationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Legislation',
+  name: d.title,
+  legislationType: d.category_label,
+  ...(d.doc_number ? { legislationIdentifier: d.doc_number } : {}),
+  ...(d.date ? { legislationDate: d.date } : {}),
+  legislationJurisdiction: 'India',
+  ...(legalForce(d.status) ? { legislationLegalForce: legalForce(d.status) } : {}),
+  inLanguage: 'en',
+  url: `https://mangalamcoal.com/regulations/${d.slug}/text`,
+  mainEntityOfPage: `https://mangalamcoal.com/regulations/${d.slug}`,
+  ...(numbered ? { hasPart: d.provisions.filter((p) => p.num).map((p) => ({
+    '@type': 'Legislation', name: provisionHeading(p), url: `https://mangalamcoal.com/regulations/${d.slug}/text#${p.id}`,
+  })) } : {}),
+  isPartOf: { '@type': 'CollectionPage', name: 'Mangalam Regulation Desk', url: 'https://mangalamcoal.com/regulations' },
+};
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
   itemListElement: [
@@ -34,7 +54,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Site title={`${d.title} — full text`} description={description} jsonLd={breadcrumbLd}>
+<Site title={`${d.title} — full text`} description={description} jsonLd={[legislationLd, breadcrumbLd]}>
   <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-6xl">
       <RegNav active={null} class="mb-8" />

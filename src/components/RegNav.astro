@@ -15,6 +15,10 @@ const TABS = [
   {/* The desk's own name and short address (regs.mangalamcoal.com serves these same pages). */}
   <p class="mb-2 flex flex-wrap items-baseline gap-x-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-primary">
     Mangalam Regulation Desk <a href="https://regs.mangalamcoal.com" class="normal-case tracking-normal text-muted-foreground hover:text-primary">regs.mangalamcoal.com</a>
+    <span class="ml-auto flex gap-3 normal-case tracking-normal">
+      <a href="/regulations/feed.xml" class="text-muted-foreground hover:text-primary" title="New documents as an RSS feed">RSS: new documents</a>
+      <a href="/regulations/draft-watch.xml" class="text-muted-foreground hover:text-primary" title="Draft-Watch as an RSS feed">RSS: Draft-Watch</a>
+    </span>
   </p>
   <ul class="flex gap-1 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] p-1 backdrop-blur-sm [scrollbar-width:none]">
     {TABS.map((t) => (

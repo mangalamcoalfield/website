@@ -46,6 +46,21 @@ const pageTitle = c.ref && !heading.includes(c.ref) ? `${clip(heading, 60)} (${c
 const variants = searchVariants(`${c.title} ${c.text}`);
 const description = `${c.ref ? c.ref + ' — ' : ''}${heading}. Full text of the ${kindLabel}${c.year ? ` (${c.year})` : ''}, from the official DGMS ${isLib ? 'document' : 'compilation'}.`.slice(0, 300);
 
+// The circular as Legislation (DGMS circulars are administrative instructions under the
+// mining law; reports and statistics are described as reports instead).
+const isReport = c.dept === 'Reports & statistics';
+const docLd = {
+  '@context': 'https://schema.org',
+  '@type': isReport ? 'Report' : 'Legislation',
+  name: heading,
+  ...(isReport ? {} : { legislationType: kindLabel, legislationJurisdiction: 'India', legislationResponsible: 'Directorate General of Mines Safety' }),
+  ...(c.ref && !isReport ? { legislationIdentifier: c.ref } : {}),
+  ...(c.date || c.year ? { [isReport ? 'datePublished' : 'legislationDate']: c.date || String(c.year) } : {}),
+  ...(libRow?.status === 'superseded' && !isReport ? { legislationLegalForce: 'https://schema.org/NotInForce' } : {}),
+  inLanguage: 'en',
+  url: `https://mangalamcoal.com/regulations/circulars/${dupOf ?? c.id}/`,
+  isPartOf: { '@type': 'CollectionPage', name: 'Mangalam Regulation Desk — DGMS circulars', url: 'https://mangalamcoal.com/regulations/search?scope=circulars' },
+};
 const breadcrumbLd = {
   '@context': 'https://schema.org', '@type': 'BreadcrumbList',
   itemListElement: [
@@ -56,7 +71,7 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Site title={`${pageTitle} — ${kindLabel}`} description={description} jsonLd={breadcrumbLd} canonicalPath={dupOf ? `/regulations/circulars/${dupOf}/` : undefined}>
+<Site title={`${pageTitle} — ${kindLabel}`} description={description} jsonLd={[docLd, breadcrumbLd]} canonicalPath={dupOf ? `/regulations/circulars/${dupOf}/` : undefined}>
   <section class="relative bg-background px-6 pb-8 pt-28">
     <div class="mx-auto max-w-3xl">
       <RegNav active="circulars" class="mb-8" />

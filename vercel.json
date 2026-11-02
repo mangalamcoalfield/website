@@ -108,7 +108,7 @@
       "permanent": false
     },
     {
-      "source": "/((?!regulations|pagefind|_astro|_vercel|api/ask|images/|favicon|apple-touch-icon|mangalam_|og\\.png|robots\\.txt|llms\\.txt|sitemap).*)",
+      "source": "/((?!regulations|pagefind|_astro|_vercel|api/ask|images/|favicon|apple-touch-icon|mangalam_|og\\.png|og-regs\\.png|robots\\.txt|llms\\.txt|sitemap).*)",
       "has": [
         {
           "type": "host",

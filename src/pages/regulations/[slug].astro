@@ -46,6 +46,7 @@ const legislationLd = {
   ...(reg.doc_number ? { legislationIdentifier: reg.doc_number } : {}),
   ...(reg.issued_date ? { legislationDate: reg.issued_date } : {}),
   legislationJurisdiction: 'India',
+  legislationLegalForce: reg.status === 'in_force' ? 'https://schema.org/InForce' : 'https://schema.org/NotInForce',
   ...(reg.authority ? { legislationResponsible: reg.authority } : {}),
   ...(reg.summary ? { description: reg.summary } : {}),
   ...(reg.source_url ? { sameAs: reg.source_url } : {}),
