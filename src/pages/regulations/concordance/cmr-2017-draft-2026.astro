@@ -1,0 +1,126 @@
+---
+import Site from '../../../layouts/Site.astro';
+import RegNav from '../../../components/RegNav.astro';
+import data from '../../../data/concordance-cmr2017-draft2026.json';
+
+// Where each regulation of the Coal Mines Regulations, 2017 goes in the Draft
+// OSH&WC (Coal Mines) Regulations, 2026, and what changed in its words. Built by
+// tools/build_concordance.py from the two full texts in the library; machine-
+// assisted, and the page says so.
+type Link = { slug: string; num: string; title: string; anchor: string };
+type Row = {
+  num: string; title: string; anchor: string;
+  to?: Link; sure?: 'high' | 'medium'; change?: 'same' | 'minor' | 'expanded' | 'revised' | 'merged';
+  kept?: number; grew?: number; diff?: [string, string][];
+  likely?: (Link & { doc: string; label: string })[];
+};
+const { rows, new_in_draft: fresh, source, target } = data as unknown as {
+  rows: Row[]; new_in_draft: { num: string; title: string; anchor: string }[];
+  source: { slug: string; title: string }; target: { slug: string; title: string };
+};
+const CLASS: Record<string, [string, string, string]> = {
+  same: ['Same text', 'bg-primary/15 text-primary', 'Carried over word for word (or nearly).'],
+  minor: ['Minor changes', 'bg-white/10 text-foreground', 'Most of the wording kept; some words changed.'],
+  expanded: ['Expanded', 'bg-[#9ed3c4]/15 text-[#9ed3c4]', 'The old wording kept, with new text added.'],
+  revised: ['Revised', 'bg-[#e0b86a]/15 text-[#e0b86a]', 'Substantially rewritten.'],
+  merged: ['Merged', 'bg-white/10 text-muted-foreground', 'Folded into a broader draft regulation.'],
+  gone: ['Not in the draft', 'bg-[#e07a6a]/15 text-[#e8a090]', 'No counterpart found in the draft.'],
+};
+const key = (r: Row) => r.change ?? 'gone';
+const counts = Object.fromEntries(Object.keys(CLASS).map((k) => [k, rows.filter((r) => key(r) === k).length]));
+const text = (slug: string, anchor: string) => `/regulations/${slug}/text#${anchor}`;
+const title = 'CMR 2017 → Draft OSH&WC (Coal Mines) Regulations 2026: concordance';
+const description = `Where each of the ${rows.length} regulations of the Coal Mines Regulations, 2017 goes in the Draft OSH&WC (Coal Mines) Regulations, 2026 — same text, changed, expanded, merged or dropped — with a word-by-word comparison.`;
+const breadcrumbLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://mangalamcoal.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Regulations', item: 'https://mangalamcoal.com/regulations' },
+    { '@type': 'ListItem', position: 3, name: 'CMR 2017 → Draft 2026', item: 'https://mangalamcoal.com/regulations/concordance/cmr-2017-draft-2026' },
+  ],
+};
+---
+<Site title={title} description={description} jsonLd={breadcrumbLd}>
+  <section class="relative bg-background pb-24 pt-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <RegNav active={null} class="mb-8" />
+      <div class="max-w-3xl">
+        <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Regulation desk · concordance</span>
+        <h1 class="mt-2 font-[var(--font-display)] text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl">CMR 2017 → Draft OSH&amp;WC (Coal Mines) Regulations 2026</h1>
+        <p class="mt-3 text-muted-foreground">Where each of the {rows.length} regulations of the <a href={`/regulations/${source.slug}/text`} class="text-primary hover:underline">Coal Mines Regulations, 2017</a> goes in the <a href={`/regulations/${target.slug}/text`} class="text-primary hover:underline">Draft OSH&amp;WC (Coal Mines) Regulations, 2026</a> (G.S.R. 67(E), 28 Jan 2026), and what changed in its words.</p>
+        <p class="mt-4 rounded-2xl border border-[#e0b86a]/35 bg-[#e0b86a]/[0.07] px-4 py-3 text-[13px] leading-relaxed text-[#e9cf98]">
+          The 2026 regulations are a <strong>draft</strong>, not in force: CMR 2017 continues under the OSH&amp;WC Code's savings clause until they are notified as final. This table was produced by machine comparison of the two texts as extracted from their PDFs and is a starting point, not legal advice. Check both texts before relying on a match; where it says "likely now in", that is a suggestion.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Show">
+        <button type="button" data-show="" aria-pressed="true" class="cf rounded-full border border-white/12 px-3.5 py-1.5 text-[12px] font-semibold">All <span class="text-muted-foreground">{rows.length}</span></button>
+        {Object.entries(CLASS).map(([k, [label]]) => counts[k] > 0 && (
+          <button type="button" data-show={k} aria-pressed="false" class="cf rounded-full border border-white/12 px-3.5 py-1.5 text-[12px] font-semibold">{label} <span class="text-muted-foreground">{counts[k]}</span></button>
+        ))}
+      </div>
+      <dl class="mt-4 grid gap-x-6 gap-y-1 text-[12px] text-muted-foreground sm:grid-cols-2 lg:grid-cols-3">
+        {Object.entries(CLASS).map(([, [label, , note]]) => <div><dt class="inline font-semibold text-foreground/80">{label}:</dt> <dd class="inline">{note}</dd></div>)}
+      </dl>
+
+      <ol id="conc" class="mt-8 flex flex-col gap-2">
+        {rows.map((r) => (
+          <li data-k={key(r)} class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div class="grid gap-3 md:grid-cols-[1fr_auto_1fr] md:items-start">
+              <a href={text(source.slug, r.anchor)} class="group">
+                <span class="font-mono text-[12px] font-semibold text-primary">CMR 2017 · Reg {r.num}</span>
+                <span class="mt-0.5 block text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{r.title || `Regulation ${r.num}`}</span>
+              </a>
+              <span class={`self-center justify-self-start rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide md:justify-self-center ${CLASS[key(r)][1]}`}>{CLASS[key(r)][0]}</span>
+              {r.to
+                ? <a href={text(r.to.slug, r.to.anchor)} class="group">
+                    <span class="font-mono text-[12px] font-semibold text-[#9ed3c4]">Draft 2026 · Reg {r.to.num}{r.sure === 'medium' ? ' · probable' : ''}</span>
+                    <span class="mt-0.5 block text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{r.to.title || `Regulation ${r.to.num}`}</span>
+                  </a>
+                : <div class="text-[13px] text-muted-foreground">
+                    {r.likely && r.likely.length > 0
+                      ? <>Likely now in {r.likely.map((l, i) => <>{i > 0 && ' or '}<a href={text(l.slug, l.anchor)} class="font-semibold text-primary hover:underline">{l.label}{l.title ? ` (${l.title})` : ''}</a> of {l.doc.replace(/\s*\(.*\)$/, '')}</>)}</>
+                      : 'No counterpart found in the draft, the OSH&WC Central Rules 2026 or the Code.'}
+                  </div>}
+            </div>
+            {r.diff && r.diff.length > 0 && (
+              <details class="mt-3">
+                <summary class="cursor-pointer text-[12px] font-semibold text-primary">What changed{typeof r.kept === 'number' ? ` · ${Math.round(r.kept * 100)}% of the 2017 wording kept` : ''}</summary>
+                <p class="diff mt-2 text-[13.5px] leading-7 text-muted-foreground [overflow-wrap:anywhere]">
+                  {r.diff.map(([op, t]) => op === '=' ? <span>{t} </span> : op === '-' ? <del>{t}</del> : <ins>{t}</ins>)}
+                </p>
+              </details>
+            )}
+          </li>
+        ))}
+      </ol>
+
+      {fresh.length > 0 && (
+        <div class="mt-12">
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground">New in the draft</h2>
+          <p class="mt-1 text-[13px] text-muted-foreground">Draft regulations with no counterpart in CMR 2017.</p>
+          <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+            {fresh.map((f) => <li><a href={text(target.slug, f.anchor)} class="block rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] hover:border-primary"><span class="font-mono text-[12px] text-[#9ed3c4]">Reg {f.num}</span> <span class="font-semibold text-foreground">{f.title || '(heading not extracted)'}</span></a></li>)}
+          </ul>
+        </div>
+      )}
+      <p class="mt-12 text-[12px] leading-relaxed text-muted-foreground/80">Method: each CMR 2017 regulation is paired with the draft regulation whose heading and text are closest, one to one where possible; "probable" marks a weaker pair. Where the draft has none, the OSH&amp;WC (Central) Rules, 2026 and the OSH&amp;WC Code, 2020 are searched. "What changed" compares the words of the two texts: struck-through words are in CMR 2017 only, highlighted words in the draft only; long unchanged stretches are shortened. Text extracted from scanned or bilingual PDFs can carry recognition errors.</p>
+    </div>
+  </section>
+  <style is:global>
+    .cf[aria-pressed="true"] { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+    .cf[aria-pressed="true"] span { color: inherit; opacity: .75; }
+    .diff del { color: #e8a090; text-decoration: line-through; margin-right: .25em; }
+    .diff ins { color: hsl(var(--foreground)); background: hsl(var(--primary) / .22); text-decoration: none; border-radius: 3px; padding: 0 2px; margin-right: .25em; }
+  </style>
+  <script>
+    // Filter the table by class.
+    const btns = Array.from(document.querySelectorAll<HTMLButtonElement>('.cf'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('#conc > li'));
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const k = b.dataset.show;
+      for (const li of items) li.hidden = !!k && li.dataset.k !== k;
+    }));
+  </script>
+</Site>

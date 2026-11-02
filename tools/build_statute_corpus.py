@@ -47,7 +47,15 @@ def heading(rest):
     r = re.sub(r'^\((?:1|a|i)\)\s*', '', rest.lstrip('['))
     m = re.match(r'(.{3,120}?)(?:\.\s*[-—–:]+|\s+[—–]+|\s*:\s*-|\s+-\s+|\.\s*\((?:1|a|i)\))', r)
     t = m.group(1).strip(' .:-_[]') if m else ''
-    return t if good_title(t) and not re.match(r'(?:The|This|In|Every|No|Any|Where|If|Subject)\b', t) else ''
+    ok = lambda t: good_title(t) and not re.match(r'(?:The|This|In|Every|No|Any|Where|If|Subject)\b', t)
+    if ok(t):
+        return t
+    # Headings that end in a plain full stop or colon before the text ("Practical
+    # experience of candidates for Surveyor's Certificate examination. No person ..."):
+    # only when what follows starts a sentence or a sub-clause.
+    m = re.match(r'(.{3,120}?)(?:\.|:)\s+(?=(?:No|The|Every|Any|A|An|Where|If|Subject|Save|Except|Notwithstanding|Unless)\b|\((?:1|a|i)\))', r)
+    t = re.split(r'\s*[-–—]\s*(?=[A-Z])', m.group(1))[0].strip(' .:-_[]') if m else ''   # "Presiding at meeting- The Chairman"
+    return t if ok(t) and len(t.split()) <= 18 else ''
 
 def reflow(text):
     """PDF text breaks at the end of every printed line; rejoin lines into
