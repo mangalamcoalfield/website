@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
 
   const result = await sendEmail({
     to: HR_EMAIL,
-    subject: `New application — ${app.name} (${role})`,
+    subject: `New application - ${app.name} (${role})`,
     html,
   });
 

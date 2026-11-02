@@ -4,6 +4,7 @@ import { safeSelect, type Regulation } from '../../lib/supabase';
 import RegNav from '../../components/RegNav.astro';
 import statutes from '../../data/statutes-corpus.json';
 import circulars from '../../data/circulars-corpus.json';
+import deadLinks from '../../../content/dead-source-links-2026-11.json';
 
 export async function getStaticPaths() {
   // This is the query that generates every regulation detail page. If it comes
@@ -38,6 +39,11 @@ const metaDescription = metaRaw.length <= 300 ? metaRaw : metaRaw.slice(0, 297).
 const fullText = st ? `/regulations/${st.slug}/text` : circ ? `/regulations/circulars/${circ.id}` : null;
 const statusLabel = reg.status === 'in_force' ? 'In force' : reg.status === 'draft' ? 'Draft — not in force' : 'Superseded';
 
+// Official source links the November check found dead (404) on the issuer's site.
+// The page then points only to the hosted copy, and says why.
+const DEAD = new Set((deadLinks as { url: string; status: number | string }[]).filter((d) => d.status === 404).map((d) => d.url));
+const sourceDead = !!reg.source_url && DEAD.has(reg.source_url);
+const source = sourceDead ? null : reg.source_url;
 const legislationLd = {
   '@context': 'https://schema.org',
   '@type': 'Legislation',
@@ -49,7 +55,7 @@ const legislationLd = {
   legislationLegalForce: reg.status === 'in_force' ? 'https://schema.org/InForce' : 'https://schema.org/NotInForce',
   ...(reg.authority ? { legislationResponsible: reg.authority } : {}),
   ...(reg.summary ? { description: reg.summary } : {}),
-  ...(reg.source_url ? { sameAs: reg.source_url } : {}),
+  ...(source ? { sameAs: source } : {}),
   url: `https://mangalamcoal.com/regulations/${reg.slug}`,
   isPartOf: { '@type': 'CollectionPage', name: 'Indian Coal-Mining Regulations — Library', url: 'https://mangalamcoal.com/regulations' },
 };
@@ -103,8 +109,8 @@ const breadcrumbLd = {
           {fullText && <a href={fullText} class="rounded-full border border-primary/50 bg-primary/10 px-6 py-3 text-center text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Read full text</a>}
           {reg.download_url ? (
             <a href={reg.download_url} target="_blank" rel="noopener" class="shrink-0 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.6)] transition-transform hover:scale-[1.03]">Open PDF</a>
-          ) : reg.source_url ? (
-            <a href={reg.source_url} rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          ) : source ? (
+            <a href={source} rel="noopener" class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">Official source<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           ) : null}
           </div>
         </div>
@@ -118,7 +124,8 @@ const breadcrumbLd = {
       )}
 
       <div class="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-sm">
-        {reg.source_url && <a href={reg.source_url} rel="noopener" class="inline-flex items-center gap-1 text-primary underline">Official source ({reg.authority || 'gov.in'})<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>}
+        {sourceDead && <span class="text-muted-foreground">The {reg.authority || 'official'} link to this document no longer works; the PDF above is a copy of it.</span>}
+        {source && <a href={source} rel="noopener" class="inline-flex items-center gap-1 text-primary underline">Official source ({reg.authority || 'gov.in'})<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>}
         <a href="/regulations" class="text-muted-foreground transition-colors hover:text-primary">← All regulations</a>
       </div>
       <p class="mt-8 text-[12px] leading-relaxed text-muted-foreground/80">Reproduced for public reference from the official source. Government regulations are in the public domain; always verify the current in-force text against the official publication.</p>

@@ -24,6 +24,19 @@ export interface MailResult {
   error?: string;
 }
 
+// denomailer encodes a non-ASCII subject as a single long =?utf-8?Q?...?= word and
+// breaks it when folding, so HR saw '=?utf-8?Q?New application=e2=80=94...' cut short.
+// SMTP subjects are therefore kept to plain ASCII and one header line: dashes and
+// quotes become their ASCII forms, accents are dropped, anything else (e.g. a name in
+// Devanagari) is left out of the subject only; the body keeps the full text.
+export function asciiSubject(s: string, max = 90): string {
+  const t = s
+    .replace(/[\u2012-\u2015\u2212]/g, '-').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
+    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '').replace(/\(\s*\)/g, '').replace(/\s{2,}/g, ' ').trim();
+  return t.length <= max ? t : t.slice(0, max - 3).replace(/\s+\S*$/, '') + '...';
+}
+
 function htmlToText(html: string): string {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
@@ -59,7 +72,7 @@ async function sendViaSmtp(m: Required<Pick<MailInput, 'to'>> & MailInput): Prom
     await client.send({
       from: `${FROM_NAME} <${FROM_EMAIL}>`,
       to: m.to,
-      subject: m.subject,
+      subject: asciiSubject(m.subject),
       content: m.text ?? htmlToText(m.html),
       html: m.html,
     });

@@ -57,7 +57,7 @@ Deno.serve(async (req) => {
 
   const result = await sendEmail({
     to: HR_EMAIL,
-    subject: `Applications digest — ${apps.length} new (${new Date().toISOString().slice(0, 10)})`,
+    subject: `Applications digest - ${apps.length} new (${new Date().toISOString().slice(0, 10)})`,
     html,
   });
 
