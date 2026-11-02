@@ -4,7 +4,8 @@ tools/library_pages.py).
 
     python tools/corpus_fixups.py
 
-  * strips personal contact details (tools/pii.py) from both corpora;
+  * strips personal contact details (tools/pii.py) and Gazette page headers
+    (tools/gazette.py) from both corpora;
   * re-splits the numbered statutes with the current splitter, from their stored text;
   * takes each statute's status, number and date from src/data/regulations-full-seed.json,
     so the full-text pages say what the library says.
@@ -17,6 +18,7 @@ import json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 from pii import scrub
+import gazette
 import build_statute_corpus as S
 
 DATA = os.path.join(ROOT, 'src', 'data')
@@ -37,7 +39,7 @@ def circulars():
     for e in entries:
         for k in ('text', 'title', 'full_title'):
             if e.get(k):
-                t = scrub(e[k])
+                t = gazette.strip(scrub(e[k])) if k == 'text' else scrub(e[k])
                 changed += t != e[k]
                 e[k] = t
     save('circulars-corpus.json', entries)
@@ -49,7 +51,7 @@ def statutes():
     seed = {r['slug']: r for r in load('regulations-full-seed.json')}
     for d in docs:
         for p in d['provisions']:
-            p['text'] = scrub(p['text'])
+            p['text'] = gazette.strip(scrub(p['text']))
         if d['numbered']:
             before = sum(1 for p in d['provisions'] if p['num'])
             provs = S.split('\n'.join(p['text'] for p in d['provisions']), seed.get(d['slug'], d)['title'])

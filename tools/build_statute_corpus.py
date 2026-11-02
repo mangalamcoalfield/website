@@ -46,7 +46,7 @@ def heading(rest):
     "Powers of Inspectors – ...", "Definitions : - "), else ''."""
     r = re.sub(r'^\((?:1|a|i)\)\s*', '', rest.lstrip('['))
     m = re.match(r'(.{3,120}?)(?:\.\s*[-—–:]+|\s+[—–]+|\s*:\s*-|\s+-\s+|\.\s*\((?:1|a|i)\))', r)
-    t = m.group(1).strip(' .:-_') if m else ''
+    t = m.group(1).strip(' .:-_[]') if m else ''
     return t if good_title(t) and not re.match(r'(?:The|This|In|Every|No|Any|Where|If|Subject)\b', t) else ''
 
 def reflow(text):
@@ -95,6 +95,12 @@ def provisions(body):
     # Amended provisions open with the amendment's footnote marker, often mid-line:
     # 'notified in the Official Gazette.”] 7[4. Secretary of the Committee - ...'.
     body = re.sub(r'(?:(?<=\s)|^)\d{0,2}\[(\d{1,3}[A-Z]{0,2}\.)\s+(?=[A-Z])', r'\n\1 [', body, flags=re.M)
+    # ... or with the marker before an undotted number ('3[109 Setting of support –'),
+    # or inside the heading ('132. 1[Restriction of installation ...]. –').
+    body = re.sub(r'(?:(?<=\s)|^)\d{1,2}\[(\d{1,3}[A-Z]{0,2})\s+(?=[A-Z][^\n]{2,90}?\s[–—-])', r'\n\1. [', body, flags=re.M)
+    body = re.sub(r'^(\d{1,3}[A-Z]{0,2}\.)\s+\d{1,2}\[(?=[A-Z])', r'\1 [', body, flags=re.M)
+    # A heading printed without the number's full stop ('78 Winding of material – (1) ...').
+    body = re.sub(r'^(\d{1,3}[A-Z]{0,2})\s+(?=[A-Z][a-z][^\n]{2,90}?\s[–—]\s)', r'\1. ', body, flags=re.M)
     lines = body.split('\n')
     # Some Acts print the number alone on its line ("2." / "Definitions : - ...").
     for i in range(len(lines) - 1):

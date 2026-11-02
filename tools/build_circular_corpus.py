@@ -57,6 +57,7 @@ def mojibake(line):
 # telephone directory with personal mobiles; the search pages don't republish them.
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pii import scrub
+import gazette          # Gazette running headers inside the text
 
 # Hindi typed in the legacy Kruti Dev font extracts as Latin letters
 # ("midj.kksa ds vlko/kkuh", "Hkkx II — [k.M 1"). It reads as gibberish and pollutes
@@ -83,7 +84,7 @@ def clean(text, keep_numbered=False):
     starts a new paragraph at every "5." / "72A." provision number, so a provision
     is never glued onto the end of the one before it."""
     out = []
-    text = scrub(text)
+    text = gazette.strip(scrub(text))
     for raw in text.split('\n'):
         line = PAGE_PREFIX.sub('', re.sub(r'\s+', ' ', raw).strip())
         if not line or FURNITURE.match(line) or mojibake(line):
