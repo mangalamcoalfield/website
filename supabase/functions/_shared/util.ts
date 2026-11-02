@@ -11,13 +11,29 @@ export function adminClient(): SupabaseClient {
   return createClient(url, serviceKey, { auth: { persistSession: false } });
 }
 
-/** Optional shared-secret guard. If WEBHOOK_SECRET is set on the function, the
- *  caller (DB trigger / pg_cron) must send a matching `x-webhook-secret` header.
- *  If unset, calls are allowed (so the plumbing works before secrets are added). */
+/** Shared-secret guard (fail CLOSED). WEBHOOK_SECRET must be set on the
+ *  function AND stored in Vault as `webhook_secret` (pipeline.sql sends it as
+ *  the `x-webhook-secret` header). If the secret is unset, every call is
+ *  rejected — an unconfigured function must never be publicly invokable. */
 export function authorized(req: Request): boolean {
   const expected = Deno.env.get('WEBHOOK_SECRET');
-  if (!expected) return true; // not yet configured → allow (graceful)
-  return req.headers.get('x-webhook-secret') === expected;
+  if (!expected) {
+    console.error('WEBHOOK_SECRET is not set; rejecting request (fail closed). See SECRETS.md.');
+    return false;
+  }
+  const got = req.headers.get('x-webhook-secret') ?? '';
+  return timingSafeEqual(got, expected);
+}
+
+/** Constant-time string comparison (length leak only). */
+function timingSafeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const ab = enc.encode(a);
+  const bb = enc.encode(b);
+  let diff = ab.length ^ bb.length;
+  const n = Math.max(ab.length, bb.length);
+  for (let i = 0; i < n; i++) diff |= (ab[i] ?? 0) ^ (bb[i] ?? 0);
+  return diff === 0;
 }
 
 export function json(body: unknown, status = 200): Response {

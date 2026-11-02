@@ -3,15 +3,13 @@ import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import { SITE } from '../../data/site';
 import { safeSelect, type Job } from '../../lib/supabase';
-import { placeholderJobs } from '../../data/placeholders';
 
-let jobs = await safeSelect<Job>((c) =>
+const jobs = await safeSelect<Job>((c) =>
   c.from('jobs').select('*').eq('status', 'published').order('posted_at', { ascending: false })
 );
-// Mirrors the English page: if the fallback roles are showing, say so, rather
-// than letting Hindi readers take sample postings for real vacancies.
-const usingPlaceholders = jobs.length === 0;
-if (usingPlaceholders) jobs = placeholderJobs;
+// Mirrors the English page: no placeholder roles. Zero vacancies is a real
+// state, so say so and invite a general application instead of inventing roles.
+const noOpenings = jobs.length === 0;
 ---
 <Site
   title="करियर"
@@ -73,15 +71,19 @@ if (usingPlaceholders) jobs = placeholderJobs;
         ))}
       </div>
 
-      {usingPlaceholders && (
-        <p class="mt-8 text-sm text-muted-foreground">नमूना पद दिखाए गए हैं। वास्तविक रिक्तियाँ भर्ती प्रणाली से प्रकाशित की जाती हैं।</p>
+      {noOpenings && (
+        <div class="rounded-2xl border border-white/10 bg-white/[0.02] p-10 text-center">
+          <p class="font-[var(--font-display)] text-lg font-semibold text-foreground">इस समय कोई रिक्ति खुली नहीं है।</p>
+          <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">पद भर जाने पर हटा दिए जाते हैं। आप फिर भी अपना बायोडाटा भेज सकते हैं — हम आवेदन सुरक्षित रखते हैं और उपयुक्त अवसर आने पर आपसे संपर्क करेंगे।</p>
+          <a href="/careers#apply" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-[14px] font-semibold text-primary-foreground">अपना बायोडाटा भेजें</a>
+        </div>
       )}
 
       <!-- आवेदन कैसे करें -->
       <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-sm">
         <h2 class="font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground">आवेदन कैसे करें</h2>
         <ol class="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground">
-          <li><strong class="text-foreground/85">1.</strong> आवेदन पृष्ठ खोलें और अपना पद चुनें।</li>
+          <li><strong class="text-foreground/85">1.</strong> आवेदन पृष्ठ खोलें और अपना पद चुनें (या “General application” चुनें)।</li>
           <li><strong class="text-foreground/85">2.</strong> अपना नाम, ई-मेल और मोबाइल नंबर भरें।</li>
           <li><strong class="text-foreground/85">3.</strong> अपना बायोडाटा (résumé) संलग्न करें — PDF या Word।</li>
           <li><strong class="text-foreground/85">4.</strong> सहमति बॉक्स पर निशान लगाकर आवेदन जमा करें।</li>

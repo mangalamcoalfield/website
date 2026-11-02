@@ -30,6 +30,9 @@ update storage.buckets
 
 -- 2) Global insert ceiling for applications and leads. Arguments: max rows,
 --    window. Counts every row in the window, whoever inserted it.
+--    created_at is forced to now() (and pipeline state cleared) so a client
+--    cannot stamp rows in the future and keep the window full forever
+--    (see hardening_2026_10.sql, which also narrows anon's INSERT columns).
 create or replace function public.guard_insert_rate()
 returns trigger
 language plpgsql
@@ -39,6 +42,13 @@ as $$
 declare
   n int;
 begin
+  -- Never trust a client-supplied timestamp or pipeline state. Keys that are not
+  -- columns of the table (e.g. notified_at on leads) are ignored.
+  new := jsonb_populate_record(new, jsonb_build_object(
+           'created_at',       now(),
+           'notified_at',      null,
+           'resume_purged_at', null));
+
   execute format('select count(*) from %I.%I where created_at > now() - $1::interval',
                  tg_table_schema, tg_table_name)
      into n using tg_argv[1];

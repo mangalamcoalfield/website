@@ -433,10 +433,10 @@ export default function SeamModel() {
         {/* viewport */}
         <div ref={wrapRef} className="relative h-[380px] w-full cursor-grab active:cursor-grabbing md:h-[520px] lg:flex-1">
           <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" aria-label="Interactive 3D model of the Amlabad seam sequence" />
-          <div className="pointer-events-none absolute left-4 top-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary/90">
+          <div className="pointer-events-none absolute left-4 top-4 text-[12px] font-semibold uppercase tracking-[0.22em] text-primary/90">
             Amlabad seam sequence
           </div>
-          <div className="pointer-events-none absolute bottom-3 right-4 text-[11px] text-muted-foreground/80">
+          <div className="pointer-events-none absolute bottom-3 right-4 text-[12px] text-muted-foreground/80">
             drag to rotate · scroll to zoom
           </div>
         </div>
@@ -444,8 +444,8 @@ export default function SeamModel() {
         {/* stratigraphic legend — ordered as the seams actually lie, roof to floor */}
         <aside className="border-t border-white/10 lg:w-[248px] lg:shrink-0 lg:border-l lg:border-t-0">
           <div className="flex items-baseline justify-between px-4 pt-4">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Seam sequence</span>
-            <span className="text-[10px] text-muted-foreground/80">roof → floor</span>
+            <span className="text-[12px] font-semibold uppercase tracking-[0.2em] text-primary">Seam sequence</span>
+            <span className="text-[12px] text-muted-foreground/80">roof → floor</span>
           </div>
           <div className="mt-2 max-h-[210px] overflow-y-auto px-2 pb-2 lg:max-h-[392px]">
             {M.seams.map((s, i) => (
@@ -453,7 +453,7 @@ export default function SeamModel() {
                 title={`Isolate seam ${s.name}`}
                 className={`flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors ${solo === i ? 'bg-primary/15 ring-1 ring-primary/40' : 'hover:bg-white/[0.05]'}`}>
                 <span className="h-4 w-1.5 shrink-0 rounded-sm" style={{ background: s.color }} />
-                <span className={`w-14 shrink-0 text-[11.5px] font-semibold ${solo === i ? 'text-primary' : 'text-foreground/85'}`}>{s.name}</span>
+                <span className={`w-16 shrink-0 text-[12px] font-semibold ${solo === i ? 'text-primary' : 'text-foreground/85'}`}>{s.name}</span>
                 <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
                   <span className="absolute inset-y-0 left-0 rounded-full"
                     style={{ width: `${Math.max(6, (meanThick[i] / meanMax) * 100)}%`, background: s.color, opacity: 0.75 }} />
@@ -461,7 +461,7 @@ export default function SeamModel() {
               </button>
             ))}
           </div>
-          <div className="border-t border-white/10 px-4 py-3 text-[10px] leading-relaxed text-muted-foreground/80">
+          <div className="border-t border-white/10 px-4 py-3 text-[12px] leading-relaxed text-muted-foreground/80">
             Bar length shows each seam’s thickness relative to the thickest in the sequence.
           </div>
         </aside>
@@ -496,10 +496,10 @@ export default function SeamModel() {
         {/* borehole survey-confidence key — the caveats are the credibility */}
         {holes && (
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">Collar position</span>
+            <span className="text-[12px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">Collar position</span>
             {(['A', 'B', 'C'] as const).map((t) => (
               tierCounts[t] ? (
-                <span key={t} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <span key={t} className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
                   <span className="h-2 w-2 rounded-full"
                     style={{ background: `rgb(${TIER_COLOR[t].map((v) => Math.round(v * 255)).join(',')})` }} />
                   {tierCounts[t]} × {M.tiers[t]}
@@ -509,7 +509,7 @@ export default function SeamModel() {
           </div>
         )}
 
-        <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground/80">
+        <p className="mt-4 text-[12px] leading-relaxed text-muted-foreground/80">
           Built from our own geological model of the block — 19 seams reconciled across {M.holes.length} boreholes,
           from historic drilling records and our own survey work. Shown as relative geometry only: deliberately
           not to scale, and carrying no depths, grades or real-world coordinates. An illustration of the deposit,

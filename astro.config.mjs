@@ -3,6 +3,14 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import circularRedirects from './src/data/circular-redirects.json' with { type: 'json' };
+
+// Circular pages keep the id they were first published under (tools/build_circular_corpus.py);
+// the few that changed point to their new page, or to the finder if the entry is gone.
+const redirects = Object.fromEntries(Object.entries(circularRedirects).map(([from, to]) => [
+  `/regulations/circulars/${from}`,
+  { status: 301, destination: to ? `/regulations/circulars/${to}/` : '/regulations/search/?scope=circulars' },
+]));
 
 // Static-first build. Pages are prerendered to HTML on Vercel and keep serving
 // even if the (free-tier) Supabase project is paused. Data-driven sections
@@ -14,6 +22,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://mangalamcoal.com',
   output: 'static',
+  redirects,
   integrations: [
     // Keep the password-gated admin view and the staff webmail redirect out of
     // the sitemap — neither is a page the public should be landing on from

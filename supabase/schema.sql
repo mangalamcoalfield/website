@@ -42,9 +42,13 @@ create table if not exists public.applications (
   phone      text,
   job_id     uuid references public.jobs(id) on delete set null,
   resume_url text,                          -- path/key in the `resumes` bucket
+  details    jsonb,                         -- role-specific answers from the form
   consent    boolean not null default false,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  constraint applications_details_size check (details is null
+    or (jsonb_typeof(details) = 'object' and pg_column_size(details) < 16384))
 );
+-- Existing installs created before `details` was added: see hardening_2026_10.sql.
 
 -- csr_projects --------------------------------------------------------------
 create table if not exists public.csr_projects (
@@ -143,6 +147,15 @@ drop policy if exists "anon insert leads with consent" on public.leads;
 create policy "anon insert leads with consent"
   on public.leads for insert to anon
   with check (consent = true);
+
+-- Column-level INSERT only: anon may set exactly the columns the forms send,
+-- never id / created_at / pipeline state (notified_at, resume_purged_at).
+revoke insert on table public.applications from anon;
+grant  insert (name, email, phone, job_id, resume_url, details, consent)
+  on table public.applications to anon;
+revoke insert on table public.leads from anon;
+grant  insert (name, email, message, consent)
+  on table public.leads to anon;
 
 -- NOTE: no anon SELECT/UPDATE/DELETE policies exist on applications or leads,
 -- so with RLS enabled the anon role cannot read or modify them. Only the

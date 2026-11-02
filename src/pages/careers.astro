@@ -5,8 +5,8 @@ import ApplicationForm from '../components/ApplicationForm.astro';
 import { safeSelect, type Job } from '../lib/supabase';
 import { SITE } from '../data/site';
 
-// Data-driven from `jobs` (status='published'); fallback to placeholders.
-let jobs = await safeSelect<Job>((c) =>
+// Data-driven from `jobs` (status='published'); no fallback.
+const jobs = await safeSelect<Job>((c) =>
   c.from('jobs').select('*').eq('status', 'published').order('posted_at', { ascending: false })
 );
 // No placeholder roles. Zero vacancies is a legitimate state here — roles are
@@ -23,11 +23,8 @@ const depts = DEPT_ORDER.filter((d) => jobs.some((j) => j.dept === d));
 const empType = (t: string | null) =>
   /part/i.test(t || '') ? 'PART_TIME' : /contract/i.test(t || '') ? 'CONTRACTOR' : 'FULL_TIME';
 
-// Structured data only for real, published vacancies. The placeholders exist to
-// keep the page from looking broken if the database is unreachable or paused —
-// emitting JobPosting markup for them would be submitting fabricated vacancies
-// to Google, which is both a search-spam violation and a promise of jobs that
-// do not exist.
+// Structured data only for real, published vacancies — never for anything
+// invented, which would be submitting fabricated vacancies to Google.
 const jobLd = jobs.map((j) => ({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',

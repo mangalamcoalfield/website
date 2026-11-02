@@ -23,7 +23,8 @@ export const ALIASES: Record<string, string[]> = {
   'industrial-relations-code-central-rules-2026': ['ir rules', 'industrial relations rules'],
   'code-on-social-security-2020': ['social security code', 'ss code', 'coss'],
   'social-security-code-central-rules-2026': ['social security rules', 'ss rules'],
-  'mmdr-act-1957': ['mmdr', 'mmdr act'],
+  // The hosted 'MMDR Act, 1957' PDF is the 2023 Amendment Act; don't answer "section N mmdr" with it.
+  'mmdr-act-1957': ['mmdr amendment', 'mmdr amendment act', 'mmdr 2023'],
   'mineral-concession-rules-2016': ['mcr', 'concession rules'],
   'mineral-conservation-development-rules-2017': ['mcdr', 'conservation and development rules'],
   'mineral-auction-rules-2015': ['auction rules'],
@@ -71,11 +72,19 @@ export function findProvisions(q: string, idx: ProvisionIndex, docTitle = ''): P
   // part of the name), and a longer name beats one it contains ("cmr 1957" over "cmr").
   const text = ` ${q.toLowerCase().replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ')} `;
   const hits: { i: number; a: string }[] = [];
-  idx.docs.forEach((d, i) => d.a.forEach((a) => { if (text.includes(` ${a} `)) hits.push({ i, a }); }));
+  // Titles count as names too ("colliery control rules", "mines rules 1955").
+  const norm = (t: string) => t.toLowerCase().replace(/^the\s+/, '').replace(/\(.*?\)/g, ' ').replace(/[^a-z0-9& ]/g, ' ').replace(/\s+/g, ' ').trim();
+  idx.docs.forEach((d, i) => {
+    const title = norm(d.t), core = title.replace(/ (?:19|20)\d{2}$/, '');
+    for (const a of [...d.a, title, core]) if (a.length > 2 && text.includes(` ${a} `)) hits.push({ i, a });
+  });
   const named = new Set<number>(
     hits.filter((h) => !hits.some((o) => o.i !== h.i && o.a.length > h.a.length && o.a.includes(h.a))).map((h) => h.i));
   if (docTitle) idx.docs.forEach((d, i) => { if (d.t === docTitle) named.add(i); });
   if (!pr.noun && !named.size) return [];
+  // The query names an instrument that isn't in the index ("rule 9 colliery control
+  // rules", "section 5 mmdr"): no match, rather than every other "Rule 9".
+  if (!named.size && !docTitle && /\b(?:act|code|rules|regulations|bye ?laws|mmdr)\b/.test(text.replace(/\b(?:regulations?|rules?|sections?)\s+\d/g, ' '))) return [];
   // "Regulation 78 of 2017": keep to instruments of that year when any has the provision.
   if (pr.year && !named.size) {
     idx.docs.forEach((d, i) => { if (d.t.includes(pr.year)) named.add(i); });

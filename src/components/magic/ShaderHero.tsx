@@ -3,7 +3,7 @@
 // title. Falls back to a CSS gradient if WebGL is unavailable. `compact` gives
 // a shorter hero for interior pages. Respects prefers-reduced-motion.
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -157,13 +157,17 @@ export default function ShaderHero({ eyebrow, title, accentWords = 0, descriptio
           {words.map((word, wi) => {
             const accent = wi >= accentFrom && accentWords > 0;
             return (
-              <span key={wi} aria-hidden="true" className="mr-3 inline-block last:mr-0">
+              <Fragment key={wi}>
+              {/* A real space between words, so the heading's text (what crawlers index) reads as words. */}
+              {wi > 0 && <span className="sr-only"> </span>}
+              <span aria-hidden="true" className="mr-3 inline-block last:mr-0">
                 {(complexScript ? [word] : word.split('')).map((ch, ci) => (
                   <span key={`${wi}-${ci}`}
                     className={cn('sh-in sh-letter inline-block bg-clip-text pb-[0.16em] text-transparent', accent ? 'bg-[linear-gradient(180deg,#d6e98a,#aecf3e_55%,#5e9a89)]' : 'bg-gradient-to-br from-foreground via-foreground to-foreground/55')}
                     style={{ animationDelay: `${(wi * 0.06 + ci * 0.02).toFixed(2)}s`, ...(accent ? { textShadow: '0 0 34px rgba(174,207,62,.4)' } : {}) }}>{ch}</span>
                 ))}
               </span>
+              </Fragment>
             );
           })}
         </h1>

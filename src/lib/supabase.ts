@@ -117,7 +117,11 @@ const allowThinData = import.meta.env.ALLOW_THIN_DATA === '1' || process.env.ALL
  * only warn, so working offline still works.
  */
 export async function safeSelect<T>(
-  fn: (client: SupabaseClient) => Promise<{ data: T[] | null; error: unknown }>,
+  // PromiseLike: supabase-js query builders are thenables, not Promises, so
+  // callers can return `c.from(...).select(...)` directly. Rows are typed by
+  // the caller's T (the untyped client infers `any` per selected column, which
+  // does not match a partial column list against the full row interface).
+  fn: (client: SupabaseClient) => PromiseLike<{ data: readonly unknown[] | null; error: unknown }>,
   opts?: { expectAtLeast?: number; label?: string }
 ): Promise<T[]> {
   const floor = opts?.expectAtLeast;
@@ -142,7 +146,7 @@ export async function safeSelect<T>(
       console.warn('[supabase] select failed, using fallback:', error);
       return shortfall(0, 'the query errored');
     }
-    const rows = data ?? [];
+    const rows = (data ?? []) as T[];
     if (floor !== undefined && rows.length < floor) {
       return shortfall(rows.length, 'fewer rows than expected');
     }

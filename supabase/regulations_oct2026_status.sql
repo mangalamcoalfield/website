@@ -1,0 +1,20 @@
+-- Regulation status corrections, 16 Oct 2026 (checked against the OSH&WC (Central) Rules 2026,
+-- G.S.R. 345(E) of 8 May 2026, and the Jharkhand rules/gig-workers Act). Run once in the Supabase
+-- SQL editor. regulations_full_seed.sql carries the same values for fresh installs.
+begin;
+update public.regulations set status = 'superseded', status_note = 'Replaced by the OSH&WC (Central) Rules, 2026 (G.S.R. 345(E), 8 May 2026). Things done under these rules before then remain valid.' where slug = 'mines-rules-1955';
+update public.regulations set status = 'superseded', status_note = 'Replaced by the OSH&WC (Central) Rules, 2026 (G.S.R. 345(E), 8 May 2026). Things done under these rules before then remain valid.' where slug = 'mines-rescue-rules-1985';
+update public.regulations set status = 'superseded', status_note = 'Replaced by the OSH&WC (Central) Rules, 2026 (G.S.R. 345(E), 8 May 2026). Things done under these rules before then remain valid.' where slug = 'mines-vocational-training-rules-1966';
+update public.regulations set doc_number = 'G.S.R. 343(E)', status_note = 'Final central rules published 8 May 2026. Short title corrected to "the Wages (Central) Rules, 2026" by G.S.R. 629(E), 15 July 2026.' where slug = 'code-on-wages-central-rules-2026';
+update public.regulations set status = 'superseded', status_note = 'Replaced by the OSH&WC (Central) Rules, 2026 (G.S.R. 345(E), 8 May 2026). Things done under these rules before then remain valid.' where slug = 'coal-mine-pit-head-bath-rule-1959-update-22-04-2026';
+update public.regulations set status = 'draft', status_note = 'Draft rules published on 14 July 2021 for comments; final Jharkhand rules had not been notified as of October 2026.' where slug = 'code-on-wages-jharkhand-rules-2021-state-rule-under-the-codes';
+update public.regulations set status = 'superseded', status_note = 'Amended the Mines Rules, 1955, which were replaced by the OSH&WC (Central) Rules, 2026 (8 May 2026).' where slug = 'dgms-legis-2017-mines-rules-1955-amendment-ease-of-compliance-for-registers';
+update public.regulations set title = 'Industrial Relations Code, 2020 — Transfer of Pending Cases Notification (S.O. 5683(E))', doc_number = 'S.O. 5683(E)', issued_date = '2025-12-08' where slug = 'industrial-relations-code-jharkhand-notification';
+update public.regulations set status = 'draft', status_note = 'Draft rules published on 27 August 2021 for objections; final Jharkhand rules had not been notified as of October 2026.' where slug = 'occupational-safety-health-wc-jharkhand-rules-2021-state-rule-mine-relevant';
+update public.regulations set status = 'superseded', status_note = 'This is the 2024 draft Bill. It was enacted, as amended, as the Jharkhand Platform Based Gig Workers (Registration and Welfare) Act, 2025 (assent 18 Dec 2025, published 6 Jan 2026).' where slug = 'jharkhand-gig-worker-welfare-social-security-act-measure-2024';
+update public.regulations set status = 'superseded', status_note = 'Never finalised. Replaced by the Draft OSH&WC (Metalliferous Mines) Regulations, 2026 (G.S.R. 109(E)).' where slug = 'draft-mmr-2018';
+update public.regulations set status = 'superseded', status_note = 'Draft published for objections; never notified as final. Replaced by the Draft OSH&WC (Metalliferous Mines) Regulations, 2026 (G.S.R. 109(E)).' where slug = 'mmr-notification';
+update public.regulations set category = 'mines_act', status_note = 'Continues in force under the savings clause of the OSH&WC Code (s.143) until the Draft OSH&WC (Metalliferous Mines) Regulations, 2026 are finalised.' where slug = 'mineregulations1961-13092023';
+update public.regulations set category = 'mines_act', status_note = 'Continues in force under the savings clause of the OSH&WC Code (s.143) until the Draft OSH&WC (Metalliferous Mines) Regulations, 2026 are finalised.' where slug = 'metalliferous-mines-regulation-1961';
+update public.regulations set category = 'mines_act', status = 'superseded', status_note = 'Superseded by the Oil Mines Regulations, 2017, made "in supersession of the Oil Mines Regulations, 1984".' where slug = 'oil-mines-regulation-1984';
+commit;

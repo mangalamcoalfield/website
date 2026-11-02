@@ -1,0 +1,2 @@
+# Python tools in this folder (corpus builders).
+pymupdf>=1.24

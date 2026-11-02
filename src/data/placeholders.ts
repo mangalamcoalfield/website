@@ -5,43 +5,7 @@
  * publish-filter: no confidential DPR data, no site-specific gas readings, no
  * internal production figures. Replace by inserting real rows in Supabase.
  */
-import type { Job, CsrProject, KnowledgeEntry, NciPoint } from '../lib/supabase';
-
-export const placeholderJobs: Job[] = [
-  {
-    id: 'ph-1',
-    title: 'Mining Engineer (Underground)',
-    dept: 'Operations',
-    location: 'Amlabad, Eastern Jharia Area, Bokaro, Jharkhand',
-    type: 'Full-time',
-    description:
-      'Plan and supervise underground development and production in line with the Coal Mines Regulations 2017. Placeholder posting — real roles will be published from the content track.',
-    status: 'published',
-    posted_at: '2026-01-15',
-  },
-  {
-    id: 'ph-2',
-    title: 'Statutory Safety Officer',
-    dept: 'Safety & Compliance',
-    location: 'Amlabad, Eastern Jharia Area, Bokaro, Jharkhand',
-    type: 'Full-time',
-    description:
-      'Maintain statutory registers, gas-monitoring discipline and DGMS compliance across working districts. Placeholder posting.',
-    status: 'published',
-    posted_at: '2026-01-10',
-  },
-  {
-    id: 'ph-3',
-    title: 'Electrical & Mechanical Foreman',
-    dept: 'Engineering',
-    location: 'Amlabad, Eastern Jharia Area, Bokaro, Jharkhand',
-    type: 'Full-time',
-    description:
-      'Maintain DGMS-approved equipment and statutory testing schedules for underground machinery. Placeholder posting.',
-    status: 'published',
-    posted_at: '2026-01-05',
-  },
-];
+import type { CsrProject, KnowledgeEntry, NciPoint } from '../lib/supabase';
 
 export const placeholderCsr: CsrProject[] = [
   {

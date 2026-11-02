@@ -1,7 +1,8 @@
 -- ============================================================================
 -- Mangalam Coalfield — careers email/résumé pipeline wiring
--- Run AFTER schema.sql. Safe to run before secrets are added: every call uses a
--- graceful fallback (empty webhook secret, no email transport = no-op).
+-- Run AFTER schema.sql. The webhook secret is REQUIRED: the edge functions fail
+-- closed (401) until WEBHOOK_SECRET is set on them AND the same value is stored
+-- in Vault as `webhook_secret` (see SECRETS section at the bottom / SECRETS.md).
 --
 -- Adds: governance columns, pg_net + pg_cron, an INSERT trigger that pings the
 -- notify-application edge function, and two daily cron jobs (digest, retention).
@@ -16,9 +17,8 @@ create extension if not exists pg_net  with schema extensions;
 create extension if not exists pg_cron;
 
 -- 3) INSERT trigger → notify-application edge function -----------------------
--- Reads the shared webhook secret from Vault if present (you create it later;
--- see SECRETS section). Until then it sends an empty secret, which the function
--- accepts because WEBHOOK_SECRET is also unset on its side.
+-- Reads the shared webhook secret from Vault (`webhook_secret`). If it is
+-- missing an empty header is sent and the function rejects the call (401).
 create or replace function public.handle_new_application()
 returns trigger
 language plpgsql
@@ -84,6 +84,6 @@ $job$);
 --
 --   select vault.create_secret('<your-random-webhook-secret>', 'webhook_secret');
 --
--- This is OPTIONAL but recommended (it stops anyone from calling the functions
--- directly). Without it, the functions still work but are unauthenticated.
+-- This is REQUIRED: the functions fail closed (401) when WEBHOOK_SECRET is unset
+-- or the header does not match, so nothing runs until both sides are set.
 -- ============================================================================
