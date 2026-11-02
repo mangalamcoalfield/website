@@ -58,6 +58,20 @@ Home · About/Leadership · Operations · Safety · Learn (hub + articles) · Ma
 Cares · Careers (+JobPosting schema) · Contact · Privacy · 404. Employee Portal is
 a button to `https://app.mangalamcoal.com`.
 
+## Regulation Desk (`/regulations`, also `regs.mangalamcoal.com`)
+
+The regulations library, search, full texts and DGMS circulars. `regs.mangalamcoal.com`
+is the same deployment: `vercel.json` sends its `/` to `/regulations/` and any
+non-regulation page to `mangalamcoal.com`; canonicals always name `mangalamcoal.com`,
+so search engines see one copy. The domain must be added to the Vercel project and
+given a DNS record. Corpus pipeline: `content/REGULATIONS-UPDATE.md`.
+
+## Monitoring
+
+`.github/workflows/build.yml` builds every push; `.github/workflows/uptime.yml` checks
+the live site every 30 minutes (a failed run is e-mailed). Page views: Vercel Web
+Analytics (cookieless; switch on in the Vercel project).
+
 ## Publish-filter
 
 Only content already public through an official channel goes live. No confidential

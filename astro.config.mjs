@@ -34,9 +34,19 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   adapter: vercel({
-    webAnalytics: { enabled: false },
+    // Cookieless, aggregate page views (switch on under the project's Analytics tab in Vercel).
+    webAnalytics: { enabled: true },
   }),
   build: {
     inlineStylesheets: 'auto',
+  },
+  // A per-page CSP <meta> with a hash for every inline script, so script-src needs no
+  // 'unsafe-inline'. Browsers enforce it on top of the header in vercel.json (which
+  // can't know the hashes). Styles keep 'unsafe-inline': React islands set style attributes.
+  security: {
+    csp: {
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'", 'https://www.googletagmanager.com'] },
+      styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
+    },
   },
 });

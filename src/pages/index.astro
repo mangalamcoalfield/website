@@ -84,9 +84,10 @@ const tickerItems = latestRegs
           <svg id="heroVideoIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
         </button>
       </div>
-      <script is:inline>
+      <!-- Bundled (not is:inline) so the page's CSP can hash it. -->
+      <script>
         (() => {
-          const v = document.getElementById('heroVideo');
+          const v = document.getElementById('heroVideo') as HTMLVideoElement | null;
           const l = document.getElementById('heroLogo');
           const btn = document.getElementById('heroVideoToggle');
           const icon = document.getElementById('heroVideoIcon');

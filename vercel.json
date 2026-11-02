@@ -101,6 +101,28 @@
       "has": [
         {
           "type": "host",
+          "value": "regs.mangalamcoal.com"
+        }
+      ],
+      "destination": "/regulations/",
+      "permanent": false
+    },
+    {
+      "source": "/((?!regulations|pagefind|_astro|_vercel|api/ask|images/|favicon|apple-touch-icon|mangalam_|og\\.png|robots\\.txt|llms\\.txt|sitemap).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "regs.mangalamcoal.com"
+        }
+      ],
+      "destination": "https://mangalamcoal.com/$1",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
           "value": "careers.mangalamcoal.com"
         }
       ],

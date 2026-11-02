@@ -5,7 +5,10 @@
 ## Regulations library (free, public reference)
 A curated, searchable library of the regulations, circulars and codes that govern Indian coal mining — each with a plain-language summary, the official government source, and a downloadable copy. Covers: the Coal Mines Regulations 2017 (and amendments), the Mines Act 1952 and rules, DGMS technical/legislative circulars, the four Labour Codes (2020) and their rules, the MMDR Act with MCR/MCDR, environment and forest rules, CEA electrical regulations, and Ministry of Coal guidelines.
 
-- Regulations library: https://mangalamcoal.com/regulations
+- Mangalam Regulation Desk (also at https://regs.mangalamcoal.com): https://mangalamcoal.com/regulations
+- Search every Act, rule, regulation and DGMS circular, provision by provision: https://mangalamcoal.com/regulations/search
+- Full text of each Act/Rules/Regulations, one anchor per provision: https://mangalamcoal.com/regulations/<slug>/text
+- Each DGMS circular on its own page: https://mangalamcoal.com/regulations/circulars/<id>
 - Individual regulations have their own pages at https://mangalamcoal.com/regulations/<slug>
 
 ## Knowledge hub (how coal mining works)

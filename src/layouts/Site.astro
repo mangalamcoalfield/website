@@ -81,7 +81,18 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   {GA_ID && (
     <Fragment>
       <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
-      <script is:inline define:vars={{ GA_ID }}>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',GA_ID);</script>
+      {/* Bundled, not inline, so the page's CSP can hash it; the id travels in a data attribute. */}
+      <meta name="ga-id" content={GA_ID} />
+      <script>
+        const id = document.querySelector<HTMLMetaElement>('meta[name="ga-id"]')?.content;
+        if (id) {
+          const w = window as unknown as { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
+          w.dataLayer = w.dataLayer || [];
+          w.gtag = function () { w.dataLayer.push(arguments); };
+          w.gtag('js', new Date());
+          w.gtag('config', id);
+        }
+      </script>
     </Fragment>
   )}
 </head>

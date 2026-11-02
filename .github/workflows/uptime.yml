@@ -1,0 +1,38 @@
+# Checks the live site every 30 minutes from GitHub's servers. A failed run is
+# e-mailed to the repository's watchers (GitHub's default for failed scheduled runs).
+name: uptime
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Pages, search and documents respond
+        run: |
+          fail=0
+          check() {   # url, expected text (optional)
+            body=$(curl -sS -L --max-time 30 -A 'mangalam-uptime' -w '\n%{http_code}' "$1") || { echo "DOWN  $1"; fail=1; return; }
+            code=${body##*$'\n'}
+            if [ "$code" != 200 ]; then echo "HTTP $code  $1"; fail=1; return; fi
+            if [ -n "$2" ] && ! grep -q "$2" <<<"$body"; then echo "MISSING '$2'  $1"; fail=1; return; fi
+            echo "ok    $1"
+          }
+          check https://mangalamcoal.com/ 'Mangalam'
+          check https://mangalamcoal.com/careers/ 'Careers'
+          check https://mangalamcoal.com/regulations/ 'Regulation'
+          check https://mangalamcoal.com/regulations/search/ 'Regulation Desk'
+          check https://mangalamcoal.com/regulations/coal-mines-regulations-2017/text/ 'Regulation 78'
+          check https://mangalamcoal.com/pagefind/pagefind.js
+          check https://mangalamcoal.com/regulations/search/provisions.json
+          # Soft until the regs. domain is added in Vercel and DNS: reported, never fails the run.
+          code=$(curl -sS -o /dev/null -L --max-time 30 -w '%{http_code}' https://regs.mangalamcoal.com/) || code=000
+          echo "info  regs.mangalamcoal.com -> HTTP $code"
+          # The hosted PDFs (Hostinger): one compilation the circular pages link into.
+          code=$(curl -sS -o /dev/null -I -L --max-time 30 -w '%{http_code}' https://docs.mangalamcoal.com/regs/DGMS_Circulars_2018-2024_06122024.pdf) || code=000
+          [ "$code" = 200 ] && echo "ok    docs.mangalamcoal.com PDF" || { echo "HTTP $code  docs.mangalamcoal.com PDF"; fail=1; }
+          exit $fail

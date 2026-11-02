@@ -45,7 +45,7 @@ const analyticsOn = Boolean(import.meta.env.PUBLIC_GA_ID);
       <p class="mb-4">We do not use advertising or cross-site tracking cookies.{' '}
         {analyticsOn
           ? 'We use Google Analytics to measure website traffic in aggregate. It sets cookies in your browser and records your visit; we use it only to understand how the site is used, never to build an advertising profile.'
-          : 'We do not run any website analytics on this site. If that changes, this notice will be updated to say so.'}</p>
+          : 'We count page views with Vercel Web Analytics, which uses no cookies and does not identify you: it records the page, the referring site, and the country and device type, in aggregate only.'}</p>
 
       <h2 class="mt-10 mb-3 font-[var(--font-display)] text-2xl font-bold text-foreground">Your rights</h2>
       <p class="mb-4">Under the DPDP Act you may ask us to access, correct, update or erase the personal data you have submitted, withdraw your consent, or nominate another person to exercise your rights. To do so, email <a class="text-primary underline" href={`mailto:${SITE.hrEmail}`}>{SITE.hrEmail}</a>. We will respond within a reasonable period. If you are not satisfied, you may raise a grievance with us at the same address before approaching the Data Protection Board of India.</p>
