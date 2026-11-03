@@ -1,12 +1,13 @@
 """How readable a machine-read (OCR) circular is: the share of its words that also
 occur in the circulars that have a real text layer. Clean OCR scores ~0.95; a
 garbled scan (tables of approval numbers read as noise, faint stamps) scores well
-under 0.6. Pages below POOR warn the reader and keep the text out of the search
+under 0.6. Re-OCR (tools/reocr_poor.py) lifts the worst into the 0.6s while their
+numbers, dates and equipment names stay unreliable, so the line is 0.7. Pages below POOR warn the reader and keep the text out of the search
 index (the reference and title stay searchable)."""
 import re
 from collections import Counter
 
-POOR = 0.6
+POOR = 0.7
 
 
 def annotate(entries):

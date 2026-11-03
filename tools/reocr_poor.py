@@ -9,7 +9,7 @@ clean-ups per page and keeping whichever reading scores best.
                                  was built with; rapidocr = pip install rapidocr-onnxruntime;
                                  tesseract if it is on PATH)
     --dpi 200,300,400,600        render resolutions
-    --threshold 0.6              which circulars count as poor (tools/ocr_quality.py score)
+    --threshold 0.7              which circulars count as poor (tools/ocr_quality.py POOR)
     --pdf-dir DIR                read PDFs from DIR (by file name) instead of downloading
     --only ID[,ID]               just these circular ids
 
@@ -133,7 +133,7 @@ def main():
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--engines')
     ap.add_argument('--dpi', default='200,300,400,600')
-    ap.add_argument('--threshold', type=float, default=0.6)
+    ap.add_argument('--threshold', type=float, default=0.7)
     ap.add_argument('--pdf-dir')
     ap.add_argument('--only')
     a = ap.parse_args()

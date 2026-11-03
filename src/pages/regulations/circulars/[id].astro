@@ -32,7 +32,7 @@ const pdfUrl = /^https?:/.test(c.pdf) ? c.pdf : `${DOCS_BASE}/${c.pdf}#page=${c.
 const collection = collectionOf(c);
 const paras = c.text.split('\n').filter(Boolean);
 // A scan the OCR read badly (tools/ocr_quality.py): warn, and keep its text out of the search index.
-const poorScan = c.ocr && (c.ocr_quality ?? 1) < 0.6;
+const poorScan = c.ocr && (c.ocr_quality ?? 1) < 0.7;   // = POOR in tools/ocr_quality.py
 const pages = isLib ? `${c.page_end} p.` : c.page_end > c.page ? `pp. ${c.page}–${c.page_end}` : `p. ${c.page}`;
 // Some corpus titles are a run-on first sentence; the page heading keeps it whole,
 // but the <title> is cut at a word near 70 characters.
