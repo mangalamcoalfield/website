@@ -68,9 +68,12 @@ given a DNS record. Corpus pipeline: `content/REGULATIONS-UPDATE.md`.
 
 ## Monitoring
 
-`.github/workflows/build.yml` builds every push; `.github/workflows/uptime.yml` checks
-the live site every 30 minutes (a failed run is e-mailed). Page views: Vercel Web
-Analytics (cookieless; switch on in the Vercel project).
+| What | Where | Notes |
+|---|---|---|
+| Build check | GitHub Actions, `.github/workflows/build.yml` | Every push and pull request. |
+| Uptime | GitHub Actions, `.github/workflows/uptime.yml` | Every 30 minutes; GitHub e-mails a failed run to whoever last changed its schedule. |
+| Page views | Vercel → project `mangalam-website` → Analytics | Cookieless Web Analytics. |
+| Search | Google Search Console, Domain property `mangalamcoal.com`, owned by the company Google account | Verified by a TXT record on `@` at Hostinger DNS: keep it, or verification lapses. Sitemap: `/sitemap-index.xml`. Use URL Inspection to check whether a page is indexed. |
 
 ## Publish-filter
 
