@@ -6,6 +6,7 @@ import statutes from '../data/statutes-corpus.json';
 import { collectionOf, COLLECTIONS, type CircularEntry } from '../lib/circulars';
 import { INSTRUMENT_ORDER, type StatuteDoc } from '../lib/statutes';
 import { SEARCH_UI, DEPT_HI, DEPT_NOTE_HI, UNIT_HI } from '../i18n/regsearch';
+import { statusRank } from '../lib/status';
 
 // One search for the whole regulation desk: the full text of the library's Acts,
 // Codes, Rules and Regulations, provision by provision (regulations/[slug]/text),
@@ -72,7 +73,7 @@ const DEPT_NOTE: Record<string, string> = {
   'Not stated': 'Older circulars that name no wing',
 };
 const instruments = INSTRUMENT_ORDER
-  .map((k) => [k, docs.filter((d) => d.category_label === k).sort((a, b) => Number(b.numbered) - Number(a.numbered) || (b.year ?? 0) - (a.year ?? 0))] as const)
+  .map((k) => [k, docs.filter((d) => d.category_label === k).sort((a, b) => statusRank(a.status) - statusRank(b.status) || Number(b.numbered) - Number(a.numbered) || (b.year ?? 0) - (a.year ?? 0))] as const)
   .filter(([, ds]) => ds.length > 0);
 const newest = Math.max(...items.map((c) => c.year ?? 0));
 const oldest = Math.min(...items.filter((c) => c.year).map((c) => c.year!));

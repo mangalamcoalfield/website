@@ -22,3 +22,6 @@ export const statusBadge = (s: string) =>
  *  "G.S.R. 345(E)", "S.O. 5683(E)", "Act 35 of 1952", "DGMS (Legis) Circular No. 01"), so
  *  the page shouldn't print its own "No." label before it. */
 export const numberSaysItself = (n: string) => /\bNo\b|^(?:G\.?\s*S\.?\s*R|S\.?\s*O|Act|GSR|SO)\b/i.test(n);
+
+/** List order: what is law today first, then what is coming, then what is gone. */
+export const statusRank = (s: string) => ({ in_force: 0, notified: 1, draft: 2, superseded: 3 } as Record<string, number>)[s] ?? 4;

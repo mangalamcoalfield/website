@@ -27,14 +27,14 @@
       "status": "Draft",
       "when": "Stakeholder consultation · 31 Jul 2026",
       "note": "The Ministry of Coal has redrafted the mining plan and mine closure guidelines and held stakeholder consultation on 31 July 2026. No final instrument has been issued. MPG-2025 therefore remains in force; if the 2026 guidelines are notified they would supersede it, with plans uploaded before commencement staying under the 2025 regime.",
-      "href": "/regulations"
+      "href": "/regulations/moc-mining-plan-mine-closure-guidelines-2025"
     },
     {
       "title": "The four Labour Codes — rollout",
       "status": "In transition",
       "when": "In force 21 Nov 2025",
-      "note": "Wages, Industrial Relations, Social Security and OSH&WC Codes brought into force; the (Central) Rules, 2026 were finalised 8 May 2026. Jharkhand notified its own Code on Wages and OSH&WC rules back in 2021, ahead of the Codes commencing.",
-      "href": "/regulations"
+      "note": "Wages, Industrial Relations, Social Security and OSH&WC Codes brought into force; the (Central) Rules, 2026 were finalised 8 May 2026. Jharkhand published draft Code on Wages and OSH&WC rules in 2021; its final state rules have not yet been notified.",
+      "href": "/regulations/search?scope=statutes&instrument=Labour%20Codes%20%26%20Rules"
     },
     {
       "title": "NCWA-XII wage settlement",
@@ -59,7 +59,7 @@
       "status": "In effect",
       "when": "In force 1 Dec 2023",
       "note": "The Van (Sanrakshan Evam Samvardhan) Rules, 2023 replaced the Forest (Conservation) Rules, 2022.",
-      "href": null
+      "href": "/regulations/van-sanrakshan-evam-samvardhan-rules-2023"
     }
   ]
 }

@@ -1,5 +1,7 @@
 ---
-import { statusBadge, statusShort as statusLabel } from '../../lib/status';
+import { statusBadge, statusShort as statusLabel, statusRank } from '../../lib/status';
+import deskChecks from '../../data/desk-checks.json';
+import { CONCORDANCES } from '../../data/concordances';
 import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import RegNav from '../../components/RegNav.astro';
@@ -30,7 +32,7 @@ const cats = order.filter((c) => regs.some((r) => r.category === c));
 
 // Cornerstone instruments shown as cards; the rest go into the compact list.
 const FEAT_ORDER = ['cmr_2017', 'mines_act', 'labour_code', 'mmdr', 'env_forest', 'dgms_circular', 'draft', 'dgms_notification', 'cea', 'moc'];
-const featured = regs.filter((r) => r.featured).sort((a, b) => FEAT_ORDER.indexOf(a.category) - FEAT_ORDER.indexOf(b.category));
+const featured = regs.filter((r) => r.featured).sort((a, b) => statusRank(a.status) - statusRank(b.status) || FEAT_ORDER.indexOf(a.category) - FEAT_ORDER.indexOf(b.category));
 
 // Tracker 1 — "Latest from DGMS": most recent dated circulars/notifications.
 const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -43,6 +45,16 @@ const latestDgms = regs
 // draft-watch.json carries its own review date so the panel can say when its
 // statuses were last checked against the sources.
 const draftWatchItems = draftWatch.items;
+// A Draft-Watch link must lead somewhere: to a published library entry, or to search.
+// A link to a document that isn't (or is no longer) published fails the build here,
+// rather than shipping a dead link (the Van Rules item once had none at all).
+for (const d of draftWatchItems) {
+  const slug = d.href?.match(/^\/regulations\/([a-z0-9-]+)\/?$/)?.[1];
+  if (!d.href) console.warn(`[draft-watch] "${d.title}" has no link`);
+  if (slug && !usingPlaceholder && !regs.some((r) => r.slug === slug)) throw new Error(`[draft-watch] "${d.title}" links to /regulations/${slug}, which isn't a published library entry`);
+}
+// When DGMS's site was last checked for new documents (src/data/desk-checks.json).
+const dgmsChecked = deskChecks.dgms_checked ? fmtD(deskChecks.dgms_checked) : null;
 const reviewedOn = fmtD(draftWatch.reviewed);
 const dwBadge = (s: string) => s === 'Draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'Pending' || s === 'In transition' ? 'bg-[#e0b86a]/15 text-[#e0b86a]' : 'bg-primary/15 text-primary';
 
@@ -124,9 +136,10 @@ const breadcrumbLd = {
         <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm">
           <div class="flex items-center justify-between">
             <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">Latest from DGMS</span>
-            <span class="relative flex h-2 w-2" title="Live from the library"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span></span>
           </div>
           <p class="mt-1.5 text-sm text-muted-foreground">The newest circulars &amp; notifications in the library.</p>
+          {/* Like Draft-Watch, say when this was last checked rather than implying it is live. */}
+          <p class="mt-1 text-[12px] text-muted-foreground/80">{dgmsChecked ? `DGMS's website last checked ${dgmsChecked}.` : 'Check DGMS for anything issued since.'} <a href="https://www.dgms.gov.in" target="_blank" rel="noopener" class="text-primary hover:underline">dgms.gov.in</a></p>
           {latestDgms.length > 0 ? (
             <ul class="mt-4 flex flex-col divide-y divide-white/5">
               {latestDgms.map((r) => (
@@ -161,6 +174,30 @@ const breadcrumbLd = {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* The research: where the old law went (src/data/concordances.ts). */}
+  <section class="relative bg-background pt-12">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-7">
+        <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-2xl">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">What changed</span>
+            <h2 class="mt-2 font-[var(--font-display)] text-2xl font-bold tracking-tight text-foreground">Where the old law went</h2>
+            <p class="mt-1 text-sm text-muted-foreground">Provision-by-provision maps from the old instruments to the ones replacing them, with the wording compared.</p>
+          </div>
+          <a href="/regulations/concordance" class="shrink-0 text-[13px] font-semibold text-primary hover:underline">All concordances →</a>
+        </div>
+        <div class="mt-5 grid gap-2 sm:grid-cols-2">
+          {CONCORDANCES.map((c) => (
+            <a href={`/regulations/concordance/${c.key}`} class="group flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-primary">
+              <span class="text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{c.heading}</span>
+              {c.draft && <span class="shrink-0 rounded-full bg-secondary/20 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-[#9ed3c4]">Draft</span>}
+            </a>
+          ))}
         </div>
       </div>
     </div>
@@ -206,7 +243,7 @@ const breadcrumbLd = {
       </div>
 
       <div id="reglist" class="divide-y divide-white/[0.06] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
-        {regs.map((r) => (
+        {[...regs].sort((a, b) => statusRank(a.status) - statusRank(b.status)).map((r) => (
           <a href={`/regulations/${r.slug}`} data-title={`${r.title} ${r.doc_number || ''} ${r.authority || ''} ${r.summary || ''} ${(r.tags || []).join(' ')}`.toLowerCase()} data-cat={r.category}
             class="regrow group flex items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-white/[0.04]">
             <div class="min-w-0">

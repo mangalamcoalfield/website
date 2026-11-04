@@ -1,0 +1,4 @@
+{
+  "_about": "When the Regulation Desk was last checked against its sources. Update dgms_checked (YYYY-MM-DD) whenever the DGMS website has been checked for new circulars and notifications (tools/discover_dgms.mjs), whether or not anything new was found. The regulations page shows it under 'Latest from DGMS'.",
+  "dgms_checked": null
+}

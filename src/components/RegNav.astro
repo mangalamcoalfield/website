@@ -2,7 +2,7 @@
 // The regulation desk's own tab bar, on every regulations page, so search, the
 // library and the circulars are each one click from anywhere in the section
 // (the Circular Finder used to sit three levels down, behind a card).
-interface Props { active: 'search' | 'library' | 'circulars' | 'changes' | null; class?: string; lang?: 'en' | 'hi' }
+interface Props { active: 'search' | 'library' | 'circulars' | 'concordance' | 'changes' | null; class?: string; lang?: 'en' | 'hi' }
 const { active, class: cls = '', lang = 'en' } = Astro.props;
 const hi = lang === 'hi';
 // The search has a Hindi interface; the library and Draft-Watch are English-only.
@@ -10,6 +10,7 @@ const TABS = [
   { key: 'search', label: hi ? 'खोज' : 'Search', href: hi ? '/hi/regulations/search' : '/regulations/search' },
   { key: 'library', label: hi ? 'पुस्तकालय' : 'Library', href: '/regulations#library' },
   { key: 'circulars', label: hi ? 'डीजीएमएस परिपत्र' : 'DGMS circulars', href: hi ? '/hi/regulations/search?scope=circulars' : '/regulations/search?scope=circulars' },
+  { key: 'concordance', label: hi ? 'क्या बदला' : 'What changed', href: '/regulations/concordance' },
   { key: 'changes', label: hi ? 'नवीनतम व ड्राफ़्ट-वॉच' : 'Latest & Draft-Watch', href: '/regulations#tracker' },
 ] as const;
 ---
@@ -34,3 +35,10 @@ const TABS = [
     ))}
   </ul>
 </nav>
+<script>
+  // On a phone the tab bar scrolls sideways; bring the current tab into view.
+  document.querySelectorAll<HTMLElement>('.regnav ul').forEach((ul) => {
+    const cur = ul.querySelector<HTMLElement>('a[aria-current]');
+    if (cur && ul.scrollWidth > ul.clientWidth) ul.scrollLeft = cur.offsetLeft - (ul.clientWidth - cur.offsetWidth) / 2;
+  });
+</script>
