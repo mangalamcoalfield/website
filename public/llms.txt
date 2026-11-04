@@ -9,7 +9,11 @@ A curated, searchable library of the regulations, circulars and codes that gover
 - Search every Act, rule, regulation and DGMS circular, provision by provision: https://mangalamcoal.com/regulations/search
 - Full text of each Act/Rules/Regulations, one anchor per provision: https://mangalamcoal.com/regulations/<slug>/text
 - Each DGMS circular on its own page: https://mangalamcoal.com/regulations/circulars/<id>
-- CMR 2017 → Draft OSH&WC (Coal Mines) Regulations 2026 concordance, with what changed in each regulation: https://mangalamcoal.com/regulations/concordance/cmr-2017-draft-2026
+- Concordances (where each provision of an old instrument goes in its replacement, with a word-level comparison):
+  - CMR 2017 → Draft OSH&WC (Coal Mines) Regulations 2026: https://mangalamcoal.com/regulations/concordance/cmr-2017-draft-2026
+  - Mines Rules 1955 → OSH&WC (Central) Rules 2026: https://mangalamcoal.com/regulations/concordance/mines-rules-1955-oshwc-central-rules-2026
+  - Mines Vocational Training Rules 1966 → OSH&WC (Central) Rules 2026: https://mangalamcoal.com/regulations/concordance/mvtr-1966-oshwc-central-rules-2026
+  - CEA Safety Regulations 2010 → 2023: https://mangalamcoal.com/regulations/concordance/cea-2010-cea-2023
 - Individual regulations have their own pages at https://mangalamcoal.com/regulations/<slug>
 
 ## Knowledge hub (how coal mining works)

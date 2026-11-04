@@ -23,9 +23,23 @@ from difflib import SequenceMatcher
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CORPUS = os.path.join(ROOT, 'src', 'data', 'statutes-corpus.json')
-OUT = os.path.join(ROOT, 'src', 'data', 'concordance-cmr2017-draft2026.json')
-FROM, TO = 'coal-mines-regulations-2017', 'draft-oshwc-coal-mines-regulations-2026'
-ELSEWHERE = ['oshwc-code-central-rules-2026', 'oshwc-code-2020']
+DATA = os.path.join(ROOT, 'src', 'data')
+
+# Each transition the library holds both sides of: (old, new, where else to look for
+# provisions the new text doesn't carry). The key names the output file and the page,
+# /regulations/concordance/<key>.
+PAIRS = {
+    'cmr-2017-draft-2026': ('coal-mines-regulations-2017', 'draft-oshwc-coal-mines-regulations-2026',
+                            ['oshwc-code-central-rules-2026', 'oshwc-code-2020']),
+    'mines-act-1952-oshwc-code-2020': ('mines-act-1952', 'oshwc-code-2020', ['oshwc-code-central-rules-2026']),
+    'mines-rules-1955-oshwc-central-rules-2026': ('mines-rules-1955', 'oshwc-code-central-rules-2026', ['oshwc-code-2020']),
+    'mvtr-1966-oshwc-central-rules-2026': ('mines-vocational-training-rules-1966', 'oshwc-code-central-rules-2026', ['oshwc-code-2020']),
+    'cea-2010-cea-2023': ('cea-measures-relating-to-safety-regulations-2010', 'cea-safety-electric-supply-regulations-2023', []),
+}
+
+ROLES = set('''welfare training safety ventilation medical engineer engineers manager managers surveyor
+electrical mechanical overman overmen sirdar sirdars inspector inspectors agent owner trainer trainers
+supervisor supervisors foreman shotfirer blaster electrician'''.split())
 
 STOP = set('''the of and or to in a an by for be shall any such as on at with from that this is are which
 every mine mines regulation regulations rule rules section sub provided where person persons other than not
@@ -36,13 +50,20 @@ def tok(t):
     return [w for w in re.findall(r'[a-z]{3,}', t.lower()) if w not in STOP]
 
 
+def heading(p):
+    """For matching: the heading, or where none was extracted, the opening words
+    ("12. Practical experience of candidate for winding Engine Operator's ...")."""
+    return p['title'] or re.sub(r'^\S+\s+', '', p['text'].split('\n')[0])[:120]
+
+
 def body(p):
     """The provision's text without its number-and-heading line."""
     return p['text'].split('\n', 1)[-1] if '\n' in p['text'] else re.sub(r'^\S+\s+', '', p['text'])
 
 
-def main():
-    docs = {d['slug']: d for d in json.load(open(CORPUS, encoding='utf-8'))}
+def build(key, docs):
+    FROM, TO, ELSEWHERE = PAIRS[key]
+    OUT = os.path.join(DATA, f'concordance-{key}.json')
     A = [p for p in docs[FROM]['provisions'] if p['num']]
     B = [p for p in docs[TO]['provisions'] if p['num']]
     E = [(slug, p) for slug in ELSEWHERE if slug in docs for p in docs[slug]['provisions'] if p['num']]
@@ -65,6 +86,12 @@ def main():
         return len(a & b) / len(a | b) if a and b else 0.0
 
     VA, VB, VE = [vec(p) for p in A], [vec(p) for p in B], [vec(p) for _, p in E]
+
+    def clash(a, b):
+        """Headings about different named officials ("Duties of Welfare Officer" vs "Duties
+        of Training Officer") are different provisions, however alike their wording."""
+        ra, rb = set(tok(heading(a))) & ROLES, set(tok(heading(b))) & ROLES
+        return bool(ra and rb and not ra & rb)
 
     def words(t):
         return re.findall(r'\S+', re.sub(r'\s+', ' ', t))
@@ -90,14 +117,14 @@ def main():
     # Pair them one-to-one first, best pairs first, so "Practical experience of
     # candidates" (four regulations, four counterparts) don't all land on one.
     def score(i, j):
-        return 0.55 * jac(A[i]['title'], B[j]['title']) + 0.45 * cos(VA[i], VB[j])
+        return 0.55 * jac(heading(A[i]), heading(B[j])) + 0.45 * cos(VA[i], VB[j])
     pairs = sorted(((score(i, j), i, j) for i in range(len(A)) for j in range(len(B))), reverse=True)
     match, taken = {}, set()
     for sc, i, j in pairs:
         if i in match or j in taken:
             continue
-        head, text = jac(A[i]['title'], B[j]['title']), cos(VA[i], VB[j])
-        if (head >= 0.5 and text >= 0.15) or text >= 0.45 or head >= 0.99:
+        head, text = jac(heading(A[i]), heading(B[j])), cos(VA[i], VB[j])
+        if not clash(A[i], B[j]) and ((head >= 0.5 and text >= 0.15) or text >= 0.45 or head >= 0.99):
             match[i] = (j, head, text)
             taken.add(j)
     # Regulations the draft folds into another (the notices of opening, reopening and
@@ -108,13 +135,13 @@ def main():
             continue
         free = [(score(i, j), j) for j in range(len(B)) if j not in taken]
         sc, j = max(free) if free else (0, -1)
-        if sc >= 0.25:                                    # a looser pair still available
-            match[i] = (j, jac(A[i]['title'], B[j]['title']), cos(VA[i], VB[j]))
+        if sc >= 0.25 and not clash(A[i], B[j]):          # a looser pair still available
+            match[i] = (j, jac(heading(A[i]), heading(B[j])), cos(VA[i], VB[j]))
             taken.add(j)
             continue
         sc, j = max((cos(VA[i], VB[j]), j) for j in range(len(B)))
         if sc >= 0.35:
-            match[i] = (j, jac(A[i]['title'], B[j]['title']), sc)
+            match[i] = (j, jac(heading(A[i]), heading(B[j])), sc)
 
     rows = []
     for i, a in enumerate(A):
@@ -132,19 +159,26 @@ def main():
             if not folded and row['change'] != 'same':
                 row['diff'] = d
         else:
-            cands = sorted(((0.55 * jac(a['title'], p['title']) + 0.45 * cos(VA[i], VE[k]), k) for k, (_, p) in enumerate(E)), reverse=True)[:2]
+            cands = sorted(((0.55 * jac(heading(a), heading(p)) + 0.45 * cos(VA[i], VE[k]), k) for k, (_, p) in enumerate(E)), reverse=True)[:2]
             row['likely'] = [dict(slug=E[k][0], doc=docs[E[k][0]]['title'], num=E[k][1]['num'], label=E[k][1]['label'],
                                   title=E[k][1]['title'], anchor=E[k][1]['id']) for sc, k in cands if sc >= 0.2]
         rows.append(row)
 
     used = {r['to']['num'] for r in rows if 'to' in r}
     new = [dict(num=b['num'], title=b['title'], anchor=b['id']) for b in B if b['num'] not in used]
-    out = dict(source=dict(slug=FROM, title=docs[FROM]['title']), target=dict(slug=TO, title=docs[TO]['title']),
+    out = dict(source=dict(slug=FROM, title=docs[FROM]['title'], ocr=docs[FROM]['ocr']), target=dict(slug=TO, title=docs[TO]['title'], ocr=docs[TO]['ocr']),
                rows=rows, new_in_draft=new)
     json.dump(out, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
     c = Counter(r.get('change', 'not in draft') for r in rows)
-    print(f'{len(rows)} CMR 2017 regulations: {dict(c)}; {len(new)} draft regulations with no CMR 2017 match')
-    print('size KB', os.path.getsize(OUT) // 1024)
+    print(f'{key}: {len(rows)} provisions: {dict(c)}; {len(new)} new with no match · {os.path.getsize(OUT) // 1024} KB')
+    return out
+
+
+def main():
+    import sys
+    docs = {d['slug']: d for d in json.load(open(CORPUS, encoding='utf-8'))}
+    for key in (sys.argv[1:] or PAIRS):
+        build(key, docs)
 
 
 if __name__ == '__main__':

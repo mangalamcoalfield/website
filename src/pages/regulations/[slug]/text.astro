@@ -1,4 +1,5 @@
 ---
+import { CONCORDANCES, CONCORDANCE_SIDES, type ConcordanceMeta } from '../../../data/concordances';
 import { statusLabel as labelOf, statusBadge, numberSaysItself } from '../../../lib/status';
 import Site from '../../../layouts/Site.astro';
 import RegNav from '../../../components/RegNav.astro';
@@ -19,6 +20,11 @@ const { d } = Astro.props as { d: StatuteDoc };
 // What replaced it, or what it is waiting on (the library's status note).
 const statusNote = (seed as { slug: string; status_note: string | null }[]).find((r) => r.slug === d.slug)?.status_note ?? '';
 const statusLabel = labelOf(d.status);
+// Concordances this document is one side of (src/data/concordances.ts).
+const concordances: [ConcordanceMeta, boolean][] = CONCORDANCES.flatMap((c): [ConcordanceMeta, boolean][] => {
+  const [from, to] = CONCORDANCE_SIDES[c.key] ?? [];
+  return from === d.slug ? [[c, true]] : to === d.slug ? [[c, false]] : [];
+});
 const numbered = d.provisions.filter((p) => p.num).length;
 const unit = numbered ? d.provisions.find((p) => p.num)!.label.split(' ')[0].toLowerCase() : '';
 const variants = searchVariants(d.provisions.map((p) => p.text).join(' '));
@@ -108,9 +114,9 @@ const breadcrumbLd = {
           </div>
           {d.ocr && <p class="mt-3 text-[12px] leading-relaxed text-[#e0b86a]">Some pages were machine-read from scans and may contain recognition errors.</p>}
           {!d.numbered && <p class="mt-3 text-[12px] leading-relaxed text-muted-foreground/80">This document isn't numbered throughout, so it is laid out by page.</p>}
-          {(d.slug === 'coal-mines-regulations-2017' || d.slug === 'draft-oshwc-coal-mines-regulations-2026') && (
-            <p class="mt-3 text-[13px] leading-relaxed"><a href="/regulations/concordance/cmr-2017-draft-2026" class="font-semibold text-primary hover:underline">{d.slug === 'coal-mines-regulations-2017' ? 'Where each regulation goes in the Draft OSH&WC (Coal Mines) Regulations, 2026 →' : 'Where each CMR 2017 regulation went, and what changed →'}</a></p>
-          )}
+          {concordances.map(([c, isFrom]) => (
+            <p class="mt-3 text-[13px] leading-relaxed"><a href={`/regulations/concordance/${c.key}`} class="font-semibold text-primary hover:underline">{isFrom ? `Where each ${c.fromUnit.toLowerCase()} goes in ${c.to}, and what changed →` : `Where each ${c.from} ${c.fromUnit.toLowerCase()} went, and what changed →`}</a></p>
+          ))}
         </div>
 
         <div class="mt-10 flex flex-col gap-10">

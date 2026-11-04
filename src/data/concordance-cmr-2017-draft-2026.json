@@ -1,11 +1,13 @@
 {
 "source": {
 "slug": "coal-mines-regulations-2017",
-"title": "Coal Mines Regulations, 2017 (G.S.R. 1449(E))"
+"title": "Coal Mines Regulations, 2017 (G.S.R. 1449(E))",
+"ocr": false
 },
 "target": {
 "slug": "draft-oshwc-coal-mines-regulations-2026",
-"title": "Draft OSH&WC (Coal Mines) Regulations, 2026"
+"title": "Draft OSH&WC (Coal Mines) Regulations, 2026",
+"ocr": false
 },
 "rows": [
 {
@@ -3185,114 +3187,138 @@
 "anchor": "p-18",
 "to": {
 "slug": "draft-oshwc-coal-mines-regulations-2026",
-"num": "10",
-"title": "Practical experience of candidates for Mining supervisor’s Certificate examinations",
-"anchor": "p-10"
+"num": "12",
+"title": "",
+"anchor": "p-12"
 },
 "sure": "medium",
 "change": "revised",
-"kept": 0.207,
-"grew": 1.41,
+"kept": 0.517,
+"grew": 7.05,
 "diff": [
 [
 "-",
-"Practical experience of candidate for Engine Driver’s Certificate.- No person"
+"Practical"
 ],
 [
 "+",
-"Provided that nothing in this clause"
+"Provided that a candidate- (a) who has received National Trade Certificate (NTC) from National Council for Vocational Training (NCVT) or a State Trade Certificate (STC) from State Council for Vocational Training (SCVT) after undergoing a training for a duration of two years in Fitter or Mechanic Trades or any other equivalent qualification, as recognized by the board of mining examination, such period of"
 ],
 [
 "=",
-"shall be"
+"experience"
 ],
 [
 "+",
-"deemed to debar a person not satisfying the provisions thereof from being"
+"shall be reduced to one and half years. (b) who has received a diploma in Mechanical Engineering / Electrical Engineering / Electrical & Electronics Engineering from a recognised Board/university, such period"
 ],
 [
 "=",
-"admitted"
+"of"
 ],
 [
 "-",
-"as a candidate"
+"candidate for Engine Driver’s Certificate.-"
+],
+[
+"+",
+"experience shall be reduced to one year. (c) who has received a degree in Mechanical Engineering/Electrical Engineering /Electrical & Electronics Engineering from a recognised Board/university, such period of experience shall be reduced to six months. Provided further that the experience referred to in this sub-regulation shall be the experience obtained after acquiring the relevant academic qualification. (2)"
 ],
 [
 "=",
-"at"
+"No person shall be admitted as a candidate at any examination for an"
 ],
 [
 "-",
-"any"
+"Engine Driver’s"
 ],
 [
 "+",
-"an"
+"Electrical Supervisor’s"
 ],
 [
 "=",
-"examination for"
+"Certificate"
 ],
 [
 "+",
-"Mining supervisor’s Certificate for three years from the date of commencement of these regulations, if he or she had been admitted earlier at"
+"covering mining installations,"
 ],
 [
 "=",
-"an"
+"unless"
+],
+[
+"+",
+"such conditions as specified by"
+],
+[
+"=",
+"the Board"
 ],
 [
 "-",
-"Engine Driver’s Certificate unless"
+"is satisfied that he"
 ],
 [
 "+",
-"examination for"
+"are fulfilled and"
 ],
 [
 "=",
-"the"
+"has had practical experience"
 ],
 [
 "+",
-"said certificate. (2) The"
+"in transmission and distribution"
 ],
 [
 "=",
-"Board"
+"of"
 ],
 [
 "-",
-"is satisfied that he has had"
+"driving a winding engine or"
 ],
 [
 "+",
-"may specify, subject to the conditions laid down in examination bye-laws, the nature and other details of the"
+"electricity in mining installation"
 ],
 [
 "=",
-"practical experience"
+"as"
 ],
 [
 "-",
-"of driving a winding engine or as an assistant to a qualified winding engine driver"
+"an assistant to a qualified winding engine driver"
 ],
 [
 "+",
-"required"
+"prescribed under sub-regulation (3)"
 ],
 [
 "=",
-"for"
+"for a period of"
 ],
 [
 "-",
-"a period of at least one year."
+"at least"
 ],
 [
 "+",
-"Mining supervisor’s certificate."
+"not less than three years: Provided that a candidate- (a) who has received National Trade Certificate (NTC) from National Council for Vocational Training (NCVT) or a State Trade Certificate (STC) from State Council for Vocational Training (SCVT) after undergoing a training for a duration of two years in Electrical Trades or any other equivalent qualification, as recognized by the board of mining examination, such period of experience shall be reduced to two years. (b) who has received a diploma in Electrical or Electrical & Electronics or Electrical & Instrumentation or other equivalent qualification approved in that behalf by the Central Government, such period of experience shall be reduced to"
+],
+[
+"=",
+"one"
+],
+[
+"-",
+"year."
+],
+[
+"+",
+"year; (c) who has received a degree in Electrical or Electrical & Electronics or Electrical & Instrumentation or other equivalent qualification approved in that behalf by the Central Government, such period of experience shall be reduced to six months. Provided further that the experience referred to in this sub-regulation shall be the experience obtained after acquiring the relevant academic qualification. (3) The Board may specify, subject to the conditions laid down in the examination bye-laws, the nature and other details of the practical experience required for Winding Engine Operator’s Certificate and Electrical Supervisor’s Certificate."
 ]
 ]
 },
@@ -19752,9 +19778,9 @@
 ],
 "new_in_draft": [
 {
-"num": "12",
-"title": "",
-"anchor": "p-12"
+"num": "10",
+"title": "Practical experience of candidates for Mining supervisor’s Certificate examinations",
+"anchor": "p-10"
 },
 {
 "num": "20",

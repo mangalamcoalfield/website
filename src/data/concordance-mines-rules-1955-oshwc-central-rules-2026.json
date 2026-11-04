@@ -1,0 +1,4127 @@
+{
+"source": {
+"slug": "mines-rules-1955",
+"title": "The Mines Rules, 1955",
+"ocr": false
+},
+"target": {
+"slug": "oshwc-code-central-rules-2026",
+"title": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"ocr": false
+},
+"rows": [
+{
+"num": "1",
+"title": "Short title and applications",
+"anchor": "p-1",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "1",
+"title": "Short title and commencement",
+"anchor": "p-1"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.238,
+"grew": 1.14,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"Except as otherwise expressly provided,"
+],
+[
+"+",
+"They extend to"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"rules"
+],
+[
+"+",
+"whole of India. (3) They"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"apply to every mine"
+],
+[
+"+",
+"come into force on the date"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"whatever description to which"
+],
+[
+"+",
+"their publication in"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Act applies."
+],
+[
+"+",
+"Official Gazette."
+]
+]
+},
+{
+"num": "2",
+"title": "",
+"anchor": "p-2",
+"likely": []
+},
+{
+"num": "3",
+"title": "Term of office",
+"anchor": "p-3",
+"likely": []
+},
+{
+"num": "4",
+"title": "Secretary of the Commi ttee",
+"anchor": "p-4",
+"likely": []
+},
+{
+"num": "5",
+"title": "Remuneration",
+"anchor": "p-5",
+"likely": []
+},
+{
+"num": "7",
+"title": "Resignation",
+"anchor": "p-7",
+"likely": []
+},
+{
+"num": "8",
+"title": "Absence from India",
+"anchor": "p-8",
+"likely": []
+},
+{
+"num": "9",
+"title": "Notification of Vacancies",
+"anchor": "p-9",
+"likely": []
+},
+{
+"num": "10",
+"title": "Disposal of business",
+"anchor": "p-10",
+"likely": []
+},
+{
+"num": "11",
+"title": "Time and place of meetings",
+"anchor": "p-11",
+"likely": []
+},
+{
+"num": "12",
+"title": "Notice of meetings",
+"anchor": "p-12",
+"likely": []
+},
+{
+"num": "13",
+"title": "Presiding at meeting",
+"anchor": "p-13",
+"likely": []
+},
+{
+"num": "14",
+"title": "Quorum",
+"anchor": "p-14",
+"likely": []
+},
+{
+"num": "15",
+"title": "Decision by majority",
+"anchor": "p-15",
+"likely": []
+},
+{
+"num": "16",
+"title": "",
+"anchor": "p-16",
+"likely": []
+},
+{
+"num": "17",
+"title": "",
+"anchor": "p-17",
+"likely": []
+},
+{
+"num": "18",
+"title": "",
+"anchor": "p-18",
+"likely": []
+},
+{
+"num": "19",
+"title": "Appearance at hearings",
+"anchor": "p-19",
+"likely": []
+},
+{
+"num": "20",
+"title": "",
+"anchor": "p-20",
+"likely": []
+},
+{
+"num": "21",
+"title": "Court of inquiry to be public",
+"anchor": "p-21",
+"likely": []
+},
+{
+"num": "22",
+"title": "Recovery of expenses",
+"anchor": "p-22",
+"likely": []
+},
+{
+"num": "23",
+"title": "Powers of Certifying Surgeon",
+"anchor": "p-23",
+"likely": []
+},
+{
+"num": "24",
+"title": "Duties of Certifying Surgeon",
+"anchor": "p-24",
+"likely": []
+},
+{
+"num": "28",
+"title": "Fresh examination",
+"anchor": "p-28",
+"likely": []
+},
+{
+"num": "29B",
+"title": "Initial and periodical medical examinations",
+"anchor": "p-29b",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "109",
+"title": "Initial and periodical medical examinations in mines",
+"anchor": "p-109"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.149,
+"grew": 0.2,
+"diff": [
+[
+"-",
+"1. Omitted by GSR 316 dated 26.4.1986 2. Omitted by GSR 1886 dated 26.12.1965 3. Inserted by GSR 557(E) dated 16.11.1978 (a)(i) for the initial medical examination of every person employed in the mine, within a period of five years of the date so notified and the said examination shall be so arranged over a period of five years that one fifth of the persons employed at the mine undergo the examination every year; Provided that in the case of a mine where a system of carrying out of such medical examination (of a comparable standard as determined by the Chief Inspector) is already in existence before the date aforesaid, a person who has undergone a medical examination under such a system on a date not earlier than five years before the date aforesaid, shall be deemed to have undergone an initial medical examination under this sub clause and the last date of his medical examination under the said system shall be taken to be the date of his initial medical examination under these rules; (ii) for the"
+],
+[
+"+",
+"(i)"
+],
+[
+"=",
+"initial medical examination of every person seeking employment in a"
+],
+[
+"-",
+"mine, unless such person has already undergone within the preceding five years, a medical examination under these rules while in employment at another"
+],
+[
+"=",
+"mine;"
+],
+[
+"-",
+"and (b) for the"
+],
+[
+"+",
+"(ii)"
+],
+[
+"=",
+"periodical medical examination"
+],
+[
+"-",
+"thereafter"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"every"
+],
+[
+"=",
+"person employed in"
+],
+[
+"+",
+"a mine annually; (iii)"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine at intervals of not more than five years. 1[Provided that for the persons who are engaged in the process of mining or milling of asbestos ,periodic"
+],
+[
+"=",
+"medical examination shall be"
+],
+[
+"-",
+"done at least once in every twelve months and every such examination shall include all the tests in Form “P” of the First Schedule except the X- Ray examination, which shall be carried out once in every three years. Provided further that the periodic"
+],
+[
+"+",
+"conducted as per FORM-IX. (2) The periodical"
+],
+[
+"=",
+"medical examination or the"
+],
+[
+"-",
+"X"
+],
+[
+"+",
+"X-"
+],
+[
+"=",
+"Ray examination or"
+],
+[
+"-",
+"both ,"
+],
+[
+"+",
+"both,"
+],
+[
+"=",
+"shall be conducted at"
+],
+[
+"-",
+"more"
+],
+[
+"=",
+"frequent"
+],
+[
+"-",
+"intervals"
+],
+[
+"+",
+"intervals,"
+],
+[
+"=",
+"if the"
+],
+[
+"+",
+"medical"
+],
+[
+"=",
+"examining authority deems it necessary to confirm a suspected case of a dust related"
+],
+[
+"-",
+"dis ease.] 1. Inserted by GSR 707(E) dated 21.7.1989"
+],
+[
+"+",
+"disease."
+]
+]
+},
+{
+"num": "29C",
+"title": "Examining authorities",
+"anchor": "p-29c",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "110",
+"title": "Examining authorities",
+"anchor": "p-110"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.083,
+"grew": 0.36,
+"diff": [
+[
+"-",
+"Examining authorities -"
+],
+[
+"+",
+"(2)"
+],
+[
+"=",
+"The"
+],
+[
+"-",
+"medical examination aforesaid"
+],
+[
+"+",
+"examining authority"
+],
+[
+"=",
+"shall be"
+],
+[
+"-",
+"carried out"
+],
+[
+"+",
+"trained in occupational health course including the International Labour Organisation, Classification of Chest Radiograph duly recognised"
+],
+[
+"=",
+"by"
+],
+[
+"-",
+"a Medical Officer appointed for"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine or a Medical Officer in the employment of the owner of the mine, if any, or by any medical officer employed in the Coal Mines Welfare Fund Organisation or any other mines Welfare organisation, failing which by any State or"
+],
+[
+"=",
+"Central"
+],
+[
+"-",
+"Government medical officer not below the rank of an Assistant Civil Surgeon."
+],
+[
+"+",
+"Government."
+]
+]
+},
+{
+"num": "29D",
+"title": "Notice of medic al examination",
+"anchor": "p-29d",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "111",
+"title": "Notice of medical examination",
+"anchor": "p-111"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.669,
+"grew": 1.17,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"+",
+"In respect of periodical medical examination the manager shall give at least twenty days prior notice in writing to the person to be examined, in Form to be sepcified by the Chief Inspector-cum- Facilitator. (3)"
+],
+[
+"=",
+"A copy of every such notice issued shall be sent by the"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"to the examining authority"
+],
+[
+"-",
+"and in the case of periodical medical examination of a person, the copies of the"
+],
+[
+"+",
+"along with"
+],
+[
+"=",
+"previous medical"
+],
+[
+"-",
+"certificate issued in Form O,"
+],
+[
+"+",
+"certificates issued,"
+],
+[
+"=",
+"pertaining to the persons"
+],
+[
+"-",
+"concerned shall also be sent to the examining authority by the manager. (3)"
+],
+[
+"+",
+"concerned. (4)"
+],
+[
+"=",
+"A person, who for any reasonable cause, fails to"
+],
+[
+"-",
+"submit himself"
+],
+[
+"+",
+"appear"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"a"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"medical examination"
+],
+[
+"-",
+"or"
+],
+[
+"=",
+"in accordance with the notice issued to"
+],
+[
+"-",
+"him under sub-rule(i),"
+],
+[
+"+",
+"such person,"
+],
+[
+"=",
+"shall be given a second notice of a minimum period of ten days in Form"
+],
+[
+"-",
+"N,"
+],
+[
+"+",
+"to be specified by the Chief Inspector-cum-Facilitator,"
+],
+[
+"=",
+"by the manager and a copy of every such notice shall be sent by the manager to the examining authority."
+],
+[
+"-",
+"(4)"
+],
+[
+"+",
+"(5)"
+],
+[
+"=",
+"The examining authority shall inform the manager whether the person concerned has"
+],
+[
+"-",
+"submitted himself"
+],
+[
+"+",
+"appeared"
+],
+[
+"=",
+"for medical examination or"
+],
+[
+"-",
+"not."
+],
+[
+"+",
+"not within one week from the date fixed for medical examination in the second notice."
+]
+]
+},
+{
+"num": "29E",
+"title": "Failure to undergo medical examination",
+"anchor": "p-29e",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "112",
+"title": "Failure to undergo medical examination",
+"anchor": "p-112"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.096,
+"grew": 0.13,
+"diff": [
+[
+"-",
+"Provided that a person who tenders himself so liable to be discharged for failure to submit himself for medical examination shall be required to show cause why he could not comply with the notice within the time specified therein."
+],
+[
+"+",
+"(2)"
+],
+[
+"=",
+"If"
+],
+[
+"-",
+"his"
+],
+[
+"=",
+"explanation is found satisfactory by the"
+],
+[
+"-",
+"management; he"
+],
+[
+"+",
+"management, such person"
+],
+[
+"=",
+"shall be given another chance to appear for medical"
+],
+[
+"-",
+"examination.In case his"
+],
+[
+"+",
+"examination. (3) Where the"
+],
+[
+"=",
+"explanation is not found satisfactory"
+],
+[
+"-",
+"by the management, his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"service shall be terminated by the"
+],
+[
+"-",
+"management : Provided further that in case of any dispute, the same shall be referred to the Chief Inspector for his decision within 60 days of the order communicated by the owner, agent or manager of the mine to the said person. 29 E . Failure to undergo medical examination .- A person who without reasonable cause ,fails to submit himself for medical examination in accordance with a notice issued to him under sub-rule (3) of rule 29D, shall be liable to be discharged from service; Provided that a person who renders himself so liable to be discharged for failure to submit himself for medical examination shall be required to show cause why he could not comply with the notice within the time specified therein. If his explanation is found satisfactory by the management ;he shall be given another chance to appear for medical examination . In case his explanation is not found satisfactory by the management, his service shall be terminated by the management; Provided further that in case of any dispute, the same shall be referred to the Chief Inspector for his decision within 60 days of the order communicated by the owner ,agent or manager of the mine to the said person."
+],
+[
+"+",
+"management."
+]
+]
+},
+{
+"num": "29F",
+"title": "",
+"anchor": "p-29f",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "113",
+"title": "Standard and report of medical examination",
+"anchor": "p-113"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.654,
+"grew": 0.78,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"As soon as may be, after examination, a"
+],
+[
+"+",
+"After examinations,"
+],
+[
+"=",
+"copy of the medical certificate in"
+],
+[
+"-",
+"Form O,"
+],
+[
+"+",
+"FORM –IX,"
+],
+[
+"=",
+"shall be issued by the examining authority to the person concerned"
+],
+[
+"+",
+"electronically or"
+],
+[
+"=",
+"by"
+],
+[
+"-",
+"Registered"
+],
+[
+"+",
+"speed"
+],
+[
+"=",
+"post"
+],
+[
+"-",
+"or delivered under receipt"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"another"
+],
+[
+"=",
+"copy"
+],
+[
+"+",
+"be"
+],
+[
+"=",
+"sent to the"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine concerned"
+],
+[
+"-",
+"by Registered post or delivered under receipt."
+],
+[
+"+",
+"electronically."
+],
+[
+"=",
+"(3) The examining authority shall retain the third copy of the medical certificate. (4) In the case of periodical medical"
+],
+[
+"-",
+"examination of person,"
+],
+[
+"+",
+"examination,"
+],
+[
+"=",
+"the examining authority shall"
+],
+[
+"-",
+"also"
+],
+[
+"=",
+"send the copy of previous medical certificates of the person"
+],
+[
+"-",
+"concerned received in pursuance of sub-rule(1) of rule 29D,"
+],
+[
+"+",
+"concerned, back"
+],
+[
+"=",
+"to the manager of the mine concerned."
+]
+]
+},
+{
+"num": "29G",
+"title": "Retention and transfer of medical certificates",
+"anchor": "p-29g",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "114",
+"title": "Retention and transfer of medical certificates",
+"anchor": "p-114"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.922,
+"grew": 0.98,
+"diff": [
+[
+"=",
+"Provided that the manager of a mine where such person … other mine where the person is to be employed, send"
+],
+[
+"-",
+"to him"
+],
+[
+"=",
+"all medical certificates with respect to such person. (2) If … or to be employed in any mine is relieved of"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"duties regarding medical examination,"
+],
+[
+"-",
+"the medical practitioner"
+],
+[
+"+",
+"such examining authority"
+],
+[
+"=",
+"shall transfer all records of medical examination in"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"possession to the manager of the mine concerned."
+]
+]
+},
+{
+"num": "29H",
+"title": "Identity of candidates",
+"anchor": "p-29h",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "115",
+"title": "Identity of candidates",
+"anchor": "p-115"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.301,
+"grew": 0.44,
+"diff": [
+[
+"-",
+"(2)"
+],
+[
+"+",
+"Identity of candidates.-"
+],
+[
+"=",
+"The examining authority, shall"
+],
+[
+"-",
+"also"
+],
+[
+"=",
+"record the"
+],
+[
+"-",
+"left hand thumb impression or the"
+],
+[
+"+",
+"Aadhaar number, after obtaining consent and"
+],
+[
+"=",
+"signature of every candidate appearing before it for medical examination on the copies of the medical"
+],
+[
+"-",
+"certificate in Form O. 1. Inserted by GSR 707(E) dated 21.7.89 2. Inserted by ibid 29 I. Medical Examination of women - No women shall, without her consent, be medically examined by a male medical practitioner except in the presence of another women."
+],
+[
+"+",
+"certificate."
+]
+]
+},
+{
+"num": "29J",
+"title": "Appeal for re-examination",
+"anchor": "p-29j",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "117",
+"title": "Appeal for re-examination",
+"anchor": "p-117"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.408,
+"grew": 0.74,
+"diff": [
+[
+"-",
+"29K. (2)(a) The"
+],
+[
+"+",
+"(2) (i) the employer in case of initial medical examination and"
+],
+[
+"=",
+"manager"
+],
+[
+"+",
+"of the mine in case of periodical medical examination"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"arrange"
+],
+[
+"+",
+"forward the appeal"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"have"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"appellant medically re -examined by"
+],
+[
+"+",
+"convener of"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Appellate Medical Board"
+],
+[
+"+",
+"appellate medical board"
+],
+[
+"=",
+"within"
+],
+[
+"-",
+"thirty"
+],
+[
+"+",
+"fifteen"
+],
+[
+"=",
+"days of the receipt of the"
+],
+[
+"-",
+"Appeal, and"
+],
+[
+"+",
+"appeal; (ii) the convener of the appellate medical board"
+],
+[
+"=",
+"shall give"
+],
+[
+"+",
+"at least fifteen days prior notice"
+],
+[
+"=",
+"to the"
+],
+[
+"-",
+"Appellant fifteen days’ prior notice of"
+],
+[
+"+",
+"owner, agent or manager and also"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"medical re-examination by the Appellate Medical Board in Form Q. (b) A"
+],
+[
+"+",
+"appellant, for re-examination; (iii) a"
+],
+[
+"=",
+"person, who for any reasonable cause, fails to"
+],
+[
+"-",
+"submit himself"
+],
+[
+"+",
+"appear"
+],
+[
+"=",
+"for a medical re-examination"
+],
+[
+"-",
+"in accordance with the notice given to him under clause (a),"
+],
+[
+"=",
+"shall be given another notice"
+],
+[
+"+",
+"at least seven days"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"Form R in similar manner. (c) A person who has, without reasonable cause, fails to submit himself for a medical re -examination in accordance with a notice given to him under clause (b) shall cease to be in employment at the mine or in a particular category of mines or in any specified operations in mine, as the case may be, after the expiry of thirty days from the last date notified for his medical re-examination."
+],
+[
+"+",
+"advance;"
+],
+[
+"=",
+"(3) In respect of every medical re-examination by the"
+],
+[
+"-",
+"Appellate Medical Board,"
+],
+[
+"+",
+"appellate medical board,"
+],
+[
+"=",
+"the appellant shall pay such fees and the medical examination shall be conducted in such manner as may be determined by the"
+],
+[
+"-",
+"Appellate Medical Board."
+],
+[
+"+",
+"appellate medical board. (4)"
+],
+[
+"=",
+"In case the"
+],
+[
+"-",
+"Appellate Medical Board"
+],
+[
+"+",
+"appellate medical board"
+],
+[
+"=",
+"finds"
+],
+[
+"-",
+"him"
+],
+[
+"+",
+"such person"
+],
+[
+"=",
+"fit for employment in mines, the fees shall be reimbursed in full to the appellant by the"
+],
+[
+"-",
+"owner"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine where"
+],
+[
+"-",
+"he"
+],
+[
+"+",
+"such person"
+],
+[
+"=",
+"is employed."
+]
+]
+},
+{
+"num": "29K",
+"title": "Constitution of Appellate Medical Board",
+"anchor": "p-29k",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "118",
+"title": "Constitution of appellate medical board",
+"anchor": "p-118"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.117,
+"grew": 0.59,
+"diff": [
+[
+"-",
+"(a) One duly"
+],
+[
+"+",
+"(i) an Inspector-cum-Facilitator who shall act as the convener of the board for coordination purpose; (ii) two"
+],
+[
+"=",
+"qualified"
+],
+[
+"-",
+"Medical Officer"
+],
+[
+"+",
+"medical practitioners in allopathic system of medicine and"
+],
+[
+"=",
+"in the employment of the"
+],
+[
+"-",
+"Directorate General of Mines Safety who shall also act"
+],
+[
+"+",
+"State or Central Government"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"the Convenor of the Board. (b) One Medical Officer duly qualified in allopathic system of medicine to be"
+],
+[
+"=",
+"nominated by the Chief"
+],
+[
+"-",
+"Inspector in consultant with"
+],
+[
+"+",
+"Inspector-cum-Facilitator: Provided that,"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Welfare Organisation set up by"
+],
+[
+"+",
+"convener can co-opt any specialist medical practitioner if"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Central Government"
+],
+[
+"+",
+"appellate medical board is of the opinion that such specialist is required to be consulted"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"the persons employed in the mine. (c) One Medical Officer duly qualified in allopathic system of medicine employed in the State or Central Government or a Government undertaking and not below the rank of Assistant Civil Surgeon. Provided that if a Medical Officer under clause (b) or clause (c) is not available, the Appellate Medical Board shall be constituted with two persons only."
+],
+[
+"+",
+"specific issues."
+]
+]
+},
+{
+"num": "29L",
+"title": "Standard and report of medical re-examination by the Appellate Medical Board",
+"anchor": "p-29l",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "119",
+"title": "Standard and report of medical re-examination by the appellate medical board",
+"anchor": "p-119"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.188,
+"grew": 0.42,
+"diff": [
+[
+"-",
+"Standard and report"
+],
+[
+"+",
+"(2) The certificate"
+],
+[
+"=",
+"of medical re-examination"
+],
+[
+"-",
+"by"
+],
+[
+"+",
+"in"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Appellate Medical Board - The Appellate Medical Board"
+],
+[
+"+",
+"FORM –X,"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"medically examine the appellant in accordance with the standard laid down in Form P for initial medical examination of workers already in employment as well as periodical medical examination and in accordance with the standard laid down Form P-I for initial medical examination of the persons to employed and shall issue"
+],
+[
+"+",
+"be issued"
+],
+[
+"=",
+"to the manager of the mine"
+],
+[
+"-",
+"concerned"
+],
+[
+"=",
+"and to the"
+],
+[
+"-",
+"appellant a"
+],
+[
+"+",
+"appellant. (3) A copy of the"
+],
+[
+"=",
+"medical certificate"
+],
+[
+"-",
+"in Form S."
+],
+[
+"+",
+"shall be retained with the convenor."
+]
+]
+},
+{
+"num": "29M",
+"title": "Unfit persons not to be employed",
+"anchor": "p-29m",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "120",
+"title": "Unfit persons not to be employed",
+"anchor": "p-120"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.446,
+"grew": 0.53,
+"diff": [
+[
+"-",
+"(2) Where the person concerned has filed an appeal under sub-rule (1) of rule 29J, but has been declared by the Appellate Medical Board, after a medical re-examination, to be unfit for employment in mines or in a particular category of mines or on any specified operations in mines, he shall not be employed or continue to be employed in mine or in the category of mines or on the operations specified, after the expiry of thirty days from the date of his medical re-examination by the Appellate Medical Board:"
+],
+[
+"=",
+"Provided that, if the"
+],
+[
+"-",
+"Medical Officer"
+],
+[
+"+",
+"qualified medical practitioner"
+],
+[
+"=",
+"carrying out the initial medical"
+],
+[
+"-",
+"examination under clause (a),"
+],
+[
+"+",
+"examination,"
+],
+[
+"=",
+"or the periodical"
+],
+[
+"+",
+"medical"
+],
+[
+"=",
+"examination"
+],
+[
+"-",
+"under clause (b) of rule 29B,"
+],
+[
+"=",
+"or the"
+],
+[
+"-",
+"Appellate Medical Board"
+],
+[
+"+",
+"appellate medical board"
+],
+[
+"=",
+"carrying out the medical"
+],
+[
+"-",
+"re-examination"
+],
+[
+"+",
+"re- examination"
+],
+[
+"=",
+"of persons already in employment is of the opinion that … not seriously affect or interfere with the normal discharge of"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"duties, it may recommend"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"continuation in employment in the mine for a period not exceeding six"
+],
+[
+"-",
+"months"
+],
+[
+"+",
+"months,"
+],
+[
+"=",
+"during which such person may get"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"disability cured or controlled and"
+],
+[
+"-",
+"submit himself"
+],
+[
+"+",
+"appear"
+],
+[
+"=",
+"for another medical examination"
+],
+[
+"+",
+"after six months"
+],
+[
+"=",
+"and be declared fit."
+]
+]
+},
+{
+"num": "29N",
+"title": "Compensation for industrial disease",
+"anchor": "p-29n",
+"likely": []
+},
+{
+"num": "29O",
+"title": "Cost of medical examination",
+"anchor": "p-29o",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "121",
+"title": "Cost of medical examination",
+"anchor": "p-121"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.545,
+"grew": 1.18,
+"diff": [
+[
+"=",
+"Cost of medical"
+],
+[
+"-",
+"examination - Subject to the provisions of sub-rule(3) of rule 29J full"
+],
+[
+"+",
+"examination.-The"
+],
+[
+"=",
+"cost of"
+],
+[
+"-",
+"every"
+],
+[
+"=",
+"medical examination under these rules, shall be borne by the"
+],
+[
+"-",
+"owner"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine"
+],
+[
+"-",
+"concerned."
+],
+[
+"+",
+"except in case the person is declared unfit for employment in mines after re- examination by appellate medical board."
+]
+]
+},
+{
+"num": "29P",
+"title": "Annual returns",
+"anchor": "p-29p",
+"likely": []
+},
+{
+"num": "29R",
+"title": "Duties of Workmen’s Inspector",
+"anchor": "p-29r",
+"likely": []
+},
+{
+"num": "29S",
+"title": "Action on the report of Workmen’s Inspector",
+"anchor": "p-29s",
+"likely": []
+},
+{
+"num": "29V",
+"title": "Functions of Safety Committee",
+"anchor": "p-29v",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "17",
+"title": "Functions of Safety Committee in case of Mines",
+"anchor": "p-17"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.366,
+"grew": 0.85,
+"diff": [
+[
+"-",
+"(2)"
+],
+[
+"+",
+"(a) to discuss remedial measures against the unsafe conditions and practices in the mine as pointed out in the reports of representative brought to the notice of the Committee and make appropriate recommendations; (b)"
+],
+[
+"=",
+"to consider, before commencement of operations in"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"any,"
+],
+[
+"=",
+"new"
+],
+[
+"-",
+"district"
+],
+[
+"+",
+"area"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"the mine or installations of oil"
+],
+[
+"=",
+"mine or commissioning of new electrical or mechanical installation or introduction of new mining technique, the proposed"
+],
+[
+"-",
+"Safety"
+],
+[
+"+",
+"safety"
+],
+[
+"=",
+"and health"
+],
+[
+"-",
+"measures including related codes of practice and to make appropriate recommendations; (3)"
+],
+[
+"+",
+"measures; (c)"
+],
+[
+"=",
+"to discuss the report of inquiry into"
+],
+[
+"-",
+"accident"
+],
+[
+"+",
+"accident, dangerous occurrences etc.,"
+],
+[
+"=",
+"and make appropriate recommendations;"
+],
+[
+"-",
+"(4)"
+],
+[
+"+",
+"(d)"
+],
+[
+"=",
+"to formulate and implement appropriate Safety"
+],
+[
+"-",
+"campaign"
+],
+[
+"+",
+"Campaigns"
+],
+[
+"=",
+"based on analysis of"
+],
+[
+"-",
+"accidents; (5) to meet at least once in 30 days to consider the matter placed before it"
+],
+[
+"+",
+"accidents"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"any other matter that may be raised by the members and make such recommendations as it may deem fit; and (6)"
+],
+[
+"+",
+"dangerous occurrences; (e)"
+],
+[
+"=",
+"to serve as a forum for communication on Safety and occupational health"
+],
+[
+"-",
+"matters. 29W Implementation of recommendations of"
+],
+[
+"+",
+"matters; and (f) to discuss the standard operating procedures (SOP) prepared for different plant, equipment, installations and methods at the mine and make appropriate recommendations. (g) to review"
+],
+[
+"=",
+"the Safety"
+],
+[
+"-",
+"Committee - The owner, agent or manager shall, within a period of 15 days from the date of receipt of the recommendations of the Safety Committee, shall indicate to the Secretary to the Safety Committee, the action taken to implement the recommendations.] CHAPTER -V HEALTH AND SANITATION PROVISIONS"
+],
+[
+"+",
+"Management Plan."
+]
+]
+},
+{
+"num": "30",
+"title": "Quantity of drinking water",
+"anchor": "p-30",
+"likely": []
+},
+{
+"num": "31",
+"title": "Storage of drinking water",
+"anchor": "p-31",
+"likely": []
+},
+{
+"num": "32",
+"title": "Decision of Chief Inspector final",
+"anchor": "p-32",
+"likely": []
+},
+{
+"num": "33",
+"title": "Surface latrines and urinals",
+"anchor": "p-33",
+"likely": []
+},
+{
+"num": "34",
+"title": "Standards of constructions",
+"anchor": "p-34",
+"likely": []
+},
+{
+"num": "35",
+"title": "Sign-boards to be displayed",
+"anchor": "p-35",
+"likely": []
+},
+{
+"num": "36",
+"title": "Provision of water for washing etc",
+"anchor": "p-36",
+"likely": []
+},
+{
+"num": "37",
+"title": "Underground latrines",
+"anchor": "p-37",
+"likely": []
+},
+{
+"num": "38",
+"title": "",
+"anchor": "p-38",
+"likely": []
+},
+{
+"num": "39",
+"title": "",
+"anchor": "p-39",
+"likely": []
+},
+{
+"num": "40",
+"title": "Arrangements for training persons in first-aid etc",
+"anchor": "p-40",
+"likely": []
+},
+{
+"num": "41",
+"title": "First-aid qualifications",
+"anchor": "p-41",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "54",
+"title": "First Aid and Medical Appliances",
+"anchor": "p-54"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.5,
+"grew": 18.71
+},
+{
+"num": "42",
+"title": "First aid personnel",
+"anchor": "p-42",
+"likely": []
+},
+{
+"num": "43",
+"title": "",
+"anchor": "p-43",
+"likely": []
+},
+{
+"num": "44",
+"title": "First aid stations",
+"anchor": "p-44",
+"likely": []
+},
+{
+"num": "45",
+"title": "",
+"anchor": "p-45",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "54",
+"title": "First Aid and Medical Appliances",
+"anchor": "p-54"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.497,
+"grew": 4.94
+},
+{
+"num": "46",
+"title": "Persons holding positions of supervision or management etc",
+"anchor": "p-46",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "122",
+"title": "Exemptions from hours and limitation of employment",
+"anchor": "p-122"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.31,
+"grew": 0.98,
+"diff": [
+[
+"-",
+"(b)"
+],
+[
+"+",
+"(ii) manager, deputy manager, installation manager, fire officer, assistant manager, ventilation officer, safety officer, information technology, instrumentation and communication officials; (iii)"
+],
+[
+"=",
+"mining, electrical and mechanical"
+],
+[
+"-",
+"engineer ; 2[(c) overman, foreman, sirdar"
+],
+[
+"+",
+"engineer; (iv) mining supervisor, assistant mining supervisor"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"mate ;] (d)"
+],
+[
+"+",
+"supervisor in oil mines; (v)"
+],
+[
+"=",
+"mechanical and electrical foreman and electrical"
+],
+[
+"-",
+"supervisor ; (e)"
+],
+[
+"+",
+"and mechanical supervisor; (vi)"
+],
+[
+"=",
+"surveyor and assistant surveyor;"
+],
+[
+"-",
+"(f)"
+],
+[
+"+",
+"(vii) qualified"
+],
+[
+"=",
+"medical"
+],
+[
+"-",
+"officer,"
+],
+[
+"+",
+"practitioner, dresser, compounder,"
+],
+[
+"=",
+"chemist, assayer, metallurgist and welfare or personnel"
+],
+[
+"-",
+"officer 3[ * * * ] 4[(g)]"
+],
+[
+"+",
+"officer; and (viii)"
+],
+[
+"=",
+"any other person"
+],
+[
+"-",
+"who in the opinion of the Chief Inspector holds a position of supervision"
+],
+[
+"+",
+"specified by Central Government through general"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"management. 1. Inserted by GSR 1786 dated 30.9.1970 2. Substituted by GSR 1886 dated 25.12.1965 3. Omitted by GSR 312 dated 15.1.1957 4. Relettered, ibid"
+],
+[
+"+",
+"special order issued from time to time."
+]
+]
+},
+{
+"num": "47",
+"title": "Weekly day of rest",
+"anchor": "p-47",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "67",
+"title": "Weekly holiday",
+"anchor": "p-67"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.459,
+"grew": 0.67,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"There shall be posted up in a conspicuous place out side the office of every mine a notice showing the weekly day or rest."
+],
+[
+"=",
+"Where the weekly"
+],
+[
+"-",
+"day of rest"
+],
+[
+"+",
+"holiday"
+],
+[
+"=",
+"is not the same day for all persons employed in the"
+],
+[
+"-",
+"mine,"
+],
+[
+"+",
+"establishment,"
+],
+[
+"=",
+"the notice shall show the"
+],
+[
+"-",
+"day of rest"
+],
+[
+"+",
+"holiday"
+],
+[
+"=",
+"allowed to each"
+],
+[
+"-",
+"relay,"
+],
+[
+"+",
+"relay"
+],
+[
+"=",
+"or set of persons or"
+],
+[
+"-",
+"individual."
+],
+[
+"+",
+"individual in Hindi or English and in local language."
+]
+]
+},
+{
+"num": "48",
+"title": "Notice regarding hours of work",
+"anchor": "p-48",
+"likely": []
+},
+{
+"num": "49",
+"title": "Compensatory days of rest",
+"anchor": "p-49",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "68",
+"title": "Compensatory holidays",
+"anchor": "p-68"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.182,
+"grew": 0.79,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"On"
+],
+[
+"+",
+"The employer of the establishment shall display on"
+],
+[
+"=",
+"or before the"
+],
+[
+"-",
+"last day"
+],
+[
+"+",
+"end"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"every month, there"
+],
+[
+"+",
+"the month in which holidays are lost, a notice in respect of workers allowed compensatory holidays during the following month and of the dates thereof, at the place at which the notice of periods of works is displayed. (3) Any subsequent change in the notice in respect of any compensatory holiday"
+],
+[
+"=",
+"shall be"
+],
+[
+"-",
+"displayed on a notice board outside the office"
+],
+[
+"+",
+"made not less than three days in advance"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"mine"
+],
+[
+"+",
+"date of that holiday. (4) Any compensatory holiday to which"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"list of all persons who have not been allowed compensatory days of rest during that month, and the dates on which compensatory days of rest will"
+],
+[
+"+",
+"worker is entitled shall"
+],
+[
+"=",
+"be"
+],
+[
+"-",
+"allowed"
+],
+[
+"+",
+"given"
+],
+[
+"=",
+"to them"
+],
+[
+"-",
+"in the following two months. (3) In the event of a person being"
+],
+[
+"+",
+"before"
+],
+[
+"=",
+"discharged or"
+],
+[
+"-",
+"dismissed, such number of compensatory days as are due to him"
+],
+[
+"+",
+"dismissed and"
+],
+[
+"=",
+"shall not be reckoned as part of any period of notice"
+],
+[
+"-",
+"to which he is entitled under any rule, award, agreement or contract of service, and he shall be allowed all such compensatory days of rest before the date of his discharge or dismissal. (4) There shall be maintained at every mine a register of compensatory days of rest in Form F."
+],
+[
+"+",
+"required."
+]
+]
+},
+{
+"num": "50",
+"title": "Exemption from hours and limitation of employment",
+"anchor": "p-50",
+"likely": []
+},
+{
+"num": "51",
+"title": "Termination of employment",
+"anchor": "p-51",
+"likely": []
+},
+{
+"num": "52",
+"title": "Employment of apprentices and trainees",
+"anchor": "p-52",
+"likely": []
+},
+{
+"num": "53",
+"title": "Register of leave with wages",
+"anchor": "p-53",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "76",
+"title": "Register of leave with wages",
+"anchor": "p-76"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.234,
+"grew": 0.28,
+"diff": [
+[
+"-",
+"1. Substituted by GSR 1886 dated 25.12.1965 2. Substituted by GSR 316 dated 26.4.1986 Provided that if the Chief Inspector or an Inspector is of opinion that any muster roll or register maintained in accordance with any other rules for the time being in force contains all the particulars required for the observance of the provisions contained in Chapter VII of the Act, he may, by order in writing, permit the maintenance of such muster roll or register in place of the registers in forms G and H ; Provided further that in the case of a mine exempted under section 56, the Chief Inspector or an Inspector may permit the maintenance or records of leave with wages in such manner as he may approve by order in writing.]"
+],
+[
+"=",
+"(2) The register mentioned in"
+],
+[
+"-",
+"sub- rule"
+],
+[
+"+",
+"sub-rule"
+],
+[
+"=",
+"(1) shall be preserved for a period of"
+],
+[
+"-",
+"two"
+],
+[
+"+",
+"five"
+],
+[
+"=",
+"years after the last entry in them has been made … after the expiry of that period unless it has been"
+],
+[
+"-",
+"certified by an Inspector that the leave account therein has been"
+],
+[
+"=",
+"properly transferred to the new"
+],
+[
+"-",
+"registers."
+],
+[
+"+",
+"register. CHAPTER-IX INSPECTOR-CUM-FACILITATOR AND OTHER AUTHORITY"
+]
+]
+},
+{
+"num": "54",
+"title": "Information regarding leave with wages",
+"anchor": "p-54",
+"likely": []
+},
+{
+"num": "56",
+"title": "",
+"anchor": "p-56",
+"likely": []
+},
+{
+"num": "59",
+"title": "Overtime register",
+"anchor": "p-59",
+"likely": []
+},
+{
+"num": "60",
+"title": "Extra Wages for overtime",
+"anchor": "p-60",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "69",
+"title": "Wages for overtime",
+"anchor": "p-69"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.75,
+"grew": 7.27,
+"diff": [
+[
+"-",
+"3[(3)]In"
+],
+[
+"+",
+"(a) a worker works for more than eight hours in any day as daily wager or (b) a worker, other than daily wager, for more than forty-eight hours in any week Worker shall in respect of such overtime work be entitled to wages at the rate of twice the rate of their wages and shall be paid at the end of each wage period. (2) In calculating overtime on any day, a fraction of an hour between 15 to 30 minutes shall be counted as thirty minutes and in case of more than thirty minutes it shall be rounded and shall be counted as an hour on actual basis. (3) In"
+],
+[
+"=",
+"calculating the"
+],
+[
+"-",
+"ordinary rate of"
+],
+[
+"=",
+"wages or earnings in the case of a"
+],
+[
+"-",
+"person"
+],
+[
+"+",
+"worker"
+],
+[
+"=",
+"paid by the month, the daily wages shall be 1/26th of"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"monthly"
+],
+[
+"-",
+"rate of wages;"
+],
+[
+"+",
+"wages"
+],
+[
+"=",
+"and in the case of any other"
+],
+[
+"-",
+"person"
+],
+[
+"+",
+"worker"
+],
+[
+"=",
+"it shall be the"
+],
+[
+"-",
+"ordinary rate of his"
+],
+[
+"=",
+"daily wages or earnings as the case may be."
+],
+[
+"+",
+"(4) The hours of work mentioned in Rule 64 may exceed under the followings works and circumstances in respect of dock, mine and building or other construction work, namely:- (a) urgent repairs; (b) work in the nature of preparatory or complimentary work; (c) work which is necessarily so intermittent that the intervals during which they do not work while on duty ordinarily amount to more than the intervals for rest; (d) work which for technical reasons must be carried on continuously; (e) engaged in making or supplying articles of prime necessity which must be made or supplied every day; (f) engaged in a process which cannot be carried on except during fixed seasons; (g) engaged in a process which cannot be carried on except at times dependent on the irregular action of natural forces; (h) engaged in an engine-rooms or boiler-houses or in attending to power-plant or transmission machinery; (i) engaged in process on account of the break-down of machinery; (j) engaged in the loading or unloading of railway wagons or lorries or trucks or ships; (k) exceptional press of work; and (l) engaged in any work, which is notified by the Central Government in the Official Gazette as a work of national importance: Provided that no worker shall be allowed to work overtime exceeding one hundred forty-four hours in any quarter of a year: Provided further that for overtime, a worker shall be paid wages as per section 27 of the Code at the end of each wage period."
+]
+]
+},
+{
+"num": "61",
+"title": "Cases of exemption under section 56",
+"anchor": "p-61",
+"likely": []
+},
+{
+"num": "62",
+"title": "Provision of shelters",
+"anchor": "p-62",
+"likely": []
+},
+{
+"num": "63",
+"title": "Standards of Shelters",
+"anchor": "p-63",
+"likely": []
+},
+{
+"num": "64",
+"title": "Provision of Canteens",
+"anchor": "p-64",
+"likely": []
+},
+{
+"num": "65",
+"title": "Standards of canteen",
+"anchor": "p-65",
+"likely": []
+},
+{
+"num": "66",
+"title": "",
+"anchor": "p-66",
+"likely": []
+},
+{
+"num": "67",
+"title": "Cleanliness",
+"anchor": "p-67",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "26",
+"title": "Cleanliness and hygiene",
+"anchor": "p-26"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.29,
+"grew": 6.65,
+"diff": [
+[
+"-",
+"(2) An adequate supply"
+],
+[
+"+",
+"(i) all workplaces, workrooms, passageways, staircases, storerooms and service rooms are kept in sanitary and hygienic condition; (ii) surfaces"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"hot water shall be provided for cleansing utensils"
+],
+[
+"+",
+"walls"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"equipment;"
+],
+[
+"+",
+"ceilings, including windows"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"all furniture, utensils and other equipment shall be"
+],
+[
+"+",
+"skylights, are always"
+],
+[
+"=",
+"kept clean and"
+],
+[
+"+",
+"maintained"
+],
+[
+"=",
+"in a hygienic"
+],
+[
+"-",
+"condition."
+],
+[
+"+",
+"condition; (iii) the floor of every workroom is maintained in a clean and so far as possible, dry and non-slippery condition; (iv) where wet work processes are carried out— (a) effective drainage is maintained; (b) false floors, platforms, mats or other dry standing places are provided; and (c) anti-skid footwear and other suitable safety and protective gears for use while at work in such place are provided without expense to the employees; (v) workplaces are cleaned as often as required by the nature of the work carried on; (vi) as far as practicable, sweeping and cleaning are done— (a) during intervals between work; and (b) in such a manner as to prevent the raising of dust; (vii) where, for technical reasons, cleaning must be carried out during working hours, appropriate means are used and precautions are taken to avoid contamination of the air with dust or other obnoxious substances; (viii) suitable arrangements for daily collection, storage, disposal or treatment of every type of waste are made under the effective supervision."
+]
+]
+},
+{
+"num": "68",
+"title": "",
+"anchor": "p-68",
+"likely": []
+},
+{
+"num": "69",
+"title": "Canteen Managing Committee",
+"anchor": "p-69",
+"likely": []
+},
+{
+"num": "70",
+"title": "Prices to be Charged",
+"anchor": "p-70",
+"likely": []
+},
+{
+"num": "71",
+"title": "Accounts",
+"anchor": "p-71",
+"likely": []
+},
+{
+"num": "72",
+"title": "Welfare Officer",
+"anchor": "p-72",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "57",
+"title": "Welfare Officer",
+"anchor": "p-57"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.182,
+"grew": 1.68,
+"diff": [
+[
+"-",
+"(2) No person"
+],
+[
+"+",
+"(i) welfare officers are appointed as prescribed below- (a) the employer of every establishment mentioned above ordinarily employing between two hundred and fifty and upto five hundred workers appoints at least one welfare officer, and where the number of workers exceeds five hundred, an additional welfare officer for every additional five hundred workers or fraction thereof over five hundred is appointed; (b) in every establishment mentioned above where both male and female workers are employed, the number of women welfare officers to be appointed"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"act"
+],
+[
+"+",
+"be in proportion to the women workers employed and where the number of women employed is more than one hundred and the total number of women workers does not exceed one thousand, an additional woman welfare officer is appointed; (c) where there is more than one welfare officer appointed, one of them is designated"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"a"
+],
+[
+"+",
+"the Chief"
+],
+[
+"=",
+"Welfare Officer"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"and the others as welfare officers; (ii) person appointed as Welfare Officer has obtained"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"mine unless he possesses - (a) a university degree ; (b) a"
+],
+[
+"+",
+"post graduate"
+],
+[
+"=",
+"degree or diploma in social"
+],
+[
+"-",
+"science, 4[or social work]"
+],
+[
+"+",
+"work or human resources management"
+],
+[
+"=",
+"or labour welfare"
+],
+[
+"+",
+"from any institution"
+],
+[
+"=",
+"recognised by the"
+],
+[
+"+",
+"Central or State"
+],
+[
+"=",
+"Government"
+],
+[
+"-",
+"for the purpose of"
+],
+[
+"+",
+"in"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"rule,"
+],
+[
+"+",
+"behalf;"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"preferably practical experience of handling labour problems in any industrial undertaking for atleast three years; and (c) a"
+],
+[
+"+",
+"has"
+],
+[
+"=",
+"knowledge of the language"
+],
+[
+"-",
+"of the district in which the mine is situated or the language understood"
+],
+[
+"+",
+"spoken"
+],
+[
+"=",
+"by the majority of"
+],
+[
+"-",
+"persons employed"
+],
+[
+"+",
+"the workers"
+],
+[
+"=",
+"in"
+],
+[
+"+",
+"every establishment mentioned above. (iii)"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine; Provided that in case"
+],
+[
+"+",
+"appointment is intimated by the employer electronically or otherwise to Inspector-cum- Facilitator, giving the details"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"a person already in service as"
+],
+[
+"+",
+"qualifications, etc. of the officer appointed and the conditions of their service. (iv) (a)"
+],
+[
+"=",
+"a Welfare Officer"
+],
+[
+"-",
+"in a mine, the above qualifications may, with the approval"
+],
+[
+"+",
+"is given appropriate status corresponding to that"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"Chief Inspector, be relaxed. 5[2A) Notwithstanding anything contained in sub-rule (2),"
+],
+[
+"+",
+"other executives of every establishment mentioned above and appointed on an executive or officer pay scale; (b)"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Labour Officers included in the Central Pool under the provisions of the Labour Officers (Central Pool) Recruitment and"
+],
+[
+"=",
+"conditions of"
+],
+[
+"-",
+"Service Rules, 1951, shall be eligible for appointment as"
+],
+[
+"+",
+"service of"
+],
+[
+"=",
+"a Welfare Officer"
+],
+[
+"+",
+"are the same as that of other members of the executives or officer of corresponding status"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"a mine.] 1. Inserted, ibid. 2. Substituted by GSR 607 dated 16.5.1959 3. Substituted by GSR 1886 dated 25.12.1965 4. Inserted, ibid. 5. Inserted by GSR 966 dated 17.5.1968 (3) Where by reason"
+],
+[
+"+",
+"every establishment mentioned above : Provided that, in the case"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"temporary absence, illness"
+],
+[
+"+",
+"discharge"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"any other similar cause,"
+],
+[
+"+",
+"dismissal,"
+],
+[
+"=",
+"the Welfare Officer"
+],
+[
+"-",
+"is unable to perform his duties, the owner, agent or manager shall authorise in writing person whom he considers competent, to act in his place ; Provided that no such authority shall"
+],
+[
+"+",
+"will"
+],
+[
+"=",
+"have"
+],
+[
+"-",
+"effect for"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"period in excess"
+],
+[
+"+",
+"right"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"30 days except with the previous consent of the Chief Inspector. 1[(4) A written notice of every appointment, authorisation, discharge, dismissal, resignation or termination of service of every Welfare Officer and of the date thereof shall be sent by the owner, agent or manager"
+],
+[
+"+",
+"appeal"
+],
+[
+"=",
+"to the Chief"
+],
+[
+"-",
+"Inspector within seven days from"
+],
+[
+"+",
+"Inspector-cum-Facilitator, whose decision thereon is final and binding upon"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"date"
+],
+[
+"+",
+"employer. (v) Duties"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"such appointment, authorisation. discharge, dismissal, resignation or termination"
+],
+[
+"+",
+"a Welfare Officer: (a) to establish contacts and hold consultations with a view to maintaining harmonious relations between the management and workers; (b) to bring to the notice"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"service.] 2[(5) The post"
+],
+[
+"+",
+"the management the grievances"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"Welfare Officer shall be advertised"
+],
+[
+"+",
+"workers with a view to securing expeditious redressal and to act as a liaison officer between the management and workers; (c) to study and understand the point of view of workers in order to help the management to shape and formulate labour policies and to interpret these policies to the workers"
+],
+[
+"=",
+"in a"
+],
+[
+"-",
+"Newspaper having"
+],
+[
+"+",
+"language they can understand; (d) to advise on compliances, obligations, statutory or otherwise, concerning regulation of working hours, maternity benefit, medical care, compensation for injuries and sickness and other welfare measures and social Security benefits; (e) to advise on provision of welfare facilities, such as housing facilities, foodstuffs, social and recreational facilities, sanitation, individual personnel problems and education of children; and (f) to advise the management on training of new recruits, apprentices, workers on transfer and promotion, instructors and supervisors, supervision and control of notice board and information bulletins to further education of workers and to encourage their attendance at technical institutes; (vi) welfare officers shall not deal with disciplinary cases or appear on behalf of the management against workers or appear before"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"wide circulation in the State.]"
+],
+[
+"+",
+"conciliation officer or tribunal on behalf of every establishment mentioned above management."
+]
+]
+},
+{
+"num": "73",
+"title": "Duties of Welfare Officer",
+"anchor": "p-73",
+"likely": []
+},
+{
+"num": "74",
+"title": "Conditions of service",
+"anchor": "p-74",
+"likely": []
+},
+{
+"num": "75",
+"title": "Maintenance and production of reports, Registers and other records",
+"anchor": "p-75",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "72",
+"title": "Maintenance and production of reports, registers and other records",
+"anchor": "p-72"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.609,
+"grew": 4.2,
+"diff": [
+[
+"-",
+"(a)"
+],
+[
+"+",
+"(ii) attendance register-cum-muster roll in FORM XIV; (iii) register for wages, over time and deduction in FORM XV; (iv) registers under this rule shall be maintained electronically or otherwise; (v) entries in the registers shall be made in English or Hindi and in local language; (vi) every employer shall produce records and registers, on demand before the Inspector-cum- Facilitator or any person authorised by the Central Government; (vii) all the registers and other records shall be preserved in original for a period of five calendar years from the date of last entry made therein. (2) Every employer shall issue wage slips, electronically to the employees in FORM XVI on or before the day of payment of wages to the employee. (3) In respect of establishment which are required to maintain register under the rules framed under the Code on Wages 2019, the above registers and wage slips required to be maintained by the employer of the establishment under Code on Wages, 2019 and rules made thereunder shall be deemed to be maintained by the employer under these rules. (4) All registers and other records required to be maintained under the Code shall be maintained complete and up-to-date and unless otherwise provided for, shall"
+],
+[
+"=",
+"be kept at an office or the nearest convenient building within the precincts of the"
+],
+[
+"-",
+"mine ; (b)"
+],
+[
+"+",
+"work place or at a place within a radius of three kilometers. (5) The employer to which the provisions of this Code applies, on or before the 28th or 29th day of February following the end of each Calendar year, upload a return in FORM-XVII and XVIII on the designated portal and provided that during inspection, the Inspector-cum-Facilitator may require the production of accounts, books, register and other documents maintained in electronic form. Explanation – For the purposes of this sub-rule, the expression “electronic form” shall have the same meaning as assigned to it in clause (r) of section 2 of the Information Technology Act, 2000 (21 of 2000). (6) Where the employer to which the provisions of this Code applies sells, abandons or discontinues the working of the establishment, then such employer shall, within one month of the date of such sale or abandonment or four months of the date of such discontinuance as the case may be, upload online, on the designated portal , a further return in FORM-XVII and XVIII referred to in sub-rule (5) in respect of the period between the end of the preceding year and the date of the sale, abandonment or discontinuance. (7) In case of manual registers and other records, (i)"
+],
+[
+"=",
+"be legibly entered in ink in English,"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"Hindi"
+],
+[
+"-",
+"or either the"
+],
+[
+"+",
+"and in local"
+],
+[
+"=",
+"language"
+],
+[
+"-",
+"understood"
+],
+[
+"+",
+"and signed"
+],
+[
+"=",
+"by"
+],
+[
+"-",
+"a majority of the persons employed in the mine; (c)"
+],
+[
+"+",
+"employer; (ii)"
+],
+[
+"=",
+"be preserved in original for a period of"
+],
+[
+"-",
+"one calendar year"
+],
+[
+"+",
+"five years"
+],
+[
+"=",
+"after the date of the last report or"
+],
+[
+"-",
+"entry ;"
+],
+[
+"+",
+"entry:"
+],
+[
+"=",
+"Provided that when the original record is lost or destroyed before the expiry of"
+],
+[
+"-",
+"one year period ,"
+],
+[
+"+",
+"five years period,"
+],
+[
+"=",
+"true copies thereof, if"
+],
+[
+"-",
+"available ,shall"
+],
+[
+"+",
+"available, shall"
+],
+[
+"=",
+"be preserved for"
+],
+[
+"-",
+"the prescribed"
+],
+[
+"+",
+"a specified"
+],
+[
+"=",
+"period;"
+],
+[
+"-",
+"(d)"
+],
+[
+"+",
+"(iii)"
+],
+[
+"=",
+"be"
+],
+[
+"-",
+"produced"
+],
+[
+"+",
+"produced, electronically or by speed post,"
+],
+[
+"=",
+"on demand before the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum- Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"an Inspector-cum-Facilitator"
+],
+[
+"=",
+"or any person authorised in that behalf of the Central Government."
+],
+[
+"-",
+"1. Substituted by GSR 607 dated 16.4.1959 2. Inserted, ibid 3. Substituted by GSR 1786 dated 17.10.1970"
+],
+[
+"+",
+"(8) Every establishment to which Chapter III (Employees’ Provident Fund ) and Chapter IV (Employees’ State Insurance Corporation) of the Code on Social Security, 2020 applies shall submit a self-declaration in PART-IV of FORM- XVII electronically."
+]
+]
+},
+{
+"num": "76",
+"title": "Registers of reportable and minor accidents",
+"anchor": "p-76",
+"likely": []
+},
+{
+"num": "77",
+"title": "Register of employees",
+"anchor": "p-77",
+"likely": []
+},
+{
+"num": "78",
+"title": "Register of daily attendance",
+"anchor": "p-78",
+"likely": []
+},
+{
+"num": "79",
+"title": "Posting of abstracts, bye -laws and notices",
+"anchor": "p-79",
+"likely": []
+},
+{
+"num": "80",
+"title": "Observance of local time",
+"anchor": "p-80",
+"likely": []
+},
+{
+"num": "81",
+"title": "Intoxicating drugs and drinks",
+"anchor": "p-81",
+"likely": []
+},
+{
+"num": "82",
+"title": "Occupational diseases",
+"anchor": "p-82",
+"likely": []
+},
+{
+"num": "82A",
+"title": "Disability allowance and compensation for occupational diseases",
+"anchor": "p-82a",
+"likely": []
+},
+{
+"num": "83",
+"title": "Mode of payment of fees etc",
+"anchor": "p-83",
+"likely": []
+},
+{
+"num": "84",
+"title": "Rescission and Savings",
+"anchor": "p-84",
+"likely": []
+}
+],
+"new_in_draft": [
+{
+"num": "2",
+"title": "Definitions",
+"anchor": "p-2"
+},
+{
+"num": "3",
+"title": "Application for registration",
+"anchor": "p-3"
+},
+{
+"num": "4",
+"title": "Notice of commencement and cessation of operation",
+"anchor": "p-4"
+},
+{
+"num": "5",
+"title": "Annual health examination of employees",
+"anchor": "p-5"
+},
+{
+"num": "6",
+"title": "Letter of appointment to employee",
+"anchor": "p-6"
+},
+{
+"num": "7",
+"title": "Notice of accidents and dangerous occurrences",
+"anchor": "p-7"
+},
+{
+"num": "8",
+"title": "Notice of disease",
+"anchor": "p-8"
+},
+{
+"num": "9",
+"title": "Duties of employee",
+"anchor": "p-9"
+},
+{
+"num": "10",
+"title": "Rights of employee",
+"anchor": "p-10"
+},
+{
+"num": "11",
+"title": "Provisions relating to National Occupational Safety and Health Advisory Board",
+"anchor": "p-11"
+},
+{
+"num": "12",
+"title": "Technical Committees or Advisory Committees",
+"anchor": "p-12"
+},
+{
+"num": "13",
+"title": "Collection of statistics and portal for inter-State migrant workers",
+"anchor": "p-13"
+},
+{
+"num": "14",
+"title": "Safety Committee",
+"anchor": "p-14"
+},
+{
+"num": "15",
+"title": "Composition of Safety Committee",
+"anchor": "p-15"
+},
+{
+"num": "16",
+"title": "Composition of Safety Committee in mines",
+"anchor": "p-16"
+},
+{
+"num": "18",
+"title": "Safety officer for Dock Work and Building or Other Construction Work",
+"anchor": "p-18"
+},
+{
+"num": "19",
+"title": "Duties of Safety Officers in case of dock work and building or other construction work",
+"anchor": "p-19"
+},
+{
+"num": "20",
+"title": "Safety officer in case of mines",
+"anchor": "p-20"
+},
+{
+"num": "21",
+"title": "Duties of Safety Officer in case of mines",
+"anchor": "p-21"
+},
+{
+"num": "22",
+"title": "Cleanliness and hygiene",
+"anchor": "p-22"
+},
+{
+"num": "23",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-23"
+},
+{
+"num": "24",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-24"
+},
+{
+"num": "25",
+"title": "Artificial humidification",
+"anchor": "p-25"
+},
+{
+"num": "27",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-27"
+},
+{
+"num": "28",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-28"
+},
+{
+"num": "29",
+"title": "Artificial Humidification",
+"anchor": "p-29"
+},
+{
+"num": "30",
+"title": "Cleanliness and hygiene",
+"anchor": "p-30"
+},
+{
+"num": "31",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-31"
+},
+{
+"num": "32",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-32"
+},
+{
+"num": "33",
+"title": "Cleanliness and hygiene",
+"anchor": "p-33"
+},
+{
+"num": "34",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-34"
+},
+{
+"num": "35",
+"title": "Precaution against dust",
+"anchor": "p-35"
+},
+{
+"num": "36",
+"title": "Cleanliness and hygiene",
+"anchor": "p-36"
+},
+{
+"num": "37",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-37"
+},
+{
+"num": "38",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-38"
+},
+{
+"num": "39",
+"title": "Cleanliness and hygiene",
+"anchor": "p-39"
+},
+{
+"num": "40",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-40"
+},
+{
+"num": "41",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-41"
+},
+{
+"num": "42",
+"title": "Cleanliness and hygiene",
+"anchor": "p-42"
+},
+{
+"num": "43",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-43"
+},
+{
+"num": "44",
+"title": "Potable water",
+"anchor": "p-44"
+},
+{
+"num": "45",
+"title": "Overcrowding",
+"anchor": "p-45"
+},
+{
+"num": "46",
+"title": "Lighting (Illumination)",
+"anchor": "p-46"
+},
+{
+"num": "47",
+"title": "Latrine and urinal accommodation",
+"anchor": "p-47"
+},
+{
+"num": "48",
+"title": "Treatment of waste and effluents",
+"anchor": "p-48"
+},
+{
+"num": "49",
+"title": "Washing facility",
+"anchor": "p-49"
+},
+{
+"num": "50",
+"title": "Provisions of bathing places and locker rooms",
+"anchor": "p-50"
+},
+{
+"num": "51",
+"title": "Keeping of cloth not worn during working hour",
+"anchor": "p-51"
+},
+{
+"num": "52",
+"title": "Sitting arrangement",
+"anchor": "p-52"
+},
+{
+"num": "53",
+"title": "Provision of Canteen",
+"anchor": "p-53"
+},
+{
+"num": "55",
+"title": "Ambulance Room",
+"anchor": "p-55"
+},
+{
+"num": "56",
+"title": "Shelter and Rest Room",
+"anchor": "p-56"
+},
+{
+"num": "58",
+"title": "Crèche Facility",
+"anchor": "p-58"
+},
+{
+"num": "59",
+"title": "Mock Drills",
+"anchor": "p-59"
+},
+{
+"num": "60",
+"title": "Medical Examination",
+"anchor": "p-60"
+},
+{
+"num": "61",
+"title": "Residential facilities for workers including contract labours",
+"anchor": "p-61"
+},
+{
+"num": "62",
+"title": "Living accommodation",
+"anchor": "p-62"
+},
+{
+"num": "63",
+"title": "Medical facilities",
+"anchor": "p-63"
+},
+{
+"num": "64",
+"title": "Working Hours",
+"anchor": "p-64"
+},
+{
+"num": "65",
+"title": "Working hours of working journalist",
+"anchor": "p-65"
+},
+{
+"num": "66",
+"title": "Holidays and leaves for sales promotion employees and working journalist",
+"anchor": "p-66"
+},
+{
+"num": "70",
+"title": "Restriction on double employment in mines",
+"anchor": "p-70"
+},
+{
+"num": "71",
+"title": "Notice of periods of work",
+"anchor": "p-71"
+},
+{
+"num": "73",
+"title": "Display on notice board",
+"anchor": "p-73"
+},
+{
+"num": "74",
+"title": "Annual Return",
+"anchor": "p-74"
+},
+{
+"num": "75",
+"title": "Register of accident and dangerous occurrences",
+"anchor": "p-75"
+},
+{
+"num": "77",
+"title": "Power to take samples of any articles or substances",
+"anchor": "p-77"
+},
+{
+"num": "78",
+"title": "Powers and duties of Inspector-cum-Facilitator",
+"anchor": "p-78"
+},
+{
+"num": "79",
+"title": "Powers and Duties of District Magistrate",
+"anchor": "p-79"
+},
+{
+"num": "80",
+"title": "Qualifications and experiences, duties and responsibilities of experts",
+"anchor": "p-80"
+},
+{
+"num": "81",
+"title": "Appointment of Medical officer",
+"anchor": "p-81"
+},
+{
+"num": "82",
+"title": "Duties of medical officer",
+"anchor": "p-82"
+},
+{
+"num": "83",
+"title": "Employment of Women in establishment",
+"anchor": "p-83"
+},
+{
+"num": "84",
+"title": "Adequate safety of employment of women in dangerous operations",
+"anchor": "p-84"
+},
+{
+"num": "85",
+"title": "Qualification and criteria of the contractor",
+"anchor": "p-85"
+},
+{
+"num": "86",
+"title": "Conditions of License",
+"anchor": "p-86"
+},
+{
+"num": "87",
+"title": "Form and manner of application for contractor license",
+"anchor": "p-87"
+},
+{
+"num": "88",
+"title": "Single Licence for Contractor in more than one States or for whole of India",
+"anchor": "p-88"
+},
+{
+"num": "89",
+"title": "Forms, terms and conditions of licence",
+"anchor": "p-89"
+},
+{
+"num": "90",
+"title": "Procedure for issue of licence",
+"anchor": "p-90"
+},
+{
+"num": "91",
+"title": "Renewal of licence of Contractor",
+"anchor": "p-91"
+},
+{
+"num": "92",
+"title": "Refund of security deposit",
+"anchor": "p-92"
+},
+{
+"num": "93",
+"title": "Responsibility of contractor",
+"anchor": "p-93"
+},
+{
+"num": "94",
+"title": "Intimation of work order and time limit for intimation",
+"anchor": "p-94"
+},
+{
+"num": "95",
+"title": "Revocation and suspension of license",
+"anchor": "p-95"
+},
+{
+"num": "96",
+"title": "Amendemnt of Licence",
+"anchor": "p-96"
+},
+{
+"num": "97",
+"title": "Appeal",
+"anchor": "p-97"
+},
+{
+"num": "98",
+"title": "Responsibility of payment of wages",
+"anchor": "p-98"
+},
+{
+"num": "99",
+"title": "Making payment of wages from the security deposit amount",
+"anchor": "p-99"
+},
+{
+"num": "100",
+"title": "Experience Certificate",
+"anchor": "p-100"
+},
+{
+"num": "101",
+"title": "Prohibition of employment of contract labour",
+"anchor": "p-101"
+},
+{
+"num": "102",
+"title": "Journey allowance to inter-State migrant worker",
+"anchor": "p-102"
+},
+{
+"num": "103",
+"title": "Setting up of a Toll Free helpline number to the inter-state migrant worker",
+"anchor": "p-103"
+},
+{
+"num": "104",
+"title": "Study of inter-State migrant workers",
+"anchor": "p-104"
+},
+{
+"num": "105",
+"title": "Agreement for audio-visual worker",
+"anchor": "p-105"
+},
+{
+"num": "106",
+"title": "Procedure for reference of disputes to a Conciliation Officer or a Tribunal",
+"anchor": "p-106"
+},
+{
+"num": "107",
+"title": "Qualification and appointment of manager in mines",
+"anchor": "p-107"
+},
+{
+"num": "108",
+"title": "Code not to apply in certain mines",
+"anchor": "p-108"
+},
+{
+"num": "116",
+"title": "Medical Examination of women",
+"anchor": "p-116"
+},
+{
+"num": "123",
+"title": "Establishment and location of rescue station",
+"anchor": "p-123"
+},
+{
+"num": "124",
+"title": "Functions of rescue station",
+"anchor": "p-124"
+},
+{
+"num": "125",
+"title": "Establishment and location of rescue room",
+"anchor": "p-125"
+},
+{
+"num": "126",
+"title": "Functions of rescue room",
+"anchor": "p-126"
+},
+{
+"num": "127",
+"title": "Qualifications, experience etc. of superintendent",
+"anchor": "p-127"
+},
+{
+"num": "128",
+"title": "Qualifications, experience etc. of instructor",
+"anchor": "p-128"
+},
+{
+"num": "129",
+"title": "Selection of rescue trained persons for posting at rescue station",
+"anchor": "p-129"
+},
+{
+"num": "130",
+"title": "Qualifications, experience etc. of rescue room in-charge",
+"anchor": "p-130"
+},
+{
+"num": "131",
+"title": "Equipment",
+"anchor": "p-131"
+},
+{
+"num": "132",
+"title": "Duties and responsibilities of Superintendent",
+"anchor": "p-132"
+},
+{
+"num": "133",
+"title": "Duties of instructor",
+"anchor": "p-133"
+},
+{
+"num": "134",
+"title": "Duties and responsibilities of rescue room in-charge",
+"anchor": "p-134"
+},
+{
+"num": "135",
+"title": "Duties of rescue trained persons posted at rescue station",
+"anchor": "p-135"
+},
+{
+"num": "136",
+"title": "Duties of rescue room attendant",
+"anchor": "p-136"
+},
+{
+"num": "137",
+"title": "Telephone communication",
+"anchor": "p-137"
+},
+{
+"num": "138",
+"title": "Rescue tracings",
+"anchor": "p-138"
+},
+{
+"num": "139",
+"title": "",
+"anchor": "p-139"
+},
+{
+"num": "140",
+"title": "Selection of persons for training in rescue work",
+"anchor": "p-140"
+},
+{
+"num": "141",
+"title": "Instructions and practices etc",
+"anchor": "p-141"
+},
+{
+"num": "142",
+"title": "Medical examination etc. of rescue trained person",
+"anchor": "p-142"
+},
+{
+"num": "143",
+"title": "Suspension of rescue trained persons",
+"anchor": "p-143"
+},
+{
+"num": "144",
+"title": "Duties of manager etc. in emergency",
+"anchor": "p-144"
+},
+{
+"num": "145",
+"title": "Accommodation at the below ground mine for persons engaged in rescue work",
+"anchor": "p-145"
+},
+{
+"num": "146",
+"title": "Entry into below ground mines for rescue or recovery work",
+"anchor": "p-146"
+},
+{
+"num": "147",
+"title": "Fresh air bases",
+"anchor": "p-147"
+},
+{
+"num": "148",
+"title": "Leader",
+"anchor": "p-148"
+},
+{
+"num": "149",
+"title": "Instructions to leader",
+"anchor": "p-149"
+},
+{
+"num": "150",
+"title": "Test of apparatus",
+"anchor": "p-150"
+},
+{
+"num": "151",
+"title": "Duties of leader below ground",
+"anchor": "p-151"
+},
+{
+"num": "152",
+"title": "Rescue team members and their duties",
+"anchor": "p-152"
+},
+{
+"num": "153",
+"title": "Restriction of second spell of works",
+"anchor": "p-153"
+},
+{
+"num": "154",
+"title": "Obligation of employer in certain situations",
+"anchor": "p-154"
+},
+{
+"num": "155",
+"title": "General management",
+"anchor": "p-155"
+},
+{
+"num": "156",
+"title": "Power to relax",
+"anchor": "p-156"
+},
+{
+"num": "157",
+"title": "Training Scheme",
+"anchor": "p-157"
+},
+{
+"num": "158",
+"title": "Scope and standard for vocational training",
+"anchor": "p-158"
+},
+{
+"num": "159",
+"title": "Scope and standard for Refresher Training",
+"anchor": "p-159"
+},
+{
+"num": "160",
+"title": "Arrangement for refresher training",
+"anchor": "p-160"
+},
+{
+"num": "161",
+"title": "Special training",
+"anchor": "p-161"
+},
+{
+"num": "162",
+"title": "Training of persons after long absence or after an accident or change of job",
+"anchor": "p-162"
+},
+{
+"num": "163",
+"title": "Training Centre",
+"anchor": "p-163"
+},
+{
+"num": "164",
+"title": "Arrangements for the training centre",
+"anchor": "p-164"
+},
+{
+"num": "165",
+"title": "Training Officer",
+"anchor": "p-165"
+},
+{
+"num": "166",
+"title": "Duties of Training Officer",
+"anchor": "p-166"
+},
+{
+"num": "167",
+"title": "Instructors",
+"anchor": "p-167"
+},
+{
+"num": "168",
+"title": "Trainers",
+"anchor": "p-168"
+},
+{
+"num": "169",
+"title": "Qualification of instructors and trainers",
+"anchor": "p-169"
+},
+{
+"num": "170",
+"title": "Duties of Instructor",
+"anchor": "p-170"
+},
+{
+"num": "171",
+"title": "Duties of trainer and persons undergoing training",
+"anchor": "p-171"
+},
+{
+"num": "172",
+"title": "Training allowance",
+"anchor": "p-172"
+},
+{
+"num": "173",
+"title": "Certificate of training",
+"anchor": "p-173"
+},
+{
+"num": "174",
+"title": "Certificate to be delivered to the management",
+"anchor": "p-174"
+},
+{
+"num": "175",
+"title": "Inspection of vocational training centre",
+"anchor": "p-175"
+},
+{
+"num": "176",
+"title": "Notice of closure or discontinuance of vocational training centre",
+"anchor": "p-176"
+},
+{
+"num": "177",
+"title": "Manner of holding enquiry",
+"anchor": "p-177"
+},
+{
+"num": "178",
+"title": "Onus as to age",
+"anchor": "p-178"
+},
+{
+"num": "179",
+"title": "Procedure of inquiry and other related matters",
+"anchor": "p-179"
+},
+{
+"num": "180",
+"title": "Persons to appear at inquiry",
+"anchor": "p-180"
+},
+{
+"num": "181",
+"title": "Procedure of survey and other related matters",
+"anchor": "p-181"
+},
+{
+"num": "182",
+"title": "Manner of compounding of offences by the authorised officer",
+"anchor": "p-182"
+},
+{
+"num": "183",
+"title": "Social Security Fund",
+"anchor": "p-183"
+},
+{
+"num": "184",
+"title": "Grievance redressal mechanism for contract labour",
+"anchor": "p-184"
+},
+{
+"num": "185",
+"title": "Annual increment of regular worker of a contractor",
+"anchor": "p-185"
+},
+{
+"num": "186",
+"title": "Income from sources and quantity of hazardous substance",
+"anchor": "p-186"
+}
+]
+}

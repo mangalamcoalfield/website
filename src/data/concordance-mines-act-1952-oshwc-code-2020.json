@@ -1,0 +1,9617 @@
+{
+"source": {
+"slug": "mines-act-1952",
+"title": "The Mines Act, 1952",
+"ocr": false
+},
+"target": {
+"slug": "oshwc-code-2020",
+"title": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"ocr": false
+},
+"rows": [
+{
+"num": "1",
+"title": "Short title, extent and commencement",
+"anchor": "p-1",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "1",
+"label": "Rule 1",
+"title": "Short title and commencement",
+"anchor": "p-1"
+}
+]
+},
+{
+"num": "2",
+"title": "Definitions",
+"anchor": "p-2",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "2",
+"label": "Rule 2",
+"title": "Definitions",
+"anchor": "p-2"
+}
+]
+},
+{
+"num": "3",
+"title": "Act not apply in certain cases",
+"anchor": "p-3",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "68",
+"title": "",
+"anchor": "p-68"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.367,
+"grew": 0.55,
+"diff": [
+[
+"-",
+"(b)"
+],
+[
+"+",
+"(a)"
+],
+[
+"=",
+"any mine or part thereof in which excavation is being … for the purpose of obtaining minerals for use or sale"
+],
+[
+"-",
+": Provided that – (i) not more than twenty persons are employed on any one day in connection with any"
+],
+[
+"+",
+"subject to"
+],
+[
+"=",
+"such"
+],
+[
+"-",
+"excavation. (ii) the"
+],
+[
+"+",
+"conditions relating to number of employees,"
+],
+[
+"=",
+"depth of"
+],
+[
+"+",
+"excavation and other matters as may be prescribed by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"excavation measured from its highest to its lowest point nowhere exceeds six, metres or, in the case of an excavation for coal fifteen metres: and (iii) no part of such excavation extends below superjacent ground; or"
+],
+[
+"+",
+"Central Government;"
+],
+[
+"=",
+"(b) any mine engaged in the extraction of kankar,"
+],
+[
+"-",
+"murrum"
+],
+[
+"+",
+"murrum,"
+],
+[
+"=",
+"laterite, boulder, gravel, shingle, ordinary sand (excluding"
+],
+[
+"-",
+"moulding sand,"
+],
+[
+"+",
+"mouldings and"
+],
+[
+"=",
+"glass sand and other mineral sands), ordinary clay (excluding kaolin, china clay, white clay or fire clay), building stone, slate, road metal,"
+],
+[
+"-",
+"earthy"
+],
+[
+"+",
+"earth,"
+],
+[
+"=",
+"fullers"
+],
+[
+"-",
+"earth, marl chalk"
+],
+[
+"+",
+"earth (marl, chalk)"
+],
+[
+"=",
+"and lime"
+],
+[
+"-",
+"stone. Provided that – (i) the working do not extend below superjacent ground: or (ii)where it is an"
+],
+[
+"+",
+"stone subject to such conditions relating to workings,"
+],
+[
+"=",
+"open cast"
+],
+[
+"-",
+"working – (a)"
+],
+[
+"+",
+"workings and explosives as may be prescribed by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"depth of the excavation measured from its highest to its lowest point nowhere exceeds six metres; (b) the number of persons employed on any one day does not exceed fifty; and (c) explosives are not used in connection with the excavation."
+],
+[
+"+",
+"Central Government."
+],
+[
+"=",
+"(2) Notwithstanding anything contained in sub-section"
+],
+[
+"-",
+"(1)"
+],
+[
+"+",
+"(1),"
+],
+[
+"=",
+"the Central Government"
+],
+[
+"-",
+"may, if it is satisfied that, having regard to the circumstances obtaining in relation to mine or part thereof or ground or class of mines, it is necessary or desirable so to do by notification in the official Gazette,"
+],
+[
+"+",
+"may"
+],
+[
+"=",
+"declare that"
+],
+[
+"-",
+"any of"
+],
+[
+"=",
+"the provisions of this"
+],
+[
+"-",
+"Act, not set out in sub- section (10,"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"shall apply to"
+],
+[
+"-",
+"any"
+],
+[
+"=",
+"such mine or part thereof"
+],
+[
+"-",
+"or group"
+],
+[
+"+",
+"as may be prescribed by the Central Government. 19"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"class"
+],
+[
+"+",
+"1952. 14"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"mines or any class of persons employed therein."
+],
+[
+"+",
+"1947. Managers. Code not to apply in certain cases. [PART II—"
+],
+[
+"=",
+"(3) Without prejudice to the provisions contained in sub-section (2), if at any time any of the conditions specified in"
+],
+[
+"-",
+"the provision to"
+],
+[
+"=",
+"clause (a) or clause (b) of sub-section (1) is not fulfilled in relation to any mine referred to in that"
+],
+[
+"-",
+"sub-section"
+],
+[
+"+",
+"sub-section,"
+],
+[
+"=",
+"the provisions of this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"not"
+],
+[
+"-",
+"get"
+],
+[
+"+",
+"set"
+],
+[
+"=",
+"out in sub-section (1), shall become immediately applicable, and it shall be the duty of the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine to inform"
+],
+[
+"-",
+"the prescribed"
+],
+[
+"+",
+"about such non-fulfilment to such"
+],
+[
+"=",
+"authority in"
+],
+[
+"-",
+"the prescribed"
+],
+[
+"+",
+"such"
+],
+[
+"=",
+"manner and within"
+],
+[
+"-",
+"the"
+],
+[
+"+",
+"such time as may be"
+],
+[
+"=",
+"prescribed"
+],
+[
+"-",
+"time about the non-fulfilment. (4) Reference to time of day – In this Act, reference to time of day are reference to Indian standard time, being five and a half hours ahead of Green which mean time: Provided that, for any area in Indian standard time is not ordinarily observed,"
+],
+[
+"+",
+"by"
+],
+[
+"=",
+"the Central"
+],
+[
+"-",
+"Government may make rules – (a) specifying the area; (b) defining the local mean time ordinarily observed therein; and (c) permitting such time to be observed in all or any of the mines situated in the area. CHAPTER - II INSPECTORS AND CERTIFYING SURGEONS"
+],
+[
+"+",
+"Government."
+]
+]
+},
+{
+"num": "5",
+"title": "Chief Inspector and Inspector",
+"anchor": "p-5",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "36",
+"title": "",
+"anchor": "p-36"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.103,
+"grew": 0.26,
+"diff": [
+[
+"-",
+"(2) No person shall be appointed to be Chief Inspector or an Inspector, or having been appointed shall continue to hold such office, who is or becomes directly or indirectly interested in any mine or mining rights in India. (3)"
+],
+[
+"=",
+"The District Magistrate"
+],
+[
+"-",
+"may"
+],
+[
+"+",
+"shall, within the local limits of his jurisdiction,"
+],
+[
+"=",
+"exercise"
+],
+[
+"-",
+"the"
+],
+[
+"+",
+"such"
+],
+[
+"=",
+"powers and"
+],
+[
+"-",
+"perform the"
+],
+[
+"=",
+"duties of"
+],
+[
+"-",
+"an Inspector subject to"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"general or special orders"
+],
+[
+"+",
+"Inspector-cum-Facilitator in respect"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"mines as may be prescribed by"
+],
+[
+"=",
+"the Central"
+],
+[
+"-",
+"Government: Provided that nothing in this sub-section shall be deemed to empower a District Magistrate to exercise any of the Powers conferred by section 22 or section 22A or section 61, (4) The Chief Inspector and all Inspectors shall be deemed to be public servant within the meaning of the Indian Penal Code."
+],
+[
+"+",
+"Government."
+]
+]
+},
+{
+"num": "6",
+"title": "Functions of inspectors",
+"anchor": "p-6",
+"likely": []
+},
+{
+"num": "7",
+"title": "Powers of Inspectors of Mines",
+"anchor": "p-7",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "35",
+"title": "",
+"anchor": "p-35"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.354,
+"grew": 2.2,
+"diff": [
+[
+"-",
+"(b)"
+],
+[
+"+",
+"(i) enter,"
+],
+[
+"=",
+"with such"
+],
+[
+"-",
+"assistants, if any,"
+],
+[
+"+",
+"assistance of persons, being persons in the service of the Government, or any local or other public authority, or with an expert,"
+],
+[
+"=",
+"as he thinks fit,"
+],
+[
+"+",
+"any place which is used, or which he has reason to believe, is used as a work place; (ii)"
+],
+[
+"=",
+"inspect and examine"
+],
+[
+"+",
+"the establishment,"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"mine"
+],
+[
+"+",
+"premises, plant, machinery, article,"
+],
+[
+"=",
+"or any"
+],
+[
+"-",
+"part thereof at"
+],
+[
+"+",
+"other relevant material; (iii) inquire into"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"time by day"
+],
+[
+"+",
+"accident"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"night: Provided that"
+],
+[
+"+",
+"dangerous occurrence, whether resulting in bodily injury, disability or death or not and take on"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"power conferred by this clause shall not be exercise in such a manner as unreasonably to impede"
+],
+[
+"+",
+"spot"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"obstruct the working of mine. (c) examine into, and make inquiry respecting, the state and condition"
+],
+[
+"+",
+"otherwise statement"
+],
+[
+"=",
+"of any"
+],
+[
+"-",
+"mine,"
+],
+[
+"+",
+"person which he may consider necessary for such inquiry; (iv) subject to any rules made by the State Government in this behalf, within his jurisdiction, examine the crops grown in any plantation"
+],
+[
+"=",
+"or any"
+],
+[
+"-",
+"part thereof,"
+],
+[
+"+",
+"worker employed therein or require"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"ventilation"
+],
+[
+"+",
+"production"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the mine, the sufficiency"
+],
+[
+"+",
+"any register or other document maintained in pursuance"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the bye-laws for the time being in force relating to the mine and all matters and things connected with or relating to the health, safety and welfare of the persons employed in the mine,"
+],
+[
+"+",
+"this Code,"
+],
+[
+"=",
+"and take"
+],
+[
+"-",
+"whether"
+],
+[
+"=",
+"on the"
+],
+[
+"-",
+"precincts of the mine"
+],
+[
+"+",
+"spot"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"elsewhere statements"
+],
+[
+"+",
+"otherwise statement"
+],
+[
+"=",
+"of any person which he may consider necessary for carrying out the"
+],
+[
+"+",
+"purposes of this Code relating to plantation; (v) supply information and sensitise the employers and workers regarding the provisions of this Code and compliance thereof; (vi) require the production of any register or any other document relating to the workplace or work activity; (vii) search or seize, or take copies of, any register, record or other document or any portion thereof, as he may consider necessary in respect of any offence under this Code, which he has reason to believe, has been committed; (viii) direct the concerned occupier or employer that any premises or any part thereof, or anything lying therein, shall be left undisturbed (whether generally or in particular respects) for so long as is necessary for the"
+],
+[
+"=",
+"purpose of"
+],
+[
+"-",
+"this Act; (d) exercise"
+],
+[
+"+",
+"any inspection or inquiry; (ix) take measurements, photographs and videographs and make"
+],
+[
+"=",
+"such"
+],
+[
+"-",
+"other powers"
+],
+[
+"+",
+"recordings as he considers necessary for the purpose of any examination or inquiry; (x) take samples of any articles or substances found in any establishment or premises into which he has power to enter and of the air of the atmosphere in or in the vicinity of any such establishment or premises in such manner"
+],
+[
+"=",
+"as may be prescribed by"
+],
+[
+"-",
+"regulation made by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"Central Government"
+],
+[
+"+",
+"appropriate Government; 45 of 1860. Powers of Inspector- cum- Facilitators. [PART II— (xi)"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"this behalf. Provided that no person shall be compelled under this sub-section to answer any question or make any statement tending to incriminate himself, (2) The Chief Inspector and any Inspector may, if he has reason to believe as a result"
+],
+[
+"+",
+"case"
+],
+[
+"=",
+"of any"
+],
+[
+"-",
+"inspection examination"
+],
+[
+"+",
+"article"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"inquiry under this section, that"
+],
+[
+"+",
+"substance found in any establishment or premises, being"
+],
+[
+"=",
+"an"
+],
+[
+"-",
+"offence under this Act has been"
+],
+[
+"+",
+"article or substance which appears to him as having caused"
+],
+[
+"=",
+"or is"
+],
+[
+"-",
+"being committed, search"
+],
+[
+"+",
+"likely to cause danger to the health and safety of the employees, direct it to be dismantled or subject it to"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"place"
+],
+[
+"+",
+"process or test (but not so as to damage or destroy it unless the same is, in the circumstances necessary, for carrying out the purposes of any provision of this Code)"
+],
+[
+"=",
+"and take possession of any"
+],
+[
+"-",
+"material"
+],
+[
+"+",
+"such article"
+],
+[
+"=",
+"or"
+],
+[
+"+",
+"substance or a part thereof, and detain it for so long as is necessary for such examination; (xii) issue show cause notice relating to safety, health and welfare provisions arising under this Code, rules, regulations and bye-laws made thereunder; (xiii) prosecute, conduct or defend before"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"plane"
+],
+[
+"+",
+"court any complaint or other proceeding arising under this Code, the rules and regulations made thereunder; and (xiv) exercise such other powers and perform such other duties as may be prescribed by the appropriate Government. (2) Any person required to produce any document or to give any information required by an Inspector-cum-Facilitator under sub-section (1) shall be deemed to be legally bound to do so within the meaning of"
+],
+[
+"=",
+"section"
+],
+[
+"-",
+"register other records appertaining to"
+],
+[
+"+",
+"175 and section 176 of"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine and the"
+],
+[
+"+",
+"Indian Penal Code. (3) The"
+],
+[
+"=",
+"provisions of the Code of Criminal"
+],
+[
+"-",
+"Procedure 1973"
+],
+[
+"+",
+"Procedure, 1973,"
+],
+[
+"=",
+"shall, so far as may"
+],
+[
+"-",
+"be applicable, applied"
+],
+[
+"+",
+"be, apply"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"such"
+],
+[
+"=",
+"search or seizure"
+],
+[
+"-",
+"made"
+],
+[
+"=",
+"under"
+],
+[
+"-",
+"this Act"
+],
+[
+"+",
+"sub-section (1)"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"to"
+],
+[
+"+",
+"they"
+],
+[
+"=",
+"apply to any search or seizure made under the authority of a warrant issued under section 94 of the"
+],
+[
+"-",
+"code."
+],
+[
+"+",
+"said Code."
+]
+]
+},
+{
+"num": "8",
+"title": "Powers of special officers to enter, measure, etc",
+"anchor": "p-8",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "41",
+"title": "",
+"anchor": "p-41"
+},
+"sure": "high",
+"change": "expanded",
+"kept": 0.905,
+"grew": 1.98,
+"diff": [
+[
+"=",
+"Provided that, where in the opinion of the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or of an"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Secrecy of information by Chief Inspector- cum- Facilitator or Inspector- cum- Facilitator, etc. Facilities to be afforded to Inspector- cum- Facilitator. Powers of special officer to enter, measure, etc., in relation to mine. 8 of 1923. 22 of 2005. SEC. 1] Inspector-cum-Facilitator"
+],
+[
+"=",
+"an emergency exists, he"
+],
+[
+"-",
+"may"
+],
+[
+"+",
+"may,"
+],
+[
+"=",
+"by order in writing, authorise any such person to enter the mine for any of the aforesaid"
+],
+[
+"-",
+"purpose"
+],
+[
+"+",
+"purposes"
+],
+[
+"=",
+"without giving any such notice."
+]
+]
+},
+{
+"num": "9",
+"title": "Facilities to be afforded to inspectors",
+"anchor": "p-9",
+"likely": []
+},
+{
+"num": "10",
+"title": "Secrecy information obtained",
+"anchor": "p-10",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "39",
+"title": "",
+"anchor": "p-39"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.432,
+"grew": 0.85,
+"diff": [
+[
+"=",
+"(2) Nothing in sub-section (1) shall apply to the disclosure of any such information"
+],
+[
+"-",
+"(if so required) to – “(a)"
+],
+[
+"+",
+"to— (a)"
+],
+[
+"=",
+"any court; (b)"
+],
+[
+"-",
+"a"
+],
+[
+"+",
+"any"
+],
+[
+"=",
+"Committee or"
+],
+[
+"-",
+"court of inquiry"
+],
+[
+"+",
+"Board"
+],
+[
+"=",
+"constituted"
+],
+[
+"-",
+"or appointed"
+],
+[
+"=",
+"under"
+],
+[
+"-",
+"section 12 or section 24, as the case may be:"
+],
+[
+"+",
+"this Code;"
+],
+[
+"=",
+"(c) an official"
+],
+[
+"-",
+"supervisor"
+],
+[
+"+",
+"superior"
+],
+[
+"=",
+"or the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"concerned mine:"
+],
+[
+"+",
+"establishment concerned;"
+],
+[
+"=",
+"(d) a Commissioner for"
+],
+[
+"-",
+"workmen’s"
+],
+[
+"+",
+"employees'"
+],
+[
+"=",
+"compensation appointed under the"
+],
+[
+"-",
+"Workmen’s"
+],
+[
+"+",
+"Employees'"
+],
+[
+"=",
+"Compensation Act, 1923; (e) the"
+],
+[
+"-",
+"Controller"
+],
+[
+"+",
+"Controller,"
+],
+[
+"=",
+"Indian Bureau of"
+],
+[
+"-",
+"Mines."
+],
+[
+"+",
+"Mines; and"
+],
+[
+"=",
+"(f) any"
+],
+[
+"-",
+"registered or recognised trade union; (g)"
+],
+[
+"=",
+"such"
+],
+[
+"-",
+"other"
+],
+[
+"=",
+"officer, authority"
+],
+[
+"-",
+"and organisation"
+],
+[
+"+",
+"or authorised person"
+],
+[
+"=",
+"as may be specified in this behalf by the"
+],
+[
+"-",
+"Central Government.”"
+],
+[
+"+",
+"appropriate Government."
+],
+[
+"=",
+"(3)"
+],
+[
+"-",
+"If"
+],
+[
+"+",
+"Notwithstanding anything contained in"
+],
+[
+"=",
+"the"
+],
+[
+"+",
+"Right to Information Act, 2005, no"
+],
+[
+"=",
+"Chief"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"an Inspector or"
+],
+[
+"+",
+"Inspector-cum-Facilitator shall disclose the source of"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"other person referred"
+],
+[
+"+",
+"complaint, made"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"in sub-section (1) discloses contrary to"
+],
+[
+"+",
+"him regarding the contravention of"
+],
+[
+"=",
+"the provisions of this"
+],
+[
+"-",
+"section, any such information as aforesaid"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"without the consent of the"
+],
+[
+"-",
+"Central Government, he"
+],
+[
+"+",
+"complainant and"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"be punishable with imprisonment for a term which may extend to one year, or with fine, or with both. (4) No court shall proceed"
+],
+[
+"+",
+"also not while making an inspection under this Code in pursuance of such complaint, disclose"
+],
+[
+"=",
+"to the"
+],
+[
+"-",
+"trial"
+],
+[
+"+",
+"employer concerned or any"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"any offence under this section except with"
+],
+[
+"+",
+"his representative that"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"previous sanction"
+],
+[
+"+",
+"inspection is being made in pursuance"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the General Government."
+],
+[
+"+",
+"such complaint."
+]
+]
+},
+{
+"num": "11",
+"title": "Certifying Surgeons",
+"anchor": "p-11",
+"likely": []
+},
+{
+"num": "12",
+"title": "Committees",
+"anchor": "p-12",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "12",
+"label": "Rule 12",
+"title": "Technical Committees or Advisory Committees",
+"anchor": "p-12"
+}
+]
+},
+{
+"num": "13",
+"title": "Functions of the committee",
+"anchor": "p-13",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "17",
+"label": "Rule 17",
+"title": "Functions of Safety Committee in case of Mines",
+"anchor": "p-17"
+},
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "14",
+"label": "Rule 14",
+"title": "Safety Committee",
+"anchor": "p-14"
+}
+]
+},
+{
+"num": "14",
+"title": "Powers, etc. of the Committees",
+"anchor": "p-14",
+"likely": []
+},
+{
+"num": "15",
+"title": "Recovery of expenses",
+"anchor": "p-15",
+"likely": []
+},
+{
+"num": "16",
+"title": "Notice to be given of mining operations",
+"anchor": "p-16",
+"likely": []
+},
+{
+"num": "17",
+"title": "",
+"anchor": "p-17",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "67",
+"title": "",
+"anchor": "p-67"
+},
+"sure": "high",
+"change": "same",
+"kept": 0.975,
+"grew": 1.0
+},
+{
+"num": "18",
+"title": "Duties and responsibilities of owners, agents and managers",
+"anchor": "p-18",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "7",
+"title": "",
+"anchor": "p-7"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.441,
+"grew": 0.53,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"The responsibility in respect of matters provided for in the rules made under clauses (d), (e) and (p) of section 58 shall be exclusively carried out by the owner and agent of the mine and by such person (other than the manager) whom the owner or agent may appoint for securing compliance with the aforesaid provisions. (3) If the carrying out of any instructions given under sub-section (2) or given otherwise than through the manager under sub-section(3) of section 17 results in the contravention of the provisions of this Act or of the regulations, rules, bye-laws or orders made thereunder, every person giving such instructions shall also be liable for the contravention of the provision concerned. (4) Subject to the provisions of sub-sections(1), (2) and (3) the owner, agent and manager of every mine shall each be responsible to see that all operations carried on in connection with the mine are conducted in accordance with the provisions of this Act and of the regulations, rules, bye-laws and orders made thereunder. (5)"
+],
+[
+"=",
+"In the event of any contravention by any person whosoever of any of the provisions of this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"or of the"
+],
+[
+"-",
+"regulations;"
+],
+[
+"=",
+"rules,"
+],
+[
+"+",
+"regulations,"
+],
+[
+"=",
+"bye-laws or orders made"
+],
+[
+"-",
+"thereunder"
+],
+[
+"+",
+"thereunder, relating to mine,"
+],
+[
+"=",
+"except those which specifically require any person to do any act or"
+],
+[
+"-",
+"thing,"
+],
+[
+"+",
+"thing"
+],
+[
+"=",
+"or prohibit any person from doing an act or thing, besides the person who contravenes,"
+],
+[
+"+",
+"then,"
+],
+[
+"=",
+"each of the following persons shall also be deemed to be guilty of such contravention unless he"
+],
+[
+"+",
+"Duties and responsibilities of owner, agent and manager in relation to mine. [PART II—"
+],
+[
+"=",
+"proves that he had used"
+],
+[
+"-",
+"bue"
+],
+[
+"+",
+"due"
+],
+[
+"=",
+"diligence to secure compliance with the provisions and had taken reasonable means to prevent such"
+],
+[
+"-",
+"contravention: (i)"
+],
+[
+"+",
+"contravention, namely:— (a)"
+],
+[
+"=",
+"the official or officials appointed to perform duties of supervision in respect of the provisions contravened;"
+],
+[
+"-",
+"(ii)"
+],
+[
+"+",
+"(b)"
+],
+[
+"=",
+"the manager of the mine;"
+],
+[
+"-",
+"(iii)"
+],
+[
+"+",
+"(c)"
+],
+[
+"=",
+"the owner and agent of the mine;"
+],
+[
+"-",
+"(iv)"
+],
+[
+"+",
+"(d)"
+],
+[
+"=",
+"the person appointed, if any, to carry out the responsibility under"
+],
+[
+"-",
+"sub-section (2). Provided that any of the persons aforesaid may not be proceeded against if it appears on enquiry and investigation that he is not prima facieliable. (6)"
+],
+[
+"+",
+"section 24. (3)"
+],
+[
+"=",
+"It shall not be a defence in any proceedings brought … a mine under this section that the manager and other"
+],
+[
+"-",
+"official"
+],
+[
+"+",
+"officials"
+],
+[
+"=",
+"have been appointed in accordance with the provisions of this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"or that a person to carry the responsibility under"
+],
+[
+"-",
+"sub-section (2)"
+],
+[
+"+",
+"section 24"
+],
+[
+"=",
+"has been"
+],
+[
+"-",
+"appointed.\" CHAPTER – V PROVISION AS TO HEALTH AND SAFETY"
+],
+[
+"+",
+"appointed."
+]
+]
+},
+{
+"num": "19",
+"title": "",
+"anchor": "p-19",
+"likely": []
+},
+{
+"num": "20",
+"title": "Conservancy",
+"anchor": "p-20",
+"likely": []
+},
+{
+"num": "21",
+"title": "",
+"anchor": "p-21",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "54",
+"label": "Rule 54",
+"title": "First Aid and Medical Appliances",
+"anchor": "p-54"
+},
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "63",
+"label": "Rule 63",
+"title": "Medical facilities",
+"anchor": "p-63"
+}
+]
+},
+{
+"num": "22",
+"title": "",
+"anchor": "p-22",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "38",
+"title": "",
+"anchor": "p-38"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.787,
+"grew": 2.06,
+"diff": [
+[
+"-",
+"(1A) Where"
+],
+[
+"+",
+"(a) where it appears to"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent"
+],
+[
+"+",
+"Inspector-cum-Facilitator that conditions in a factory"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"part thereof are such that they may cause serious hazard or imminent danger by way"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"amine"
+],
+[
+"+",
+"injury or death to the persons employed therein or to the general public in the vicinity, he may, by order in writing to the occupier of the factory, state the particulars in respect of which he considers the factory or part thereof to be the cause of such serious hazard or imminent danger and prohibit such occupier from employing any person in the factory or any part thereof other than the minimum number of persons necessary to attend to the minimum tasks till the hazard or danger is removed; (b) any order issued by the Inspector-cum-Facilitator under sub-clause (a) shall have effect for a period of three days until extended by the Chief Inspector-cum-Facilitator by a subsequent order; 45 of 1860. 2 of 1974. Powers and duties of District Magistrate. Third party audit and certification. Special powers of Inspector- cum- Facilitator in respect of factory, mines, dock work and building or other construction work. SEC. 1] (c) any person aggrieved by an order of the Inspector-cum-Facilitator under sub-clause (a), and the Chief Inspector-cum-Facilitator under sub-clause (b), shall have the right to appeal to the High Court; (d) any person whose employment has been affected by an order issued under sub-clause (a), shall, without prejudice to the rights of the parties under the Industrial Disputes Act, 1947, be entitled to wages and other benefits and it shall be the duty of the occupier to provide alternative employment to him wherever possible in such manner as may be prescribed by the appropriate Government; (B) shall have the following special powers in respect of mines, namely:— (a) if, in respect of any matter for which no express provision is made by or under this Code, it appears to the Chief Inspector-cum-Facilitator or an Inspector-cum-Facilitator that any mine or part thereof or any matter, thing or practice in or connected with the mine, or with the control, supervision, management or direction thereof, is dangerous to human life or safety or is defective so as to threaten or tend to cause, the bodily injury of any person, he may give notice in writing thereof to the employer of the mine stating therein the particulars in respect of which he considers the mine or part thereof or the matter, thing or practice to be dangerous or defective and require the same to be remedied within such time and in such manner as he may specify in the notice; (b) where the employer of a mine"
+],
+[
+"=",
+"fails to comply with the terms of a notice given under"
+],
+[
+"-",
+"sub-section (1)"
+],
+[
+"+",
+"sub-clause (a)"
+],
+[
+"=",
+"within the period specified therein, the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or the"
+],
+[
+"-",
+"Inspector, as the case may be, may"
+],
+[
+"+",
+"Inspector-cum-Facilitator may,"
+],
+[
+"=",
+"by order in writing, prohibit the employment in or about the mine or any part thereof"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"any person whose employment is not in his opinion reasonably necessary for securing compliance with the terms of the"
+],
+[
+"-",
+"notice. (1)Without"
+],
+[
+"+",
+"notice; (c) without"
+],
+[
+"=",
+"prejudice to the provisions contained in"
+],
+[
+"-",
+"sub-section(10"
+],
+[
+"+",
+"sub-clause (a),"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or the"
+],
+[
+"-",
+"Inspector as the case may be,"
+],
+[
+"+",
+"Inspector-cum-Facilitator may,"
+],
+[
+"=",
+"by order in writing addressed to the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of a"
+],
+[
+"-",
+"mine"
+],
+[
+"+",
+"mine,"
+],
+[
+"=",
+"prohibit the extraction or reduction of pillars or blocks of minerals in"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"mine or part thereof, if, in his"
+],
+[
+"-",
+"opinion"
+],
+[
+"+",
+"opinion,"
+],
+[
+"=",
+"such operation is likely to cause the crushing of pillars or blocks of minerals or the premature collapse of any part of the"
+],
+[
+"-",
+"working"
+],
+[
+"+",
+"workings"
+],
+[
+"=",
+"or otherwise endanger the mine or the life or safety … restricting the area that might be affected by fire or"
+],
+[
+"-",
+"flooding. (3)If"
+],
+[
+"+",
+"flooding; (d) if"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or an"
+],
+[
+"-",
+"Inspector authorised in this behalf"
+],
+[
+"+",
+"Inspector-cum-Facilitator authorised,"
+],
+[
+"=",
+"by general or special order in writing by the Chief"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum- Facilitator,"
+],
+[
+"=",
+"is of opinion that there is urgent and immediate danger … writing containing a statement of the grounds of his opinion,"
+],
+[
+"-",
+"prohibit,"
+],
+[
+"+",
+"prohibit"
+],
+[
+"=",
+"until he is satisfied that the danger is"
+],
+[
+"-",
+"removed"
+],
+[
+"+",
+"removed,"
+],
+[
+"=",
+"the employment in or about the mine or any part … his opinion reasonably necessary for the purpose of removing the"
+],
+[
+"-",
+"danger. (3A) Every"
+],
+[
+"+",
+"danger; (e) every"
+],
+[
+"=",
+"person whose employment is prohibited under"
+],
+[
+"-",
+"sub-section (1A) of sub-section (3)"
+],
+[
+"+",
+"sub-clause (b) or sub-clause (d)"
+],
+[
+"=",
+"shall be entitled to payment of full wages for the period for which he would have been, but for the"
+],
+[
+"-",
+"prohibition"
+],
+[
+"+",
+"prohibition,"
+],
+[
+"=",
+"in employment and the"
+],
+[
+"-",
+"owner agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"shall be liable for payment of such full wages of that person: Provided that the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"may instead of paying such full"
+],
+[
+"+",
+"wages"
+],
+[
+"=",
+"provide such person with an alternative employment at the same wages which such person was receiving in the employment which was"
+],
+[
+"-",
+"prohibited.” (4) Where"
+],
+[
+"+",
+"prohibited; 14 of 1947. [PART II— (f) where a"
+],
+[
+"=",
+"notice has been given under"
+],
+[
+"-",
+"sub-section (1)"
+],
+[
+"+",
+"sub-clause (a)"
+],
+[
+"=",
+"or an order"
+],
+[
+"+",
+"is"
+],
+[
+"=",
+"made under"
+],
+[
+"-",
+"sub- section (1A), sub-section (2)"
+],
+[
+"+",
+"sub-clause (b)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section (3)"
+],
+[
+"+",
+"sub-clause (c) or sub-clause (d)"
+],
+[
+"=",
+"by an"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum- Facilitator,"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine"
+],
+[
+"-",
+"may"
+],
+[
+"+",
+"may,"
+],
+[
+"=",
+"within ten days after the receipt of the notice or order, as the case may"
+],
+[
+"-",
+"be"
+],
+[
+"+",
+"be,"
+],
+[
+"=",
+"appeal against the same to the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"who may confirm, modify or cancel the notice or"
+],
+[
+"-",
+"order. (5) The"
+],
+[
+"+",
+"order; (g) the"
+],
+[
+"=",
+"Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or the"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"sending a notice under"
+],
+[
+"-",
+"sub-section (1)"
+],
+[
+"+",
+"sub-clause (a)"
+],
+[
+"=",
+"or making an order under"
+],
+[
+"-",
+"sub-section (1A), sub-section(2)"
+],
+[
+"+",
+"sub-clause (b)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section (3)"
+],
+[
+"+",
+"sub-clause (c) or sub-clause (d)"
+],
+[
+"=",
+"and the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"making an order (other than an order of cancellation in appeal) under"
+],
+[
+"-",
+"sub- section (4)"
+],
+[
+"+",
+"sub-clause (f)"
+],
+[
+"=",
+"shall forthwith report the same to the Central"
+],
+[
+"-",
+"Government. (6) If"
+],
+[
+"+",
+"Government; (h) if"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the mine objects to a notice sent under"
+],
+[
+"-",
+"sub- section(1)"
+],
+[
+"+",
+"sub-clause (a)"
+],
+[
+"=",
+"by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator or the Inspector-cum- Facilitator"
+],
+[
+"=",
+"or to an order made by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator or the Inspector-cum-Facilitator"
+],
+[
+"=",
+"under"
+],
+[
+"-",
+"sub- section (1A)"
+],
+[
+"+",
+"sub-clause (b)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section(2)"
+],
+[
+"+",
+"sub-clause (c)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section (3)"
+],
+[
+"+",
+"sub-clause (d)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section (4),"
+],
+[
+"+",
+"sub-clause (f), as the case may be,"
+],
+[
+"=",
+"he may, within twenty days after the receipt of the … the Central Government which shall, ordinarily within a period of"
+],
+[
+"-",
+"two months"
+],
+[
+"+",
+"one month"
+],
+[
+"=",
+"from the date of receipt of the objection,"
+],
+[
+"-",
+"refer"
+],
+[
+"+",
+"decide"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"same to a Committee. (7) Every"
+],
+[
+"+",
+"matter; (i) every"
+],
+[
+"=",
+"notice under"
+],
+[
+"-",
+"sub-section(1)"
+],
+[
+"+",
+"sub-clause (a),"
+],
+[
+"=",
+"or order under"
+],
+[
+"-",
+"sub-section (1A), sub-section(2)"
+],
+[
+"+",
+"sub-clause (b)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section(3)"
+],
+[
+"+",
+"sub-clause (c)"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"sub-section (4)"
+],
+[
+"+",
+"sub-clause (d) or sub-clause (f),"
+],
+[
+"=",
+"to which objection is made under"
+],
+[
+"-",
+"sub-section(6)"
+],
+[
+"+",
+"sub-clause (h),"
+],
+[
+"=",
+"shall be complied with, pending the"
+],
+[
+"-",
+"receipt at"
+],
+[
+"+",
+"objection with"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine"
+],
+[
+"+",
+"concerned Chief Inspector-cum-Facilitator or Inspector-cum-Facilitator"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"the mine, for"
+],
+[
+"=",
+"the decision of the"
+],
+[
+"-",
+"Committee."
+],
+[
+"+",
+"Central Government:"
+],
+[
+"=",
+"Provided that the"
+],
+[
+"-",
+"Committee"
+],
+[
+"+",
+"Central Government"
+],
+[
+"=",
+"may, on the application of the"
+],
+[
+"-",
+"owner, agent or manager,"
+],
+[
+"+",
+"employer,"
+],
+[
+"=",
+"suspend the operation of a notice under"
+],
+[
+"-",
+"sub-section (1)"
+],
+[
+"+",
+"sub-clause (a),"
+],
+[
+"=",
+"pending its decision on the"
+],
+[
+"-",
+"objection. (8) Nothing"
+],
+[
+"+",
+"objection; (j) nothing"
+],
+[
+"=",
+"in this section shall affect the powers of a magistrate under section 144 of the Code of Criminal"
+],
+[
+"-",
+"procedure 1896. Act V of 1898). 22A Power to prohibit employment in certain cases: (1) Where"
+],
+[
+"+",
+"Procedure, 1973; (k) where"
+],
+[
+"=",
+"in respect of any matter relating to safety"
+],
+[
+"+",
+"of mine"
+],
+[
+"=",
+"for which express provision is made by or under this"
+],
+[
+"-",
+"Act,"
+],
+[
+"+",
+"Code,"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"mine fails to comply with such provisions, the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"may give notice in writing requiring"
+],
+[
+"-",
+"some"
+],
+[
+"+",
+"the same"
+],
+[
+"=",
+"to be complied with within such time as"
+],
+[
+"-",
+"he,"
+],
+[
+"+",
+"he"
+],
+[
+"=",
+"may specify in the notice or within such extended period of time as he may, from time to time, specify"
+],
+[
+"-",
+"thereafter. (2) Where"
+],
+[
+"+",
+"thereafter; (l) where"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"fails to comply with the terms of a notice given under"
+],
+[
+"-",
+"sub-section(1)"
+],
+[
+"+",
+"sub-clause (k)"
+],
+[
+"=",
+"within the period specified in such notice"
+],
+[
+"-",
+"or, as the case may be,"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"within the extended period of time specified under that"
+],
+[
+"-",
+"sub-section,"
+],
+[
+"+",
+"sub-clause,"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector- cum-Facilitator"
+],
+[
+"=",
+"may, by order in writing, prohibit the"
+],
+[
+"-",
+"employment"
+],
+[
+"+",
+"employment,"
+],
+[
+"=",
+"in or about the mine or any part"
+],
+[
+"-",
+"thereof"
+],
+[
+"+",
+"thereof,"
+],
+[
+"=",
+"of any person whose employment is not, in his"
+],
+[
+"-",
+"opinion"
+],
+[
+"+",
+"opinion,"
+],
+[
+"=",
+"reasonably necessary for securing compliance with the terms of the"
+],
+[
+"-",
+"notice. (3) Every"
+],
+[
+"+",
+"notice; (m) every"
+],
+[
+"=",
+"person whose employment is prohibited under"
+],
+[
+"-",
+"sub-section(2),"
+],
+[
+"+",
+"sub-clause (l),"
+],
+[
+"=",
+"shall be entitled to payment of full wages for the … the prohibition, in employment, and the owner, agent or manager"
+],
+[
+"+",
+"referred to in section 67"
+],
+[
+"=",
+"shall be liable for payment of such full wages of that"
+],
+[
+"-",
+"person."
+],
+[
+"+",
+"person:"
+],
+[
+"=",
+"Provided that the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"may, instead of paying such full wages, provide such person … person was receiving in the employment which was prohibited under"
+],
+[
+"-",
+"sub-section(2). (4) The"
+],
+[
+"+",
+"sub-clause (l); 2 of 1974. SEC. 1] (n) the"
+],
+[
+"=",
+"provisions of"
+],
+[
+"-",
+"sub-section (5), (6)"
+],
+[
+"+",
+"sub-clauses (g), (h)"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"(7) of section 22"
+],
+[
+"+",
+"(i)"
+],
+[
+"=",
+"shall apply in relation to a notice issued under"
+],
+[
+"-",
+"sub-section (1)"
+],
+[
+"+",
+"sub-clause (k)"
+],
+[
+"=",
+"or an order made under"
+],
+[
+"-",
+"sub-section(2) of this section"
+],
+[
+"+",
+"sub-clause (l)"
+],
+[
+"=",
+"as they apply in relation to a notice"
+],
+[
+"-",
+"under sub-section (1)"
+],
+[
+"=",
+"or an order under"
+],
+[
+"+",
+"sub-clause (b); (o) the Chief Inspector-cum-Facilitator may, for reasons to be recorded in writing, reverse or modify any order passed by him under this Code or under any regulation, rule or bye-law made thereunder in relation to mine; (p) no order prejudicial to the owner, agent or manager of a mine shall be made under this section unless such owner, agent or manager has been given a reasonable opportunity of making representation; (q) the Central Government may reverse or modify any order passed by Chief Inspector-cum-Facilitator under this Code or under any regulation, rule or bye-laws thereunder in relation to mine; (C) shall have the following special powers in respect of dock work namely:— (a) if it appears to an Inspector-cum-Facilitator that any place where any dock work is being carried on is in such a condition that it is dangerous to life, safety or health, of workers employed in dock work, he may, in writing, serve on the employer, an order prohibiting any dock work, in such place, until measures have been taken to remove the cause of the danger to his satisfaction; (b) an Inspector-cum-Facilitator after serving an order under clause (a) shall endorse a copy thereof to the Chief Inspector-cum-Facilitator who may modify or cancel the order without waiting for an appeal; (c) any person aggrieved by an order under clause (a) or clause (b) may, within fifteen days from the date on which the order is communicated to him, prefer an appeal to the Chief Inspector-cum-Facilitator or where such order is by the Chief Inspector-cum-Facilitator, to the Central Government and the Chief Inspector-cum-Facilitator or the Central Government shall, after giving the appellant an opportunity of being heard, dispose of the appeal within sixty days: Provided that the Chief Inspector-cum-Facilitator or the Central Government may entertain the appeal after the expiry of the said period of fifteen days, if he or it is satisfied that the appellant was prevented by sufficient cause from filing the appeal in time: Provided further that an order under clause (a) or an order modified under clause (b) shall be complied with, pending the decision of the Chief Inspector- cum-Facilitator or the Central Government. (2) Without prejudice to the other powers of an Inspector-cum-Facilitator elsewhere in this Code,— (a) if it appears to the Chief Inspector-cum-Facilitator or Inspector-cum-Facilitator that any site or place at which any building or other construction work is being carried on, is in such condition that it is dangerous to life, safety or health of building workers or the general public, he may, in writing serve, on the employer of building workers working at such site or place or on the employer of the establishment in which such site or place is situated or on the person in charge of such site or place, an order prohibiting any building or other construction work at such site or place until measures have been taken to remove the cause of the danger to his satisfaction; (b) an Inspector-cum-Facilitator serving an order under clause (a) shall endorse a copy of the order to the Chief Inspector-cum-Facilitator; (c) such prohibition order made by the Inspector-cum-Facilitator shall be complied with by the employer forthwith. [PART II— (3) Any person aggrieved by an order under clause (a) of"
+],
+[
+"=",
+"sub-section"
+],
+[
+"-",
+"(1A)"
+],
+[
+"+",
+"(2), may, within fifteen days from the date on which the order is communicated to him, prefer an appeal to the Chief Inspector-cum-Facilitator or where such order is by the Chief Inspector-cum- Facilitator, to the appropriate Government and the Chief Inspector-cum-Facilitator or the appropriate Government, as the case may be, shall, after giving the appellant an opportunity"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"being heard, dispose of the appeal within sixty days: Provided"
+],
+[
+"=",
+"that"
+],
+[
+"-",
+"section.”"
+],
+[
+"+",
+"the Chief Inspector-cum-Facilitator or the appropriate Government may, entertain the appeal after the expiry of the said period of fifteen days if it is satisfied that the appellant was prevented by sufficient cause from filing the appeal in time: Provided further that the order under clause (a) of sub-section (2), shall be complied with, subject to the decision of the Chief Inspector-cum-Facilitator or the appropriate Government as the case may be."
+]
+]
+},
+{
+"num": "23",
+"title": "Notice to be given of accidents",
+"anchor": "p-23",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "7",
+"label": "Rule 7",
+"title": "Notice of accidents and dangerous occurrences",
+"anchor": "p-7"
+}
+]
+},
+{
+"num": "24",
+"title": "Power of Government to appoint court of enquiry in cases of accidents",
+"anchor": "p-24",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "121",
+"title": "",
+"anchor": "p-121"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.381,
+"grew": 1.44,
+"diff": [
+[
+"=",
+"(2) The"
+],
+[
+"-",
+"person appointed"
+],
+[
+"+",
+"appropriate Government may direct a Chief Inspector-cum-Facilitator or any other officer under the control of the Government concerned or appoint a committee to undertake a survey in such manner as may be prescribed by the appropriate Government on the situation relating to safety or health at work at any workplace or class of workplaces or into the effect of work activity on the health of the employees and other persons within and in the vicinity of the workplace. (3) The officer directed or committee appointed, under sub-section (1) or sub-section (2),"
+],
+[
+"=",
+"to hold"
+],
+[
+"-",
+"such"
+],
+[
+"=",
+"an"
+],
+[
+"-",
+"inquiry"
+],
+[
+"+",
+"inquiry,"
+],
+[
+"=",
+"shall have"
+],
+[
+"-",
+"all"
+],
+[
+"=",
+"the powers of a civil court under the Code of Civil"
+],
+[
+"-",
+"Procedure 1908 (Act V of 1908),"
+],
+[
+"+",
+"Procedure, 1908,"
+],
+[
+"=",
+"for the"
+],
+[
+"-",
+"purpose"
+],
+[
+"+",
+"purposes"
+],
+[
+"=",
+"of enforcing the attendance of witnesses and compelling the production of documents and material"
+],
+[
+"-",
+"objects. (3) Any person holding an inquiry under this section"
+],
+[
+"+",
+"objects, and"
+],
+[
+"=",
+"may"
+],
+[
+"-",
+"exercise such of the powers of an Inspector under this Act"
+],
+[
+"+",
+"also so far"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"he"
+],
+[
+"=",
+"may"
+],
+[
+"-",
+"think it"
+],
+[
+"+",
+"be"
+],
+[
+"=",
+"necessary"
+],
+[
+"-",
+"or expedient to exercise"
+],
+[
+"=",
+"for the purposes of the"
+],
+[
+"-",
+"inquiry."
+],
+[
+"+",
+"inquiry, exercise such powers of an Inspector-cum- Facilitator under this Code as may be necessary."
+],
+[
+"=",
+"(4) The"
+],
+[
+"-",
+"person holding an"
+],
+[
+"+",
+"Central Government may make rules for regulating the procedure of"
+],
+[
+"=",
+"inquiry"
+],
+[
+"+",
+"and survey and other related matters"
+],
+[
+"=",
+"under this"
+],
+[
+"-",
+"section shall make a report to the Central Government stating the causes of the accident and its circumstances, and adding any observations which he or any of the assessors may think fit to make."
+],
+[
+"+",
+"section."
+]
+]
+},
+{
+"num": "25",
+"title": "Notice of certain diseases",
+"anchor": "p-25",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "12",
+"title": "",
+"anchor": "p-12"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.35,
+"grew": 0.52,
+"diff": [
+[
+"=",
+"(2) If any"
+],
+[
+"+",
+"qualified"
+],
+[
+"=",
+"medical practitioner attends on a"
+],
+[
+"-",
+"person"
+],
+[
+"+",
+"person,"
+],
+[
+"=",
+"who is or has been employed in"
+],
+[
+"-",
+"a mine"
+],
+[
+"+",
+"an establishment,"
+],
+[
+"=",
+"and who"
+],
+[
+"-",
+"is"
+],
+[
+"+",
+"is,"
+],
+[
+"=",
+"or is believed by the"
+],
+[
+"+",
+"qualified"
+],
+[
+"=",
+"medical"
+],
+[
+"-",
+"practitioner"
+],
+[
+"+",
+"practitioner,"
+],
+[
+"=",
+"to be"
+],
+[
+"-",
+"suffereing"
+],
+[
+"+",
+"suffering"
+],
+[
+"=",
+"from any disease"
+],
+[
+"-",
+"notified under sub-section(1)"
+],
+[
+"+",
+"specified in the Third Schedule,"
+],
+[
+"=",
+"the medical practitioner shall without delay send a report in writing to the"
+],
+[
+"-",
+"Chief Inspector stating -- (a) the name and address of the patient. (b) The disease from which the patient is or is believed to be suffering, and (c) The name and address of the mine in which the patient is or was last employed. (3) Where the report under sub-section(2) is confirmed to the satisfaction"
+],
+[
+"+",
+"office"
+],
+[
+"=",
+"of the Chief"
+],
+[
+"-",
+"Inspector by the certificate of a certifying surgeon or otherwise that the person is suffering from a disease notified under sub-section (1), the Chief Inspector shall pay to the medical practitioner"
+],
+[
+"+",
+"Inspector-cum-Facilitator in"
+],
+[
+"=",
+"such"
+],
+[
+"-",
+"fee"
+],
+[
+"+",
+"form and manner and within such time"
+],
+[
+"=",
+"as may be"
+],
+[
+"-",
+"prescribed, and"
+],
+[
+"+",
+"prescribed by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"fee so paid shall be recoverable as an arrear of land revenue from the owner, agent or manager of the mine in which the person contracted the disease. (4)"
+],
+[
+"+",
+"appropriate Government. (3)"
+],
+[
+"=",
+"If any"
+],
+[
+"+",
+"qualified"
+],
+[
+"=",
+"medical practitioner fails to comply with the provisions of"
+],
+[
+"-",
+"sub-section(2),"
+],
+[
+"+",
+"sub-section (2),"
+],
+[
+"=",
+"he shall be punishable with"
+],
+[
+"-",
+"fine"
+],
+[
+"+",
+"penalty"
+],
+[
+"=",
+"which may extend to"
+],
+[
+"-",
+"fifty"
+],
+[
+"+",
+"ten thousand"
+],
+[
+"=",
+"rupees."
+]
+]
+},
+{
+"num": "26",
+"title": "Power to direct investigation of causes of diseases",
+"anchor": "p-26",
+"likely": []
+},
+{
+"num": "27",
+"title": "Publication of reports",
+"anchor": "p-27",
+"likely": []
+},
+{
+"num": "28",
+"title": "Weekly day of rest",
+"anchor": "p-28",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "67",
+"label": "Rule 67",
+"title": "Weekly holiday",
+"anchor": "p-67"
+}
+]
+},
+{
+"num": "29",
+"title": "Compensatory days of rest",
+"anchor": "p-29",
+"likely": []
+},
+{
+"num": "30",
+"title": "",
+"anchor": "p-30",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "25",
+"title": "",
+"anchor": "p-25"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.187,
+"grew": 4.81,
+"diff": [
+[
+"-",
+"Provided that, subject to"
+],
+[
+"+",
+"(a) eight hours in a day; and (b)"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"previous approval"
+],
+[
+"+",
+"period"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the Chief Inspector, the daily maximum hours specified to this sub-section may exceed"
+],
+[
+"+",
+"work"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"order to facilitate the change of shifts. (2) The periods or work of any such adult"
+],
+[
+"+",
+"each day under clause (a)"
+],
+[
+"=",
+"shall be so"
+],
+[
+"-",
+"arranged that along"
+],
+[
+"+",
+"fixed, as not to exceed such hours,"
+],
+[
+"=",
+"with"
+],
+[
+"-",
+"his interval for rest, they shall not in any day"
+],
+[
+"+",
+"such intervals and"
+],
+[
+"=",
+"spread"
+],
+[
+"-",
+"over more than twelve hours, and that he shall not work for more than five hours continuously before he has had an interval for rest of at least half an hour:"
+],
+[
+"+",
+"overs , as may be notified by the appropriate Government:"
+],
+[
+"=",
+"Provided that"
+],
+[
+"-",
+"the Chief Inspector may, for reasons to be recorded in writing and"
+],
+[
+"=",
+"subject to"
+],
+[
+"-",
+"such conditions as he may deem fit to impose, permit"
+],
+[
+"+",
+"clause (a) in"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"spread over to extend over"
+],
+[
+"+",
+"case of mines,— (i) the persons employed below ground in"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"period not exceeding fourteen hours in any day. (3) Persons belonging to two or more shifts"
+],
+[
+"+",
+"mine"
+],
+[
+"=",
+"shall not be allowed to"
+],
+[
+"-",
+"do"
+],
+[
+"=",
+"work"
+],
+[
+"+",
+"for more than such hours as may be notified by the Central Government in any day; (ii) no work shall be carried on below ground in any mine except by a system of shifts so arranged that the period of work for each shift is not spread over more than the daily maximum hours as notified under clause (i); (iii) no person employed in a mine shall be allowed to be present in any part of a mine below ground except during the periods of work shown in respect of him in the register maintained under clause (a) of section 33: Provided further that subject to clause (a) that the hours of work in case of motor transport worker shall include— (i) the time spent in work done during the running time"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"same kind above ground"
+],
+[
+"+",
+"transport vehicle; (ii) the time spent in subsidiary work; and (iii) period of mere attendance at terminals of less than fifteen minutes. Explanation.—For the purposes of this sub-section— (a) \"running time\" in relation to a working day means the time from the moment a transport vehicle starts functioning at the beginning of the working day until the moment when the transport vehicle ceases to function at the end of the working day, excluding any time during which the running of the transport vehicle is interrupted for a period exceeding such duration"
+],
+[
+"=",
+"as"
+],
+[
+"+",
+"may be prescribed by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"same time: Provided that,"
+],
+[
+"+",
+"Central Government during which period the persons who drive, or perform any other work in connection with the transport vehicle are free to dispose of their time as they please or are engaged in subsidiary work; (b) \"subsidiary work\" means the work in connection with a transport vehicle, its passengers or its load which is done outside the running time of the transport vehicle, including in particular— (i) the work in connection with accounts, paying of cash, signing of registers, handover of service sheets, the checking of tickets and other similar work; (ii) taking over and garaging of the transport vehicles; (iii) travelling from the place where a person signs on to the place where he takes over the transport vehicle and from the place where he leaves the transport vehicle to the place where he signs off; (iv) work in connection with the upkeep and repair of the transport vehicle; and (v) the loading and unloading of the transport vehicle; Daily and weekly working hours, leave, etc. [PART II— (c) \"period of mere attendance\" means the period during which a person remains at his post solely in order to reply to possible calls or to resume action at the time fixed in the duty schedule. (2) Notwithstanding anything contained in sub-section (1), the hours of work for working journalist shall, subject to a maximum of one hundred and forty-four hours of work during any period of four consecutive weeks and a period of not less than twenty-four consecutive hours of rest during any period of seven consecutive days, be such as may be prescribed by the Central Government. (3) Notwithstanding anything contained in sub-sections (1) and (2), a sales promotion employee or the working journalist,— (i) in addition to such holidays, casual leave or other kinds of leave as may be prescribed by the Central Government, shall be granted, if requested for— (a) earned leave on full wages for not less than one-eleventh of the period spent on duty; (b) leave on medical certificate on one-half of the wages for not less than one-eighteenth of the period of service; (ii) may accumulate earned leave up to such maximum limit as may be prescribed by the Central Government; (iii) shall be entitled"
+],
+[
+"=",
+"for the"
+],
+[
+"-",
+"purpose"
+],
+[
+"+",
+"limit up to which the earned leave may be either encashed or availed"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"this sub-section persons"
+],
+[
+"+",
+"at a time by him and the reasons for which such limit may be exceeded"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"not"
+],
+[
+"=",
+"be"
+],
+[
+"-",
+"deemed"
+],
+[
+"+",
+"such as may be prescribed by the Central Government; (iv) shall,— (a) when he voluntarily relinquishes his post or retires from service; or (b) when his services are terminated for any reason whatsoever (not being termination as punishment), be entitled"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"belong"
+],
+[
+"+",
+"cash compensation, subject"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"separate shifts"
+],
+[
+"+",
+"such conditions and restrictions as may be prescribed"
+],
+[
+"=",
+"by"
+],
+[
+"-",
+"reason only"
+],
+[
+"+",
+"the Central Government (including conditions by way of specifying the maximum period for which such cash compensation shall be payable), in respect"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"fact that they receive their intervals"
+],
+[
+"+",
+"earned leave earned by him and not availed of; (v) who dies while in service, his heirs shall be entitled to cash compensation"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"rest at different times,"
+],
+[
+"+",
+"the earned leave earned by him and not availed of his heirs shall be paid the cash compensation in respect of any period of earned leave for which he or his heirs, is or are entitled to cash compensation under clause (iv) or clause (v), which shall be an amount equal to the wages due to him for such period. (4) Notwithstanding anything contained in this section, the working hours of an adolescent worker shall be regulated in accordance with the provisions of the Child and Adolescent Labour (Prohibition and Regulation) Act, 1986."
+]
+]
+},
+{
+"num": "31",
+"title": "Hours of work below grounds",
+"anchor": "p-31",
+"likely": []
+},
+{
+"num": "32",
+"title": "Night shifts",
+"anchor": "p-32",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "28",
+"title": "",
+"anchor": "p-28"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.851,
+"grew": 0.99,
+"diff": [
+[
+"=",
+"(a) for the purposes of"
+],
+[
+"-",
+"sections 28 and 29,"
+],
+[
+"+",
+"section 26,"
+],
+[
+"=",
+"a weekly"
+],
+[
+"+",
+"holiday for a whole"
+],
+[
+"=",
+"day"
+],
+[
+"-",
+"of rest"
+],
+[
+"=",
+"shall mean in his case a period of twenty-four consecutive hours beginning when his shift"
+],
+[
+"-",
+"ends."
+],
+[
+"+",
+"ends;"
+],
+[
+"=",
+"(b) the following day for him shall be deemed to be the period of"
+],
+[
+"-",
+"twenty four"
+],
+[
+"+",
+"twenty-four"
+],
+[
+"=",
+"hours beginning when such"
+],
+[
+"-",
+"shifts"
+],
+[
+"+",
+"shift"
+],
+[
+"=",
+"ends, and the hours he has worked after midnight shall be counted in the previous day."
+]
+]
+},
+{
+"num": "33",
+"title": "Extra wages for overtime",
+"anchor": "p-33",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "69",
+"label": "Rule 69",
+"title": "Wages for overtime",
+"anchor": "p-69"
+}
+]
+},
+{
+"num": "34",
+"title": "",
+"anchor": "p-34",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "30",
+"title": "",
+"anchor": "p-30"
+},
+"sure": "high",
+"change": "expanded",
+"kept": 0.889,
+"grew": 1.59,
+"diff": [
+[
+"=",
+"No"
+],
+[
+"-",
+"person"
+],
+[
+"+",
+"worker"
+],
+[
+"=",
+"shall be required or allowed to work in a mine"
+],
+[
+"+",
+"or factory"
+],
+[
+"=",
+"if he has already been working in any other"
+],
+[
+"-",
+"mine"
+],
+[
+"+",
+"such similar establishment"
+],
+[
+"=",
+"within the preceding twelve"
+],
+[
+"-",
+"hours."
+],
+[
+"+",
+"hours, save in such circumstances as may be prescribed by the appropriate Government."
+]
+]
+},
+{
+"num": "35",
+"title": "",
+"anchor": "p-35",
+"likely": []
+},
+{
+"num": "36",
+"title": "",
+"anchor": "p-36",
+"likely": []
+},
+{
+"num": "37",
+"title": "Supervising staff",
+"anchor": "p-37",
+"likely": []
+},
+{
+"num": "38",
+"title": "Exemption from provisions regarding employment",
+"anchor": "p-38",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "69",
+"title": "",
+"anchor": "p-69"
+},
+"sure": "high",
+"change": "same",
+"kept": 0.971,
+"grew": 1.01
+},
+{
+"num": "39",
+"title": "Power to make exempting rules",
+"anchor": "p-39",
+"likely": []
+},
+{
+"num": "40",
+"title": "Employment of persons below eighteen years of age",
+"anchor": "p-40",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "70",
+"title": "",
+"anchor": "p-70"
+},
+"sure": "high",
+"change": "expanded",
+"kept": 0.804,
+"grew": 1.53,
+"diff": [
+[
+"=",
+"(2) Notwithstanding anything contained in sub-section (1), apprentices and other … proper supervision, in a mine or part thereof by the"
+],
+[
+"-",
+"manager:"
+],
+[
+"+",
+"manager as referred to in section 67:"
+],
+[
+"=",
+"Provided"
+],
+[
+"-",
+"that,"
+],
+[
+"+",
+"that"
+],
+[
+"=",
+"in the case of trainees, other than"
+],
+[
+"-",
+"apprentices"
+],
+[
+"+",
+"apprentices,"
+],
+[
+"=",
+"prior approval of the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or an"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"shall be obtained before they are allowed to work."
+],
+[
+"-",
+"Explanation - In"
+],
+[
+"+",
+"(3) The Central Government may prescribe the provisions for medical examination of apprentice, other trainee and employee in the mine to ensure their fitness to work and to prevent the persons below sixteen years of age to work as apprentice or trainee and those who are not adults to work as such employee. Explanation.—In"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"section and in section 43, “apprentice”"
+],
+[
+"+",
+"section, \"apprentice\""
+],
+[
+"=",
+"means an apprentice as defined in clause (a) of section 2 of the Apprentices Act, 1961."
+],
+[
+"-",
+"41. *** 42. ***"
+]
+]
+},
+{
+"num": "43",
+"title": "Power to require medical examination",
+"anchor": "p-43",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "60",
+"label": "Rule 60",
+"title": "Medical Examination",
+"anchor": "p-60"
+},
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "121",
+"label": "Rule 121",
+"title": "Cost of medical examination",
+"anchor": "p-121"
+}
+]
+},
+{
+"num": "45",
+"title": "Prohibition of the presence of persons below eighteen years of age in a mine",
+"anchor": "p-45",
+"likely": []
+},
+{
+"num": "46",
+"title": "Employment of women",
+"anchor": "p-46",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "83",
+"label": "Rule 83",
+"title": "Employment of Women in establishment",
+"anchor": "p-83"
+},
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "116",
+"label": "Rule 116",
+"title": "Medical Examination of women",
+"anchor": "p-116"
+}
+]
+},
+{
+"num": "47",
+"title": "",
+"anchor": "p-47",
+"likely": []
+},
+{
+"num": "48",
+"title": "Register of persons employed",
+"anchor": "p-48",
+"likely": []
+},
+{
+"num": "49",
+"title": "Application of Chapter",
+"anchor": "p-49",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "32",
+"title": "",
+"anchor": "p-32"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.875,
+"grew": 9.16
+},
+{
+"num": "50",
+"title": "",
+"anchor": "p-50",
+"likely": []
+},
+{
+"num": "51",
+"title": "",
+"anchor": "p-51",
+"likely": []
+},
+{
+"num": "52",
+"title": "Annual leave wages",
+"anchor": "p-52",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "32",
+"title": "",
+"anchor": "p-32"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.178,
+"grew": 0.74
+},
+{
+"num": "53",
+"title": "Wages during leave period",
+"anchor": "p-53",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "76",
+"label": "Rule 76",
+"title": "Register of leave with wages",
+"anchor": "p-76"
+}
+]
+},
+{
+"num": "54",
+"title": "Payment in advance in certain cases",
+"anchor": "p-54",
+"likely": []
+},
+{
+"num": "55",
+"title": "Mode of recovery of unpaid wages",
+"anchor": "p-55",
+"likely": []
+},
+{
+"num": "56",
+"title": "Power to exempt mines",
+"anchor": "p-56",
+"likely": []
+},
+{
+"num": "57",
+"title": "Power of Central Government to make regulations",
+"anchor": "p-57",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "136",
+"title": "",
+"anchor": "p-136"
+},
+"sure": "high",
+"change": "expanded",
+"kept": 0.885,
+"grew": 1.69,
+"diff": [
+[
+"=",
+"(a) for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the qualifications required for appointment as"
+],
+[
+"-",
+"Chief Inspector or Inspector;"
+],
+[
+"+",
+"Inspector-cum-Facilitator;"
+],
+[
+"=",
+"(b) for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"and regulating the duties and powers of the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector- cum-Facilitator"
+],
+[
+"=",
+"and of"
+],
+[
+"-",
+"Inspectors"
+],
+[
+"+",
+"Inspector-cum-Facilitators"
+],
+[
+"=",
+"in regard to the inspection of mines under this"
+],
+[
+"-",
+"Act;"
+],
+[
+"+",
+"Code;"
+],
+[
+"=",
+"(c) for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the duties of owners, agents and managers of mines and"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"persons acting under"
+],
+[
+"-",
+"them"
+],
+[
+"+",
+"them,"
+],
+[
+"=",
+"and for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the qualifications"
+],
+[
+"-",
+"9including"
+],
+[
+"+",
+"(including"
+],
+[
+"=",
+"age) of agents and managers of mines and of persons acting under"
+],
+[
+"-",
+"them."
+],
+[
+"+",
+"them;"
+],
+[
+"=",
+"(d) for requiring facilities to be provided for enabling managers of mines and other persons acting under them to efficiently discharge their"
+],
+[
+"-",
+"duties."
+],
+[
+"+",
+"duties;"
+],
+[
+"=",
+"(e) for regulating the"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"manner"
+],
+[
+"=",
+"of ascertaining, by examination or otherwise, the"
+],
+[
+"-",
+"qualification"
+],
+[
+"+",
+"qualifications"
+],
+[
+"=",
+"of managers of mines and persons acting under"
+],
+[
+"-",
+"them"
+],
+[
+"+",
+"them,"
+],
+[
+"=",
+"and the granting and renewal of certificates of"
+],
+[
+"-",
+"competency."
+],
+[
+"+",
+"competency;"
+],
+[
+"=",
+"(f) for fixing the fees, if any, to be paid in respect of such examinations and of the grant and renewal of such"
+],
+[
+"-",
+"certificates."
+],
+[
+"+",
+"certificates;"
+],
+[
+"=",
+"(g)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"determining the circumstances in which and the conditions"
+],
+[
+"-",
+"in respect"
+],
+[
+"+",
+"subject"
+],
+[
+"=",
+"to which it shall be lawful for more mines than one to be under a single manager, or for any"
+],
+[
+"-",
+"mine or"
+],
+[
+"=",
+"mines to be under a manager not having the"
+],
+[
+"-",
+"prescribed qualifications."
+],
+[
+"+",
+"specified qualifications; Power of Central Government to make regulations in relation to mines and dock work. SEC. 1]"
+],
+[
+"=",
+"(h)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing for inquiries to be made under this"
+],
+[
+"+",
+"Code,"
+],
+[
+"=",
+"including any inquiry relating to misconduct or incompetence on the part of any person holding a certificate under this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"and for the suspension or cancellation of any such certificate and for"
+],
+[
+"-",
+"providing where ever"
+],
+[
+"+",
+"providing, wherever"
+],
+[
+"=",
+"necessary, that the person appointed to hold an inquiry shall have all the powers of a civil court under the Code of Civil"
+],
+[
+"-",
+"Procedure"
+],
+[
+"+",
+"Procedure,"
+],
+[
+"=",
+"1908,"
+],
+[
+"-",
+"(V of 1908)"
+],
+[
+"=",
+"for the purpose of enforcing the attendance of witnesses and compelling the production of documents and material"
+],
+[
+"-",
+"objects."
+],
+[
+"+",
+"objects;"
+],
+[
+"=",
+"(i)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"regulating, subject to the provisions of the Indian Explosives Act, 1884,"
+],
+[
+"-",
+"(IV of 1884)"
+],
+[
+"=",
+"and of any rules made thereunder, the"
+],
+[
+"-",
+"strong,"
+],
+[
+"+",
+"storage,"
+],
+[
+"=",
+"conveyance and use of"
+],
+[
+"-",
+"explosive,"
+],
+[
+"+",
+"explosives;"
+],
+[
+"=",
+"(j)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"prohibiting, restricting or regulating the employment of women in mines or in any class of mines"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"on particular"
+],
+[
+"-",
+"kind"
+],
+[
+"+",
+"kinds"
+],
+[
+"=",
+"of labour which are attended by danger to the life,"
+],
+[
+"-",
+"safety,"
+],
+[
+"+",
+"safety"
+],
+[
+"=",
+"or health of such persons and for limiting the weight of any single load that may be carried by any such person; (k)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing for the safety of the persons employed in a mine, their means of entrance"
+],
+[
+"-",
+"thereinto"
+],
+[
+"+",
+"there into"
+],
+[
+"=",
+"and exit"
+],
+[
+"-",
+"therefrom"
+],
+[
+"+",
+"therefrom,"
+],
+[
+"=",
+"the number of shafts or outlets to be"
+],
+[
+"-",
+"furnished;"
+],
+[
+"+",
+"furnished,"
+],
+[
+"=",
+"and the fencing of shafts, pits, outlets,"
+],
+[
+"-",
+"pathway"
+],
+[
+"+",
+"pathways"
+],
+[
+"=",
+"and subsidences; (l)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"prohibiting the employment in a mine either as manager or … answerable to the owner or manager of the mine; (m)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing for the safety of the roads and working places in mines, including the"
+],
+[
+"-",
+"sitting;"
+],
+[
+"+",
+"siting,"
+],
+[
+"=",
+"maintenance and extraction or reduction of pillars or blocks of minerals and the maintenance of sufficient barriers between mine and mine; (n)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"the inspection of workings and sealed off"
+],
+[
+"-",
+"fire-areas"
+],
+[
+"+",
+"fire- areas"
+],
+[
+"=",
+"in a mine, and for the restriction of workings in … whether natural or artificial, or of any public road or"
+],
+[
+"-",
+"building"
+],
+[
+"+",
+"building,"
+],
+[
+"=",
+"and for requiring due precaution to be taken against the irruption or inrush of water or other"
+],
+[
+"+",
+"liquid"
+],
+[
+"=",
+"matter into, outbreak of fire in or premature collapse"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"of,"
+],
+[
+"=",
+"any workings; (o)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing for the ventilation of mines and the action to be taken in respect of"
+],
+[
+"-",
+"dust"
+],
+[
+"+",
+"dust,"
+],
+[
+"=",
+"fire, and inflammable and noxious gases, including precautions against spontaneous combustion,"
+],
+[
+"-",
+"under ground"
+],
+[
+"+",
+"underground"
+],
+[
+"=",
+"fire and coal dust; (p)"
+],
+[
+"-",
+"For regulating"
+],
+[
+"+",
+"for regulating,"
+],
+[
+"=",
+"subject to the provisions of the"
+],
+[
+"-",
+"Indian"
+],
+[
+"=",
+"Electricity Act,"
+],
+[
+"-",
+"1910(X of 1910)"
+],
+[
+"+",
+"2003,"
+],
+[
+"=",
+"and of any rules made thereunder, the generation, storage,"
+],
+[
+"-",
+"transformation"
+],
+[
+"+",
+"transformation,"
+],
+[
+"=",
+"transmission and use of electricity in mines and for providing … cables in mines and of all other machinery and plant"
+],
+[
+"-",
+"therein."
+],
+[
+"+",
+"therein;"
+],
+[
+"=",
+"(q)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"\"for"
+],
+[
+"=",
+"regulating the use of machinery in mines, for providing for … restricting the use of certain classes of locomotives underground; (r)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing for proper lighting of mines and regulating the use … a mine in which safety lamps are in use; (s)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"providing against explosions or ignitions of inflammable gas or dust or"
+],
+[
+"-",
+"irruption"
+],
+[
+"+",
+"irruptions of"
+],
+[
+"=",
+"or accumulations of water in mines and against danger arising therefrom and for"
+],
+[
+"-",
+"prohibiting"
+],
+[
+"+",
+"prohibiting,"
+],
+[
+"=",
+"restricting or regulating the extraction of minerals in circumstances likely … collapse of workings or to result in or to aggravate"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"collapse of workings or"
+],
+[
+"-",
+"irruption"
+],
+[
+"+",
+"irruptions"
+],
+[
+"=",
+"of water or ignitions in mines; (t)"
+],
+[
+"-",
+"For prescribing under clause(g) of sub-section(1) of section 2, the types"
+],
+[
+"+",
+"for specifying type"
+],
+[
+"=",
+"of accidents"
+],
+[
+"+",
+"for the purposes of notice under section 10"
+],
+[
+"=",
+"and for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the notices of accidents and dangerous"
+],
+[
+"-",
+"occurrences"
+],
+[
+"+",
+"occurrences,"
+],
+[
+"=",
+"and the"
+],
+[
+"-",
+"notices"
+],
+[
+"+",
+"notices,"
+],
+[
+"=",
+"reports and returns of mineral"
+],
+[
+"-",
+"output;"
+],
+[
+"+",
+"output,"
+],
+[
+"=",
+"persons employed and other matters"
+],
+[
+"+",
+"5 of 1908. 4 of 1884. 36 of 2003. [PART II—"
+],
+[
+"=",
+"provided for by"
+],
+[
+"-",
+"regulations"
+],
+[
+"+",
+"regulations,"
+],
+[
+"=",
+"to be furnished by owners, agents and managers of mines, and for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the forms of such notices, returns and reports, the persons and authorities to whom they are to be"
+],
+[
+"-",
+"furnished"
+],
+[
+"+",
+"furnished,"
+],
+[
+"=",
+"the particulars to be contained in"
+],
+[
+"-",
+"them"
+],
+[
+"+",
+"them,"
+],
+[
+"=",
+"and the time within which they are to be submitted; (u)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"requiring owners, agents and managers of mines to have fixed boundaries for the"
+],
+[
+"-",
+"mine,"
+],
+[
+"+",
+"mines,"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"prescribing"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the plans and sections and field notes connected therewith to be kept by them and the"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"manner"
+],
+[
+"=",
+"and places in which such plans,"
+],
+[
+"-",
+"section"
+],
+[
+"+",
+"sections"
+],
+[
+"=",
+"and field notes are to be kept for purposes of record"
+],
+[
+"+",
+"and"
+],
+[
+"=",
+"for the submission of copies thereof to the Chief"
+],
+[
+"-",
+"Inspector;"
+],
+[
+"+",
+"Inspector-cum-Facilitator,"
+],
+[
+"=",
+"and for requiring"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"making of fresh surveys and plans by"
+],
+[
+"-",
+"them"
+],
+[
+"+",
+"them,"
+],
+[
+"=",
+"and in the event of"
+],
+[
+"-",
+"non- compliance,"
+],
+[
+"+",
+"non-compliance,"
+],
+[
+"=",
+"for having the survey made and plans prepared through"
+],
+[
+"-",
+"and"
+],
+[
+"+",
+"any"
+],
+[
+"=",
+"other agency and for the recovery of expenses thereof in the same manner as an arrear of land"
+],
+[
+"-",
+"revenue:"
+],
+[
+"+",
+"revenue;"
+],
+[
+"=",
+"(v)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"regulating the procedure on the occurrence of accidents or accidental explosions or ignitions in or"
+],
+[
+"-",
+"about mines"
+],
+[
+"+",
+"about, mines;"
+],
+[
+"=",
+"for dealing effectively with the"
+],
+[
+"-",
+"situation."
+],
+[
+"+",
+"situation;"
+],
+[
+"=",
+"(w)"
+],
+[
+"-",
+"For prescribing"
+],
+[
+"+",
+"for specifying"
+],
+[
+"=",
+"the form of, and the particulars to be contained"
+],
+[
+"-",
+"in"
+],
+[
+"+",
+"in,"
+],
+[
+"=",
+"the notice to be given by the owner, agent or manager of a mine under section"
+],
+[
+"-",
+"16;"
+],
+[
+"+",
+"5;"
+],
+[
+"=",
+"(x)"
+],
+[
+"-",
+"For prescribing"
+],
+[
+"+",
+"for specifying"
+],
+[
+"=",
+"the notice to be given by the owner, agent or manager of"
+],
+[
+"-",
+"mining"
+],
+[
+"+",
+"a mine"
+],
+[
+"=",
+"before mining operations are commenced at or extended to any point within forty-five"
+],
+[
+"-",
+"metres"
+],
+[
+"+",
+"meters"
+],
+[
+"=",
+"of any railway subject to the provisions of the Indian Railways Act,"
+],
+[
+"-",
+"1890, (IX of 1890)"
+],
+[
+"+",
+"1989 or"
+],
+[
+"=",
+"of any public roads or other"
+],
+[
+"-",
+"works,"
+],
+[
+"+",
+"works"
+],
+[
+"=",
+"as the case may"
+],
+[
+"-",
+"be"
+],
+[
+"+",
+"be,"
+],
+[
+"=",
+"which are maintained by the Government or any local"
+],
+[
+"-",
+"authority."
+],
+[
+"+",
+"authority;"
+],
+[
+"=",
+"(y)"
+],
+[
+"-",
+"For"
+],
+[
+"+",
+"for"
+],
+[
+"=",
+"the protection from injury, in respect of any mine when the workings are discontinued,"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"property vested in the Government or any local authority or railway company as defined in the Indian Railways Act,"
+],
+[
+"-",
+"1890. (yy)"
+],
+[
+"+",
+"1989; (z)"
+],
+[
+"=",
+"for requiring protective works to be constructed by the owner, agent or manager"
+],
+[
+"-",
+"or"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"a mine before the mine is closed, and in the event of"
+],
+[
+"-",
+"non- compliance,"
+],
+[
+"+",
+"non-compliance,"
+],
+[
+"=",
+"for getting such works executed by any other"
+],
+[
+"-",
+"agency,"
+],
+[
+"+",
+"agency"
+],
+[
+"=",
+"and for recovering the"
+],
+[
+"-",
+"expenses,"
+],
+[
+"+",
+"expenses"
+],
+[
+"=",
+"thereof from such owner in the same manner as an arrear of land revenue;"
+],
+[
+"-",
+"(z)"
+],
+[
+"+",
+"(za)"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"providing for"
+],
+[
+"+",
+"requiring"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"appointment"
+],
+[
+"+",
+"fencing"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"Courts"
+],
+[
+"+",
+"any mine or part"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"Inquiry under"
+],
+[
+"+",
+"a mine or any"
+],
+[
+"=",
+"quarry, incline,"
+],
+[
+"-",
+"shaft"
+],
+[
+"+",
+"shaft,"
+],
+[
+"=",
+"pit or outlet, whether the same is being worked or"
+],
+[
+"-",
+"not"
+],
+[
+"+",
+"not,"
+],
+[
+"=",
+"or any dangerous or prohibited area,"
+],
+[
+"-",
+"subsidence"
+],
+[
+"+",
+"subsidence,"
+],
+[
+"=",
+"haulage, tramline or pathway, where such fencing is necessary for the protection of the public;"
+],
+[
+"+",
+"(zb) for specifying the number of officials to be appointed; (zc) for specifying the qualifications of the officials to be appointed; (zd) for specifying the qualifications"
+],
+[
+"=",
+"and"
+],
+[
+"+",
+"experience of the agents; (ze) for specifying the period during which the agent shall be resident in India; (zf) for specifying duties and responsibilities of suppliers, designers, importer and contractors for safety in mines; (zg) for requiring the owners, agents and managers of mines to formulate, maintain and enforce safety management plan in their mines; (zh) for requiring the managers of mines to formulate and implement codes of practice or standard operating procedure in respect of any machinery or operation used in the mines; (zi) for providing for the safety in opencast mines and associated operations and machineries used therein; (zj) for regulating the extraction of methane from working or abandoned coal mines or from virgin coal seam; 24 of 1989. 24 of 1989. SEC. 1] (zk) for specifying the forms of returns which shall be filed by the establishments or the class of establishments under this Code; (zl) for the general requirement relating to the construction, equipping and maintenance for the safety of working places on shore, ship, dock, structure and other places at which any dock work is carried on; (zm) for the safety of any regular approaches over a dock, wharf, quay or other places which dock workers have to use for going for work and for fencing of such places and projects; (zn) for the efficient lighting of all areas of dock, ship, any other vessel, dock structure or working places where any dock work is carried on and of all approaches to such places to which dock workers are required to go in the course of their employment; (zo) providing and maintaining adequate ventilation and suitable temperature in every building or an enclosure on ship where dock workers are employed; (zp) providing for the fire and explosion prevention and protection; (zq) providing for safe means of access to ships, holds, stagings, equipment, lifting appliances and other working places; (zr) providing for the safety of workers engaged in the opening and closing of hatches, protection of ways and other openings in the docks which may be dangerous to them; (zs) providing for the safety of workers on docks from the risk of falling overboard being struck by cargo during loading or unloading operations; (zt) providing for the construction, maintenance and use of lifting and other cargo handling appliances and services, such as, pallets containing or supporting loads and provision of safety appliances on them, if necessary; (zu) providing for the safety of workers employed in freight container terminals or other terminals for handling unitised cargo; (zv) providing for the fencing of machinery, live electrical conductors, steam pipes and hazardous openings; (zw) providing for the construction, maintenance and use of staging; (zx) providing for the rigging and use of ship's derricks; (zy) providing for the testing, examination, inspection and certification as appropriate of loose gears including chains and ropes and of slings and other lifting devices used in the dock work;"
+],
+[
+"=",
+"(zz)"
+],
+[
+"+",
+"providing for the precautions to be taken to facilitate escape of workers when employed in a hold, bin, hopper or the like or between decks of a hold while handling coal or other bulk cargo; (zza) providing for the measures to be taken in order to prevent dangerous methods of working in the stacking, unstacking, stowing and unstowing of cargo or handling in connection therewith; (zzb) providing for the handling of dangerous substances and working in dangerous or harmful environments and the precautions to be taken in connection with such handling; (zzc) providing for the work in connection with cleaning, chipping, painting, operations and precautions to be taken in connection with such work; [PART II— (zzd) providing for the employment of persons for handling cargo, handling appliances, power operated hatch covers or other power operated ship's equipment, such as, door in the hull of a ship, ramp, retraceable car deck or similar equipment or to give signals to the drivers of such machinery; (zze) providing for the transport of dock workers; (zzf) providing for the precautions to be taken to protect dock workers against harmful effects of excessive noise, vibrations and air pollution at the workplace; (zzg) providing for protective equipment or protective clothing; (zzh) providing for the sanitary, washing and welfare facilities; (zzi) providing for— (i) the medical supervision; (ii) the ambulance rooms, first aid and rescue facilities and arrangements for the removal of dock workers to the nearest place of treatment; (iii) the safety and health organisation; and (iv) the training of dock workers and for the obligations and rights of the dock workers for their safety and health at the workplace; (zzj) providing for the investigation of occupational accidents, dangerous occurrences and diseases, specifying such diseases and the forms of notices, the persons and authorities to whom, they are to be furnished, the particulars to be contained in them and the time within which they are to be submitted; (zzk) providing for the submission of statement of accidents, man-days lost, volume of cargo handled and particulars of dock workers; and (zzl)"
+],
+[
+"=",
+"any other matter which"
+],
+[
+"-",
+"has"
+],
+[
+"+",
+"is required"
+],
+[
+"=",
+"to be or may be"
+],
+[
+"-",
+"prescribed"
+],
+[
+"+",
+"specified by regulation."
+]
+]
+},
+{
+"num": "58",
+"title": "Power of Central Government to make rules",
+"anchor": "p-58",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "91",
+"title": "",
+"anchor": "p-91"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.029,
+"grew": 0.14,
+"diff": [
+[
+"=",
+"(a)"
+],
+[
+"-",
+"for providing the term of office and other conditions of service of and the manner of filling vacancies among, the members of a Committee and for regulating the procedure to be followed by a Committee for transacting its business.” (b) For prescribing the form of the register referred to in sub-section (3) of section 23; (c) For providing for the appointment of Courts of Inquiry under section 24, for regulating the procedure and powers of such Courts for the payment of travelling allowance to the members, and for the recovery of the expenses of such courts including any other expenses connected with the inquiry in the same manner as an area of land revenue from the manager, owner or agent of the mine concerned; (cc) for providing the inspection of mines to be carried out on behalf of"
+],
+[
+"+",
+"specifying"
+],
+[
+"=",
+"the persons"
+],
+[
+"-",
+"employed therein by a technical expert (not less than an overman in status) the facilities therefore, the frequency at which and the manner in which such inspections are to be carried out and the manner in which reports of such inspections are to be made. (d) for requiring the maintenance of the mines wherein any women employed or were employed on any day of the preceding twelve months of suitable rooms to be reserved for the use of children under the age of six years belonging to such women, and for prescribing, either generally or with particular reference to the number of women employed in the mine, the number of standards of such rooms, and the nature and extent of the amenities to be provided and the supervision to be exercised therein; (e) for requiring the maintenance at or near pitheads of bathing places equipped with shower baths and of locker rooms for the use of men employed in mines and of similar and separate places and rooms for the use of women in mines where women are employed and for prescribing either generally or with particular reference to the numbers of men and women ordinarily employed in a mine, the number and standards of such places and rooms. (f) For prescribing the standard of sanitation to be maintained and the scale of latrine and urinal accommodation to be provided at mines, the provision to be made for the supply of drinking water. (ff) for providing for the supply and maintenance of medical appliances and comforts and for prescribing the contents and number of first-aid boxes and cupboards, the training in first-aid work, the size and equipment of first-aid rooms and staff in charge thereof and the arrangements for conveyance of injured persons to hospitals or dispensaries; (fff)for requiring the imparting of practical instruction to, or the training of, persons employed or to be employed in mines otherwise than in a position of such instruction and training; (g) for prohibiting the possession or consumption of intoxicating drinks or drugs in a mine and the entry or presence therein of any person in a drunken state; (h) for prescribing the form of notices required under section 36, and for requiring such notices to be posted also in specified languages; (i) for defining the person"
+],
+[
+"=",
+"who"
+],
+[
+"-",
+"shall, for the purpose of section 37, be deemed to be persons holding"
+],
+[
+"+",
+"hold"
+],
+[
+"=",
+"positions of supervision"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"management"
+],
+[
+"+",
+"or are"
+],
+[
+"=",
+"employed in a confidential"
+],
+[
+"-",
+"capacity; (j) for prohibiting"
+],
+[
+"+",
+"position in a factory or empowering"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"employment"
+],
+[
+"+",
+"Chief Inspector-cum-Facilitator to declare any person, other than a person so specified, as a person holding position of supervision or management or employed"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"mines"
+],
+[
+"+",
+"a confidential position in a factory if, in the opinion"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"persons"
+],
+[
+"+",
+"the Chief Inspector-cum-Facilitator, such person holds such position"
+],
+[
+"=",
+"or"
+],
+[
+"+",
+"is so employed, and the provisions of this Code, shall not apply to"
+],
+[
+"=",
+"any"
+],
+[
+"+",
+"person so defined or declared; (b) in respect of any worker or"
+],
+[
+"=",
+"class of"
+],
+[
+"-",
+"persons who have not been certified by a qualified medical practitioner"
+],
+[
+"+",
+"workers in any establishment or class of establishment, for providing the exemption, extent of exemption and conditions subject"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"have completed their fifteenth year, and for prescribing the manner and the circumstances in"
+],
+[
+"=",
+"which such"
+],
+[
+"-",
+"certificates"
+],
+[
+"+",
+"exemption"
+],
+[
+"=",
+"may be"
+],
+[
+"-",
+"granted and revoked; (k) (kk) for requiring persons employed"
+],
+[
+"+",
+"given. (2) The appropriate Government"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"seeking employment at mines"
+],
+[
+"+",
+"the Chief Inspector-cum-Facilitator may, by order in writing, exempt subject"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"submit themselves for medical examination and for prohibiting on medical grounds the employment of"
+],
+[
+"+",
+"such conditions as it may deem expedient,"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"person at a mine either absolutely"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"in a particular capacity or in particular work; (l) for prescribing the form of registers required by section 48 and the maintenance and form or registers for the purposes of Chapter VII; (m) for prescribing abstracts of this Act and"
+],
+[
+"+",
+"all"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"regulations and rules and the language in which the abstracts and bye-laws shall be posted as required by section 61 and 62; (n) for requiring notices, returns and reports in connection with any matters dealt with by rules to be furnished by owners; agents and managers of mines and for prescribing the forms of such notices returns and reports, the persons and authorities to whom they are to be furnished, the particulars to be contained in them, and the times within which they are to be submitted; (o) for requiring the provision and maintenance in mines; wherein more than fifty persons are ordinarily employed, of adequate and suitable shelters for taking food with provisions for drinking water. (p) For requiring the provision and maintenance"
+],
+[
+"+",
+"adult workers"
+],
+[
+"=",
+"in any"
+],
+[
+"-",
+"mine specified in this behalf by the Chief Inspector"
+],
+[
+"+",
+"establishment"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector wherein more than two hundred and fifty persons are ordinarily employed"
+],
+[
+"+",
+"class"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"a canteen or canteen for the use of such persons; (q) For requiring the employment in every mine wherein five hundred or more persons are ordinarily employed of such number of welfare officers as may be specified and for prescribing the qualifications and the terms and conditions of, and the duties to be performed by, such welfare officers; (r) For requiring the establishment of rescue stations for specified mines or groups of specified mines or for all mines in a specified area and for prescribing how and by whom such stations shall be established; (s) For providing for the management of rescue stations (sa)for providing for the standards of physical fitness and other qualifications of the persons constituting rescue brigades; (sb)prescribing the places of residence of the persons constituting rescue brigades; (t) for prescribing the position, equipment, control, maintenance and functions of rescue stations; (u) for providing for the levy and collection of a duty of excise(at) a rate not exceeding twenty five paise per tonne) on coke and coal produced in and despatched from mines specified under clause(r), the creation of a rescue stations fund for such mines, the crediting to such fund of such sums of money as the Central Government may, after due appropriation made by Parliament by law in this behalf, provide from out of the proceeds of such cess credited to the Consolidated Fund of India, the manner in which the money from such fund shall be utilised and the administration of such fund; (v) for providing for the formation, training composition and duties of rescue brigades and generally for the conduct of rescue work in mines; (vv) for providing for the constitution of safety Committees for specified mine or groups of specified mines or for all mines in a specified area for promoting safety and for laying down the composition, manner of formation and functions of such safety Committees and, “ (w) generally to provide for any matter not provided for by this Act or the regulations, provision for which is required in order to give effect to this Act."
+],
+[
+"+",
+"establishments. PART VIII PLANTATION"
+]
+]
+},
+{
+"num": "59",
+"title": "Prior publication of regulations and rules",
+"anchor": "p-59",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "137",
+"title": "",
+"anchor": "p-137"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.314,
+"grew": 0.43,
+"diff": [
+[
+"-",
+"(2) The"
+],
+[
+"+",
+"(a) the"
+],
+[
+"=",
+"date to be specified"
+],
+[
+"-",
+"in accordance with clause (3) of section 23 of the General Clauses Act, 1897, (IX of 1897) as that"
+],
+[
+"=",
+"after"
+],
+[
+"-",
+"which"
+],
+[
+"=",
+"a draft of"
+],
+[
+"-",
+"regulations or rules"
+],
+[
+"+",
+"rule, regulation, and bye-laws"
+],
+[
+"=",
+"proposed to be made will be taken under consideration, shall not be less than"
+],
+[
+"-",
+"three months"
+],
+[
+"+",
+"forty-five days"
+],
+[
+"=",
+"from the date on which the draft of the proposed"
+],
+[
+"-",
+"regulations or rules"
+],
+[
+"+",
+"rule, regulation and bye-laws is"
+],
+[
+"=",
+"published for general"
+],
+[
+"-",
+"information. (3) (4) no"
+],
+[
+"+",
+"information; (b) rule,"
+],
+[
+"=",
+"regulation"
+],
+[
+"-",
+"or rule shall be made unless the draft thereof has been referred to the Committee constituted under-sub-section(1) of section"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"unless that Committee has had a reasonable opportunity of reporting as to the expediency of making the same and as to the suitability of its provisions; (5) Regulation and rules"
+],
+[
+"+",
+"bye-laws"
+],
+[
+"=",
+"shall be published in the"
+],
+[
+"-",
+"official"
+],
+[
+"+",
+"Official"
+],
+[
+"=",
+"Gazette"
+],
+[
+"-",
+"and,"
+],
+[
+"+",
+"and"
+],
+[
+"=",
+"on such publication, shall have effect as if enacted in this"
+],
+[
+"-",
+"Act. (6) The provisions of sub-section (1), (2) and (4) shall not apply to the first occasion on which rules referred to in clause (d) or clause (e) section 58 are made. (7)"
+],
+[
+"+",
+"Code."
+]
+]
+},
+{
+"num": "60",
+"title": "Power to make regulations without previous Publications",
+"anchor": "p-60",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "139",
+"title": "",
+"anchor": "p-139"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.517,
+"grew": 0.66,
+"diff": [
+[
+"-",
+"Provided that any"
+],
+[
+"+",
+"Prior publication of rules, etc. Power to make"
+],
+[
+"=",
+"regulation"
+],
+[
+"-",
+"so made shall be send to the said committee for information and shall not remain in force for more than one year from the making thereof. (1) The owner, agent or manager of a mine may, and shall, if called upon to do so by the Chief Inspector or Inspector, frame and submit to the Chief Inspector or Inspector a draft of such bye-laws, not being inconsistent with this Act or any regulations or rules for the time being in force, governing the use of any particular machinery or the such adoption of a particular method of working the mine as owner, agent or manager may deem necessary to prevent accidents and provide for the safety, convenience and discipline of the persons employed in the mine."
+],
+[
+"+",
+"without previous publication. Bye-laws. SEC. 1]"
+],
+[
+"=",
+"(2) If any such"
+],
+[
+"-",
+"owner, agent or manager –"
+],
+[
+"+",
+"employer—"
+],
+[
+"=",
+"(a)"
+],
+[
+"-",
+"falls"
+],
+[
+"+",
+"fails"
+],
+[
+"=",
+"to submit within two months a draft of bye-laws after being called upon to do so by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator;"
+],
+[
+"=",
+"or (b) submits a draft of bye-laws which is not in the opinion of the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"sufficient, the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector may –"
+],
+[
+"+",
+"Inspector-cum-Facilitator may—"
+],
+[
+"=",
+"(i) propose a draft of such bye-laws as appear to him to be"
+],
+[
+"-",
+"sufficient,"
+],
+[
+"+",
+"sufficient;"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"(ii)propose"
+],
+[
+"+",
+"(ii) propose"
+],
+[
+"=",
+"such"
+],
+[
+"-",
+"amendment"
+],
+[
+"+",
+"amendments"
+],
+[
+"=",
+"in any draft submitted to him by the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"as will, in his opinion, render it sufficient, and shall send such draft"
+],
+[
+"-",
+"or"
+],
+[
+"=",
+"bye-laws or draft"
+],
+[
+"-",
+"amendment"
+],
+[
+"+",
+"amendments"
+],
+[
+"=",
+"to the"
+],
+[
+"-",
+"owner agent or manager as the case may be,"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"for consideration. (3) If within a period of two months … draft bye-laws or draft amendments are sent by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"to the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"under the provisions of"
+],
+[
+"-",
+"sub-section(2),"
+],
+[
+"+",
+"sub-section (2),"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"and the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"are unable to agree as to the terms of the bye-laws to be made under"
+],
+[
+"-",
+"sub-section(1)"
+],
+[
+"+",
+"sub-section (1),"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector- cum-Facilitator"
+],
+[
+"=",
+"shall refer the draft"
+],
+[
+"-",
+"bye- laws"
+],
+[
+"+",
+"bye-laws"
+],
+[
+"=",
+"for settlement to the"
+],
+[
+"-",
+"Committee"
+],
+[
+"+",
+"technical committee"
+],
+[
+"=",
+"constituted under"
+],
+[
+"-",
+"sub-section(1)"
+],
+[
+"+",
+"sub-section (5)"
+],
+[
+"=",
+"of section"
+],
+[
+"-",
+"12,"
+],
+[
+"+",
+"16 in respect of mines."
+],
+[
+"=",
+"(4)"
+],
+[
+"-",
+"(a)When"
+],
+[
+"+",
+"When"
+],
+[
+"=",
+"such draft bye-laws have been agreed to by the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"and the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator,"
+],
+[
+"=",
+"or,"
+],
+[
+"-",
+"which"
+],
+[
+"+",
+"when"
+],
+[
+"=",
+"they are unable to agree, have been settled by the"
+],
+[
+"+",
+"technical"
+],
+[
+"=",
+"Committee constituted under sub-section"
+],
+[
+"-",
+"(1)"
+],
+[
+"+",
+"(5)"
+],
+[
+"=",
+"of section"
+],
+[
+"-",
+"12,"
+],
+[
+"+",
+"16 in respect of mines,"
+],
+[
+"=",
+"a copy of the draft bye-laws shall be sent by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"to the Central Government for"
+],
+[
+"-",
+"approval. (b) The"
+],
+[
+"+",
+"approval: Provided that the"
+],
+[
+"=",
+"Central Government may make such modification of the draft bye-laws as it thinks"
+],
+[
+"-",
+"fit. (c) Before"
+],
+[
+"+",
+"fit: Provided further that before"
+],
+[
+"=",
+"the Central Government approves the draft bye-laws, whether with or without"
+],
+[
+"-",
+"modifications"
+],
+[
+"+",
+"modifications,"
+],
+[
+"=",
+"there shall be"
+],
+[
+"-",
+"published"
+],
+[
+"+",
+"published,"
+],
+[
+"=",
+"in such manner as the Central Government may think best"
+],
+[
+"-",
+"adopted"
+],
+[
+"+",
+"adapted"
+],
+[
+"=",
+"for informing the persons affected,"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"notice"
+],
+[
+"-",
+"to"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"the proposal to make the bye-laws and of the place … of the time (which shall not be less than thirty"
+],
+[
+"-",
+"days"
+],
+[
+"+",
+"days)"
+],
+[
+"=",
+"within which any objections with reference to the draft bye-laws, made by or on behalf of persons affected should be sent"
+],
+[
+"-",
+"in writing and shall state – (d)"
+],
+[
+"+",
+"to the Central Government. (5)"
+],
+[
+"=",
+"Every objection"
+],
+[
+"+",
+"under second proviso to sub-section (4)"
+],
+[
+"=",
+"shall be in writing and shall"
+],
+[
+"-",
+"state –"
+],
+[
+"+",
+"state—"
+],
+[
+"=",
+"(i) the specific grounds of"
+],
+[
+"-",
+"objections"
+],
+[
+"+",
+"objections,"
+],
+[
+"=",
+"and (ii) the omissions, additions or modifications asked"
+],
+[
+"-",
+"for (e)"
+],
+[
+"+",
+"for. (6)"
+],
+[
+"=",
+"The Central Government shall consider any objection made within the required time by or on behalf of persons appearing to it to be"
+],
+[
+"-",
+"affected"
+],
+[
+"+",
+"affected,"
+],
+[
+"=",
+"and may approve the bye-laws either in the form in which they were published or after making"
+],
+[
+"+",
+"such"
+],
+[
+"=",
+"amendments thereto as it thinks fit."
+],
+[
+"-",
+"(5)"
+],
+[
+"+",
+"(7)"
+],
+[
+"=",
+"The"
+],
+[
+"-",
+"bye-laws, when so approved by the Central Government shall have effect as if enacted in this Act, and the owner, agent or manager of the mine"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"shall cause a copy of the bye-laws, in English and in such other language or languages as may be"
+],
+[
+"-",
+"prescribed,"
+],
+[
+"+",
+"prescribed by the Central Government,"
+],
+[
+"=",
+"to be"
+],
+[
+"-",
+"posted"
+],
+[
+"+",
+"pasted"
+],
+[
+"=",
+"up in some conspicuous place at or near the mine, where the"
+],
+[
+"-",
+"bye laws"
+],
+[
+"+",
+"bye-laws"
+],
+[
+"=",
+"may be conveniently read or seen by the persons employed;"
+],
+[
+"+",
+"and,"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"often as"
+],
+[
+"+",
+"and when"
+],
+[
+"=",
+"the same become"
+],
+[
+"-",
+"defaced"
+],
+[
+"+",
+"defaced,"
+],
+[
+"=",
+"obliterated or destroyed, shall cause them to be"
+],
+[
+"-",
+"renewed with all reasonable despatch. (6)"
+],
+[
+"+",
+"pasted again. (8)"
+],
+[
+"=",
+"The Central Government may,"
+],
+[
+"+",
+"by"
+],
+[
+"=",
+"order in writing"
+],
+[
+"-",
+"rescind the"
+],
+[
+"+",
+"rescind, in"
+],
+[
+"=",
+"whole or in part, any"
+],
+[
+"-",
+"bye- laws"
+],
+[
+"+",
+"bye-law"
+],
+[
+"=",
+"so made, and thereupon such"
+],
+[
+"-",
+"bye-laws"
+],
+[
+"+",
+"bye-law"
+],
+[
+"=",
+"shall cease to have effect accordingly."
+],
+[
+"-",
+"61 A. Laying of regulations, rules and bye-laws before parliament. Every regulation made under section 57, every rule made under section 58 and every bye- law made under section 61d shall be laid as soon as may be after it is made before each house of parliament, while it is in session, for a total period of thirty days which may be comprised in one session or in two or more successive sessions, and if before the expiry of the session aforesaid, both houses agree in making any modification in the regulation, rule or bye-law should not be made, the regulation, rule or bye-law shall thereafter have effect only in such modified form or be of no effect, as the case may be; so however that any such modification or amendment shall be without prejudice to the validity of anything previously done under that regulation, rule or bye-law, as the case may be.”"
+],
+[
+"+",
+"[PART II—"
+]
+]
+},
+{
+"num": "62",
+"title": "",
+"anchor": "p-62",
+"likely": []
+},
+{
+"num": "63",
+"title": "Obstruction",
+"anchor": "p-63",
+"likely": []
+},
+{
+"num": "64",
+"title": "Falsification of records",
+"anchor": "p-64",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "98",
+"title": "",
+"anchor": "p-98"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.455,
+"grew": 1.06,
+"diff": [
+[
+"=",
+"(a)"
+],
+[
+"-",
+"counterfoils,"
+],
+[
+"+",
+"produces false records or counterfeits"
+],
+[
+"=",
+"or knowingly"
+],
+[
+"-",
+"makes a false statement in any certificate, or any official copy of a certificate, granted under this Act, or (b) knowingly uses as true any such counterfeit or false certificate, or (c)"
+],
+[
+"=",
+"makes or produces or uses"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"false"
+],
+[
+"-",
+"declaration, statement"
+],
+[
+"+",
+"statement, declaration"
+],
+[
+"=",
+"or evidence"
+],
+[
+"-",
+"knowing"
+],
+[
+"+",
+"regarding any document in connection with compliance of any of"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"same to be false for the purpose"
+],
+[
+"+",
+"provisions"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"obtaining for himself or for any other person a certificate or the renewal of a certificate under"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"Act,"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"or any"
+],
+[
+"-",
+"employment in a mine,"
+],
+[
+"+",
+"rules, regulations"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"(d)"
+],
+[
+"+",
+"bye-laws or any order made thereunder; or (b)"
+],
+[
+"=",
+"falsifies any"
+],
+[
+"-",
+"plan,"
+],
+[
+"+",
+"plan or"
+],
+[
+"=",
+"section,"
+],
+[
+"-",
+"register or record,"
+],
+[
+"=",
+"the maintenance of which is required by or under this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"or produces before any authority such"
+],
+[
+"-",
+"false plan,"
+],
+[
+"+",
+"plan or"
+],
+[
+"=",
+"section,"
+],
+[
+"-",
+"register or record,"
+],
+[
+"=",
+"knowing the same to be"
+],
+[
+"-",
+"false or; (e)"
+],
+[
+"+",
+"false; or (c)"
+],
+[
+"=",
+"makes, gives or delivers"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"knowingly a false"
+],
+[
+"=",
+"plan,"
+],
+[
+"+",
+"section,"
+],
+[
+"=",
+"return, notice, record or report containing a statement, entry or"
+],
+[
+"-",
+"detail which is not to the best of his knowledge or belief true,"
+],
+[
+"+",
+"detail, he"
+],
+[
+"=",
+"shall be punishable with imprisonment for a term which may extend to three"
+],
+[
+"-",
+"months"
+],
+[
+"+",
+"months,"
+],
+[
+"=",
+"or with fine which may extend to one"
+],
+[
+"-",
+"thousand rupees"
+],
+[
+"+",
+"lakh rupees,"
+],
+[
+"=",
+"or with both."
+],
+[
+"+",
+"(2) Where any person convicted of an offence punishable under sub-section (1) is again convicted of an offence under the same provision, then, he shall be punishable with imprisonment for a term which may extend to six months, or with fine which shall not be less than one lakh rupees but which may extend to two lakh rupees, or with both."
+]
+]
+},
+{
+"num": "65",
+"title": "Use of false certificates of fitness",
+"anchor": "p-65",
+"likely": []
+},
+{
+"num": "66",
+"title": "",
+"anchor": "p-66",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "99",
+"title": "",
+"anchor": "p-99"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.8,
+"grew": 1.22,
+"diff": [
+[
+"=",
+"Any person who, without reasonable excuse the burden of"
+],
+[
+"-",
+"providing"
+],
+[
+"+",
+"proving"
+],
+[
+"=",
+"which shall"
+],
+[
+"-",
+"lie"
+],
+[
+"+",
+"lies"
+],
+[
+"=",
+"upon him, omits to make or furnish in the prescribed form or manner or"
+],
+[
+"-",
+"at"
+],
+[
+"+",
+"at,"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"within"
+],
+[
+"+",
+"within,"
+],
+[
+"=",
+"the prescribed time any plan,"
+],
+[
+"-",
+"section"
+],
+[
+"+",
+"section,"
+],
+[
+"=",
+"return, notice,"
+],
+[
+"-",
+"register;"
+],
+[
+"+",
+"register,"
+],
+[
+"=",
+"record or report required by or under"
+],
+[
+"+",
+"any provision of"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"to be made or"
+],
+[
+"-",
+"furnished"
+],
+[
+"+",
+"furnished, he"
+],
+[
+"=",
+"shall be"
+],
+[
+"-",
+"punishable with fine"
+],
+[
+"+",
+"liable to penalty which shall not be less than one lakh rupees but"
+],
+[
+"=",
+"which may extend to"
+],
+[
+"-",
+"one thousand"
+],
+[
+"+",
+"two lakh"
+],
+[
+"=",
+"rupees."
+]
+]
+},
+{
+"num": "67",
+"title": "Contravention of provisions regarding employment of labour",
+"anchor": "p-67",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "97",
+"title": "",
+"anchor": "p-97"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.547,
+"grew": 1.59
+},
+{
+"num": "68",
+"title": "",
+"anchor": "p-68",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "72",
+"title": "",
+"anchor": "p-72"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.167,
+"grew": 0.62,
+"diff": [
+[
+"-",
+"Penalty for employment"
+],
+[
+"+",
+"Exemption from provision regarding employment. Employment"
+],
+[
+"=",
+"of persons below eighteen years of"
+],
+[
+"-",
+"age- If a person below eighteen years"
+],
+[
+"+",
+"age. 52"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"age is employed in a mine in contravention"
+],
+[
+"+",
+"1961. Exemption to certain persons. Establishment, maintenance"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"section 40, the owner, agent or manager of such mine shall be kpunishable with fine which may extend to five hundred rupees."
+],
+[
+"+",
+"rescue services and vocational training. SEC. 1]"
+]
+]
+},
+{
+"num": "69",
+"title": "Failure to appoint manager",
+"anchor": "p-69",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "102",
+"title": "",
+"anchor": "p-102"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.521,
+"grew": 3.21,
+"diff": [
+[
+"-",
+"Failure"
+],
+[
+"+",
+"(i) clauses (a)"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"appoint manager - Whoever, in contravention"
+],
+[
+"+",
+"(h)"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the provisions"
+],
+[
+"+",
+"sub-section (1) or sub-section (2)"
+],
+[
+"=",
+"of section"
+],
+[
+"-",
+"17, fails"
+],
+[
+"+",
+"6 or clause (d) of section 13 in so far as such duty relates"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"appoint"
+],
+[
+"+",
+"hazardous processes; or (ii) section 80, shall, in respect of such failure or contravention, be punishable with an imprisonment for"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"term which may extend to two years and with fine which may extend to five lakh rupees, and in case the failure or contravention continues, with additional fine which may extend to twenty-five thousand rupees for every day during which such failure or contravention continues, after the conviction for the first such failure or contravention. (2) If the failure or contravention referred to in sub-section (1) continues beyond a period of one year after the date of conviction, the offender"
+],
+[
+"=",
+"shall be punishable with imprisonment for a term which may extend to three"
+],
+[
+"-",
+"months"
+],
+[
+"+",
+"years"
+],
+[
+"=",
+"or with"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"fine"
+],
+[
+"-",
+"which may extend to two thousand and five hundred"
+],
+[
+"+",
+"of twenty lakh"
+],
+[
+"=",
+"rupees, or"
+],
+[
+"+",
+"with"
+],
+[
+"=",
+"both."
+]
+]
+},
+{
+"num": "70",
+"title": "",
+"anchor": "p-70",
+"likely": [
+{
+"slug": "oshwc-code-central-rules-2026",
+"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"num": "7",
+"label": "Rule 7",
+"title": "Notice of accidents and dangerous occurrences",
+"anchor": "p-7"
+}
+]
+},
+{
+"num": "71",
+"title": "",
+"anchor": "p-71",
+"likely": []
+},
+{
+"num": "72",
+"title": "Obligations of persons employed in a mine",
+"anchor": "p-72",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "13",
+"title": "",
+"anchor": "p-13"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.395,
+"grew": 2.75,
+"diff": [
+[
+"=",
+"(a)"
+],
+[
+"-",
+"willfully"
+],
+[
+"+",
+"take reasonable care for the health and safety of himself and of other persons who may be affected by his acts or omissions at the workplace; (b) comply with the safety and health requirements specified in the standards; (c) co-operate with the employer in meeting the statutory obligations of the employer under this Code; (d) if any situation which is unsafe or unhealthy comes to his attention, as soon as practicable, report such situation to his employer or to the health and safety representative and in case of mine, agent or manager referred to in section 67, safety officers or an official for his workplace or section thereof, as the case may be, who Notice of certain accident. Notice of certain dangerous occurrences. Notice of certain diseases. Duties of employee. SEC. 1] shall report it to the employer in the manner as may be prescribed by the appropriate Government; (e) not wilfully"
+],
+[
+"=",
+"interfere with or misuse"
+],
+[
+"+",
+"or neglect"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"appliance"
+],
+[
+"+",
+"appliance,"
+],
+[
+"=",
+"convenience"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"other thing provided"
+],
+[
+"-",
+"in a mine"
+],
+[
+"+",
+"at workplace"
+],
+[
+"=",
+"for the purpose of securing the health, safety"
+],
+[
+"-",
+"or"
+],
+[
+"+",
+"and"
+],
+[
+"=",
+"welfare of"
+],
+[
+"-",
+"the person employed therein. (b) willfully"
+],
+[
+"+",
+"workers; (f) not do, wilfully"
+],
+[
+"=",
+"and without reasonable"
+],
+[
+"-",
+"cause do any thing"
+],
+[
+"+",
+"cause, anything,"
+],
+[
+"=",
+"likely to endanger himself"
+],
+[
+"-",
+"of"
+],
+[
+"+",
+"or"
+],
+[
+"=",
+"others;"
+],
+[
+"-",
+"(c) willfully neglect to make us of any appliance or"
+],
+[
+"+",
+"and (g) perform such"
+],
+[
+"=",
+"other"
+],
+[
+"-",
+"thing provided in"
+],
+[
+"+",
+"duties as may be prescribed by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine for the purpose of securing the health or safety of the persons employed therein."
+],
+[
+"+",
+"appropriate Government."
+]
+]
+},
+{
+"num": "72A",
+"title": "Special provision for contravention of certain regulations",
+"anchor": "p-72a",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "101",
+"title": "",
+"anchor": "p-101"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.742,
+"grew": 2.52,
+"diff": [
+[
+"-",
+"(u)"
+],
+[
+"+",
+"Whoever, except in so far as it may be necessary for the purposes"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"section 7"
+],
+[
+"+",
+"a prosecution for any offence punishable under this Code, publishes or discloses to any person the results of an analysis, of a sample of substance used or intended to be used in any process under this Code,"
+],
+[
+"=",
+"shall be punishable with imprisonment for a"
+],
+[
+"-",
+"term"
+],
+[
+"+",
+"term,"
+],
+[
+"=",
+"which may extend to six"
+],
+[
+"-",
+"months"
+],
+[
+"+",
+"months,"
+],
+[
+"=",
+"or with"
+],
+[
+"-",
+"fine"
+],
+[
+"+",
+"fine,"
+],
+[
+"=",
+"which may extend to"
+],
+[
+"-",
+"two"
+],
+[
+"+",
+"fifty"
+],
+[
+"=",
+"thousand"
+],
+[
+"-",
+"rupees"
+],
+[
+"+",
+"rupees,"
+],
+[
+"=",
+"or with both."
+]
+]
+},
+{
+"num": "72B",
+"title": "",
+"anchor": "p-72b",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "104",
+"title": "",
+"anchor": "p-104"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.085,
+"grew": 0.29,
+"diff": [
+[
+"-",
+"22. Whoever continues to work a mine in contravention of any order issued under sub- section (1A), sub-section (2) or sub-section(3) of section 22 or under sub-section (2) of section 22 shall be punishable with imprisonment for a term which may extend to two years and shall also be liable to fine which may extend to two years and shall also be liable to fine which may extend to five thousand rupees."
+],
+[
+"=",
+"Provided that"
+],
+[
+"-",
+"in"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"absence of special and adequate reasons to the country to be recorded in writing in the judgement of the court, such fine"
+],
+[
+"+",
+"court"
+],
+[
+"=",
+"shall not"
+],
+[
+"+",
+"impose a fine under this section which shall"
+],
+[
+"=",
+"be less than two"
+],
+[
+"-",
+"thousand rupees."
+],
+[
+"+",
+"lakh rupees without recording in the judgment the reasons for imposing such fine."
+]
+]
+},
+{
+"num": "72C",
+"title": "",
+"anchor": "p-72c",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "103",
+"title": "",
+"anchor": "p-103"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.22,
+"grew": 0.59,
+"diff": [
+[
+"=",
+"(a)"
+],
+[
+"-",
+"If such contravention results in loss of life,"
+],
+[
+"+",
+"death, he shall be punishable"
+],
+[
+"=",
+"with imprisonment"
+],
+[
+"+",
+"for a term"
+],
+[
+"=",
+"which may extend to two years, or with"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"fine which"
+],
+[
+"-",
+"may extend to"
+],
+[
+"+",
+"shall not be less than"
+],
+[
+"=",
+"five"
+],
+[
+"-",
+"thousand"
+],
+[
+"+",
+"lakh"
+],
+[
+"=",
+"rupees, or with"
+],
+[
+"-",
+"both,"
+],
+[
+"+",
+"both;"
+],
+[
+"=",
+"or (b)"
+],
+[
+"-",
+"If such contravention results in"
+],
+[
+"=",
+"serious bodily injury"
+],
+[
+"+",
+"to any person within the establishment, he shall be punishable"
+],
+[
+"=",
+"with imprisonment"
+],
+[
+"+",
+"for a term"
+],
+[
+"=",
+"which may extend to one"
+],
+[
+"-",
+"years,"
+],
+[
+"+",
+"year,"
+],
+[
+"=",
+"or with"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"fine which"
+],
+[
+"-",
+"may extend to three thousand rupees, or with both; or (c) If such contravention otherwise causes injury or danger to persons employed in the mine or other persons in or about the mine, with imprisonment which may extend to three months or with fine which may extend to one thousand rupees, or with both. Provided that in the absence of special and adequate reasons to the contrary to be recorded in writing in the judgement of the court, such fine, in the case of a contravention referred to in clause (a),"
+],
+[
+"=",
+"shall not be less than"
+],
+[
+"-",
+"three thousand rupees."
+],
+[
+"+",
+"two lakh rupees but not exceeding four lakh rupees, or with both: Provided that while imposing the fine under this section, the court may direct that a portion of the fine, which shall not be less than fifty per cent. thereof, shall be given as compensation to the victim or to the legal heirs of the victim, in the case of his death."
+],
+[
+"=",
+"(2) Where a person having been convicted under"
+],
+[
+"-",
+"this section"
+],
+[
+"+",
+"sub-section (1)"
+],
+[
+"=",
+"is again convicted thereunder, shall be punishable with double the punishment provided"
+],
+[
+"-",
+"by"
+],
+[
+"+",
+"under that"
+],
+[
+"=",
+"sub-section"
+],
+[
+"-",
+"(1). (3) Any court imposing or confirming in appeal, revision or otherwise a sentence of fine passed under this section may, when passing judgement, order the whole or any part of the fine recovered to be paid as compensation to the person injured or, in the case of his death, to his legal representative; Provided that if the fine is imposed in a case which is subject to appeal no such payment shall be made before the period allowed"
+],
+[
+"=",
+"for"
+],
+[
+"-",
+"presenting the appeal has elapsed of, if an appeal has been presented, before the decision of the appeal."
+],
+[
+"+",
+"first conviction."
+]
+]
+},
+{
+"num": "73",
+"title": "",
+"anchor": "p-73",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "97",
+"title": "",
+"anchor": "p-97"
+},
+"sure": "medium",
+"change": "merged",
+"kept": 0.672,
+"grew": 2.05
+},
+{
+"num": "74",
+"title": "Enhanced penalty after previous conviction",
+"anchor": "p-74",
+"likely": []
+},
+{
+"num": "75",
+"title": "Prosecution of owner, agent or manager",
+"anchor": "p-75",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "107",
+"title": "",
+"anchor": "p-107"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.917,
+"grew": 1.07,
+"diff": [
+[
+"=",
+"Provided that the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or the District Magistrate or the"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"as so authorised"
+],
+[
+"-",
+"shall,"
+],
+[
+"+",
+"shall"
+],
+[
+"=",
+"before instituting such"
+],
+[
+"-",
+"prosecution,"
+],
+[
+"+",
+"prosecution"
+],
+[
+"=",
+"satisfy himself that the owner, agent or manager"
+],
+[
+"+",
+"of a mine"
+],
+[
+"=",
+"had failed to exercise"
+],
+[
+"-",
+"all"
+],
+[
+"=",
+"due diligence to prevent the commission of such"
+],
+[
+"-",
+"offence."
+],
+[
+"+",
+"offence:"
+],
+[
+"=",
+"Provided further that in respect of an offence committed in … not institute any prosecution against an owner, agent or manager"
+],
+[
+"+",
+"of a mine"
+],
+[
+"=",
+"without the"
+],
+[
+"+",
+"previous"
+],
+[
+"=",
+"approval of the Chief"
+],
+[
+"-",
+"Inspector."
+],
+[
+"+",
+"Inspector-cum-Facilitator."
+]
+]
+},
+{
+"num": "76",
+"title": "Determination of owner in certain cases",
+"anchor": "p-76",
+"likely": []
+},
+{
+"num": "77",
+"title": "Exemption of owner, agent or manager in certain cases",
+"anchor": "p-77",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "108",
+"title": "",
+"anchor": "p-108"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.734,
+"grew": 1.4,
+"diff": [
+[
+"=",
+"(a) that he has"
+],
+[
+"-",
+"used"
+],
+[
+"+",
+"exercised"
+],
+[
+"=",
+"due diligence to enforce the execution of"
+],
+[
+"-",
+"the relevant provisions of"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"act, and"
+],
+[
+"+",
+"Code, or"
+],
+[
+"=",
+"(b) that the"
+],
+[
+"-",
+"owner"
+],
+[
+"+",
+"said other"
+],
+[
+"=",
+"person committed the offence in question without his knowledge, consent or connivance,"
+],
+[
+"-",
+"the said"
+],
+[
+"+",
+"that"
+],
+[
+"=",
+"other person shall be convicted of the offence and shall be liable to the like punishment as if he"
+],
+[
+"-",
+"were"
+],
+[
+"+",
+"was"
+],
+[
+"=",
+"the owner, agent or manager of the mine"
+],
+[
+"-",
+"and"
+],
+[
+"+",
+"or occupier or manager of"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager,"
+],
+[
+"+",
+"factory,"
+],
+[
+"=",
+"as the case may be,"
+],
+[
+"-",
+"shall be acquitted, Provided that – (a)"
+],
+[
+"+",
+"and"
+],
+[
+"=",
+"the owner, agent or manager of"
+],
+[
+"+",
+"a mine or"
+],
+[
+"=",
+"the"
+],
+[
+"+",
+"occupier or the manager of the factory shall be, discharged from any liability under this Code in respect of such offence: Provided that in seeking to prove as aforesaid the owner, agent or manager of a"
+],
+[
+"=",
+"mine"
+],
+[
+"+",
+"or the occupier or manager of the factory,"
+],
+[
+"=",
+"as the case may be, may be examined on"
+],
+[
+"-",
+"oath"
+],
+[
+"+",
+"oath,"
+],
+[
+"=",
+"and his evidence and that of any witness"
+],
+[
+"-",
+"who"
+],
+[
+"+",
+"whom"
+],
+[
+"=",
+"he calls in"
+],
+[
+"-",
+"support"
+],
+[
+"+",
+"his support,"
+],
+[
+"=",
+"shall be subject to"
+],
+[
+"-",
+"cross examination by or"
+],
+[
+"+",
+"cross-examination"
+],
+[
+"=",
+"on behalf of the person he"
+],
+[
+"-",
+"alleges"
+],
+[
+"+",
+"charges"
+],
+[
+"=",
+"as the actual offender and by the"
+],
+[
+"-",
+"prosecutor. (b) If inspite of due diligence"
+],
+[
+"+",
+"prosecutor: Provided further that, if"
+],
+[
+"=",
+"the person"
+],
+[
+"-",
+"alleged"
+],
+[
+"+",
+"charged"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"the,"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"actual offender"
+],
+[
+"+",
+"by the owner, agent or manager of the mine or occupier or manager of the factory, as the case may be,"
+],
+[
+"=",
+"cannot be brought before the court"
+],
+[
+"-",
+"on"
+],
+[
+"+",
+"at"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"date"
+],
+[
+"+",
+"time"
+],
+[
+"=",
+"appointed for"
+],
+[
+"+",
+"hearing"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"hearing of the case,"
+],
+[
+"+",
+"charge,"
+],
+[
+"=",
+"the court shall adjourn"
+],
+[
+"-",
+"from"
+],
+[
+"=",
+"the hearing"
+],
+[
+"-",
+"thereof"
+],
+[
+"=",
+"from time to time"
+],
+[
+"-",
+"so however that the total"
+],
+[
+"+",
+"for a"
+],
+[
+"=",
+"period"
+],
+[
+"-",
+"of such adjournments does"
+],
+[
+"=",
+"not"
+],
+[
+"-",
+"exceed"
+],
+[
+"+",
+"exceeding"
+],
+[
+"=",
+"three"
+],
+[
+"-",
+"months,"
+],
+[
+"+",
+"months"
+],
+[
+"=",
+"and if by the end of the said period the person"
+],
+[
+"-",
+"alleged"
+],
+[
+"+",
+"charged"
+],
+[
+"=",
+"as the actual offender cannot"
+],
+[
+"+",
+"still"
+],
+[
+"=",
+"be brought before the court, the court shall proceed to hear the"
+],
+[
+"-",
+"case"
+],
+[
+"+",
+"charge"
+],
+[
+"=",
+"against the owner, agent or manager"
+],
+[
+"+",
+"of the mine or occupier or manager of the factory,"
+],
+[
+"=",
+"as the case may"
+],
+[
+"-",
+"be."
+],
+[
+"+",
+"be, and shall, if the offence be proved, convict him. Offences by employees. Prosecution of owner, agent or manager of mine. Exemption of owner, agent or manager of mine or occupier of factory from liability in certain cases. [PART II—"
+]
+]
+},
+{
+"num": "78",
+"title": "Power of court to make orders",
+"anchor": "p-78",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "113",
+"title": "",
+"anchor": "p-113"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.814,
+"grew": 0.89,
+"diff": [
+[
+"=",
+"(2) Where an order is made under"
+],
+[
+"-",
+"sub-section(1),"
+],
+[
+"+",
+"sub-section (1),"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner, agent or manager"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"mine, as"
+],
+[
+"+",
+"mine or"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"case may be,"
+],
+[
+"+",
+"factory"
+],
+[
+"=",
+"shall not be"
+],
+[
+"-",
+"the"
+],
+[
+"=",
+"liable under this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"in respect of the continuance of the offence during the period or extended period, if"
+],
+[
+"-",
+"any"
+],
+[
+"+",
+"any,"
+],
+[
+"=",
+"but if on the expiry of such period or extended period the order of the court has not been fully complied"
+],
+[
+"-",
+"with the owner, agent or manager, as the case may be,"
+],
+[
+"+",
+"with, employer"
+],
+[
+"=",
+"shall be deemed to have committed a further offence and … the order has not been complied with, or with both."
+]
+]
+},
+{
+"num": "79",
+"title": "Limitation of prosecutions",
+"anchor": "p-79",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "110",
+"title": "",
+"anchor": "p-110"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.389,
+"grew": 1.09,
+"diff": [
+[
+"-",
+"(i)"
+],
+[
+"+",
+"Provided that no such opportunity shall be accorded to an employer in case of an accident and if the violation of the same nature of the provisions under this Code is repeated"
+],
+[
+"=",
+"within"
+],
+[
+"-",
+"six months"
+],
+[
+"+",
+"a period"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"three years from"
+],
+[
+"=",
+"the date on which"
+],
+[
+"+",
+"such first violation was committed and in such case"
+],
+[
+"=",
+"the"
+],
+[
+"+",
+"prosecution shall be initiated in accordance with provisions of sub-section (2). (2) No court shall take cognizance of any"
+],
+[
+"=",
+"offence"
+],
+[
+"+",
+"punishable under this Code, unless a complaint in respect thereof"
+],
+[
+"=",
+"is"
+],
+[
+"-",
+"alleged to have been committed, or (ii)"
+],
+[
+"+",
+"made"
+],
+[
+"=",
+"within six months of the date on which the alleged commission of the offence came to the knowledge of the"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator and a complaint is filed in that regard by him. (3) No court inferior to that of a Metropolitan Magistrate"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"(iia) In any case in which the accused is or was"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"public servant and previous sanction"
+],
+[
+"+",
+"Judicial Magistrate"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"Central Government or of the State Government or of"
+],
+[
+"+",
+"First Class shall try"
+],
+[
+"=",
+"any"
+],
+[
+"-",
+"other authority is necessary for taking cognizance of the"
+],
+[
+"=",
+"offence"
+],
+[
+"+",
+"punishable"
+],
+[
+"=",
+"under"
+],
+[
+"-",
+"any law for the time being in force, within three months of the date on which such sanction is received by the Chief Inspector; or (iii) in any case where a Court of inquiry has been appointed by the Central Government under section 24, within one year after the date of the publication of the report referred to in sub-section(4) of that section, whichever is later. Explanation - For"
+],
+[
+"+",
+"this Code. Explanation.—For"
+],
+[
+"=",
+"the purposes of this"
+],
+[
+"-",
+"section –"
+],
+[
+"+",
+"section,—"
+],
+[
+"=",
+"(a)"
+],
+[
+"-",
+"In"
+],
+[
+"+",
+"in"
+],
+[
+"=",
+"the case of"
+],
+[
+"+",
+"a"
+],
+[
+"=",
+"continuing offence, the period of limitation shall be computed with reference to every point of time during which the offence"
+],
+[
+"-",
+"continues,"
+],
+[
+"+",
+"continues;"
+],
+[
+"=",
+"(b)"
+],
+[
+"-",
+"Where"
+],
+[
+"+",
+"where"
+],
+[
+"=",
+"for the performance of any"
+],
+[
+"-",
+"act"
+],
+[
+"+",
+"act,"
+],
+[
+"=",
+"time"
+],
+[
+"-",
+"has been"
+],
+[
+"+",
+"is granted or"
+],
+[
+"=",
+"extended"
+],
+[
+"-",
+"under this Act,"
+],
+[
+"+",
+"on an application made by the employer of an establishment,"
+],
+[
+"=",
+"the period of limitation shall be computed from the"
+],
+[
+"-",
+"expiry"
+],
+[
+"+",
+"date on which the time so granted or extended expired. Offences by companies, etc. Limitation"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"the extended period."
+],
+[
+"+",
+"prosecution and cognizance of offences. SEC. 1]"
+]
+]
+},
+{
+"num": "80",
+"title": "Cognizance of offences",
+"anchor": "p-80",
+"likely": []
+},
+{
+"num": "81",
+"title": "Reference to Committee in lieu of prosecution in certain cases",
+"anchor": "p-81",
+"likely": []
+},
+{
+"num": "82",
+"title": "Decision of question whether a mine is under this Act",
+"anchor": "p-82",
+"likely": []
+},
+{
+"num": "83",
+"title": "",
+"anchor": "p-83",
+"likely": []
+},
+{
+"num": "84",
+"title": "Power to alter on rescind any orders",
+"anchor": "p-84",
+"likely": []
+},
+{
+"num": "85",
+"title": "Application of Act to mines belonging to Government",
+"anchor": "p-85",
+"likely": []
+},
+{
+"num": "85A",
+"title": "",
+"anchor": "p-85a",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "130",
+"title": "",
+"anchor": "p-130"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.85,
+"grew": 1.02,
+"diff": [
+[
+"=",
+"Every person required to give any notice or to furnish any information to any authority"
+],
+[
+"-",
+"under"
+],
+[
+"+",
+"in relation to the provisions of"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"Act"
+],
+[
+"+",
+"Code"
+],
+[
+"=",
+"shall be legally bound to do so within the meaning of section 176 of the Indian Penal Code."
+],
+[
+"-",
+"(Act 45 of 1860)"
+]
+]
+},
+{
+"num": "85B",
+"title": "Signing of returns, notices etc",
+"anchor": "p-85b",
+"likely": []
+},
+{
+"num": "85C",
+"title": "",
+"anchor": "p-85c",
+"likely": []
+},
+{
+"num": "86",
+"title": "Application of certain provision of Act 63 of 1948 to mines",
+"anchor": "p-86",
+"likely": []
+},
+{
+"num": "87",
+"title": "Protection of action taken in good faith",
+"anchor": "p-87",
+"to": {
+"slug": "oshwc-code-2020",
+"num": "126",
+"title": "",
+"anchor": "p-126"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.676,
+"grew": 2.43,
+"diff": [
+[
+"-",
+"Protection of action taken in good faith -"
+],
+[
+"+",
+"(2)"
+],
+[
+"=",
+"No"
+],
+[
+"-",
+"suit,"
+],
+[
+"=",
+"prosecution or other legal proceeding"
+],
+[
+"-",
+"whatever"
+],
+[
+"=",
+"shall lie against"
+],
+[
+"+",
+"the Government,"
+],
+[
+"=",
+"any"
+],
+[
+"+",
+"Board or committees constituted under this Code or any member of such Board or any officer or employee of the Government or the Board or any other"
+],
+[
+"=",
+"person"
+],
+[
+"+",
+"authorised by the Government or any Board or committee,"
+],
+[
+"=",
+"for"
+],
+[
+"+",
+"any damage caused or likely to be caused by"
+],
+[
+"=",
+"anything which is in good faith done or intended to be done"
+],
+[
+"-",
+"under"
+],
+[
+"+",
+"in pursuance of"
+],
+[
+"=",
+"this"
+],
+[
+"-",
+"Act."
+],
+[
+"+",
+"Code or any rule or regulation or bye-laws or order made or issued thereunder."
+]
+]
+},
+{
+"num": "88",
+"title": "",
+"anchor": "p-88",
+"likely": []
+}
+],
+"new_in_draft": [
+{
+"num": "1",
+"title": "",
+"anchor": "p-1"
+},
+{
+"num": "2",
+"title": "",
+"anchor": "p-2"
+},
+{
+"num": "3",
+"title": "",
+"anchor": "p-3"
+},
+{
+"num": "4",
+"title": "",
+"anchor": "p-4"
+},
+{
+"num": "5",
+"title": "",
+"anchor": "p-5"
+},
+{
+"num": "6",
+"title": "",
+"anchor": "p-6"
+},
+{
+"num": "8",
+"title": "",
+"anchor": "p-8"
+},
+{
+"num": "9",
+"title": "",
+"anchor": "p-9"
+},
+{
+"num": "10",
+"title": "",
+"anchor": "p-10"
+},
+{
+"num": "11",
+"title": "",
+"anchor": "p-11"
+},
+{
+"num": "14",
+"title": "",
+"anchor": "p-14"
+},
+{
+"num": "15",
+"title": "",
+"anchor": "p-15"
+},
+{
+"num": "16",
+"title": "",
+"anchor": "p-16"
+},
+{
+"num": "17",
+"title": "",
+"anchor": "p-17"
+},
+{
+"num": "18",
+"title": "",
+"anchor": "p-18"
+},
+{
+"num": "19",
+"title": "",
+"anchor": "p-19"
+},
+{
+"num": "20",
+"title": "",
+"anchor": "p-20"
+},
+{
+"num": "21",
+"title": "",
+"anchor": "p-21"
+},
+{
+"num": "22",
+"title": "",
+"anchor": "p-22"
+},
+{
+"num": "23",
+"title": "",
+"anchor": "p-23"
+},
+{
+"num": "24",
+"title": "",
+"anchor": "p-24"
+},
+{
+"num": "26",
+"title": "",
+"anchor": "p-26"
+},
+{
+"num": "27",
+"title": "",
+"anchor": "p-27"
+},
+{
+"num": "29",
+"title": "",
+"anchor": "p-29"
+},
+{
+"num": "31",
+"title": "",
+"anchor": "p-31"
+},
+{
+"num": "33",
+"title": "",
+"anchor": "p-33"
+},
+{
+"num": "34",
+"title": "",
+"anchor": "p-34"
+},
+{
+"num": "37",
+"title": "",
+"anchor": "p-37"
+},
+{
+"num": "40",
+"title": "",
+"anchor": "p-40"
+},
+{
+"num": "42",
+"title": "",
+"anchor": "p-42"
+},
+{
+"num": "43",
+"title": "",
+"anchor": "p-43"
+},
+{
+"num": "44",
+"title": "",
+"anchor": "p-44"
+},
+{
+"num": "45",
+"title": "",
+"anchor": "p-45"
+},
+{
+"num": "46",
+"title": "",
+"anchor": "p-46"
+},
+{
+"num": "47",
+"title": "",
+"anchor": "p-47"
+},
+{
+"num": "48",
+"title": "",
+"anchor": "p-48"
+},
+{
+"num": "49",
+"title": "",
+"anchor": "p-49"
+},
+{
+"num": "50",
+"title": "",
+"anchor": "p-50"
+},
+{
+"num": "51",
+"title": "",
+"anchor": "p-51"
+},
+{
+"num": "52",
+"title": "",
+"anchor": "p-52"
+},
+{
+"num": "53",
+"title": "",
+"anchor": "p-53"
+},
+{
+"num": "54",
+"title": "",
+"anchor": "p-54"
+},
+{
+"num": "55",
+"title": "",
+"anchor": "p-55"
+},
+{
+"num": "56",
+"title": "",
+"anchor": "p-56"
+},
+{
+"num": "57",
+"title": "",
+"anchor": "p-57"
+},
+{
+"num": "58",
+"title": "",
+"anchor": "p-58"
+},
+{
+"num": "59",
+"title": "",
+"anchor": "p-59"
+},
+{
+"num": "60",
+"title": "",
+"anchor": "p-60"
+},
+{
+"num": "61",
+"title": "",
+"anchor": "p-61"
+},
+{
+"num": "62",
+"title": "",
+"anchor": "p-62"
+},
+{
+"num": "63",
+"title": "",
+"anchor": "p-63"
+},
+{
+"num": "64",
+"title": "",
+"anchor": "p-64"
+},
+{
+"num": "65",
+"title": "",
+"anchor": "p-65"
+},
+{
+"num": "66",
+"title": "",
+"anchor": "p-66"
+},
+{
+"num": "71",
+"title": "",
+"anchor": "p-71"
+},
+{
+"num": "73",
+"title": "",
+"anchor": "p-73"
+},
+{
+"num": "74",
+"title": "",
+"anchor": "p-74"
+},
+{
+"num": "75",
+"title": "",
+"anchor": "p-75"
+},
+{
+"num": "76",
+"title": "",
+"anchor": "p-76"
+},
+{
+"num": "77",
+"title": "",
+"anchor": "p-77"
+},
+{
+"num": "78",
+"title": "",
+"anchor": "p-78"
+},
+{
+"num": "79",
+"title": "",
+"anchor": "p-79"
+},
+{
+"num": "80",
+"title": "",
+"anchor": "p-80"
+},
+{
+"num": "81",
+"title": "",
+"anchor": "p-81"
+},
+{
+"num": "82",
+"title": "",
+"anchor": "p-82"
+},
+{
+"num": "83",
+"title": "",
+"anchor": "p-83"
+},
+{
+"num": "84",
+"title": "",
+"anchor": "p-84"
+},
+{
+"num": "85",
+"title": "",
+"anchor": "p-85"
+},
+{
+"num": "86",
+"title": "",
+"anchor": "p-86"
+},
+{
+"num": "87",
+"title": "",
+"anchor": "p-87"
+},
+{
+"num": "88",
+"title": "",
+"anchor": "p-88"
+},
+{
+"num": "89",
+"title": "",
+"anchor": "p-89"
+},
+{
+"num": "90",
+"title": "",
+"anchor": "p-90"
+},
+{
+"num": "92",
+"title": "",
+"anchor": "p-92"
+},
+{
+"num": "93",
+"title": "",
+"anchor": "p-93"
+},
+{
+"num": "94",
+"title": "",
+"anchor": "p-94"
+},
+{
+"num": "95",
+"title": "",
+"anchor": "p-95"
+},
+{
+"num": "96",
+"title": "",
+"anchor": "p-96"
+},
+{
+"num": "100",
+"title": "",
+"anchor": "p-100"
+},
+{
+"num": "105",
+"title": "",
+"anchor": "p-105"
+},
+{
+"num": "106",
+"title": "",
+"anchor": "p-106"
+},
+{
+"num": "109",
+"title": "",
+"anchor": "p-109"
+},
+{
+"num": "111",
+"title": "",
+"anchor": "p-111"
+},
+{
+"num": "112",
+"title": "",
+"anchor": "p-112"
+},
+{
+"num": "114",
+"title": "",
+"anchor": "p-114"
+},
+{
+"num": "115",
+"title": "",
+"anchor": "p-115"
+},
+{
+"num": "116",
+"title": "",
+"anchor": "p-116"
+},
+{
+"num": "117",
+"title": "",
+"anchor": "p-117"
+},
+{
+"num": "118",
+"title": "",
+"anchor": "p-118"
+},
+{
+"num": "119",
+"title": "",
+"anchor": "p-119"
+},
+{
+"num": "120",
+"title": "",
+"anchor": "p-120"
+},
+{
+"num": "122",
+"title": "",
+"anchor": "p-122"
+},
+{
+"num": "123",
+"title": "",
+"anchor": "p-123"
+},
+{
+"num": "124",
+"title": "",
+"anchor": "p-124"
+},
+{
+"num": "125",
+"title": "",
+"anchor": "p-125"
+},
+{
+"num": "127",
+"title": "",
+"anchor": "p-127"
+},
+{
+"num": "128",
+"title": "",
+"anchor": "p-128"
+},
+{
+"num": "129",
+"title": "",
+"anchor": "p-129"
+},
+{
+"num": "131",
+"title": "",
+"anchor": "p-131"
+},
+{
+"num": "132",
+"title": "",
+"anchor": "p-132"
+},
+{
+"num": "133",
+"title": "",
+"anchor": "p-133"
+},
+{
+"num": "134",
+"title": "",
+"anchor": "p-134"
+},
+{
+"num": "135",
+"title": "",
+"anchor": "p-135"
+},
+{
+"num": "138",
+"title": "",
+"anchor": "p-138"
+},
+{
+"num": "140",
+"title": "",
+"anchor": "p-140"
+},
+{
+"num": "141",
+"title": "",
+"anchor": "p-141"
+},
+{
+"num": "142",
+"title": "",
+"anchor": "p-142"
+},
+{
+"num": "143",
+"title": "",
+"anchor": "p-143"
+}
+]
+}

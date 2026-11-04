@@ -1,0 +1,2820 @@
+{
+"source": {
+"slug": "mines-vocational-training-rules-1966",
+"title": "The Mines Vocational Training Rules, 1966",
+"ocr": false
+},
+"target": {
+"slug": "oshwc-code-central-rules-2026",
+"title": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
+"ocr": false
+},
+"rows": [
+{
+"num": "1",
+"title": "Short title, application and commencement",
+"anchor": "p-1",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "1",
+"title": "Short title and commencement",
+"anchor": "p-1"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.192,
+"grew": 0.33,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"Except as otherwise expressly provided, these rules shall apply"
+],
+[
+"+",
+"They extend"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"every mine"
+],
+[
+"+",
+"the whole"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"whatever description to watch the Mines Act, 1952 applies."
+],
+[
+"+",
+"India."
+],
+[
+"=",
+"(3) They shall come into force on"
+],
+[
+"-",
+"such"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"date"
+],
+[
+"-",
+"as the Central Government may, be notification"
+],
+[
+"+",
+"of their publication"
+],
+[
+"=",
+"in the Official"
+],
+[
+"-",
+"Gazette, appoint and different dates may be appointed for different provisions of these rules for different classes or groups of mines or for different classes of persons or for different areas."
+],
+[
+"+",
+"Gazette."
+]
+]
+},
+{
+"num": "2",
+"title": "Definition",
+"anchor": "p-2",
+"likely": []
+},
+{
+"num": "3",
+"title": "",
+"anchor": "p-3",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "122",
+"title": "Exemptions from hours and limitation of employment",
+"anchor": "p-122"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.141,
+"grew": 0.3,
+"diff": [
+[
+"-",
+"(a) Persons employed or to be employed for the purpose of saving life or property or dealing with circumstances arising out of an accident : Provided that the owner, agent or manager of the mine shall forthwith give notice of every such employment to the Chief Inspector. (b) Persons holding positions enumerated below being persons employed in a confidential capacity or in a position of supervision or a management ; (i)"
+],
+[
+"+",
+"(ii)"
+],
+[
+"=",
+"manager,"
+],
+[
+"-",
+"undermanager, under ground"
+],
+[
+"+",
+"deputy"
+],
+[
+"=",
+"manager,"
+],
+[
+"+",
+"installation manager, fire officer,"
+],
+[
+"=",
+"assistant manager, ventilation"
+],
+[
+"-",
+"officer"
+],
+[
+"+",
+"officer, safety officer, information technology, instrumentation"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"safety officer (ii)"
+],
+[
+"+",
+"communication officials; (iii)"
+],
+[
+"=",
+"mining, electrical and mechanical engineer;"
+],
+[
+"-",
+"(iii) overman, foreman, sirdar"
+],
+[
+"+",
+"(iv) mining supervisor, assistant mining supervisor"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"mate; (iv)"
+],
+[
+"+",
+"supervisor in oil mines; (v)"
+],
+[
+"=",
+"mechanical and electrical foreman and electrical"
+],
+[
+"+",
+"and mechanical"
+],
+[
+"=",
+"supervisor;"
+],
+[
+"-",
+"(v) Surveyor"
+],
+[
+"+",
+"(vi) surveyor"
+],
+[
+"=",
+"and assistant surveyor;"
+],
+[
+"-",
+"(vi)"
+],
+[
+"+",
+"(vii) qualified"
+],
+[
+"=",
+"medical"
+],
+[
+"-",
+"officer,"
+],
+[
+"+",
+"practitioner, dresser, compounder,"
+],
+[
+"=",
+"chemist, assayer, metallurgist and welfare or personnel officer; and"
+],
+[
+"-",
+"(vii)"
+],
+[
+"+",
+"(viii)"
+],
+[
+"=",
+"any other person"
+],
+[
+"-",
+"who, in the opinion of the Chief Inspector, holds a position of supervision or management"
+],
+[
+"+",
+"specified"
+],
+[
+"=",
+"by"
+],
+[
+"-",
+"whatever name called. (c) Shortfirer and blasters. (d) Clerk, accountants and register keepers. (e) Persons who have undergone a course of training which is part of study at an institution approved by the"
+],
+[
+"=",
+"Central Government"
+],
+[
+"-",
+"in this behalf. (f) Apprentice mechanics"
+],
+[
+"+",
+"through general"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"apprentice electricians, if they have undergone an approved course of training at a mine mechanisation center or other institution approved by the Chief Inspector in this behalf: Provided that the exemption granted"
+],
+[
+"+",
+"special order issued from time"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"the persons specified in clause (d),(e), and (g) shall be subject to the condition that the said person shall undergo a course of refresher training as specified in Rule 8. (2) The Chief Inspector may, by order, for reasons to be recorded in writing and subject to such conditions as he may specify therein, exempt any person, class or category of persons from undergoing any training under these rules."
+],
+[
+"+",
+"time."
+]
+]
+},
+{
+"num": "4",
+"title": "",
+"anchor": "p-4",
+"likely": []
+},
+{
+"num": "5",
+"title": "Standard of training",
+"anchor": "p-5",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "158",
+"title": "Scope and standard for vocational training",
+"anchor": "p-158"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.0,
+"grew": 7.2,
+"diff": [
+[
+"-",
+"CHAPTER III General Vocational Training."
+],
+[
+"+",
+"Provided that in case of a person who is already in employment in other mine, the owner shall ensure that such person is imparted training covering such additional course of training as specified under these rules."
+]
+]
+},
+{
+"num": "6",
+"title": "Scope and Standard",
+"anchor": "p-6",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "159",
+"title": "Scope and standard for Refresher Training",
+"anchor": "p-159"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.039,
+"grew": 0.17,
+"diff": [
+[
+"=",
+"Provided that"
+],
+[
+"-",
+"in respect of such class or kind of work as"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector may, from time"
+],
+[
+"+",
+"Inspector-cum-Facilitator may by order in writing and subject"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"time, by notification specify, every person proposed to"
+],
+[
+"+",
+"such conditions as may"
+],
+[
+"=",
+"be"
+],
+[
+"-",
+"employed thereto shall, before he is so employed, undergo"
+],
+[
+"+",
+"specified therein increase or decrease the interval of Refresher training at"
+],
+[
+"=",
+"a"
+],
+[
+"-",
+"further course of practical training on actual operations for a period of not less than six working days. (2) Every person proposed to be employed belowground in a mine, (other than a person who has held any such previous employment) shall, before he is so employed, undergo - (a) a course of theoretical and gallery training and gallery training as specified in the Second Schedule, and (b) a course of practical training on actual operations for a period of not less than twelve working days Provided that every such person proposed to be employed in a mine wherein safety lamps are required to be used (hereinafter called gassy mine) shall, before he is so employed, undergo a further course of training about the danger of inflammable gas and methods of dealing with the same as specified in the Third Schedule."
+],
+[
+"+",
+"mine."
+]
+]
+},
+{
+"num": "7",
+"title": "",
+"anchor": "p-7",
+"likely": []
+},
+{
+"num": "8",
+"title": "Scope and standard",
+"anchor": "p-8",
+"likely": []
+},
+{
+"num": "9",
+"title": "Training of persons already employed",
+"anchor": "p-9",
+"likely": []
+},
+{
+"num": "11",
+"title": "Arrangement for refresher training",
+"anchor": "p-11",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "160",
+"title": "Arrangement for refresher training",
+"anchor": "p-160"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.0,
+"grew": 3.88,
+"diff": [
+[
+"-",
+"CHAPTER V TRAINING OF SPECIAL CATEGORIES OF EMPLOYEES"
+],
+[
+"+",
+"Provided that the Chief Inspector-cum-Facilitator may by general or special order in writing subject to conditions as may be specified may exempt any mine from the provisions the of this rule."
+]
+]
+},
+{
+"num": "12",
+"title": "Training of timber Mistry",
+"anchor": "p-12",
+"likely": []
+},
+{
+"num": "13",
+"title": "Training of persons in handling of explosives",
+"anchor": "p-13",
+"likely": []
+},
+{
+"num": "14",
+"title": "Training of person on shotfiring",
+"anchor": "p-14",
+"likely": []
+},
+{
+"num": "15",
+"title": "Training of other categories of persons",
+"anchor": "p-15",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "161",
+"title": "Special training",
+"anchor": "p-161"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.133,
+"grew": 0.5,
+"diff": [
+[
+"-",
+"Training of other categories of persons - The Chief Inspector may by general or special order, require that every person, other that those specified in clause (a) to (g) of sub-rule (1) of Rule 3,"
+],
+[
+"+",
+"(2) Persons"
+],
+[
+"=",
+"to be"
+],
+[
+"-",
+"newly"
+],
+[
+"=",
+"employed in"
+],
+[
+"-",
+"a mine in such kind"
+],
+[
+"+",
+"aforesaid technology, equipment and system"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"class of work, as may be specified therein,"
+],
+[
+"+",
+"work"
+],
+[
+"=",
+"shall undergo"
+],
+[
+"-",
+"a"
+],
+[
+"+",
+"training as per the training scheme"
+],
+[
+"=",
+"specified"
+],
+[
+"-",
+"course training."
+],
+[
+"+",
+"under these rules, based on the training module."
+]
+]
+},
+{
+"num": "16",
+"title": "",
+"anchor": "p-16",
+"likely": []
+},
+{
+"num": "17",
+"title": "",
+"anchor": "p-17",
+"likely": []
+},
+{
+"num": "18",
+"title": "Training Centre",
+"anchor": "p-18",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "163",
+"title": "Training Centre",
+"anchor": "p-163"
+},
+"sure": "high",
+"change": "expanded",
+"kept": 0.84,
+"grew": 5.22,
+"diff": [
+[
+"=",
+"Provided that the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"may, by"
+],
+[
+"-",
+"order,"
+],
+[
+"+",
+"an order and"
+],
+[
+"=",
+"for"
+],
+[
+"+",
+"the"
+],
+[
+"=",
+"reasons to be recorded in writing and subject to such conditions as"
+],
+[
+"-",
+"he"
+],
+[
+"=",
+"may"
+],
+[
+"-",
+"specify"
+],
+[
+"+",
+"be specified"
+],
+[
+"=",
+"therein, authorise that a common training centre may be provided and maintained in respect of two or more mines"
+],
+[
+"+",
+"belonging to the same employer. (2)The Chief Inspector-cum-Facilitator may permit in writing, subject to such conditions as may specify therein, a common training centre owned and maintained by a group of employers for imparting training in more than one mine: Provided that where a common training centre is established and maintained by a group of employers of those mines shall nominate one among them to assume the responsibility of employers of the common training centre for management, supervision, direction and control there at and the nominated owner shall submit notice in writing to the Chief Inspector-cum-Facilitator and the Inspector-cum-Facilitator. (3) Notwithstanding anything contained in sub-rule (1) and sub-rule (2), the Chief Inspector-cum- Facilitator may approve in writing, subject to such conditions as may be specified therein, a training centre established under any other law for the time being in force subject to having such infrastructure and facilities as specified"
+],
+[
+"=",
+"by the"
+],
+[
+"-",
+"owners agents"
+],
+[
+"+",
+"Chief Inspector-cum-Facilitator through general"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"managers thereof."
+],
+[
+"+",
+"special order issued from time to time, for imparting training under these rules. (4) Every application for approval under sub rule (3) shall be made in a proforma and accompanied by a fee prescribed by the Chief Inspector-cum-Facilitator, based on recommendation of the committee constituted by the Chief Inspector-cum-Facilitator through general or special order issued from time to time."
+]
+]
+},
+{
+"num": "19",
+"title": "Arrangements for the training centre",
+"anchor": "p-19",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "164",
+"title": "Arrangements for the training centre",
+"anchor": "p-164"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.55,
+"grew": 0.78,
+"diff": [
+[
+"=",
+"Arrangements for the training"
+],
+[
+"-",
+"centre: - Every"
+],
+[
+"+",
+"centre.—Every"
+],
+[
+"=",
+"training centre shall have such staff, equipment and other facilities as"
+],
+[
+"-",
+"may be approved"
+],
+[
+"+",
+"specified"
+],
+[
+"=",
+"by the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator through general"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"as may be required by him,"
+],
+[
+"+",
+"special order issued"
+],
+[
+"=",
+"from time to"
+],
+[
+"-",
+"time, by order in writing."
+],
+[
+"+",
+"time."
+]
+]
+},
+{
+"num": "20",
+"title": "Training Officer",
+"anchor": "p-20",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "165",
+"title": "Training Officer",
+"anchor": "p-165"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.536,
+"grew": 1.16,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"Notwithstanding"
+],
+[
+"+",
+"It shall be the responsibility of the owner or agent of the mine or the owner of common vocational training centre, as the case may be, to appoint the training officer specified under sub- rule(1): Provided that in case of a training Centre, the person responsible for the management, control, supervision or direction of the training centre (hereinafter referred to as owner of approved training centre), shall appoint the training officer. (3)Notwithstanding"
+],
+[
+"=",
+"anything contained in sub-rule (1), where the"
+],
+[
+"-",
+"Training Officer"
+],
+[
+"+",
+"training officer"
+],
+[
+"=",
+"is unable to perform"
+],
+[
+"-",
+"his"
+],
+[
+"=",
+"duties by reason of temporary absence, illness or other cause, the owner, agent or manager, as the case may be,"
+],
+[
+"-",
+"may"
+],
+[
+"+",
+"shall"
+],
+[
+"=",
+"authorise in writing any other person"
+],
+[
+"+",
+"having similar qualifications"
+],
+[
+"=",
+"to act in"
+],
+[
+"-",
+"his place."
+],
+[
+"+",
+"their place:"
+],
+[
+"=",
+"Provided that"
+],
+[
+"+",
+"no such authorisation shall have effect for a period exceeding thirty days,"
+],
+[
+"=",
+"except"
+],
+[
+"+",
+"with the previous consent"
+],
+[
+"=",
+"in"
+],
+[
+"-",
+"a case where the person so authorised possesses the qualifications and experience specified by"
+],
+[
+"+",
+"writing of"
+],
+[
+"=",
+"the Chief"
+],
+[
+"-",
+"Inspector under sub-rule (1), the authority"
+],
+[
+"+",
+"Inspector-cum-Facilitator and subject"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"act"
+],
+[
+"+",
+"such conditions"
+],
+[
+"=",
+"as"
+],
+[
+"-",
+"Training Officer shall cease to have effect on the expiry of 30 days from the date of the authorisation unless an order in writing has been obtained from the Chief Inspector or the Regional Inspector for the continuance of such person beyond the said period."
+],
+[
+"+",
+"may be specified therein."
+],
+[
+"=",
+"(4)"
+],
+[
+"-",
+"A written notice of every"
+],
+[
+"+",
+"Every"
+],
+[
+"=",
+"appointment, discharge, dismissal, resignation or termination"
+],
+[
+"+",
+"of"
+],
+[
+"=",
+"service of a Training"
+],
+[
+"-",
+"Officer"
+],
+[
+"+",
+"officer"
+],
+[
+"=",
+"and of the date thereof shall be sent by the"
+],
+[
+"-",
+"owner, agents"
+],
+[
+"+",
+"owner"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"agent"
+],
+[
+"=",
+"to the Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum- Facilitator"
+],
+[
+"=",
+"and the"
+],
+[
+"-",
+"Regional Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"within seven days from the date of such appointment, authorisation, discharge, dismissal, resignation or termination of service as the case may be."
+]
+]
+},
+{
+"num": "21",
+"title": "Duties of Training Officer",
+"anchor": "p-21",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "166",
+"title": "Duties of Training Officer",
+"anchor": "p-166"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.795,
+"grew": 1.41,
+"diff": [
+[
+"=",
+"(i) to organise and supervise the training of every person undergoing training"
+],
+[
+"-",
+"under him"
+],
+[
+"=",
+"in pursuance of these"
+],
+[
+"+",
+"rules; (ii) to recognise current competency and prior learning in establishing for the training needs; (iii) to ensure training as per the modules or curriculum prepared under the concerned training scheme framed under these"
+],
+[
+"=",
+"rules"
+],
+[
+"-",
+": (ii)"
+],
+[
+"+",
+"for different categories of persons and ensure that the instructors deliver lectures on standard course material; (iv)"
+],
+[
+"=",
+"to maintain records of the training given to every person and to furnish"
+],
+[
+"-",
+"weekly"
+],
+[
+"+",
+"monthly"
+],
+[
+"=",
+"reports to the"
+],
+[
+"+",
+"mine"
+],
+[
+"=",
+"manager on the progress of the persons undergoing"
+],
+[
+"-",
+"training ; (iii)"
+],
+[
+"+",
+"training; (v)"
+],
+[
+"=",
+"to maintain records of the supervision in respect of the practical training on actual"
+],
+[
+"-",
+"operations referred to in Rule 6"
+],
+[
+"+",
+"operations;"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"(iv)"
+],
+[
+"+",
+"(vi)"
+],
+[
+"=",
+"to discharge such other duties as may be necessary"
+],
+[
+"-",
+"for, to"
+],
+[
+"+",
+"for the"
+],
+[
+"=",
+"proper compliance of these rules. (2) Every"
+],
+[
+"-",
+"Training Officer"
+],
+[
+"+",
+"training officer"
+],
+[
+"=",
+"shall keep a record of"
+],
+[
+"-",
+"his"
+],
+[
+"=",
+"work and shall, at the end of every year, forward to the Chief"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator or Inspector-cum-Facilitator having jurisdiction over the training centre,"
+],
+[
+"=",
+"through the"
+],
+[
+"-",
+"owner, agent"
+],
+[
+"+",
+"employer"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"manager"
+],
+[
+"+",
+"the owner"
+],
+[
+"=",
+"of"
+],
+[
+"+",
+"a common training centre as"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"mine concern3d"
+],
+[
+"+",
+"case may be,"
+],
+[
+"=",
+"a summary of the report of"
+],
+[
+"-",
+"his"
+],
+[
+"=",
+"work during the year."
+]
+]
+},
+{
+"num": "22",
+"title": "Trainers",
+"anchor": "p-22",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "168",
+"title": "Trainers",
+"anchor": "p-168"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.884,
+"grew": 1.09,
+"diff": [
+[
+"-",
+"- For"
+],
+[
+"+",
+"Trainers.—For"
+],
+[
+"=",
+"the purpose of the practical training referred to"
+],
+[
+"-",
+"rule 6,"
+],
+[
+"+",
+"in these rules,"
+],
+[
+"=",
+"every person to be employed in a mine shall be placed under the direct supervision of an experienced"
+],
+[
+"-",
+"workman"
+],
+[
+"+",
+"person"
+],
+[
+"=",
+"of an appropriate category, employed on operations"
+],
+[
+"+",
+"and authorised by manager"
+],
+[
+"=",
+"hereinafter referred to as trainer."
+]
+]
+},
+{
+"num": "23",
+"title": "Qualification of trainers",
+"anchor": "p-23",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "169",
+"title": "Qualification of instructors and trainers",
+"anchor": "p-169"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.143,
+"grew": 1.17,
+"diff": [
+[
+"-",
+"(2) Trainers"
+],
+[
+"+",
+"Qualification of instructors and trainers.- No person"
+],
+[
+"=",
+"shall"
+],
+[
+"-",
+"be selected only amongst"
+],
+[
+"+",
+"function as an instructor or trainer unless such person possesses qualification, training and experience as specified by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"persons, who in the opinion"
+],
+[
+"+",
+"Chief Inspector-cum-Facilitator, based on recommendation"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"owner, agent"
+],
+[
+"+",
+"committee constituted by the Chief Inspector-cum-Facilitator, through general"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"manager of the mine, are safety minded, skilled and experienced workmen who have an aptitude for given guidance and practical training"
+],
+[
+"+",
+"special order issued from time"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"other persons."
+],
+[
+"+",
+"time"
+]
+]
+},
+{
+"num": "24",
+"title": "Duties of trainers and persons undergoing training",
+"anchor": "p-24",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "171",
+"title": "Duties of trainer and persons undergoing training",
+"anchor": "p-171"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.731,
+"grew": 0.98,
+"diff": [
+[
+"=",
+"(2) The trainer"
+],
+[
+"-",
+"shall, apart from discharging his normal duties, see"
+],
+[
+"+",
+"shall monitor"
+],
+[
+"=",
+"that the persons"
+],
+[
+"-",
+"put"
+],
+[
+"=",
+"under"
+],
+[
+"-",
+"his"
+],
+[
+"+",
+"their"
+],
+[
+"=",
+"charge for training, pick up work, understand the dangers inherent … which would ensure safety in mines. (3) The trainer shall"
+],
+[
+"-",
+"see"
+],
+[
+"+",
+"monitor"
+],
+[
+"=",
+"that the persons undergoing"
+],
+[
+"-",
+"training, under him"
+],
+[
+"+",
+"training"
+],
+[
+"=",
+"move within the mine along with"
+],
+[
+"-",
+"him."
+],
+[
+"+",
+"them."
+],
+[
+"=",
+"(4) Every trainer shall"
+],
+[
+"-",
+"show to"
+],
+[
+"+",
+"monitor that"
+],
+[
+"=",
+"the persons undergoing training under"
+],
+[
+"-",
+"him, the quickest and safest routes"
+],
+[
+"+",
+"them, is aware"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"exit"
+],
+[
+"+",
+"escape route"
+],
+[
+"=",
+"from the sections where"
+],
+[
+"-",
+"he is"
+],
+[
+"+",
+"they are"
+],
+[
+"=",
+"likely to"
+],
+[
+"-",
+"work."
+],
+[
+"+",
+"work and other emergency response applicable to the trainee. (5)"
+],
+[
+"=",
+"Every person undergoing training shall, whilst under training, comply with the directions of the trainer under whom"
+],
+[
+"-",
+"he is"
+],
+[
+"+",
+"they are"
+],
+[
+"=",
+"put in charge."
+]
+]
+},
+{
+"num": "25",
+"title": "Training allowance",
+"anchor": "p-25",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "172",
+"title": "Training allowance",
+"anchor": "p-172"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.0,
+"grew": 7.89,
+"diff": [
+[
+"-",
+"CHAPTER VII ALLOWANCE OF TRAINEES AND ISSUE OF CERTIFICATES."
+],
+[
+"+",
+"(2) Every Instructor, other than the instructor under regular appointment at the training centre shall, in addition to their normal wages, be paid by the owner, agent or manager a training allowance for every day such trainer has imparted training in Vocational Training Centre, as specified by the Chief Inspector- cum-Facilitator on recommendation of the committee constituted by the Chief Inspector-cum-Facilitator, through general or special order, issued from time to time."
+]
+]
+},
+{
+"num": "26",
+"title": "Trainees",
+"anchor": "p-26",
+"likely": []
+},
+{
+"num": "27",
+"title": "Stipend to trainees",
+"anchor": "p-27",
+"likely": []
+},
+{
+"num": "28",
+"title": "Certificate of trainees",
+"anchor": "p-28",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "173",
+"title": "Certificate of training",
+"anchor": "p-173"
+},
+"sure": "medium",
+"change": "revised",
+"kept": 0.203,
+"grew": 1.02,
+"diff": [
+[
+"=",
+"(2)"
+],
+[
+"-",
+"The cost"
+],
+[
+"+",
+"Where the training officer is not satisfied with the progress or performance of any trainee, such person shall report the same to the manager"
+],
+[
+"=",
+"of the"
+],
+[
+"-",
+"photograph"
+],
+[
+"+",
+"mine, who may arrange"
+],
+[
+"=",
+"to"
+],
+[
+"-",
+"be fixed"
+],
+[
+"+",
+"give them, further training. (3) The manager of every mine shall counter sign and specify date"
+],
+[
+"=",
+"on the certificate"
+],
+[
+"-",
+"in Form A"
+],
+[
+"+",
+"after being satisfied"
+],
+[
+"=",
+"of"
+],
+[
+"-",
+"Form B shall born by"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"owner or agent. (3) A person who has obtained a certificate on"
+],
+[
+"=",
+"successful completion of"
+],
+[
+"-",
+"the training shall be eligible for absorption, in any mine, to the category of the post for which he has been trained."
+],
+[
+"+",
+"training."
+]
+]
+},
+{
+"num": "29",
+"title": "Duplicate Certificate",
+"anchor": "p-29",
+"likely": []
+},
+{
+"num": "30",
+"title": "Certificate to be delivered to the Management",
+"anchor": "p-30",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "174",
+"title": "Certificate to be delivered to the management",
+"anchor": "p-174"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.75,
+"grew": 0.91,
+"diff": [
+[
+"-",
+"(i)"
+],
+[
+"+",
+"(a)"
+],
+[
+"=",
+"if"
+],
+[
+"-",
+"he"
+],
+[
+"+",
+"has"
+],
+[
+"=",
+"obtained"
+],
+[
+"-",
+"the"
+],
+[
+"+",
+"training"
+],
+[
+"=",
+"certificates prior to such"
+],
+[
+"-",
+"employment, at the time of the employment,"
+],
+[
+"+",
+"employment;"
+],
+[
+"=",
+"and"
+],
+[
+"-",
+"(ii) if he"
+],
+[
+"+",
+"(b)"
+],
+[
+"=",
+"obtained"
+],
+[
+"-",
+"the"
+],
+[
+"=",
+"certificates during the course of employment, within such time as may be specified by the manager of the"
+],
+[
+"-",
+"mine."
+],
+[
+"+",
+"mine; (c)"
+],
+[
+"=",
+"deliver the certificate issued to"
+],
+[
+"-",
+"him"
+],
+[
+"+",
+"them"
+],
+[
+"=",
+"under these"
+],
+[
+"-",
+"rules, so"
+],
+[
+"+",
+"rules; (2)"
+],
+[
+"=",
+"the manager of the mine who shall keep the certificate in safe custody and issue a receipt for the same."
+],
+[
+"+",
+"(3)"
+],
+[
+"=",
+"On the termination of employment, certificate"
+],
+[
+"-",
+"so"
+],
+[
+"=",
+"deposited"
+],
+[
+"+",
+"under sub-rule (1)"
+],
+[
+"=",
+"shall be returned to the employee."
+],
+[
+"-",
+"CHAPTER VIII MISCELLANEOUS"
+]
+]
+},
+{
+"num": "31",
+"title": "Inspection",
+"anchor": "p-31",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "175",
+"title": "Inspection of vocational training centre",
+"anchor": "p-175"
+},
+"sure": "high",
+"change": "minor",
+"kept": 0.84,
+"grew": 1.0,
+"diff": [
+[
+"-",
+"Inspection: - The"
+],
+[
+"+",
+"Inspection of vocational training centre.-The"
+],
+[
+"=",
+"Chief"
+],
+[
+"-",
+"Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"any Inspector"
+],
+[
+"+",
+"Inspector-cum-Facilitator"
+],
+[
+"=",
+"may enter, inspect and examine any training"
+],
+[
+"-",
+"center"
+],
+[
+"+",
+"centre"
+],
+[
+"=",
+"or any part thereof and make such examination or inquiry as"
+],
+[
+"-",
+"he"
+],
+[
+"=",
+"thinks fit in order to ascertain whether the provisions of these rules and of any orders made thereunder are being complied with."
+]
+]
+},
+{
+"num": "32",
+"title": "Power to relax",
+"anchor": "p-32",
+"to": {
+"slug": "oshwc-code-central-rules-2026",
+"num": "156",
+"title": "Power to relax",
+"anchor": "p-156"
+},
+"sure": "high",
+"change": "revised",
+"kept": 0.426,
+"grew": 0.88,
+"diff": [
+[
+"=",
+"Power to"
+],
+[
+"-",
+"relax: - Where in"
+],
+[
+"+",
+"relax.- The Chief Inspector-cum-Facilitator based on"
+],
+[
+"=",
+"the"
+],
+[
+"-",
+"opinion"
+],
+[
+"+",
+"recommendation"
+],
+[
+"=",
+"of the"
+],
+[
+"+",
+"committee constituted by"
+],
+[
+"=",
+"Chief"
+],
+[
+"-",
+"Inspector,"
+],
+[
+"+",
+"Inspector-cum-Facilitator may relax"
+],
+[
+"=",
+"the conditions pertaining to a"
+],
+[
+"-",
+"same"
+],
+[
+"+",
+"mine"
+],
+[
+"=",
+"or"
+],
+[
+"-",
+"part thereof are such as to render compliance with any provision contained"
+],
+[
+"+",
+"rescue station or rescue room"
+],
+[
+"=",
+"in these"
+],
+[
+"-",
+"rules un-necessary or impracticable, he"
+],
+[
+"+",
+"rules, the Chief Inspector-cum-Facilitator"
+],
+[
+"=",
+"may"
+],
+[
+"-",
+"be"
+],
+[
+"+",
+"by an"
+],
+[
+"=",
+"order in writing and subject to such conditions as"
+],
+[
+"-",
+"he"
+],
+[
+"=",
+"may"
+],
+[
+"-",
+"specify therein, exempt the mine or part thereof, as the case may be,"
+],
+[
+"+",
+"be specified therein to grant relaxation"
+],
+[
+"=",
+"from the said provisions."
+]
+]
+}
+],
+"new_in_draft": [
+{
+"num": "2",
+"title": "Definitions",
+"anchor": "p-2"
+},
+{
+"num": "3",
+"title": "Application for registration",
+"anchor": "p-3"
+},
+{
+"num": "4",
+"title": "Notice of commencement and cessation of operation",
+"anchor": "p-4"
+},
+{
+"num": "5",
+"title": "Annual health examination of employees",
+"anchor": "p-5"
+},
+{
+"num": "6",
+"title": "Letter of appointment to employee",
+"anchor": "p-6"
+},
+{
+"num": "7",
+"title": "Notice of accidents and dangerous occurrences",
+"anchor": "p-7"
+},
+{
+"num": "8",
+"title": "Notice of disease",
+"anchor": "p-8"
+},
+{
+"num": "9",
+"title": "Duties of employee",
+"anchor": "p-9"
+},
+{
+"num": "10",
+"title": "Rights of employee",
+"anchor": "p-10"
+},
+{
+"num": "11",
+"title": "Provisions relating to National Occupational Safety and Health Advisory Board",
+"anchor": "p-11"
+},
+{
+"num": "12",
+"title": "Technical Committees or Advisory Committees",
+"anchor": "p-12"
+},
+{
+"num": "13",
+"title": "Collection of statistics and portal for inter-State migrant workers",
+"anchor": "p-13"
+},
+{
+"num": "14",
+"title": "Safety Committee",
+"anchor": "p-14"
+},
+{
+"num": "15",
+"title": "Composition of Safety Committee",
+"anchor": "p-15"
+},
+{
+"num": "16",
+"title": "Composition of Safety Committee in mines",
+"anchor": "p-16"
+},
+{
+"num": "17",
+"title": "Functions of Safety Committee in case of Mines",
+"anchor": "p-17"
+},
+{
+"num": "18",
+"title": "Safety officer for Dock Work and Building or Other Construction Work",
+"anchor": "p-18"
+},
+{
+"num": "19",
+"title": "Duties of Safety Officers in case of dock work and building or other construction work",
+"anchor": "p-19"
+},
+{
+"num": "20",
+"title": "Safety officer in case of mines",
+"anchor": "p-20"
+},
+{
+"num": "21",
+"title": "Duties of Safety Officer in case of mines",
+"anchor": "p-21"
+},
+{
+"num": "22",
+"title": "Cleanliness and hygiene",
+"anchor": "p-22"
+},
+{
+"num": "23",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-23"
+},
+{
+"num": "24",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-24"
+},
+{
+"num": "25",
+"title": "Artificial humidification",
+"anchor": "p-25"
+},
+{
+"num": "26",
+"title": "Cleanliness and hygiene",
+"anchor": "p-26"
+},
+{
+"num": "27",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-27"
+},
+{
+"num": "28",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-28"
+},
+{
+"num": "29",
+"title": "Artificial Humidification",
+"anchor": "p-29"
+},
+{
+"num": "30",
+"title": "Cleanliness and hygiene",
+"anchor": "p-30"
+},
+{
+"num": "31",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-31"
+},
+{
+"num": "32",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-32"
+},
+{
+"num": "33",
+"title": "Cleanliness and hygiene",
+"anchor": "p-33"
+},
+{
+"num": "34",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-34"
+},
+{
+"num": "35",
+"title": "Precaution against dust",
+"anchor": "p-35"
+},
+{
+"num": "36",
+"title": "Cleanliness and hygiene",
+"anchor": "p-36"
+},
+{
+"num": "37",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-37"
+},
+{
+"num": "38",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-38"
+},
+{
+"num": "39",
+"title": "Cleanliness and hygiene",
+"anchor": "p-39"
+},
+{
+"num": "40",
+"title": "Ventilation, temperature and humidity",
+"anchor": "p-40"
+},
+{
+"num": "41",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-41"
+},
+{
+"num": "42",
+"title": "Cleanliness and hygiene",
+"anchor": "p-42"
+},
+{
+"num": "43",
+"title": "Precaution against dust, noxious gas, fumes and other impurities",
+"anchor": "p-43"
+},
+{
+"num": "44",
+"title": "Potable water",
+"anchor": "p-44"
+},
+{
+"num": "45",
+"title": "Overcrowding",
+"anchor": "p-45"
+},
+{
+"num": "46",
+"title": "Lighting (Illumination)",
+"anchor": "p-46"
+},
+{
+"num": "47",
+"title": "Latrine and urinal accommodation",
+"anchor": "p-47"
+},
+{
+"num": "48",
+"title": "Treatment of waste and effluents",
+"anchor": "p-48"
+},
+{
+"num": "49",
+"title": "Washing facility",
+"anchor": "p-49"
+},
+{
+"num": "50",
+"title": "Provisions of bathing places and locker rooms",
+"anchor": "p-50"
+},
+{
+"num": "51",
+"title": "Keeping of cloth not worn during working hour",
+"anchor": "p-51"
+},
+{
+"num": "52",
+"title": "Sitting arrangement",
+"anchor": "p-52"
+},
+{
+"num": "53",
+"title": "Provision of Canteen",
+"anchor": "p-53"
+},
+{
+"num": "54",
+"title": "First Aid and Medical Appliances",
+"anchor": "p-54"
+},
+{
+"num": "55",
+"title": "Ambulance Room",
+"anchor": "p-55"
+},
+{
+"num": "56",
+"title": "Shelter and Rest Room",
+"anchor": "p-56"
+},
+{
+"num": "57",
+"title": "Welfare Officer",
+"anchor": "p-57"
+},
+{
+"num": "58",
+"title": "Crèche Facility",
+"anchor": "p-58"
+},
+{
+"num": "59",
+"title": "Mock Drills",
+"anchor": "p-59"
+},
+{
+"num": "60",
+"title": "Medical Examination",
+"anchor": "p-60"
+},
+{
+"num": "61",
+"title": "Residential facilities for workers including contract labours",
+"anchor": "p-61"
+},
+{
+"num": "62",
+"title": "Living accommodation",
+"anchor": "p-62"
+},
+{
+"num": "63",
+"title": "Medical facilities",
+"anchor": "p-63"
+},
+{
+"num": "64",
+"title": "Working Hours",
+"anchor": "p-64"
+},
+{
+"num": "65",
+"title": "Working hours of working journalist",
+"anchor": "p-65"
+},
+{
+"num": "66",
+"title": "Holidays and leaves for sales promotion employees and working journalist",
+"anchor": "p-66"
+},
+{
+"num": "67",
+"title": "Weekly holiday",
+"anchor": "p-67"
+},
+{
+"num": "68",
+"title": "Compensatory holidays",
+"anchor": "p-68"
+},
+{
+"num": "69",
+"title": "Wages for overtime",
+"anchor": "p-69"
+},
+{
+"num": "70",
+"title": "Restriction on double employment in mines",
+"anchor": "p-70"
+},
+{
+"num": "71",
+"title": "Notice of periods of work",
+"anchor": "p-71"
+},
+{
+"num": "72",
+"title": "Maintenance and production of reports, registers and other records",
+"anchor": "p-72"
+},
+{
+"num": "73",
+"title": "Display on notice board",
+"anchor": "p-73"
+},
+{
+"num": "74",
+"title": "Annual Return",
+"anchor": "p-74"
+},
+{
+"num": "75",
+"title": "Register of accident and dangerous occurrences",
+"anchor": "p-75"
+},
+{
+"num": "76",
+"title": "Register of leave with wages",
+"anchor": "p-76"
+},
+{
+"num": "77",
+"title": "Power to take samples of any articles or substances",
+"anchor": "p-77"
+},
+{
+"num": "78",
+"title": "Powers and duties of Inspector-cum-Facilitator",
+"anchor": "p-78"
+},
+{
+"num": "79",
+"title": "Powers and Duties of District Magistrate",
+"anchor": "p-79"
+},
+{
+"num": "80",
+"title": "Qualifications and experiences, duties and responsibilities of experts",
+"anchor": "p-80"
+},
+{
+"num": "81",
+"title": "Appointment of Medical officer",
+"anchor": "p-81"
+},
+{
+"num": "82",
+"title": "Duties of medical officer",
+"anchor": "p-82"
+},
+{
+"num": "83",
+"title": "Employment of Women in establishment",
+"anchor": "p-83"
+},
+{
+"num": "84",
+"title": "Adequate safety of employment of women in dangerous operations",
+"anchor": "p-84"
+},
+{
+"num": "85",
+"title": "Qualification and criteria of the contractor",
+"anchor": "p-85"
+},
+{
+"num": "86",
+"title": "Conditions of License",
+"anchor": "p-86"
+},
+{
+"num": "87",
+"title": "Form and manner of application for contractor license",
+"anchor": "p-87"
+},
+{
+"num": "88",
+"title": "Single Licence for Contractor in more than one States or for whole of India",
+"anchor": "p-88"
+},
+{
+"num": "89",
+"title": "Forms, terms and conditions of licence",
+"anchor": "p-89"
+},
+{
+"num": "90",
+"title": "Procedure for issue of licence",
+"anchor": "p-90"
+},
+{
+"num": "91",
+"title": "Renewal of licence of Contractor",
+"anchor": "p-91"
+},
+{
+"num": "92",
+"title": "Refund of security deposit",
+"anchor": "p-92"
+},
+{
+"num": "93",
+"title": "Responsibility of contractor",
+"anchor": "p-93"
+},
+{
+"num": "94",
+"title": "Intimation of work order and time limit for intimation",
+"anchor": "p-94"
+},
+{
+"num": "95",
+"title": "Revocation and suspension of license",
+"anchor": "p-95"
+},
+{
+"num": "96",
+"title": "Amendemnt of Licence",
+"anchor": "p-96"
+},
+{
+"num": "97",
+"title": "Appeal",
+"anchor": "p-97"
+},
+{
+"num": "98",
+"title": "Responsibility of payment of wages",
+"anchor": "p-98"
+},
+{
+"num": "99",
+"title": "Making payment of wages from the security deposit amount",
+"anchor": "p-99"
+},
+{
+"num": "100",
+"title": "Experience Certificate",
+"anchor": "p-100"
+},
+{
+"num": "101",
+"title": "Prohibition of employment of contract labour",
+"anchor": "p-101"
+},
+{
+"num": "102",
+"title": "Journey allowance to inter-State migrant worker",
+"anchor": "p-102"
+},
+{
+"num": "103",
+"title": "Setting up of a Toll Free helpline number to the inter-state migrant worker",
+"anchor": "p-103"
+},
+{
+"num": "104",
+"title": "Study of inter-State migrant workers",
+"anchor": "p-104"
+},
+{
+"num": "105",
+"title": "Agreement for audio-visual worker",
+"anchor": "p-105"
+},
+{
+"num": "106",
+"title": "Procedure for reference of disputes to a Conciliation Officer or a Tribunal",
+"anchor": "p-106"
+},
+{
+"num": "107",
+"title": "Qualification and appointment of manager in mines",
+"anchor": "p-107"
+},
+{
+"num": "108",
+"title": "Code not to apply in certain mines",
+"anchor": "p-108"
+},
+{
+"num": "109",
+"title": "Initial and periodical medical examinations in mines",
+"anchor": "p-109"
+},
+{
+"num": "110",
+"title": "Examining authorities",
+"anchor": "p-110"
+},
+{
+"num": "111",
+"title": "Notice of medical examination",
+"anchor": "p-111"
+},
+{
+"num": "112",
+"title": "Failure to undergo medical examination",
+"anchor": "p-112"
+},
+{
+"num": "113",
+"title": "Standard and report of medical examination",
+"anchor": "p-113"
+},
+{
+"num": "114",
+"title": "Retention and transfer of medical certificates",
+"anchor": "p-114"
+},
+{
+"num": "115",
+"title": "Identity of candidates",
+"anchor": "p-115"
+},
+{
+"num": "116",
+"title": "Medical Examination of women",
+"anchor": "p-116"
+},
+{
+"num": "117",
+"title": "Appeal for re-examination",
+"anchor": "p-117"
+},
+{
+"num": "118",
+"title": "Constitution of appellate medical board",
+"anchor": "p-118"
+},
+{
+"num": "119",
+"title": "Standard and report of medical re-examination by the appellate medical board",
+"anchor": "p-119"
+},
+{
+"num": "120",
+"title": "Unfit persons not to be employed",
+"anchor": "p-120"
+},
+{
+"num": "121",
+"title": "Cost of medical examination",
+"anchor": "p-121"
+},
+{
+"num": "123",
+"title": "Establishment and location of rescue station",
+"anchor": "p-123"
+},
+{
+"num": "124",
+"title": "Functions of rescue station",
+"anchor": "p-124"
+},
+{
+"num": "125",
+"title": "Establishment and location of rescue room",
+"anchor": "p-125"
+},
+{
+"num": "126",
+"title": "Functions of rescue room",
+"anchor": "p-126"
+},
+{
+"num": "127",
+"title": "Qualifications, experience etc. of superintendent",
+"anchor": "p-127"
+},
+{
+"num": "128",
+"title": "Qualifications, experience etc. of instructor",
+"anchor": "p-128"
+},
+{
+"num": "129",
+"title": "Selection of rescue trained persons for posting at rescue station",
+"anchor": "p-129"
+},
+{
+"num": "130",
+"title": "Qualifications, experience etc. of rescue room in-charge",
+"anchor": "p-130"
+},
+{
+"num": "131",
+"title": "Equipment",
+"anchor": "p-131"
+},
+{
+"num": "132",
+"title": "Duties and responsibilities of Superintendent",
+"anchor": "p-132"
+},
+{
+"num": "133",
+"title": "Duties of instructor",
+"anchor": "p-133"
+},
+{
+"num": "134",
+"title": "Duties and responsibilities of rescue room in-charge",
+"anchor": "p-134"
+},
+{
+"num": "135",
+"title": "Duties of rescue trained persons posted at rescue station",
+"anchor": "p-135"
+},
+{
+"num": "136",
+"title": "Duties of rescue room attendant",
+"anchor": "p-136"
+},
+{
+"num": "137",
+"title": "Telephone communication",
+"anchor": "p-137"
+},
+{
+"num": "138",
+"title": "Rescue tracings",
+"anchor": "p-138"
+},
+{
+"num": "139",
+"title": "",
+"anchor": "p-139"
+},
+{
+"num": "140",
+"title": "Selection of persons for training in rescue work",
+"anchor": "p-140"
+},
+{
+"num": "141",
+"title": "Instructions and practices etc",
+"anchor": "p-141"
+},
+{
+"num": "142",
+"title": "Medical examination etc. of rescue trained person",
+"anchor": "p-142"
+},
+{
+"num": "143",
+"title": "Suspension of rescue trained persons",
+"anchor": "p-143"
+},
+{
+"num": "144",
+"title": "Duties of manager etc. in emergency",
+"anchor": "p-144"
+},
+{
+"num": "145",
+"title": "Accommodation at the below ground mine for persons engaged in rescue work",
+"anchor": "p-145"
+},
+{
+"num": "146",
+"title": "Entry into below ground mines for rescue or recovery work",
+"anchor": "p-146"
+},
+{
+"num": "147",
+"title": "Fresh air bases",
+"anchor": "p-147"
+},
+{
+"num": "148",
+"title": "Leader",
+"anchor": "p-148"
+},
+{
+"num": "149",
+"title": "Instructions to leader",
+"anchor": "p-149"
+},
+{
+"num": "150",
+"title": "Test of apparatus",
+"anchor": "p-150"
+},
+{
+"num": "151",
+"title": "Duties of leader below ground",
+"anchor": "p-151"
+},
+{
+"num": "152",
+"title": "Rescue team members and their duties",
+"anchor": "p-152"
+},
+{
+"num": "153",
+"title": "Restriction of second spell of works",
+"anchor": "p-153"
+},
+{
+"num": "154",
+"title": "Obligation of employer in certain situations",
+"anchor": "p-154"
+},
+{
+"num": "155",
+"title": "General management",
+"anchor": "p-155"
+},
+{
+"num": "157",
+"title": "Training Scheme",
+"anchor": "p-157"
+},
+{
+"num": "162",
+"title": "Training of persons after long absence or after an accident or change of job",
+"anchor": "p-162"
+},
+{
+"num": "167",
+"title": "Instructors",
+"anchor": "p-167"
+},
+{
+"num": "170",
+"title": "Duties of Instructor",
+"anchor": "p-170"
+},
+{
+"num": "176",
+"title": "Notice of closure or discontinuance of vocational training centre",
+"anchor": "p-176"
+},
+{
+"num": "177",
+"title": "Manner of holding enquiry",
+"anchor": "p-177"
+},
+{
+"num": "178",
+"title": "Onus as to age",
+"anchor": "p-178"
+},
+{
+"num": "179",
+"title": "Procedure of inquiry and other related matters",
+"anchor": "p-179"
+},
+{
+"num": "180",
+"title": "Persons to appear at inquiry",
+"anchor": "p-180"
+},
+{
+"num": "181",
+"title": "Procedure of survey and other related matters",
+"anchor": "p-181"
+},
+{
+"num": "182",
+"title": "Manner of compounding of offences by the authorised officer",
+"anchor": "p-182"
+},
+{
+"num": "183",
+"title": "Social Security Fund",
+"anchor": "p-183"
+},
+{
+"num": "184",
+"title": "Grievance redressal mechanism for contract labour",
+"anchor": "p-184"
+},
+{
+"num": "185",
+"title": "Annual increment of regular worker of a contractor",
+"anchor": "p-185"
+},
+{
+"num": "186",
+"title": "Income from sources and quantity of hazardous substance",
+"anchor": "p-186"
+}
+]
+}
