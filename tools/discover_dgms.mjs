@@ -42,7 +42,7 @@ const asJson = process.argv.includes("--json");
 
 async function getHtml(url) {
   const res = await fetch(url, {
-    headers: { "user-agent": "Mozilla/5.0 (Amlabad compliance corpus; mangalamcoalfield@gmail.com)" },
+    headers: { "user-agent": "Mozilla/5.0 (compatible; MangalamRegulationDesk/1.0; +https://mangalamcoal.com/regulations)" },
   });
   if (!res.ok) throw new Error(`${res.status} ${url}`);
   return await res.text();
