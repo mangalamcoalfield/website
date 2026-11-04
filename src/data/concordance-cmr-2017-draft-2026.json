@@ -1477,12 +1477,12 @@
 "anchor": "p-7"
 },
 {
-"slug": "oshwc-code-central-rules-2026",
-"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
-"num": "75",
-"label": "Rule 75",
-"title": "Register of accident and dangerous occurrences",
-"anchor": "p-75"
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "10",
+"label": "Section 10",
+"title": "Notice of certain accident",
+"anchor": "p-10"
 }
 ]
 },
@@ -4776,20 +4776,20 @@
 "anchor": "p-40",
 "likely": [
 {
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "13",
+"label": "Section 13",
+"title": "Duties of employee",
+"anchor": "p-13"
+},
+{
 "slug": "oshwc-code-central-rules-2026",
 "doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
 "num": "9",
 "label": "Rule 9",
 "title": "Duties of employee",
 "anchor": "p-9"
-},
-{
-"slug": "oshwc-code-central-rules-2026",
-"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
-"num": "120",
-"label": "Rule 120",
-"title": "Unfit persons not to be employed",
-"anchor": "p-120"
 }
 ]
 },
@@ -19552,6 +19552,14 @@
 "title": "Publication of orders and instructions",
 "anchor": "p-257",
 "likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "137",
+"label": "Section 137",
+"title": "Prior publication of rules, etc.",
+"anchor": "p-137"
+},
 {
 "slug": "oshwc-code-central-rules-2026",
 "doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",

@@ -32,8 +32,9 @@ by the session that changes things; newest first within each list.
 
 | What | Who | Notes |
 |---|---|---|
-| Labour Code page clean-up | cloud | After the 480 marginal headings are committed: remove headings stuck to the end of body lines (~45), headings with different spacing (~20), and Gazette page headers and citations ("[PART II—", "SEC. 1]", "45 of 1860.", 462 lines, 155 joined to sentences), then rejoin the split sentences. |
-| Mines Act 1952 → OSH&WC Code 2020 concordance | cloud | Built (`tools/build_concordance.py`), not published. Rebuild once the Code headings are in, check every match, then add it to `src/data/concordances.ts`. |
+| Live SQL for the 4 Nov corrections | owner OK, then desktop | `supabase/regulations_nov2026_draftwatch.sql` (Assistant Manager notification, Van Rules, Colliery Control Second Amendment). Not applied yet. |
+| NCWA-XII Draft-Watch source | desktop | The IndustrialPunch link 404s; find the article's current URL (or another source) and update `src/data/draft-watch.json`. |
+| New DGMS documents since 31 Aug 2026 | desktop | BME exam notice of 8 Oct (offline exemption-basis certificate applications) to add; Safety Day notice skipped; Hindi texts of the Mines Act and OSH&WC Code await the owner's decision. |
 | "Latest from DGMS" is behind | desktop | Newest DGMS document in the library is dated 31 Aug 2026. Run `tools/discover_dgms.mjs`, add what is new (seed + hosted PDF + SQL), and set `dgms_checked` in `src/data/desk-checks.json` to the date checked, even if nothing was new. |
 | Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. NCWA-XII has no library document, only a press source, which is expected. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
@@ -42,6 +43,11 @@ by the session that changes things; newest first within each list.
 | Hindi summaries | owner decision | A pilot of Hindi summaries for the most-used CMR 2017 regulations is ready to do on request; translations of legal text need a human check. |
 | Old exposures in git history | owner decision | The FTP credential (commit 32f0744) and officers' e-mail addresses (16 Oct corpus commits) are still in the public history. Rewriting it is the owner's call. |
 | Four remaining dead source links | — | `cmr-2017-02-sep` (unpublished), the CBT-2020 notification, Standard Note 2024 and the time-extension notice point to the hosted copy; no DGMS copy found. |
+
+## Done recently (not live until `main` moves)
+
+- Labour Code texts cleaned of Gazette page headers, margin citations and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
+- Mines Act 1952 → OSH&WC Code 2020 concordance published, every pair checked by hand (`CHECKED` in `tools/build_concordance.py`); 23 missing Mines Act section headings filled.
 
 ## Where things are
 

@@ -1,7 +1,6 @@
 // The concordances published on the Regulation Desk: one page per old → new transition,
 // /regulations/concordance/<key>, from src/data/concordance-<key>.json (tools/build_concordance.py).
-// A pair is listed here only once its matches have been checked; Mines Act 1952 →
-// OSH&WC Code 2020 waits until the Code's section headings are restored.
+// A pair is listed here only once its matches have been checked.
 export interface ConcordanceMeta {
   key: string;
   /** Short names for the two sides, as used on the page ("CMR 2017", "Draft 2026"). */
@@ -13,6 +12,8 @@ export interface ConcordanceMeta {
   context: string;
   /** Whether the new text is still a draft (changes the wording of the labels). */
   draft: boolean;
+  /** Every pair was checked by hand (tools/build_concordance.py CHECKED), not only machine-matched. */
+  checked?: boolean;
 }
 
 export const CONCORDANCES: ConcordanceMeta[] = [
@@ -20,6 +21,11 @@ export const CONCORDANCES: ConcordanceMeta[] = [
     key: 'cmr-2017-draft-2026', from: 'CMR 2017', to: 'Draft 2026', fromUnit: 'Regulation', toUnit: 'Regulation', draft: true,
     heading: 'CMR 2017 → Draft OSH&WC (Coal Mines) Regulations 2026',
     context: "The 2026 regulations are a draft (G.S.R. 67(E), 28 Jan 2026), not in force: CMR 2017 continues under the OSH&WC Code's savings clause until they are notified as final.",
+  },
+  {
+    key: 'mines-act-1952-oshwc-code-2020', from: 'Mines Act 1952', to: 'OSH&WC Code 2020', fromUnit: 'Section', toUnit: 'Section', draft: false, checked: true,
+    heading: 'Mines Act 1952 → OSH&WC Code 2020',
+    context: "The Occupational Safety, Health and Working Conditions Code, 2020 came into force on 21 November 2025 and repealed the Mines Act, 1952 (section 143). The Code covers every kind of establishment, so the Act's chapters on hours, leave and penalties now sit in the Code's general sections, and much of its detail moved to the OSH&WC (Central) Rules, 2026 and the regulations under the Code.",
   },
   {
     key: 'mines-rules-1955-oshwc-central-rules-2026', from: 'Mines Rules 1955', to: 'OSH&WC Central Rules 2026', fromUnit: 'Rule', toUnit: 'Rule', draft: false,

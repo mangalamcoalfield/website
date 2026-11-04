@@ -37,6 +37,27 @@ PAIRS = {
     'cea-2010-cea-2023': ('cea-measures-relating-to-safety-regulations-2010', 'cea-safety-electric-supply-regulations-2023', []),
 }
 
+# Pairs checked by hand against both texts, which override the machine matching:
+# old provision number -> new provision number, or None for "no counterpart in the
+# new text" (the page then offers only "likely now in" suggestions). Used where the
+# texts are reorganised too much for word overlap: the Mines Act's chapters on
+# hours, leave and penalties are spread over the OSH&WC Code's general sections.
+CHECKED = {
+    'mines-act-1952-oshwc-code-2020': {
+        '1': '1', '2': '2', '3': '68', '5': '34', '6': '34', '7': '35', '8': '41', '9': '40', '10': '39',
+        '11': '42', '12': '16', '13': '16', '14': '16', '15': None, '16': '5', '17': '67', '18': '7',
+        '19': '23', '20': '23', '21': '24', '22': '38', '23': '10', '24': '121', '25': '12', '26': '121',
+        '27': '122', '28': '26', '29': '26', '30': '25', '31': '25', '32': '28', '33': '27', '34': '30',
+        '35': '25', '36': '31', '37': '71', '38': '69', '39': '91', '40': '70', '43': None, '45': '70',
+        '46': '43', '47': '117', '48': '33', '49': '32', '50': '32', '51': '32', '52': '32', '53': '32',
+        '54': '32', '55': None, '56': None, '57': '136', '58': '134', '59': '137', '60': '138', '62': None,
+        '63': '95', '64': '98', '65': None, '66': '99', '67': '97', '68': '97', '69': '105', '70': None,
+        '71': None, '72': '13', '72A': '97', '72B': '104', '72C': '103', '73': '94', '74': None, '75': '107',
+        '76': None, '77': '108', '78': '113', '79': '110', '80': '110', '81': None, '82': '73', '83': '127',
+        '84': None, '85': None, '85A': '130', '85B': None, '85C': None, '86': None, '87': '126', '88': '143',
+    },
+}
+
 ROLES = set('''welfare training safety ventilation medical engineer engineers manager managers surveyor
 electrical mechanical overman overmen sirdar sirdars inspector inspectors agent owner trainer trainers
 supervisor supervisors foreman shotfirer blaster electrician'''.split())
@@ -142,6 +163,16 @@ def build(key, docs):
         sc, j = max((cos(VA[i], VB[j]), j) for j in range(len(B)))
         if sc >= 0.35:
             match[i] = (j, jac(heading(A[i]), heading(B[j])), sc)
+    checked = CHECKED.get(key, {})
+    if checked:
+        at = {b['num']: j for j, b in enumerate(B)}
+        for i, a in enumerate(A):
+            if a['num'] in checked:
+                t = checked[a['num']]
+                if t is None:
+                    match.pop(i, None)
+                else:
+                    match[i] = (at[t], 1.0, 1.0)              # checked by hand: shown as a firm match
 
     rows = []
     for i, a in enumerate(A):

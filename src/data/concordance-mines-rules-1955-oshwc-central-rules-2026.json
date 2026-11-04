@@ -2146,7 +2146,16 @@
 "num": "48",
 "title": "Notice regarding hours of work",
 "anchor": "p-48",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "31",
+"label": "Section 31",
+"title": "Notice of periods of work",
+"anchor": "p-31"
+}
+]
 },
 {
 "num": "49",
@@ -2372,7 +2381,16 @@
 "num": "54",
 "title": "Information regarding leave with wages",
 "anchor": "p-54",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "32",
+"label": "Section 32",
+"title": "Annual leave with wages, etc.",
+"anchor": "p-32"
+}
+]
 },
 {
 "num": "56",
@@ -2384,7 +2402,16 @@
 "num": "59",
 "title": "Overtime register",
 "anchor": "p-59",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "27",
+"label": "Section 27",
+"title": "Extra wages for overtime",
+"anchor": "p-27"
+}
+]
 },
 {
 "num": "60",
@@ -2487,7 +2514,16 @@
 "num": "61",
 "title": "Cases of exemption under section 56",
 "anchor": "p-61",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "71",
+"label": "Section 71",
+"title": "Exemption to certain persons",
+"anchor": "p-71"
+}
+]
 },
 {
 "num": "62",
@@ -3256,7 +3292,16 @@
 "num": "77",
 "title": "Register of employees",
 "anchor": "p-77",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "106",
+"label": "Section 106",
+"title": "Offences by employees",
+"anchor": "p-106"
+}
+]
 },
 {
 "num": "78",
@@ -3268,7 +3313,16 @@
 "num": "79",
 "title": "Posting of abstracts, bye -laws and notices",
 "anchor": "p-79",
-"likely": []
+"likely": [
+{
+"slug": "oshwc-code-2020",
+"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
+"num": "139",
+"label": "Section 139",
+"title": "Bye-laws",
+"anchor": "p-139"
+}
+]
 },
 {
 "num": "80",
