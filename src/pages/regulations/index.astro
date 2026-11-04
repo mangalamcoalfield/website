@@ -1,4 +1,5 @@
 ---
+import { statusBadge, statusShort as statusLabel } from '../../lib/status';
 import Site from '../../layouts/Site.astro';
 import ShaderHero from '../../components/magic/ShaderHero.tsx';
 import RegNav from '../../components/RegNav.astro';
@@ -25,8 +26,8 @@ const CAT: Record<string, string> = {
 };
 const order = ['cmr_2017', 'mines_act', 'dgms_circular', 'dgms_notification', 'mmdr', 'env_forest', 'labour_code', 'cea', 'moc', 'draft'];
 const cats = order.filter((c) => regs.some((r) => r.category === c));
-const statusBadge = (s: string) => s === 'draft' ? 'bg-secondary/20 text-[#9ed3c4]' : s === 'superseded' ? 'bg-white/10 text-muted-foreground' : 'bg-primary/15 text-primary';
-const statusLabel = (s: string) => s === 'in_force' ? 'In force' : s === 'superseded' ? 'Superseded' : s === 'draft' ? 'Draft' : s;
+// Status badges and labels: src/lib/status.ts
+
 // Cornerstone instruments shown as cards; the rest go into the compact list.
 const FEAT_ORDER = ['cmr_2017', 'mines_act', 'labour_code', 'mmdr', 'env_forest', 'dgms_circular', 'draft', 'dgms_notification', 'cea', 'moc'];
 const featured = regs.filter((r) => r.featured).sort((a, b) => FEAT_ORDER.indexOf(a.category) - FEAT_ORDER.indexOf(b.category));

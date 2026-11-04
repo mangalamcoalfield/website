@@ -25,7 +25,7 @@ export const GET: APIRoute = () => {
     self: 'https://mangalamcoal.com/regulations/feed.xml',
     description: 'New DGMS circulars, gazette notifications, rules and drafts for Indian coal mining, as they are added to the Mangalam Regulation Desk.',
     items: rows.map((r) => ({
-      title: r.status === 'draft' && !/^draft\b/i.test(r.title) ? `Draft: ${r.title}` : r.title,
+      title: r.status === 'draft' && !/^draft\b/i.test(r.title) ? `Draft: ${r.title}` : r.status === 'notified' ? `Notified (not yet in force): ${r.title}` : r.title,
       link: `https://mangalamcoal.com/regulations/${r.slug}`,
       guid: `mangalam-reg-${r.slug}`,
       date: new Date(`${r.issued_date!.slice(0, 10)}T00:00:00+05:30`),

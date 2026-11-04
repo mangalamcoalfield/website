@@ -1,0 +1,19 @@
+// A regulation's status, everywhere the site shows one. Four values:
+//   in_force    the law today
+//   notified    final text published in the Gazette, in force from a later date
+//               (the date goes in status_note)
+//   draft       published for comments, not law
+//   superseded  replaced or repealed
+export type RegStatus = 'in_force' | 'notified' | 'draft' | 'superseded';
+
+/** Long label, for a document's own page. */
+export const statusLabel = (s: string) =>
+  s === 'in_force' ? 'In force' : s === 'notified' ? 'Notified — not yet in force' : s === 'draft' ? 'Draft — not in force' : s === 'superseded' ? 'Superseded' : '';
+
+/** Short label, for badges in lists. */
+export const statusShort = (s: string) =>
+  s === 'in_force' ? 'In force' : s === 'notified' ? 'Not yet in force' : s === 'draft' ? 'Draft' : s === 'superseded' ? 'Superseded' : s;
+
+/** Badge colours: drafts and not-yet-in-force share the "not law yet" colour. */
+export const statusBadge = (s: string) =>
+  s === 'in_force' ? 'bg-primary/15 text-primary' : s === 'draft' || s === 'notified' ? 'bg-secondary/20 text-[#9ed3c4]' : 'bg-white/10 text-muted-foreground';

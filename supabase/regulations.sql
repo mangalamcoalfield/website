@@ -14,7 +14,7 @@ create table if not exists public.regulations (
   doc_number   text,                          -- e.g. "G.S.R. 640(E)" / "Tech Circular 02/2025"
   authority    text,                          -- DGMS / Ministry of Coal / Ministry of Labour ...
   issued_date  date,
-  status       text not null default 'in_force', -- in_force | draft | superseded
+  status       text not null default 'in_force', -- in_force | notified (final, in force later; date in status_note) | draft | superseded
   status_note  text,                          -- short clarifier shown by the status badge (e.g. what superseded it)
   featured     boolean not null default false, -- cornerstone instruments shown as cards at the top of the hub
   source_url   text,                          -- official canonical source

@@ -234,7 +234,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const [corpus, provs] = await Promise.all([buildCorpus(), provisionContext(question)]);
     const found = retrieve(question, corpus);
     const provBlocks = provs.map(({ text, match: m }, i) =>
-      `[P${i + 1}] ${m.label}${m.title ? ` — ${m.title}` : ''}, ${m.docTitle}${m.status === 'draft' ? ' (DRAFT, not in force)' : m.status === 'superseded' ? ' (superseded)' : ''} (${m.url})\n${text}`);
+      `[P${i + 1}] ${m.label}${m.title ? ` — ${m.title}` : ''}, ${m.docTitle}${m.status === 'draft' ? ' (DRAFT, not in force)' : m.status === 'notified' ? ' (NOTIFIED, not yet in force; see the commencement date)' : m.status === 'superseded' ? ' (superseded)' : ''} (${m.url})\n${text}`);
     const blocks = [...provBlocks, ...found.top.map((c, i) => `[${i + 1}] ${c.title} (${c.source})\n${c.text}`)];
     const context = blocks.length > 0 ? blocks.join('\n\n') : '(no closely matching public content found)';
 
