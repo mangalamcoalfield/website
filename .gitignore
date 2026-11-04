@@ -43,3 +43,7 @@ Mangalam Website Data/
 
 # Scratch file tools/gen_regs_sql.mjs leaves behind when the DB is unreachable
 .tmp_urls.sql
+
+# Python bytecode from the tools/ scripts
+__pycache__/
+*.pyc
