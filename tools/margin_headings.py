@@ -76,6 +76,17 @@ def notes_for(pdf, vocab=''):
         body_right = rights[len(rights) // 2]
         # Marginal lines: wholly left of the body's left edge, or right of its right edge.
         margin = [l for l in ls if l[2] <= left - 3 or l[0] >= body_right + 3]
+        # A justified margin note can be stored as several pieces on one line ("recovery"
+        # and "of"): join pieces at the same height, left to right, before anything else.
+        margin.sort(key=lambda l: (l[1], l[0]))
+        rows = []
+        for l in margin:
+            r = rows[-1] if rows else None
+            if r and abs(l[1] - r[1]) < 2 and abs(l[3] - r[3]) < 2 and 0 <= l[0] - r[2] < 40:
+                rows[-1] = (r[0], min(r[1], l[1]), l[2], max(r[3], l[3]), r[4] + ' ' + l[4])
+            else:
+                rows.append(l)
+        margin = rows
         # Join consecutive margin lines into notes (a note wraps over a few short lines).
         # A note ends at its full stop ("Appeal."), except "etc.", so two notes stacked
         # beside sections that sit close together stay two notes.
@@ -85,7 +96,8 @@ def notes_for(pdf, vocab=''):
             ended = cur and cur[4].rstrip().endswith('.') and not cur[4].rstrip().endswith('etc.')
             if cur and not ended and not CITATION.match(l[4]) and not CITATION.match(cur[4]) \
                     and abs(l[0] - cur[0]) < 15 and l[1] - cur[3] < (l[3] - l[1]) * 0.9:
-                text = dehyphen(cur[4], l[4], vocab) if cur[4].endswith('-') else cur[4] + ' ' + l[4]
+                # A line that starts with "-" continues a hyphenated word ("Inspector-cum" / "-Facilitator").
+                text = dehyphen(cur[4], l[4], vocab) if cur[4].endswith('-') else cur[4] + l[4] if l[4].startswith('-') else cur[4] + ' ' + l[4]
                 cur = (cur[0], cur[1], max(cur[2], l[2]), l[3], text)
             else:
                 if cur:
