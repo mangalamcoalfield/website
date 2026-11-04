@@ -1,5 +1,5 @@
 ---
-import { statusLabel as labelOf, statusBadge } from '../../../lib/status';
+import { statusLabel as labelOf, statusBadge, numberSaysItself } from '../../../lib/status';
 import Site from '../../../layouts/Site.astro';
 import RegNav from '../../../components/RegNav.astro';
 import corpus from '../../../data/statutes-corpus.json';
@@ -92,7 +92,7 @@ const breadcrumbLd = {
         </div>
         <h1 class="mt-4 font-[var(--font-display)] text-3xl font-bold leading-[1.1] tracking-tight text-foreground md:text-4xl" data-pagefind-weight="6">{d.title}</h1>
         <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground" data-pagefind-ignore>
-          {d.doc_number && <span><span class="text-foreground/60">No.</span> {d.doc_number}</span>}
+          {d.doc_number && <span>{!numberSaysItself(d.doc_number) && <span class="text-foreground/60">No. </span>}{d.doc_number}</span>}
           {d.date && <span><span class="text-foreground/60">Date</span> {d.date}</span>}
           <span>{numbered ? `${numbered} ${unit}s` : `${d.pages} page${d.pages === 1 ? '' : 's'}`}</span>
         </div>

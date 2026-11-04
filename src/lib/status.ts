@@ -17,3 +17,8 @@ export const statusShort = (s: string) =>
 /** Badge colours: drafts and not-yet-in-force share the "not law yet" colour. */
 export const statusBadge = (s: string) =>
   s === 'in_force' ? 'bg-primary/15 text-primary' : s === 'draft' || s === 'notified' ? 'bg-secondary/20 text-[#9ed3c4]' : 'bg-white/10 text-muted-foreground';
+
+/** Whether a document number already says what it is ("No. 22/2/2014-ASO", "F. No. CEA-…",
+ *  "G.S.R. 345(E)", "S.O. 5683(E)", "Act 35 of 1952", "DGMS (Legis) Circular No. 01"), so
+ *  the page shouldn't print its own "No." label before it. */
+export const numberSaysItself = (n: string) => /\bNo\b|^(?:G\.?\s*S\.?\s*R|S\.?\s*O|Act|GSR|SO)\b/i.test(n);

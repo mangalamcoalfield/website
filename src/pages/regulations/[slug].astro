@@ -2,7 +2,7 @@
 import Site from '../../layouts/Site.astro';
 import { safeSelect, type Regulation } from '../../lib/supabase';
 import RegNav from '../../components/RegNav.astro';
-import { statusLabel as labelOf, statusBadge } from '../../lib/status';
+import { statusLabel as labelOf, statusBadge, numberSaysItself } from '../../lib/status';
 import statutes from '../../data/statutes-corpus.json';
 import circulars from '../../data/circulars-corpus.json';
 import deadLinks from '../../../content/dead-source-links-2026-11.json';
@@ -88,7 +88,7 @@ const breadcrumbLd = {
       )}
       <h1 class="mt-4 font-[var(--font-display)] text-3xl font-bold leading-[1.08] tracking-tight text-foreground md:text-5xl">{reg.title}</h1>
       <div class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
-        {reg.doc_number && <span><span class="text-foreground/60">No.</span> {reg.doc_number}</span>}
+        {reg.doc_number && <span>{!numberSaysItself(reg.doc_number) && <span class="text-foreground/60">No. </span>}{reg.doc_number}</span>}
         {reg.authority && <span><span class="text-foreground/60">Issued by</span> {reg.authority}</span>}
         {reg.issued_date && <span><span class="text-foreground/60">Date</span> {reg.issued_date}</span>}
       </div>
