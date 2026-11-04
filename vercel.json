@@ -201,6 +201,16 @@
       "permanent": true
     },
     {
+      "source": "/regulations/cmr-2017-02-sep",
+      "destination": "/regulations/coal-mines-regulations-2017/",
+      "permanent": true
+    },
+    {
+      "source": "/regulations/cmr-2017-02-sep/",
+      "destination": "/regulations/coal-mines-regulations-2017/",
+      "permanent": true
+    },
+    {
       "source": "/regulations/circulars",
       "destination": "/regulations/search/?scope=circulars",
       "permanent": true
