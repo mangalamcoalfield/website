@@ -33,13 +33,14 @@ by the session that changes things; newest first within each list.
 | What | Who | Notes |
 |---|---|---|
 | Live SQL, PDF upload, fast-forward `main` | owner OK, then desktop | `supabase/regulations_nov2026_draftwatch.sql` (Assistant Manager, Van Rules, Colliery Control) and `regulations_nov2026_bme_notice.sql` (BME notice of 8 Oct 2026; its PDF goes to docs.mangalamcoal.com first). Then `main` to the reviewed head of `main-l3efey`. |
-| DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly; the Hindi texts of the Mines Act and OSH&WC Code await the owner's decision. |
+| Hindi texts of the Mines Act 1952 and OSH&WC Code 2020 | desktop | Owner approved adding them (5 Nov). DGMS uploaded them 7 Oct. Build with `tools/hindi_statute.py` (reports first; OCR to .txt if the PDF uses a legacy font), add seed rows `mines-act-1952-hindi` / `oshwc-code-2020-hindi`, host the PDFs. |
+| DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly. |
 | Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. NCWA-XII has no library document, only a press source, which is expected. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
 | CMR 1957 regulation 36 | desktop | Missing from the PDF we hold; needs a second copy to settle. Regulations 149 and 201 appear as omitted (* * *). |
 | MMDR Act, 1957 PDF | owner | The hosted "MMDR Act, 1957" is the 2023 Amendment Act; the page says so. Needs the principal Act's PDF. |
 | Hindi summaries | owner decision | A pilot of Hindi summaries for the most-used CMR 2017 regulations is ready to do on request; translations of legal text need a human check. |
-| Old exposures in git history | owner decision | The FTP credential (commit 32f0744) and officers' e-mail addresses (16 Oct corpus commits) are still in the public history. Rewriting it is the owner's call. |
+| FTP credential in git history | owner decision | Commit 32f0744 (public). Rewriting history or changing the password is the owner's call; neither is to be done without asking. |
 | Four remaining dead source links | — | `cmr-2017-02-sep` (unpublished), the CBT-2020 notification, Standard Note 2024 and the time-extension notice point to the hosted copy; no DGMS copy found. |
 
 ## Done recently (not live until `main` moves)
@@ -47,6 +48,8 @@ by the session that changes things; newest first within each list.
 - Labour Code texts cleaned of Gazette page headers, margin citations (including 15 stuck to line ends) and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
 - Mines Act 1952 → OSH&WC Code 2020 concordance published, every pair checked by hand (`CHECKED` in `tools/build_concordance.py`); 23 missing Mines Act section headings filled.
 
+- Light theme: sun/moon button beside the language button, remembered per browser; heroes and 3D sections stay dark (`.theme-dark`). New colours go in `src/styles/magic.css` for both themes.
+- Git history: the owner decided (5 Nov) not to rewrite it for the e-mail addresses in old commits.
 - Draft-Watch re-checked 4 Nov 2026 (NCWA-XII source fixed; G.S.R. 640(E) confirmed); BME exam notice of 8 Oct 2026 added to the seed.
 
 ## Where things are

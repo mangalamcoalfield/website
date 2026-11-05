@@ -28,6 +28,10 @@ export interface StatuteDoc {
   numbered: boolean;
   /** Library slugs folded into this one because they are copies of the same instrument. */
   also?: string[];
+  /** 'hi' for a Hindi text (tools/hindi_statute.py); English otherwise. */
+  lang?: string;
+  /** For a Hindi text: the slug of the English text it translates. */
+  translation_of?: string;
   provisions: Provision[];
 }
 

@@ -59,6 +59,8 @@ export const UI = {
   en: {
     toggle: 'हिन्दी',
     toggleAria: 'Switch to Hindi',
+    toLight: 'Switch to light theme',
+    toDark: 'Switch to dark theme',
     portal: 'Operations Portal',
     mail: 'Employee Mail',
     englishOnlyNote: '',
@@ -82,6 +84,8 @@ export const UI = {
   hi: {
     toggle: 'English',
     toggleAria: 'Switch to English',
+    toLight: 'लाइट थीम पर जाएँ',
+    toDark: 'डार्क थीम पर जाएँ',
     portal: 'ऑपरेशंस पोर्टल',
     mail: 'कर्मचारी मेल',
     englishOnlyNote: 'विनियम पुस्तकालय, जानकारी लेख और समाचार अनुभाग अंग्रेज़ी में हैं, क्योंकि उनके मूल दस्तावेज़ अंग्रेज़ी में हैं।',

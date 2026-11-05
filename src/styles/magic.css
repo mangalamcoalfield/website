@@ -109,3 +109,65 @@
 /* Letters rise further and settle with a slight overshoot, as the spring did. */
 .sh-letter { --sh-y: 90px; --sh-b: 10px; --sh-d: .9s; animation-timing-function: cubic-bezier(.34, 1.3, .64, 1); }
 @media (prefers-reduced-motion: reduce) { .sh-in { animation: none; } }
+
+/* ── Light theme ────────────────────────────────────────────────────────────
+   Chosen with the sun/moon button in the header (Site.astro), remembered in
+   localStorage and set on <html data-theme="light"> before first paint. The
+   site's utilities draw borders and panels as white at low opacity
+   ("border-white/10", "bg-white/[0.04]"); Tailwind builds those from
+   --color-white, so redefining it as ink turns them into faint dark lines and
+   tints on the light ground. The heroes, the 3D seam model, the pit map and the
+   home video stay dark: they carry .theme-dark, which restores the dark tokens
+   inside them. The Ask Mangalam panel keeps its own dark styling. */
+html[data-theme="light"]{
+  color-scheme: light;
+  --background: 70 20% 97%;         /* #f7f8f4 */
+  --foreground: 140 22% 11%;        /* #16221a */
+  --muted: 75 14% 92%;
+  --muted-foreground: 140 7% 34%;   /* #515d55, 6.5:1 on the ground */
+  --card: 0 0% 100%;
+  --card-foreground: 140 22% 11%;
+  --primary: 86 72% 26%;            /* #4e7313, the brand lime darkened to read on white */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 165 42% 29%;         /* #2b6a5a */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 86 72% 26%;
+  --accent-foreground: 0 0% 100%;
+  --border: 90 10% 84%;
+  --input: 90 10% 84%;
+  --ring: 86 72% 26%;
+  --color-white: #16221a;
+  --lime: #4e7313;
+}
+html[data-theme="light"] .theme-dark{
+  color-scheme: dark;
+  --background: 155 26% 4%; --foreground: 60 18% 95%; --muted: 150 16% 9%; --muted-foreground: 145 7% 60%;
+  --card: 150 18% 7%; --card-foreground: 60 18% 95%;
+  --primary: 74 60% 53%; --primary-foreground: 90 40% 8%; --secondary: 165 26% 49%; --secondary-foreground: 90 40% 8%;
+  --accent: 74 60% 53%; --accent-foreground: 90 40% 8%; --border: 150 12% 15%; --input: 150 12% 15%; --ring: 74 60% 53%;
+  --color-white: #fff; --lime: #aecf3e;
+  color: hsl(var(--foreground));
+}
+/* Fixed colours written for the dark ground, re-mapped for the light one. */
+html[data-theme="light"] :is(.text-\[\#9ed3c4\]):not(.theme-dark *){color:#2b6a5a}
+html[data-theme="light"] :is(.text-\[\#e0b86a\]):not(.theme-dark *){color:#8a5a00}
+html[data-theme="light"] :is(.text-\[\#e9cf98\]):not(.theme-dark *){color:#7a5200}
+html[data-theme="light"] :is(.text-\[\#e8a090\],.text-\[\#e08a6a\]):not(.theme-dark *){color:#a63d24}
+html[data-theme="light"] :is(.text-\[\#10130d\]):not(.theme-dark *){color:#fff}
+html[data-theme="light"] :is(.bg-\[\#9ed3c4\]\/15,.bg-secondary\/20):not(.theme-dark *){background-color:rgba(43,106,90,.12)}
+html[data-theme="light"] :is(.bg-\[\#e0b86a\]\/15,.bg-\[\#e0b86a\]\/10):not(.theme-dark *){background-color:rgba(160,110,0,.11)}
+html[data-theme="light"] :is(.bg-\[\#e0b86a\]\/\[0\.07\]):not(.theme-dark *){background-color:rgba(160,110,0,.06)}
+html[data-theme="light"] :is(.border-\[\#e0b86a\]\/40,.border-\[\#e0b86a\]\/35):not(.theme-dark *){border-color:rgba(160,110,0,.4)}
+html[data-theme="light"] :is(.bg-\[\#e07a6a\]\/15):not(.theme-dark *){background-color:rgba(166,61,36,.1)}
+html[data-theme="light"] :is(.bg-\[\#0b120e\]):not(.theme-dark *){background-color:#fff}
+html[data-theme="light"] .diff del{color:#a63d24}
+html[data-theme="light"] .form :is(input,select,textarea){background:#fff;border-color:rgba(22,34,26,.18)}
+html[data-theme="light"] .btn-ghost{border-color:rgba(22,34,26,.2);background:#fff}
+html[data-theme="light"] #mnav.border{box-shadow:0 12px 30px -18px rgba(22,34,26,.35)!important}
+
+/* The theme button shows the moon on the dark site and the sun on the light one. */
+.theme-btn .i-sun{display:none}
+html[data-theme="light"] .theme-btn .i-sun{display:block}
+html[data-theme="light"] .theme-btn .i-moon{display:none}
+/* Panels are white sheets on the light ground rather than grey tints. */
+html[data-theme="light"] :is(.bg-white\/\[0\.02\],.bg-white\/\[0\.03\],.bg-white\/\[0\.035\],.bg-white\/\[0\.04\],.bg-white\/\[0\.05\]):not(.theme-dark *){background-color:#fff}

@@ -75,14 +75,14 @@ const breadcrumbLd = {
           <li data-k={key(r)} class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div class="grid gap-3 md:grid-cols-[1fr_auto_1fr] md:items-start">
               <a href={text(source.slug, r.anchor)} class="group">
-                <span class="font-mono text-[12px] font-semibold text-primary">{m.from} · {m.fromUnit.slice(0, 3)} {r.num}</span>
-                <span class="mt-0.5 block text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{r.title || `${m.fromUnit} ${r.num}`}</span>
+                <span class="text-[12px] font-medium tabular-nums text-muted-foreground">{m.from} · {m.fromUnit} {r.num}</span>
+                <span class="mt-0.5 block text-[15px] font-medium leading-snug text-foreground group-hover:text-primary group-hover:underline">{r.title || `${m.fromUnit} ${r.num}`}</span>
               </a>
-              <span class={`self-center justify-self-start rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide md:justify-self-center ${CLASS[key(r)][1]}`}>{CLASS[key(r)][0]}</span>
+              <span class={`self-center justify-self-start whitespace-nowrap rounded-full px-2.5 py-0.5 text-[12px] font-medium md:justify-self-center ${CLASS[key(r)][1]}`}>{CLASS[key(r)][0]}</span>
               {r.to
                 ? <a href={text(r.to.slug, r.to.anchor)} class="group">
-                    <span class="font-mono text-[12px] font-semibold text-[#9ed3c4]">{m.to} · {m.toUnit.slice(0, 3)} {r.to.num}{r.sure === 'medium' ? ' · probable' : ''}</span>
-                    <span class="mt-0.5 block text-[14px] font-semibold leading-snug text-foreground group-hover:text-primary">{r.to.title || `${m.toUnit} ${r.to.num}`}</span>
+                    <span class="text-[12px] font-medium tabular-nums text-muted-foreground">{m.to} · {m.toUnit} {r.to.num}{r.sure === 'medium' ? ' · probable' : ''}</span>
+                    <span class="mt-0.5 block text-[15px] font-medium leading-snug text-foreground group-hover:text-primary group-hover:underline">{r.to.title || `${m.toUnit} ${r.to.num}`}</span>
                   </a>
                 : <div class="text-[13px] text-muted-foreground">
                     {r.likely && r.likely.length > 0
@@ -92,7 +92,7 @@ const breadcrumbLd = {
             </div>
             {r.diff && r.diff.length > 0 && (
               <details class="mt-3">
-                <summary class="cursor-pointer text-[12px] font-semibold text-primary">What changed{typeof r.kept === 'number' ? ` · ${Math.round(r.kept * 100)}% of the old wording kept` : ''}</summary>
+                <summary class="cursor-pointer text-[12.5px] font-medium text-muted-foreground hover:text-primary">What changed{typeof r.kept === 'number' ? ` · ${Math.round(r.kept * 100)}% of the old wording kept` : ''}</summary>
                 <p class="diff mt-2 text-[13.5px] leading-7 text-muted-foreground [overflow-wrap:anywhere]">
                   {r.diff.map(([op, t]) => op === '=' ? <span>{t} </span> : op === '-' ? <del>{t}</del> : <ins>{t}</ins>)}
                 </p>

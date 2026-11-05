@@ -41,7 +41,7 @@ export default function ScrollScene() {
   const cells = [34, 42, 50, 58, 66];
 
   return (
-    <section ref={ref} className="relative h-[320vh] bg-background">
+    <section ref={ref} className="theme-dark relative h-[320vh] bg-background">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-2">
           {/* narrative */}

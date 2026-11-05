@@ -428,7 +428,7 @@ export default function SeamModel() {
   }
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0d120e] to-[#080a08]">
+    <div className="theme-dark overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#0d120e] to-[#080a08]">
       <div className="flex flex-col lg:flex-row">
         {/* viewport */}
         <div ref={wrapRef} className="relative h-[380px] w-full cursor-grab active:cursor-grabbing md:h-[520px] lg:flex-1">

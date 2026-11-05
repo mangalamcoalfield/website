@@ -4,6 +4,11 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import circularRedirects from './src/data/circular-redirects.json' with { type: 'json' };
+import { createHash } from 'node:crypto';
+import { THEME_INIT } from './src/lib/theme-init.mjs';
+
+// The inline theme script in Site.astro isn't hashed by Astro itself; add its hash.
+const themeInitHash = `sha256-${createHash('sha256').update(THEME_INIT).digest('base64')}`;
 
 // Circular pages keep the id they were first published under (tools/build_circular_corpus.py);
 // the few that changed point to their new page, or to the finder if the entry is gone.
@@ -45,7 +50,7 @@ export default defineConfig({
   // can't know the hashes). Styles keep 'unsafe-inline': React islands set style attributes.
   security: {
     csp: {
-      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'", 'https://www.googletagmanager.com'] },
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'", 'https://www.googletagmanager.com'], hashes: [themeInitHash] },
       styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
     },
   },

@@ -15,7 +15,7 @@ export default function PitMap() {
   const [active, setActive] = useState(0);
   const p = pits[active];
   return (
-    <section className="relative overflow-hidden bg-background py-24">
+    <section className="theme-dark relative overflow-hidden bg-background py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 max-w-2xl">
           <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">The four Amlabad pits · Eastern Jharia Area, Bokaro</span>
