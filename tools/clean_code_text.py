@@ -7,7 +7,8 @@ headings are in place (tools/margin_headings.py).
 The Gazette prints each Code in two columns with marginal notes and running page
 headers; plain extraction left, inside the section texts:
   * page headers "[PART II—" and "SEC. 1]", often joined to the next words;
-  * Act citations from the margin, on lines of their own ("45 of 1860.");
+  * Act citations from the margin, on lines of their own ("45 of 1860.") or stuck to
+    the end of a line the next one carries on ("by the head of 52 of 1961.");
   * marginal headings on lines of their own, sometimes with odd spacing
     ("Appointment of Inspector- cum- Facilitators.");
   * marginal headings dropped into the middle of a sentence at a page or column
@@ -28,6 +29,10 @@ CODES = ['oshwc-code-2020', 'code-on-wages-2019', 'industrial-relations-code-202
 
 HEADER = re.compile(r'\[\s*PART\s+II\s*[—–-]\s*(?:SEC\.?\s*\d\s*(?:\(\s*[iv]+\s*\))?\s*\]?)?|\bSEC\.\s*\d\s*(?:\(\s*[iv]+\s*\))?\s*\]')
 CITATION_LINE = re.compile(r'^(?:\s*\d{1,3}\s+of\s+\d{4}\.)+\s*$')
+# A margin citation stuck to the end of a body line that the next line carries on
+# ("by the head of 52 of 1961." / "such Department"). The Codes' own citations are in
+# brackets ("(63 of 1948)"), so a bare one ending a line is always margin furniture.
+CITATION_END = re.compile(r'(?<=[^\s(])[ \t]+\d{1,3}\s+of\s+\d{4}\.[ \t]*$')
 UNFINISHED = {'or', 'and', 'he', 'she', 'it', 'they', 'which', 'that', 'who', 'of', 'to', 'by', 'for', 'with', 'in',
               'under', 'any', 'such', 'his', 'her', 'their', 'be', 'is', 'are', 'shall', 'may', 'not', 'from', 'on',
               'as', 'unless', 'where', 'if', 'than', 'whom', 'whose', 'the', 'a', 'an'}
@@ -80,6 +85,17 @@ def clean(doc):
                 if norm(l) not in by_norm and norm(l + ' ' + nxt) in by_norm:
                     stats['heading_line'] += 1
                     skip = True
+                    continue
+            if i + 1 < len(raw) and CITATION_END.search(l):
+                rest = CITATION_END.sub('', l)
+                if re.match(r'\s*(?:[a-z]|\()', raw[i + 1]):
+                    stats['citation'] += 1
+                    l = rest
+                elif re.match(r'\s*[A-Z]', raw[i + 1]) and re.search(r'[A-Z][a-z]+$', rest):
+                    # A name split over the lines ("... and Miscellaneous" / "Provisions Act, 1955").
+                    stats['citation'] += 1
+                    stats['joined'] += 1
+                    raw[i + 1] = rest + ' ' + raw[i + 1].lstrip()
                     continue
             n = len(HEADER.findall(l))
             if n:
