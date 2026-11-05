@@ -32,10 +32,8 @@ by the session that changes things; newest first within each list.
 
 | What | Who | Notes |
 |---|---|---|
-| Live SQL for the 4 Nov corrections | owner OK, then desktop | `supabase/regulations_nov2026_draftwatch.sql` (Assistant Manager notification, Van Rules, Colliery Control Second Amendment). Not applied yet. |
-| NCWA-XII Draft-Watch source | desktop | The IndustrialPunch link 404s; find the article's current URL (or another source) and update `src/data/draft-watch.json`. |
-| New DGMS documents since 31 Aug 2026 | desktop | BME exam notice of 8 Oct (offline exemption-basis certificate applications) to add; Safety Day notice skipped; Hindi texts of the Mines Act and OSH&WC Code await the owner's decision. |
-| "Latest from DGMS" is behind | desktop | Newest DGMS document in the library is dated 31 Aug 2026. Run `tools/discover_dgms.mjs`, add what is new (seed + hosted PDF + SQL), and set `dgms_checked` in `src/data/desk-checks.json` to the date checked, even if nothing was new. |
+| Live SQL, PDF upload, fast-forward `main` | owner OK, then desktop | `supabase/regulations_nov2026_draftwatch.sql` (Assistant Manager, Van Rules, Colliery Control) and `regulations_nov2026_bme_notice.sql` (BME notice of 8 Oct 2026; its PDF goes to docs.mangalamcoal.com first). Then `main` to the reviewed head of `main-l3efey`. |
+| DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly; the Hindi texts of the Mines Act and OSH&WC Code await the owner's decision. |
 | Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. NCWA-XII has no library document, only a press source, which is expected. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
 | CMR 1957 regulation 36 | desktop | Missing from the PDF we hold; needs a second copy to settle. Regulations 149 and 201 appear as omitted (* * *). |
@@ -46,8 +44,10 @@ by the session that changes things; newest first within each list.
 
 ## Done recently (not live until `main` moves)
 
-- Labour Code texts cleaned of Gazette page headers, margin citations and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
+- Labour Code texts cleaned of Gazette page headers, margin citations (including 15 stuck to line ends) and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
 - Mines Act 1952 → OSH&WC Code 2020 concordance published, every pair checked by hand (`CHECKED` in `tools/build_concordance.py`); 23 missing Mines Act section headings filled.
+
+- Draft-Watch re-checked 4 Nov 2026 (NCWA-XII source fixed; G.S.R. 640(E) confirmed); BME exam notice of 8 Oct 2026 added to the seed.
 
 ## Where things are
 
