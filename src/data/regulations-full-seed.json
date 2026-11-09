@@ -85,6 +85,23 @@
     "featured": true
   },
   {
+    "slug": "mines-act-1952-hindi",
+    "title": "The Mines Act, 1952 — Hindi text",
+    "category": "mines_act",
+    "summary": "Hindi text of The Mines Act, 1952 (Act 35 of 1952), as published on the DGMS website.",
+    "doc_number": "Act 35 of 1952",
+    "authority": "Ministry of Labour & Employment",
+    "issued_date": "1952",
+    "status": "superseded",
+    "status_note": "Subsumed by the OSH&WC Code, 2020 (in force 21 Nov 2025); subordinate rules continue under savings.",
+    "source_url": "https://www.dgms.gov.in/writereaddata/UploadFile/MinesAct_952_Hindi_07102026.pdf",
+    "source_filename": "MinesAct_952_Hindi_07102026.pdf",
+    "relevance": 1,
+    "sort_order": 30,
+    "published": true,
+    "featured": false
+  },
+  {
     "slug": "mines-rules-1955",
     "title": "The Mines Rules, 1955",
     "category": "mines_act",
@@ -219,6 +236,23 @@
     "sort_order": 42,
     "published": true,
     "featured": true
+  },
+  {
+    "slug": "oshwc-code-2020-hindi",
+    "title": "The Occupational Safety, Health and Working Conditions Code, 2020 — Hindi text",
+    "category": "labour_code",
+    "summary": "Hindi text of The Occupational Safety, Health and Working Conditions Code, 2020 (Act 37 of 2020), as published on the DGMS website.",
+    "doc_number": null,
+    "authority": "Ministry of Labour & Employment",
+    "issued_date": "2020",
+    "status": "in_force",
+    "status_note": "In force from 21 Nov 2025; subsumes the Mines Act, 1952 (subordinate rules continue under savings).",
+    "source_url": "https://www.dgms.gov.in/writereaddata/UploadFile/Hindi_OSHWC_2020_07102026.pdf",
+    "source_filename": "Hindi_OSHWC_2020_07102026.pdf",
+    "relevance": 2,
+    "sort_order": 42,
+    "published": true,
+    "featured": false
   },
   {
     "slug": "code-on-social-security-2020",
