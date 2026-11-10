@@ -52,8 +52,9 @@ def num_of(m):
 
 
 def heading(rest):
-    """"प्रबंधक—(1) ..." -> "प्रबंधक"; nothing when the line opens straight into text."""
-    h = re.split(r'\s*(?:[—–]|:-|:—|\.—|-\s|:)\s*', rest, maxsplit=1)[0].strip(' .।')
+    """"प्रबंधक—(1) ..." or "प्रबन्धक--(1) ..." -> the heading; nothing when the line opens straight into text."""
+    h = re.split(r'\s*(?:--|[—–]|:-|:—|\.—|-(?=\()|-\s|:)\s*', rest, maxsplit=1)[0]
+    h = re.sub(r"[\d!'\"“”‘’]*\[|\]", '', h).replace('\u200c', '').replace('\u200d', '').strip(' .,-।')
     return h if 2 <= len(h) <= 160 and DEV.search(h) and not re.match(r'\(', h) else ''
 
 

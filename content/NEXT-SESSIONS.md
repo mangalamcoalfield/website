@@ -33,7 +33,6 @@ by the session that changes things; newest first within each list.
 | What | Who | Notes |
 |---|---|---|
 | Colliery Control draft (G.S.R. 865(E)) | cloud, 13 Nov | Comment window closes 12 Nov: mark it closed and awaiting final notification in `src/data/draft-watch.json`. |
-| OSH&WC Code Hindi headings | — | The Hindi text shows section numbers only (the Code prints headings in the margin and the PDF's text layer is damaged). Could be recovered by OCR of the margin notes. |
 | DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly. |
 | Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. NCWA-XII has no library document, only a press source, which is expected. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
@@ -48,7 +47,8 @@ by the session that changes things; newest first within each list.
 - Labour Code texts cleaned of Gazette page headers, margin citations (including 15 stuck to line ends) and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
 - Mines Act 1952 → OSH&WC Code 2020 concordance published, every pair checked by hand (`CHECKED` in `tools/build_concordance.py`); 23 missing Mines Act section headings filled.
 
-- Hindi texts of the Mines Act, 1952 and OSH&WC Code, 2020 (machine-read, OCR), linked to the English texts.
+- Hindi texts of the Mines Act, 1952 and OSH&WC Code, 2020 (machine-read, OCR), linked to the English texts. The Code's Hindi headings were recovered from its margin notes by OCR (`tools/hindi_margin_headings.py`, 143 of 143, checked against the English headings); the Mines Act's Hindi headings were cut at their "--". Not live until `main` moves past 02b86aa.
+- Cloud sessions for this repo can use the personal environment "mangalam-website", which allows dgms.gov.in, docs.mangalamcoal.com and mangalamcoal.com.
 - Light theme: sun/moon button beside the language button, remembered per browser; heroes and 3D sections stay dark (`.theme-dark`). New colours go in `src/styles/magic.css` for both themes.
 - Git history: the owner decided (5 Nov) not to rewrite it for the e-mail addresses in old commits.
 - Draft-Watch re-checked 4 Nov 2026 (NCWA-XII source fixed; G.S.R. 640(E) confirmed); BME exam notice of 8 Oct 2026 added to the seed.
