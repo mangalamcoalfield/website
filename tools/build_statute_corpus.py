@@ -26,10 +26,7 @@ FOOTNOTE = re.compile(r'^(?:Subs(?:tituted)?|Omitted|Ins(?:erted)?|Renumbered|Ad
 DUPLICATES = {'cmr-2017-notification': 'coal-mines-regulations-2017'}
 # Library rows whose hosted PDF is a different instrument from the row's title. The
 # full-text page says what the text actually is until the right PDF is uploaded.
-TEXT_IS = {
-    'mmdr-act-1957': 'Mines and Minerals (Development and Regulation) Amendment Act, 2023 '
-                     '(the PDF filed as the MMDR Act, 1957)',
-}
+TEXT_IS = {}   # (the MMDR Act's hosted PDF was the 2023 Amendment Act until Nov 2026; its text now comes from IBM's compilation)
 HEAD = re.compile(r'^(?:\d{0,2}\[)?(\d{1,3})([A-Z]{0,2})\.\s*(.{3,})$')   # "1[26. Suspension…": amendment brackets
 
 # Only instruments that are numbered throughout are split by provision; FAQs, forms,

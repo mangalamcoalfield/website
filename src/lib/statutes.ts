@@ -30,6 +30,8 @@ export interface StatuteDoc {
   also?: string[];
   /** 'hi' for a Hindi text (tools/hindi_statute.py); English otherwise. */
   lang?: string;
+  /** What version the text is, when the page must say so ("as amended up to 20 Nov 2025"). */
+  text_note?: string;
   /** For a Hindi text: the slug of the English text it translates. */
   translation_of?: string;
   provisions: Provision[];
