@@ -63,7 +63,11 @@ for (const e of seed) {
   sqlRows.push(`update public.regulations set download_url='${PUBLIC_BASE}/${remoteName}', file_size_kb=${kb} where slug='${e.slug}';`);
 }
 // Compilations under ORIGINAL names (Circular Finder links depend on these).
-for (const name of [...new Set(circ.map((c) => c.pdf))]) {
+// Library circulars in the corpus carry their full hosted URL as `pdf`; they are
+// uploaded under their slug by the loop above. Only bare compilation file names
+// belong here; treating a URL as a remote file name made the server refuse it (550)
+// and reset the connection, which is what crashed the runs on 12 Nov 2026.
+for (const name of [...new Set(circ.map((c) => c.pdf))].filter((n) => n && !/^https?:\/\//i.test(n))) {
   const local = idx.get(path.basename(name));
   if (!local) { console.warn("MISSING COMPILATION:", name); continue; }
   jobs.push({ local, remoteName: name });
@@ -104,7 +108,21 @@ async function connect() {
   await cl.ensureDir("regs"); // creates public_html/regs and cd's in
   return cl;
 }
-let client = await connect();
+// Hostinger's FTPS endpoint drops connections now and then (ECONNRESET, seen
+// 12 Nov 2026 on the very first login of two runs in a row). The first connect and
+// every reconnect after a drop retry with a pause; before this, one reset at login
+// ended the whole run with an unhandled rejection.
+async function connectRetry(tries = 5) {
+  for (let i = 1; ; i++) {
+    try { return await connect(); }
+    catch (err) {
+      if (i >= tries) throw err;
+      console.warn(`  connect ${i}/${tries} failed: ${err.code || err.message}; retrying`);
+      await new Promise((r) => setTimeout(r, 3000 * i));
+    }
+  }
+}
+let client = await connectRetry();
 let done = 0, skipped = 0, uploaded = 0;
 for (const j of jobs) {
   const localSize = fs.statSync(j.local).size;
@@ -119,7 +137,7 @@ for (const j of jobs) {
       console.warn(`  retry ${attempt}/5 ${j.remoteName}: ${err.code || err.message}`);
       try { client.close(); } catch {}
       if (attempt === 5) throw err;
-      client = await connect();                                   // reconnect after a drop
+      client = await connectRetry();                              // reconnect after a drop
     }
   }
   done++;
