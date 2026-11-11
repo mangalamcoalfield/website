@@ -33,22 +33,25 @@ by the session that changes things; newest first within each list.
 | What | Who | Notes |
 |---|---|---|
 | Colliery Control draft (G.S.R. 865(E)) | cloud, 13 Nov | Comment window closes 12 Nov: mark it closed and awaiting final notification in `src/data/draft-watch.json`. |
+| MMDR hosted PDF + live SQL | desktop, after owner OK | Replace `regs/mmdr-act-1957.pdf` on docs.mangalamcoal.com with IBM's compilation (as amended up to 20 Nov 2025; URL in the seed row's `source_url`), then run `supabase/regulations_nov2026_library.sql` (MMDR, MCDR 2017, MCR 2016 rows). |
+| 2025–26 instruments not in the library | desktop | From egazette.gov.in / peso.gov.in (their TLS fails from cloud): MMDR Amendment Act 2026 (Act 20 of 2026); Jan Vishwas (Amendment of Provisions) Act 2026 (MMDR parts); Mines and Minerals Adjudication of Penalties Rules 2026 (G.S.R. 682(E), 30 Jul 2026); Explosives Rules amendments G.S.R. 284(E) (24 Apr 2025) and 154(E) (2 Mar 2026); verify Explosives (Second Amendment) Rules 2026, G.S.R. 887(E), ~14 Oct 2026. Text with `tools/rebuild_from_pdf.py`. |
+| Four dead source links | desktop | `cmr-2017-02-sep` (unpublished), the CBT-2020 notification, Standard Note 2024 and the time-extension notice: look for DGMS copies (DGMS resets connections from cloud). |
+| 32 poor-scan circulars | — | Mostly equipment-approval lists; Tesseract re-OCR (Nov 2026) gains little. Kept labelled and out of search. |
+| Hindi summaries | owner / reviewer | 15 CMR 2017 regulations in `src/data/hindi-summaries.json`, labelled unchecked. A person who reads both languages should check each and set `checked` to the date. Extend once the pilot is reviewed. |
 | DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly. |
-| Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. NCWA-XII has no library document, only a press source, which is expected. |
+| Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
-| CMR 1957 regulation 36 | desktop | Missing from the PDF we hold; needs a second copy to settle. Regulations 149 and 201 appear as omitted (* * *). |
-| MMDR Act, 1957 PDF | owner | The hosted "MMDR Act, 1957" is the 2023 Amendment Act; the page says so. Needs the principal Act's PDF. |
-| Hindi summaries | owner decision | A pilot of Hindi summaries for the most-used CMR 2017 regulations is ready to do on request; translations of legal text need a human check. |
 | FTP credential in git history | owner decision | Commit 32f0744 (public). Rewriting history or changing the password is the owner's call; neither is to be done without asking. |
-| Four remaining dead source links | — | `cmr-2017-02-sep` (unpublished), the CBT-2020 notification, Standard Note 2024 and the time-extension notice point to the hosted copy; no DGMS copy found. |
 
-## Done recently (live at 087f2a0)
+## Done recently
+
+- 11 Nov (on `main-l3efey`, not live until `main` moves): MMDR Act 1957 principal text (IBM, to 20 Nov 2025, 64 sections); MCDR 2017 (to 31 Jan 2026) and MCR 2016 (to 30 Mar 2026) rebuilt with `tools/rebuild_from_pdf.py`; CMR 1957 regulation 36 restored (printed as a second "35." in our copy; DGMS cites it as 36); headings for 110 untitled provisions; tighter "likely now in" suggestions; Hindi summaries pilot (`/hi/regulations/saransh`).
+- Cloud network: the "mangalam-website" environment also allows indiacode.nic.in, mines.gov.in, ibm.gov.in, cea.nic.in, labour.gov.in. egazette.gov.in, peso.gov.in and coal.gov.in fail TLS (weak CA key) and dgms.gov.in resets connections from cloud: those stay with the desktop.
 
 - Labour Code texts cleaned of Gazette page headers, margin citations (including 15 stuck to line ends) and stray headings (`tools/clean_code_text.py`); 480 marginal headings restored (`tools/margin_headings.py`).
 - Mines Act 1952 → OSH&WC Code 2020 concordance published, every pair checked by hand (`CHECKED` in `tools/build_concordance.py`); 23 missing Mines Act section headings filled.
 
-- Hindi texts of the Mines Act, 1952 and OSH&WC Code, 2020 (machine-read, OCR), linked to the English texts. The Code's Hindi headings were recovered from its margin notes by OCR (`tools/hindi_margin_headings.py`, 143 of 143, checked against the English headings); the Mines Act's Hindi headings were cut at their "--". Not live until `main` moves past 02b86aa.
-- Cloud sessions for this repo can use the personal environment "mangalam-website", which allows dgms.gov.in, docs.mangalamcoal.com and mangalamcoal.com.
+- Hindi texts of the Mines Act, 1952 and OSH&WC Code, 2020 (machine-read, OCR), linked to the English texts. The Code's Hindi headings were recovered from its margin notes by OCR (`tools/hindi_margin_headings.py`, 143 of 143, checked against the English headings); the Mines Act's Hindi headings were cut at their "--".
 - Light theme: sun/moon button beside the language button, remembered per browser; heroes and 3D sections stay dark (`.theme-dark`). New colours go in `src/styles/magic.css` for both themes.
 - Git history: the owner decided (5 Nov) not to rewrite it for the e-mail addresses in old commits.
 - Draft-Watch re-checked 4 Nov 2026 (NCWA-XII source fixed; G.S.R. 640(E) confirmed); BME exam notice of 8 Oct 2026 added to the seed.
