@@ -1,0 +1,46 @@
+---
+import Site from '../../../layouts/Site.astro';
+import RegNav from '../../../components/RegNav.astro';
+import corpus from '../../../data/statutes-corpus.json';
+import hindiSummaries from '../../../data/hindi-summaries.json';
+import type { StatuteDoc } from '../../../lib/statutes';
+
+// हिन्दी सारांश (pilot): the provisions that have a plain-language Hindi summary,
+// grouped by document, each linking to the English text and its summary.
+const all = hindiSummaries as unknown as Record<string, Record<string, { text: string; checked: string | null }>>;
+const docs = (corpus as StatuteDoc[]).filter((d) => all[d.slug]).map((d) => ({
+  d,
+  items: d.provisions.filter((p) => p.num && all[d.slug][p.num]).map((p) => ({ p, s: all[d.slug][p.num] })),
+}));
+---
+<Site title="हिन्दी सारांश — कोयला खान विनियम, 2017" description="कोयला खान विनियम, 2017 के सबसे अधिक उपयोग होने वाले विनियमों का सरल हिन्दी सारांश, अंग्रेज़ी पाठ के लिंक के साथ।">
+  <section class="relative bg-background pb-24 pt-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <RegNav active="search" lang="hi" class="mb-8" />
+      <div class="max-w-3xl">
+        <span class="text-[12.5px] font-semibold text-primary">विनियम डेस्क · हिन्दी सारांश (पायलट)</span>
+        <h1 class="mt-2 font-[var(--font-display)] text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl">खान के नियम, सरल हिन्दी में</h1>
+        <p class="mt-3 leading-relaxed text-muted-foreground">कोयला खान विनियम, 2017 के उन विनियमों का सरल सारांश जिनसे खान में रोज़ काम पड़ता है। ये सारांश हैं, कानून का अनुवाद नहीं; अभी किसी व्यक्ति द्वारा अंग्रेज़ी पाठ से इनका मिलान नहीं हुआ है। कानूनी रूप से अंग्रेज़ी पाठ ही मान्य है — हर सारांश के साथ उसका लिंक है।</p>
+      </div>
+      {docs.map(({ d, items }) => (
+        <div class="mt-10">
+          <h2 class="font-[var(--font-display)] text-xl font-semibold text-foreground" lang="en">{d.title}</h2>
+          <ol class="mt-4 flex flex-col gap-3">
+            {items.map(({ p, s }) => (
+              <li class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <details>
+                  <summary class="cursor-pointer">
+                    <span class="text-[12px] font-medium tabular-nums text-muted-foreground">विनियम {p.num}</span>
+                    <span class="ml-2 text-[15px] font-semibold text-foreground" lang="en">{p.title}</span>
+                  </summary>
+                  <p class="mt-3 text-[15px] leading-8 text-foreground/90">{s.text}</p>
+                  <a href={`/regulations/${d.slug}/text#${p.id}`} class="mt-2 inline-block text-[13px] font-semibold text-primary hover:underline">अंग्रेज़ी पाठ पढ़ें →</a>
+                </details>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  </section>
+</Site>

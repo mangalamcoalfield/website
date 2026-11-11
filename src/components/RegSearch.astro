@@ -108,6 +108,7 @@ const labelCls = 'mb-1 block text-[11px] font-semibold uppercase tracking-wide t
       <div class="mb-6 max-w-3xl">
         <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">{S.eyebrow}</span>
         <h1 class="mt-2 font-[var(--font-display)] text-3xl font-bold tracking-tight text-foreground md:text-4xl">{S.h1}</h1>
+        {hi && <p class="mt-2 text-[14px]"><a href="/hi/regulations/saransh" class="font-semibold text-primary hover:underline">नया: कोयला खान विनियम, 2017 के प्रमुख विनियमों का सरल हिन्दी सारांश →</a></p>}
         {hi
           ? <p class="mt-2 text-muted-foreground">{inr(docs.length)} अधिनियमों, नियमों, विनियमों व दिशानिर्देशों ({inr(totalP)} क्रमांकित प्रावधान) और {oldest} से {newest} तक के {inr(totalC)} डीजीएमएस परिपत्रों का हर शब्द।</p>
           : <p class="mt-2 text-muted-foreground">Every word of {inr(docs.length)} Acts, rules, regulations and guidelines ({inr(totalP)} numbered provisions) and {inr(totalC)} DGMS circulars from {oldest} to {newest}.</p>}
