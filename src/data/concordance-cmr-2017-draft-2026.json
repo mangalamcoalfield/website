@@ -5264,10 +5264,10 @@
 {
 "slug": "oshwc-code-central-rules-2026",
 "doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
-"num": "166",
-"label": "Rule 166",
-"title": "Duties of Training Officer",
-"anchor": "p-166"
+"num": "20",
+"label": "Rule 20",
+"title": "Safety officer in case of mines",
+"anchor": "p-20"
 }
 ]
 },
@@ -19551,24 +19551,7 @@
 "num": "257",
 "title": "Publication of orders and instructions",
 "anchor": "p-257",
-"likely": [
-{
-"slug": "oshwc-code-2020",
-"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
-"num": "137",
-"label": "Section 137",
-"title": "Prior publication of rules, etc.",
-"anchor": "p-137"
-},
-{
-"slug": "oshwc-code-central-rules-2026",
-"doc": "Occupational Safety, Health and Working Conditions Code (Central) Rules, 2026",
-"num": "149",
-"label": "Rule 149",
-"title": "Instructions to leader",
-"anchor": "p-149"
-}
-]
+"likely": []
 },
 {
 "num": "258",

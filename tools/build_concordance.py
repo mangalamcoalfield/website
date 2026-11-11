@@ -58,6 +58,17 @@ CHECKED = {
     },
 }
 
+# "Likely now in" suggestions checked by hand: old provision number -> the
+# suggestions to show instead, as (document slug, provision number), or [] for none.
+LIKELY = {
+    'mines-rules-1955-oshwc-central-rules-2026': {
+        '77': [('oshwc-code-2020', '33')],          # Register of employees -> registers and records
+        '79': [],                                   # Posting of abstracts: no counterpart found
+    },
+    'mvtr-1966-oshwc-central-rules-2026': {'29': []},
+    'cmr-2017-draft-2026': {'257': []},
+}
+
 ROLES = set('''welfare training safety ventilation medical engineer engineers manager managers surveyor
 electrical mechanical overman overmen sirdar sirdars inspector inspectors agent owner trainer trainers
 supervisor supervisors foreman shotfirer blaster electrician'''.split())
@@ -190,7 +201,11 @@ def build(key, docs):
             if not folded and row['change'] != 'same':
                 row['diff'] = d
         else:
-            cands = sorted(((0.55 * jac(heading(a), heading(p)) + 0.45 * cos(VA[i], VE[k]), k) for k, (_, p) in enumerate(E)), reverse=True)[:2]
+            cands = sorted(((0.55 * jac(heading(a), heading(p)) + 0.45 * cos(VA[i], VE[k]), k) for k, (_, p) in enumerate(E)
+                            if not clash(a, p)), reverse=True)[:2]
+            if a['num'] in LIKELY.get(key, {}):
+                at = {(slug, p['num']): k for k, (slug, p) in enumerate(E)}
+                cands = [(1.0, at[x]) for x in LIKELY[key][a['num']]]
             row['likely'] = [dict(slug=E[k][0], doc=docs[E[k][0]]['title'], num=E[k][1]['num'], label=E[k][1]['label'],
                                   title=E[k][1]['title'], anchor=E[k][1]['id']) for sc, k in cands if sc >= 0.2]
         rows.append(row)

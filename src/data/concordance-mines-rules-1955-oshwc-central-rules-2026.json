@@ -3296,10 +3296,10 @@
 {
 "slug": "oshwc-code-2020",
 "doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
-"num": "106",
-"label": "Section 106",
-"title": "Offences by employees",
-"anchor": "p-106"
+"num": "33",
+"label": "Section 33",
+"title": "Maintenance of registers, records and filing of returns",
+"anchor": "p-33"
 }
 ]
 },
@@ -3313,16 +3313,7 @@
 "num": "79",
 "title": "Posting of abstracts, bye -laws and notices",
 "anchor": "p-79",
-"likely": [
-{
-"slug": "oshwc-code-2020",
-"doc": "The Occupational Safety, Health and Working Conditions Code, 2020",
-"num": "139",
-"label": "Section 139",
-"title": "Bye-laws",
-"anchor": "p-139"
-}
-]
+"likely": []
 },
 {
 "num": "80",
