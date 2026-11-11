@@ -38,8 +38,8 @@ by the session that changes things; newest first within each list.
 | Four dead source links | desktop | `cmr-2017-02-sep` (unpublished), the CBT-2020 notification, Standard Note 2024 and the time-extension notice: look for DGMS copies (DGMS resets connections from cloud). |
 | 32 poor-scan circulars | — | Mostly equipment-approval lists; Tesseract re-OCR (Nov 2026) gains little. Kept labelled and out of search. |
 | Hindi summaries | owner / reviewer | 15 CMR 2017 regulations in `src/data/hindi-summaries.json`, labelled unchecked. A person who reads both languages should check each and set `checked` to the date. Extend once the pilot is reviewed. |
-| DGMS check | desktop | Last checked 4 Nov 2026 (`dgms_checked` in `src/data/desk-checks.json`). Re-run `tools/discover_dgms.mjs` monthly. |
-| Draft-Watch review | desktop | Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. |
+| DGMS check | desktop | Last checked 12 Nov 2026: nothing new, 0 errors, 25 deliberate skips (33 before; the exam-notice listing now shows fewer old notices). Re-run `tools/discover_dgms.mjs` monthly. |
+| Draft-Watch review | desktop | 12 Nov: searched OSH&WC (Coal Mines) Regulations, MPG-2026 and the JBCCI-XII / s.14 exemption; no movement found. Not re-dated: coal.gov.in did not answer from the desktop (even via dns.google), so the Ministry's own listing wasn't checked. Re-check every item against its source; update `reviewed` in `src/data/draft-watch.json`. |
 | Orphaned résumé | owner | One résumé file with no application (uploaded 5 Sep 2026) reaches the 90-day limit on 4 Dec 2026. Decide: contact the person, or remove `ORPHAN_DRY_RUN` so the daily job deletes it. |
 | FTP credential in git history | owner decision | Commit 32f0744 (public). Rewriting history or changing the password is the owner's call; neither is to be done without asking. |
 
