@@ -133,6 +133,14 @@ const preselectGeneral = !jobId && jobs.length === 0;
     </div>
   </div>
 
+  <label class="consent">
+    <input type="checkbox" id="app-chas-bokaro" />
+    <span>
+      I live in <strong>Chas or Bokaro</strong> — pick-up and drop to Amlabad is provided from there.
+      <span lang="hi" class="block">मैं चास या बोकारो में रहता/रहती हूँ।</span>
+    </span>
+  </label>
+
   <div class="row">
     <label for="app-resume">Résumé (PDF, Word or photo · max 8 MB) <span class="req">*</span></label>
     <input id="app-resume" name="resume" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png" required />
@@ -196,8 +204,17 @@ const preselectGeneral = !jobId && jobs.length === 0;
         if (v) details[el.name] = v;
       });
     });
+    // Tracks the newspaper advert, which offers pick-up and drop from Chas and Bokaro.
+    if ((document.getElementById('app-chas-bokaro') as HTMLInputElement | null)?.checked) details['Chas / Bokaro'] = 'Yes';
+    // The advert's QR code opens /careers?src=np.
+    try {
+      const src = new URLSearchParams(location.search).get('src') || sessionStorage.getItem('mcpl-src') || '';
+      if (src === 'np') details['Source'] = 'Newspaper QR';
+    } catch { /* storage blocked — not needed to apply */ }
     return details;
   }
+  // Remember the advert source for this visit, in case the applicant opens a job page first.
+  try { const s = new URLSearchParams(location.search).get('src'); if (s) sessionStorage.setItem('mcpl-src', s); } catch { /* ignore */ }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();

@@ -23,7 +23,7 @@ const json = (d: unknown, s = 200) =>
   new Response(JSON.stringify(d), { status: s, headers: { 'content-type': 'application/json' } });
 
 // Columns: fixed base + role-specific detail keys (match the form field names).
-const DETAIL_COLS = ['Current location', 'Notice period', 'Current CTC', 'Expected CTC',
+const DETAIL_COLS = ['Chas / Bokaro', 'Source', 'Current location','Notice period', 'Current CTC', 'Expected CTC',
   'Certificate', 'Certificate no.', 'Experience (yrs)', 'Qualification', 'Membership no.', 'Gas Testing / First-Aid'];
 
 async function run(): Promise<Response> {
